@@ -1,0 +1,109 @@
+Static nested classes
+Sometimes we can declare inner class with static modifier, 
+	such type of inner classes are called static nested class.
+
+In the case of normal or regular inner class, without existing outer class object, 
+	there is no chance of existing inner class object. 
+	That is, inner class object is strongly associated with outer class object. 
+But in the case of static nested classes, without existing outer class object 
+	there may be a chance of existing nested class object. 
+	Hence static nested class object is not strongly associated with outer class object. 
+
+Class Test
+{
+	int x=10;
+	class Inner{}
+
+	static int y=20;
+	static class Nested{}
+}
+
+If we want to create nested class object from outside of outer class then we can create it as follows:
+Class Outer
+{
+static class Nested
+{
+	Public void m1()
+	{
+		SOP(“static nested class method”);
+	}
+}
+}
+Class Test
+{
+Psvm()
+{
+	Outer.Nested n=new Outer.Nested();
+	n.m1();
+}
+}
+
+Class Outer
+{
+	static class Nested
+	{
+		Public void m1()
+		{	
+			SOP(“static nested class method”);
+		}
+	}
+	Psvm()
+	{
+		Nested n=new Nested();
+		n.m1();
+	}
+}
+
+
+
+In normal or regular inner classes, we cannot declare any static members. 
+	But in static nested classes, we can declare static members including main() method. 
+	Hence we can invoke static nested class directly from command prompt.
+Class Test{
+Static class Nested{
+	Psvm(){	
+		SOP(“static nested class main method”);
+	}
+}
+Psvm(){
+	SOP(“Outer class main method”);
+}
+}
+Output after java Test:
+Outer class main method
+
+Output after java Test$Nested:
+Static nested class main method
+
+From normal or regular classes, we can access both static and non-static members of outer class directly 
+	but from static nested classes, we can access static members of outer class directly and we cannot access non-static members.
+Class Test
+{
+Int x=10;
+static Int y=20;
+Static class Nested
+{
+	Public void run()
+	{
+		SOP(y); 		
+		SOP(x);//CTE, non-static variable x cannot be referenced from a static context.
+	}
+}
+}
+
+
+Diff b/w normal or regular inner class & static nested class
+Without existing outer class object, there is no chance of existing inner class object, 
+	that is , inner class object is strongly associated with outer class  object.
+Without existing outer class object, there may be a chance of existing static nested class object, 
+	that is , static nested class object is not strongly associated with outer class  object.
+	
+In normal or regular inner classes, we cannot  declare static members. 
+	In static nested classes, we can declare static members.
+In normal or regular inner class, we cannot declare main() method 
+	and hence we cannot invoke inner class directly from command prompt.
+In static nested class, we can declare main() method 
+	and hence we can invoke static nested class directly from command prompt.
+From normal or regular classes, we can access both static and non-static members of outer class directly .
+	From static nested classes, we can access only static members of outer class directly .
+	

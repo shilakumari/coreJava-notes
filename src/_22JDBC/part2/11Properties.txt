@@ -1,0 +1,40 @@
+Properties 
+In Java Program if anything which changes frequently(like jdbc url, username, pwd etc)is not recommended to hard code in our program. 
+ 
+The problem in this approach is if there is any change in java program,to reflect that change we have to 
+	recompile,rebuild and re-deploy total application and even some times server restart also required,
+	which creates a big business impact to the client. 
+ 
+To overcome this problem, we should go for Properties file. 
+The variable things we have to configure in Properties file and we have to read these properties from java program. 
+The main advantage of this approach is if there is any change in Properties file and to reflect that 
+	change just re-deployment is enough, which won't create any business impact to the client. 
+ 
+Program to Demonstrate use of Properties file: 
+	db.properties:  
+		url= jdbc:oracle:thin:@localhost:1521:XE 
+		user= system 
+		pwd= myoracle
+	Example: JdbcPropertiesDemo.java
+
+
+If we change the properties in properties file for mysql database then the program will fetch data from mysql database. 
+	db.properties: 
+		url= jdbc:mysql://localhost:3306/durgadb 
+		user= root 
+		pwd= root123 
+
+Program to Demonstrate use of Properties file: 
+	db1.properties:
+		url= jdbc:mysql://localhost:3306/durgadb  
+		user=root 
+		password=root123 
+	Example: JdbcPropertiesDemo1.java: 
+
+
+Q. How many getConnection() methods are available in DriverManager class. 
+	1. Connection con=DM.getConnection(url,user,pwd); 
+	2. Connection con=DM.getConnection(url,Properties); 
+	3. Connection con=DM.getConnection(url); 
+	Eg: Connection con=DM.getConnection("jdbc:mysql://localhost:3306/durgadb?user=root&password=root123"); 
+	Eg: Connection con=DriverManager.getConnection("jdbc:oracle:thin:scott/tiger@localhost:1521:XE")

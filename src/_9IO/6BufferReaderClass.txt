@@ -1,0 +1,55 @@
+BufferedReader
+We can use BufferedReader to read character data(text data) from the file.
+The main advantage of BufferedReader over FileReader is we can read data Line by Line in addition to character by character
+	, which is more convenient to the programmer.
+
+Constructors
+BufferedReader br=new BufferedReader(Reader r);
+BufferedReader br=new BufferedReader(Reader r, int bufferSize);
+
+Note: 
+BufferedReader cannot communicate directly with the file. It can communicate via some Reader object.
+
+Methods
+int read();
+int read(char[] ch);
+void close();
+String readLine();
+	It attempts to read next line from the file & returns it, if it is available.
+	If the next line is not available, then it will return null.
+
+import  java.io.*;
+class Test
+{
+public static void main(String[] args)throws IOException
+{
+		FileReader fr;
+		BufferedReader br = null;
+		try {
+			fr = new FileReader("abc.txt");
+			br = new BufferedReader(fr);
+			String line = br.readLine();
+			while (line != null) {
+				System.out.println(line);
+				line = br.readLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+}
+/*
+d
+abcd
+Abhi
+SoftwareSolutions
+*/
+
+Note:
+Whenever we are closing BufferedReader automatically underlying FileReader will be closed & we are not required to close explicitly.
+The most enhanced Reader to read character data from the file is BufferedReader.

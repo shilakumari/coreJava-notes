@@ -1,0 +1,45 @@
+Stack
+It is a child class of Vector.
+It is specially designed class for Last In First Out order(LIFO)
+	Duplicates are allowed
+	Insertion order is preserved
+	Heterogeneous objects are allowed
+	Null insertion is possible
+
+
+
+A more complete and consistent set of LIFO stack operations is provided by the Deque interface and its implementations, 
+	which should be used in preference to this class. For example:
+    Deque<Integer> stack = new ArrayDeque<Integer>();
+
+Constructor in Stack
+Stack c = new Stack();
+
+Methods in Stack
+1. Object push(Object obj)
+	For inserting an object to the stack.
+2. Object pop()
+	To removes and return top of the stack
+3. Object peak()
+	To return the top of the stack without removal of object.
+4. int search(Object obj);
+	If the specified element is available it returns its offset from top of the stack.
+	if the object is not available then returns -1.
+
+
+empty()( not isEmpty()) – due to legacy class method… method name are not up to the mark
+
+Demo program for Stack
+import java.util.*;
+class StackDemo{
+	public static void main(String[] args){
+		Stack s = new Stack();
+		s.push("A");
+		s.push("B");
+		s.push("C");
+		System.out.println(s);//[A, B, C]
+		System.out.println(s.search("A"));//3
+		System.out.println(s.search("Z"));//-1
+	}
+}
+

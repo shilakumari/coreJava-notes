@@ -1,0 +1,72 @@
+Instance variable
+class Student {
+	String name;
+	int rollno;
+}
+Instance variable should be declared with in the class directly and it should not be declared outside of any block, 
+method or constructor.
+
+If the value of variable is varied from  object to object, such type of variable are called instance variable. 
+For every object a separate copy of instance variable will be created. 
+Instance variable will be stored in the heap memory as the part of object.
+Instance variable also known as non-static variable or object level variables.
+
+Instance variable will be created at the time of object creation and destroyed at the time of object destruction. 
+Hence scope of instance variable is exactly same as scope of the object.
+
+We cannot access instance variables directly from static area but we can access by using Object reference from static area. 
+We can access instance variable directly from instance area.
+
+For instance variable, JVM will always provide default values and we are not required to perform initialization explicitly.
+
+
+Example 1:
+class Test{
+	int x=10;
+	public static void main(String [] args){
+		System.out.println(x);//CTE, error: non-static variable x cannot be referenced from a static context
+	}
+}
+
+Example 2:
+class Test{
+	int x=10;
+	public static void main(String [] args){
+		Test t=new Test();
+		System.out.println(t.x);
+	}
+}
+
+Example 3:
+class Test{
+	int x=10;
+	public static void main(String [] args){
+		Test t=new Test();
+		System.out.println(t.x);
+		t.m1();
+	}
+	public void m1(){
+		System.out.println(x);
+		System.out.println(this.x);//Recommended way
+	}
+}
+
+Example 4:
+class Test{
+	int i;
+	float f;
+	double d;
+	boolean b;
+	String s;
+	Test t;
+	public static void main(String [] args){
+		Test t=new Test();
+		System.out.println(t.i);//0		
+		System.out.println(t.f);//0.0
+		System.out.println(t.d);//0.0
+		System.out.println(t.b);//false
+		System.out.println(t.s);//null
+		System.out.println(t.t);//null
+	}
+}
+

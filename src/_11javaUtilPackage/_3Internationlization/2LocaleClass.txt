@@ -1,0 +1,66 @@
+Locale
+A Locale object represents a geographic location (country) or language or both.
+We can create locale object to represent India. We can create locale object to represent English language.
+Locale class present in java.util package. It is a final class & it is the direct child class of Object. Locale class implements Serializable & Cloneable interfaces.
+
+On Command Prompt:
+javap java.util.Locale
+
+Constructors of Locale class
+⦁	Locale(String language)
+⦁	Locale(String language, String country)
+⦁	Locale(String language, String country, String variant)
+
+Locale l=new Locale(“pa”,”IN”);
+
+Locale class already defines some constants to represent some standard locales. We can use these constants directly.
+	Locale.US
+	Locale.UK
+	Locale.ENGLISH
+
+Important Methods of Locale class
+Locale.getDefault()
+Locale.setDefault(Locale  l)
+
+l.getLanguage();//en
+l.getDisplayLanguage();//English
+l.getCountry();
+l.getDisplayCountry();
+
+String[] getISOLanguages()
+String[] getISOCounties()
+Locale[] getAvailableLocale()
+
+
+Example:LocaleClassDemo.java
+	
+		int count = 0;
+		int count1 = 0;
+		int count2 =0;
+		Locale l1 = Locale.getDefault();
+		System.out.println(l1.getCountry() + "....." + l1.getLanguage());// IN.....en
+		System.out.println(l1.getDisplayCountry() + "....." + l1.getDisplayLanguage());// India.....English
+		Locale l2 = new Locale("pa", "IN");
+		Locale.setDefault(l2);
+		System.out.println(Locale.getDefault().getDisplayLanguage());// Panjabi
+		String[] s3 = Locale.getISOLanguages();
+		for (String s4 : s3) {
+			count++;
+			System.out.print(s4 + ", ");
+		}
+		System.out.println("\nTotal ISOLanguages: " + count);// 188
+		String[] s4 = Locale.getISOCountries();
+		for (String s5 : s4) {
+			count1++;
+			System.out.print(s5 + ", ");
+		}
+		System.out.println("\nTotal ISOCountries: " + count1);//250
+		 Locale[] s = Locale.getAvailableLocales();
+		 for (Locale s1 : s) {
+			 count2++;
+		 System.out.println(s1.getDisplayCountry() + "...." +
+		 s1.getDisplayLanguage());
+		 }
+		 System.out.println(count2);//160
+	
+	

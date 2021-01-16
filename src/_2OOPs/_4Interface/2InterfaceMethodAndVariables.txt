@@ -1,0 +1,162 @@
+Interface methods
+Every method present inside interface is always public and abstract whether we are declaring or not.
+interface MyInterface
+{
+void m1();
+}
+Public: To make this  method available  to every implementation class (of different package).
+Abstract: Implemented class is responsible to provide implementation.
+
+Inside interface, the following method declarations are equal-
+void m1();
+public Void m1();
+abstract Void m1();
+public abstract Void m1();
+
+As every interface methods are always public and abstract, we cannot declare interface method with the following modifiers:
+	private 
+	protected
+	static 
+	final
+	synchronized
+	strictfp
+	native
+	<default>
+
+
+Interface variables
+To  define requirement level constant.
+Every interface variable is always public, static, final, whether we are declaring or not.
+interface MyInterface
+{
+int X_Y=10;
+}
+Public: To make this variable available to every implementation class.
+Static: Without existing object, implementation class can access this variable.
+Final: if one implementation class changes value then remaining implementation classes will be affected. 
+		To restrict this every interface variable is final.
+
+Hence within the interface, the following variable declarations are equal.
+int x=10;
+public Int x=10;
+static Int x=10;
+final Int x=10;
+public static Int x=10;
+public final Int x=10;
+static final Int x=10;
+public static final int x=10;
+
+As every interface variable is always public , static , final .
+We cannâ€™t declare with the following modifiers:
+private 
+protected
+transient 
+Volatile
+ 
+public: Invalid for
+	private
+	protected
+static: Invalid for
+	transient
+final: Invalid for
+	volatile
+
+
+
+Interface MyInterface{
+int x;
+}
+Output:CTE, error: = expected
+For interface variable, compulsory we should perform initialization at the time of declaration. Otherwise we will get CTE.
+
+Inside interface, which of the following variable declarations are allowed:
+	int x=10;//valid
+	private int x=10;
+	protected int x=10;
+	volatile int x=10;
+	transient int x=10;
+	public static int x=10;//valid
+
+ 
+Inside implementation class, we can access interface variables but we cannot modify values.
+Exsample 1:
+Interface MyInterface{
+	int X=10;
+}
+Class Test implements MyInterface{
+	PSVM(String [] args)
+	{
+		X=777;//CTE, cannot assign a value to final variable x
+		SOP(x);
+	}
+}
+
+Example 2:
+Interface MyInterface{
+	int X=10;
+}
+Class Test implements MyInterface{
+	PSVM(String [] args)
+	{
+		int X=777;//No CTE
+		SOP(X);
+	}
+}
+
+
+Interface naming conflicts
+	Interface Method naming conflicts
+	Interface Variable naming conflicts
+
+Method naming conflicts
+Case 1: 
+If two interface contains method with same signature & same return  type, 
+then in the implementation class, we have to provide only one method.
+Interface Left { Public void m1(); }
+Interface Right { Public void m1();}
+Class Test implements Left, Right { Public void m1(){} }
+
+Case 2: 
+If two interface contains method with same name but different parameter list, then in the implementation class, 
+ we have to provide implementation for both methods & these method acts as overloaded methods.
+Interface Left { Public void m1(); }
+Interface Right { Public void m1(int i);}
+Class Test implements Left, Right { 
+	Public void m1(){} 
+	Public void m1(int i){} } 
+
+Case 3:
+If two interface contains method with same signature & different return  type (not co-varient return type), 
+	then it is impossible to write a class that implement 
+	both interfaces simultaneously (if return types are not co-varient). 
+Interface Left { Public void m1(); }
+Interface Right { Public int m1();}
+Class Test implements Left, Right { 
+	Public void m1(){} 
+	Public int m1(){} } //CTE
+
+Interface Left { Public void m1(); }
+Interface Right { Public int m1();}
+Abstract Class Test implements Left, Right { Public void m1(){} } 
+Class SubTest extends Test { Public int m1(){} } //CTE
+
+Q ) Is a java class can implement any number of interface simultaneously.
+Ans ) Yes, a particular case. 
+	If two interface contains a method with same signature but diff return types(not co-varient also). 
+	Then it is impossible to implements both interface simultaneously.
+
+Interface variable naming conflicts
+Two interface can contain a variable with the same name & there may be a chance of variable naming conflicts. 
+	But we can solve this problem by using interface name.
+
+Interface Left { int x=10; }
+Interface Right { int x=20;}
+Class Test implements Left, Right { 
+	PSVM(){
+		int x = 30;
+		SOP(x);
+		Sop(Left.x);
+		Sop(Right.x);
+	}
+}
+

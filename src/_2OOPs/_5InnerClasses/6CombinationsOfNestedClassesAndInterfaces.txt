@@ -1,0 +1,206 @@
+Various combinations of nested classes & interfaces
+
+
+Nested interfaces
+Inside a class
+	Implemented in inner class
+		In static class
+		In non-static class
+	Implemented in outer class
+Inside a interface
+	Implemented in class inside interface
+		In static class
+		In non-static class
+	Implemented in inner class
+		In static class
+		In non-static class
+	Implemented in outer class
+
+
+Case 1: class inside a class
+Example: University contains department
+Class University
+{
+	Class Department
+	{}
+}
+Without existing one type of object, if there is no chance of existing another type of object,
+	 then we can declare a class inside a class.
+
+Case 2: Interface inside a class
+Example:
+Class VehicleTypes
+{
+	Interface Vehicle
+	{
+		Public int getNumberOfWheels();
+	}
+	Class Bus implements Vehicle
+	{
+		Public int getNumberOfWheels()
+		{
+			Return 6;
+		}
+	}
+	static Class Auto implements Vehicle
+	{
+		Public int getNumberOfWheels()
+		{
+			Return 3;
+		}
+	}
+}
+Inside a class if we require, multiple implementations of an interface and all these implementations are related to a particular class, 
+	then we can define interface inside a class.
+
+Case 3:  interface inside an interface
+We can delare interface inside interface.
+Interface Map
+{
+	Interface Entry
+	{}
+}
+Example: A map is a group of key-value pair and each key-value pair is called as Entry. 
+	Without existing map object, there is no chance of existing Entry eobject. 
+	Hence  interface Entry is defined inside a Map interface.
+
+Every interface , present inide interface is always public and static whether we are declaring or not.
+	Hence we can implements inner interface directly without implementing outer interface.
+Similarly whenever we are implementing outer interface, we are not required to implement inner interface. 
+That is we can implement outer and inner interfaces independently.
+Interface Outer
+{
+	Public void m1();
+	Interface Inner
+	{
+		Public void m2();
+	}
+}
+Class Test1 implements Outer
+{
+	Public void m1()
+	{
+		SOP(“outer interface implementtation”);
+	}
+}
+Class Test2 implements Outer.Inner
+{
+	Public void m2()
+	{
+		SOP(“inner interface implementation”);
+	}
+}
+Class Test
+{
+	PSVM()
+	{
+		Test1 t1=new test1();
+		T1.m1();
+		Test1 t2=new test2();
+		T2.m2();
+}
+}
+
+Case 4: A class inside interface
+If funtionality of a class is closely associated with interface 
+	then it is highly recommended to declare class inside interface.
+Interface EmailService
+{
+	Public void sendEmail(EmailDetails e);
+	Class EmailDetails
+	{
+		String toList;
+		String ccList;
+		String subject;
+		String body;
+		
+	}
+}
+In the above example, EmailDetails is required, only  for EmailService and we are not using anywhere else. 
+	Hence EmailDetails class is recommended to declare inside EmailService interface.
+
+We can also define a class inside interface, to provide implementation for that interface.
+Interface Vehicle
+{
+	Public int getNoOfVehicle();
+	Class DefaultVehicle implements Vehicle
+	{
+		Public int getNoOfWheels()
+		{
+			Return 2;	
+		}
+	}
+}
+Class Bus implements Vehicle
+{
+	Public int gtNoOfWheels()
+	{
+		Return 6;
+	}
+}
+Class Test
+{
+	PSVM();
+	{
+		Vehicle.DefaultVehicle d=new Vehicle.DefaultVehicle();
+		SOP(d.getNoOfWheels());
+		Bus b=new B();	
+		SOP(b.getNoOfWheels());
+}
+}
+In the above example. DefaultVehicle is the default implementation of Vehicle interface.
+	Where as Bus is customized implementation of Vehicle interface.
+
+Note:
+The Class which is declared inside an interface, is always public and static, whether we are declaring or not.
+	Hence we can create, class Object directly without having outer interface type object.
+
+Conclusion:
+Among classes and interfaces, we can declare anything inside anything.
+Class A
+{
+	Class B
+	{
+	}
+}
+Class A
+{
+	interfaces B
+	{
+	}
+}
+interface A
+{
+	Class B
+	{
+	}
+}
+interface A
+{
+	interface B
+	{
+	}
+}
+
+The interface which is declared inside interface, is always public and static, whether we are declaring or not.
+interface A
+{
+	interface B
+	{
+	}
+}
+The class which is declared inside interface, is always public and static, whether we are declaring or not.
+interface A
+{
+	Class B
+	{
+	}		
+}
+The interface which is declared inside a class is always static but need not be public.
+
+Class A
+{
+	interfaces B
+	{
+	}
+}

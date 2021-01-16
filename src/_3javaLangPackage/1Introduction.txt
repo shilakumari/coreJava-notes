@@ -1,0 +1,10 @@
+Introduction
+For writing any Java Program, whether it is simple or complex, 
+	the most commonly required classes and interfaces are grouped into a separate package, 
+	which is nothing but java.lang package.
+Without using java.lang package, we cann’t write any program in Java. 
+	So it is implicitly imported in every java program. (import java.lang.*;)
+	We may also write it explicitly.
+
+
+

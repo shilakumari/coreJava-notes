@@ -1,0 +1,80 @@
+Basic Multithreading
+	Process vs Thread
+	Threads, Runnables...
+	Volatile, join(), notify()...
+	Low & High Level Concurrency
+Complex Problems
+	Library Project
+	Dining Philosophers problems
+	Simulation:mine sweeper
+	Conway's game of life
+Parallel Algorithms
+	DS 
+	Sorting algorithms
+	Graph Algorithm
+	
+
+	
+	
+
+Multithreading and Parallel Computing in Java
+	Multithreading and Concurrent Programming, Parallel Computation and MapReduce in Java
+
+Section 1:
+
+theory behind multithreading
+
+pros and cons of multithreading
+
+Section 2:
+
+multithreading basics
+
+Runnable and Thread
+
+join, volatile, synchronized, wait and notify
+
+producer-consumer model
+
+locks, semaphores and executors
+
+Section 3:
+
+concurrent collections
+
+latch, cyclic barrier and blocking queues
+
+delay queue, priority queue and concurrent maps
+
+Section 4:
+
+multithreaded examples
+
+dining philosophers problem
+
+library application
+
+miner game
+
+Section 5:
+
+what is parallel computing
+
+parallel merge sort
+
+parallel algorithms
+
+Section 6:
+
+Fork-Join framework
+
+maximum finding in parallel manner
+
+Section 7:
+
+what is MapReduce
+
+MapReduce and Fork-Join framework
+
+Thanks for joining my course, let's get started!
+	

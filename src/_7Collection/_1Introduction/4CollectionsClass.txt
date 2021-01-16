@@ -1,0 +1,154 @@
+Short notes
+	sort(c)
+	binarySearch(c)
+	reverse(c)
+	reverseOrder( comparator)
+	List l=Collections.synchronizedList(l1);
+	
+Collections class
+It defines several utility method for collection objects like sorting, searching,reversing etc.
+
+Sorting Elements Of list in Collection Class
+public static void sort( List l)
+	To sort based on default natural sorting  order
+		In this case list should compulsory contain homogeneous & Comparable objects otherwise ClassCastException
+		List should not contain null otherwise NullPointerException
+public static void sort( List l, Comparator c)
+	To sort based on customized sorting  order
+
+Example 1
+		ArrayList l = new ArrayList();
+		l.add("Z");
+		l.add("A");
+		l.add("K");
+		l.add("N");
+		//l.add(new Integer(10));
+		//l.add(null);
+		System.out.println("Before sorting: " + l);
+		Collections.sort(l);//RTE, ClassCastException or NullPointerException
+		System.out.println("After sorting: " + l);
+		
+Example 2
+class ArrayListComparator implements Comparator {
+	@Override
+	public int compare(Object o1, Object o2) {
+		String s1 = (String) o1;
+		String s2 = o2.toString();
+		return s2.compareTo(s1);
+	}
+}
+
+		ArrayList l = new ArrayList();
+		l.add("Z");
+		l.add("A");
+		l.add("K");
+		l.add("N");
+		// l.add(new Integer(10));
+		// l.add(null);
+		System.out.println("Before sorting: " + l);
+		Collections.sort(l, new ArrayListComparator());//// RTE,
+														//// ClassCastException
+														//// or
+														//// NullPointerException
+		System.out.println("After sorting: " + l);
+	
+
+
+
+Searching elements of list in Collection Class
+public static int binarySearch(List l, Object target)
+	If listed is sorted according to default natural sorting order then we have to use this method.
+
+public static int binarySearch(List l, Object target, Comparator c)
+	If listed is sorted according to customized sorting order then we have to use this method.
+
+The above both search methods  will use binary search algorithm.
+	Successful search returns index.
+	UnSuccessful search returns insertion point.
+Insertion point is the location where we can place target element in the sorted list.
+
+
+
+Before calling binarySearch method(), compulsory list should be sorted otherwise we will get unpredictable results.
+If the list is sorted according to comparator then at the time of search operation also we have to pass 
+	same comparator object otherwise we will get unpredictable result.
+Example 1
+		ArrayList l = new ArrayList();
+		l.add("Z");
+		l.add("A");
+		l.add("K");
+		l.add("N");
+		// l.add(new Integer(10));
+		// l.add(null);
+		System.out.println(l);
+		Collections.sort(l);// RTE, ClassCastException or NullPointerException
+		System.out.println(l);
+		System.out.println(Collections.binarySearch(l, "Z"));
+		System.out.println(Collections.binarySearch(l, "J"));
+		
+		   -1 -2 -3 -4 -5
+		l [A][K][M][Z][a]
+		   0  1  2  3  4
+	
+Example 2
+		ArrayList l = new ArrayList();
+		l.add(15);
+		l.add(0);
+		l.add(20);
+		l.add(10);
+		// l.add(new Integer(10));
+		// l.add(null);
+		System.out.println(l);//[15, 0, 20, 10]
+		Collections.sort(l, new IntegerTypeArrayListComparator());// RTE, ClassCastException or NullPointerException
+		System.out.println(l);//[20, 15, 10, 0]
+		System.out.println(Collections.binarySearch(l, 10, new IntegerTypeArrayListComparator()));//2
+		System.out.println(Collections.binarySearch(l, 13, new IntegerTypeArrayListComparator()));//-3
+		System.out.println(Collections.binarySearch(l, 17));//-5
+	
+class IntegerTypeArrayListComparator implements Comparator {
+	@Override
+	public int compare(Object o1, Object o2) {
+		Integer I1 = (Integer) o1;
+		Integer I2 = (Integer) o2;
+		return I2.compareTo(I1);
+	}
+}
+
+For the list of n elements, in the case of  binarySearch() method :
+ArrayList For List of "n" elements
+1. Successful result range: 0 to n-1
+2. Unsuccessful result range: -(n+1) to -1
+3. Total result range: -(n+1) to n-1
+
+3 elements
+-1  -2  -3
+[A] [K] [Z]
+0   1   2
+1. Successful search result range: 0 to 2
+2. Unsuccessful search result range: -4 to -1
+3. Total result range: -4 to 2
+
+
+
+Method for reversing elements of list in Collections class
+	public static void reverse(List l)
+	Example:	
+		ArrayList l = new ArrayList();
+		l.add(15);
+		l.add(0);
+		l.add(20);
+		l.add(10);
+		// l.add(new Integer(10));
+		// l.add(null);
+		System.out.println(l);//[15, 0, 20, 10]
+		Collections.reverse(l);// RTE, ClassCastException or NullPointerException
+		System.out.println(l);//[10, 20, 0, 15]
+	
+
+public static Comparator  reverseOrder(Comparator c)
+	To get reverse comparator object
+		Comparator descendingComparator = Collections.reverseOrder(Comparator ascendingComparator)
+		
+List l=Collections.synchronizedList(al1);
+
+		

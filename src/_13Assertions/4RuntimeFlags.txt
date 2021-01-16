@@ -1,0 +1,49 @@
+Various possible runtime flags related to assertion
+-ea or -enableassertions
+
+Java –ea Test
+To enable assertions in every non-system class (our own classes) and then execute Test class.
+
+-da or -disableassertions
+To disable assertion in every non-system class
+
+-esa | enablesystemassertions
+To enable assertion in every system class (predefined classes)
+
+-dsa | disablesystemassertions
+To disable assertion in every system class (predefined classes)
+
+We  can use above flags simulataneously, then JVM will consider these flags from left to right.
+Example
+Java –ea –esa –ea –dsa –da –esa –ea –dsa Test
+Non-system  	System
+Enable			Enable
+Enable			disable
+disable			Enable
+Enable			disable
+At the end assertions will be enable in every non-system class & disabled in every system class.
+
+
+
+Case study
+Pack1.A
+Pack1.B
+Pack1.pack2.C
+Pack1.pack2.D
+
+To enable assertions only in B class
+       Java –ea:pack1.B
+       
+To enable assertions in both B & D classes
+Java –ea:pack1.B  -ea:pack2.D
+
+To enable assertions in every class of pack1
+Java  –ea:pack1…
+
+To enable assertions in every class of pack1 except B class
+Java –ea:pack1… -da:pack1.B
+
+To enable assertions in every class of pack1 except pack2 classes
+Java –ea:pack1… -da:pack2…
+
+We can enable & disable assertions either classwise or package wise also.

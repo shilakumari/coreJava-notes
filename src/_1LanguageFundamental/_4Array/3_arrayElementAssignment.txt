@@ -1,0 +1,35 @@
+Array element assignment
+Case 1:
+In the case of primitive type arrays as array elements, we can provide any type which can be implicitly promoted to declared type.
+	int[] x=new int[5];
+	x[0]=5;
+	x[1]=’a’;
+	byte b=10;
+	x[2]=b;
+	short s=20;
+	x[3]=s;
+	x[4]=50L;//CTE
+In the case of float type arrays the allowed data types are byte, short, char, int, long and float.
+
+Case 2:
+Object[] a=new Object[10];
+a[0]=new Object();
+a[1]=new String(“Rahul”);
+a[2]=new Integer();
+
+Number[] n=new Number[10];
+n[0]=new Integer(10);
+n[1]=new String(“Rahul”);//CTE, 
+In the case of object type arrays, as array element we can provide either declared type object or its child class object.
+
+Case 3:
+For interface type array, as array elements its implementation class objects are allowed.
+Runnable[] r=new Runnable[10];
+r[0]=new Thread();
+r[1]=new String(“Rahul”);//CTE
+
+Array type 					Allowed element type
+Primitive arrays			Any type which can be implicitly promoted to declared type
+Object type arrays			Either declared type or its child class object
+Abstract class type arrays  Its child class object
+Interface type arrays 		Its implementation class object

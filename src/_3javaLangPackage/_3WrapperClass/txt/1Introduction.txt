@@ -1,0 +1,143 @@
+Wrapper class(1.5V)
+
+Wrapper=cover
+Dairy milk cover
+
+Till 1.4v:
+ArrayList l=new ArrayList(); 
+l.add(10);//CTE
+Integer I=new Integer(10); l.add(I);//No error
+
+Two objectives of wrapper classes are:
+	To wrap primitive into object form 
+		so that we can handle primitives also just like objects. 
+	To define several utility methods which are required for the primitives.
+
+class Student 
+{
+	int getMarks()
+	{
+	}
+	String toString()
+	{
+	}
+}
+class  Integer
+{
+	String toString()
+	{
+	}
+}
+String s=st.toString(st);
+String s=Integer.toString(10);
+
+
+Creation of wrapper object
+
+Constructors
+Almost all (except Character class) wrapper classes contains two constructors. 
+	One can take corresponding primitive as argument & the other can take String as argument.
+Integer i=new Integer(10);
+Integer i=new Integer("10");
+
+Double d=new Double (10.5);
+Double d=new Double ("10.5");
+
+Integer i=new Integer("ten");//RE, NumberFormatException
+If String argument not representing a number then we will get RTE, saying NumberFormatException.
+
+
+Wrapper class	Corresponding constructor argument
+Byte			byte or String	
+Short			short or String
+Integer			int or String
+Long			long or String
+Float 			float or String or double
+Double			double or String
+Character 		char
+Boolean			boolean or String
+
+
+
+Long l=new Long(10l);
+//Long l2=new Long("10L");//RTE, saying NumberFormatException.
+		
+Float f1=new Float(10.5f);//10.5
+		Float f2=new Float("10.5f");//10.5
+		Float f3=new Float(10.5);//10.5
+		Float f4=new Float("10.5");//10.5
+Float class contains 3 constructor with float, double & String arguments.
+
+Character ch=new Character('A');
+Character ch=new Character("A");//CTE
+Character class contains only one constructor which can take char argument.
+
+Boolean b=new Boolean(true);
+Boolean b=new Boolean(false);
+Boolean b=new Boolean(True);//CTE
+Boolean b=new Boolean("true");//true
+Boolean b=new Boolean("false");//false
+Boolean class contains two constructors, one can take primitive as argument & the other can take String argument. 
+	If we pass boolean primitive as argument, the only allowed values are true or false, 
+	Where case is important & content is also important.
+
+Boolean x=new Boolean("yes");//false
+Boolean y=new Boolean("no");//false
+System.out.println(x.equals(y));// true
+
+Boolean x=new Boolean("Left");//false
+Boolean y=new Boolean("Right");//false
+System.out.println(x.equals(y));// true
+
+Boolean x=new Boolean("Left");//false
+Boolean y=new Boolean("true");//false
+System.out.println(x.equals(y));// false
+
+Boolean b=new Boolean("deepika");//false
+
+Boolean b=new Boolean("true");//true
+Boolean b=new Boolean("True");//true
+Boolean b=new Boolean("tRUe");//true
+All other string-->false
+If we are passing String type as argument then case & content both are not important.
+If the content is case insensitive String of "true" then it is treated as true.
+Otherwise it is treated as false.
+
+In all wrapper classes toString() method is overridden to return content directly.
+In all wrapper classes equal()method is overridden for content comparison.
+
+
+Partial hierarchy of java.lang package
+Object
+	String
+	StringBuffer
+	StringBuilder
+	Void
+	Number
+		Byte
+		Short 
+		Integer
+		Long
+		Float
+		Double
+	Boolean
+	Character
+Conclusions
+1)The wrapper classes which are not child class of number?
+        Boolean & Character, void.
+2)The wrapper classes which are not direct child class of Object?
+        Byte, Short, Integer,Long, Float, Double
+3) String, StringBuffer , StringBuilder & all wrapper classes are final classes.
+4) In addition to String objects all wrapper class objects are also immutable.
+5) Sometimes Void class is also considered as wrapper class.
+
+Void class
+	It is a final class. And it is the direct child class of Object.
+	It doesn’t contain any methods  & it contains only one variable Void.TYPE.
+
+In general, we can use Void class in reflections to check whether the method return type is void or not.
+	If(getMethod(m1).getReturnType()==Void.TYPE ){}
+Void is a class, representation of void keyword in Java.
+
+Summary
+String, StringBuffer , StringBuilder & all wrapper classes are final classes.

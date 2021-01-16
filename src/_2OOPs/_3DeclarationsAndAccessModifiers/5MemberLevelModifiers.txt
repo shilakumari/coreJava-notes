@@ -1,0 +1,169 @@
+Member modifiers(method or variable level modifiers)
+
+public members
+If a member is declared as public then we can access that member from anywhere 
+but corresponding class should be visible, 
+that is, before checking visibility we have to check class visibility.
+Example: Like address
+
+Package p1;
+Class A
+{
+Public void m1()
+{
+SOP(“hii”);
+}
+}
+
+Package p2;
+Import p1.A;
+Class B
+{
+PSVM(String[] args)
+{
+A a =new A();
+a.m1();}
+}
+//CTE, p1.A is not public in p1;cannot be accessed from outside package.
+
+
+
+Default members
+If a member is declared as default then we can access that member only within the current package.
+From outside the package, we cannot access. Hence default access is also known as package level access.
+Package p1;
+Public Class A
+{
+void m1()
+{
+SOP(“hii”);
+}
+}
+
+Package p2;
+Import p1.A;
+Class B
+{
+PSVM(String[] args)
+{
+A a =new A();
+a.m1();}
+}
+//CTE
+
+
+
+
+Private members
+If a member is private then we can access that member only within the class.
+
+Abstract method should be available to the child classes to provide implementation where-as private methods are not available to the child classes. 
+Hence private-abstract combination is illegal for methods.
+
+Protected members(Protected=<default>+ kids)
+The most misunderstood modifier in java.
+If a member is declared as protected then, we can access that member, anywhere within the current package 
+but outside package, only within the child classes.
+
+Example 1:
+Package pack1;
+Public class A
+{
+Protected void m1()
+{
+SOP(“A.m1()”);
+}
+}
+Class B extends A
+{
+PSVM(String[] args)
+{
+A a=new A();
+a.m1();
+B b=new B();
+b.m1();
+A a1=new B();
+A1.m1();
+}
+}
+
+Example 2:
+Package pack1;
+Public class A
+{
+Protected void m1()
+{
+SOP(“A.m1()”);
+}
+}
+
+Package pack2
+Class C extends A
+{
+PSVM(String[] args)
+{
+C c=new C();
+c.m1();//valid
+
+A a=new A();
+a.m1();//invalid
+
+A a1=new C();
+a1.m1();//invalid
+}
+}
+CTE, m1() has protected access in pack1.A
+
+We can access protected member, within the current package anywhere either by using parent reference or by using child reference 
+but we can access protected member in outside package only in child classes and we should use child reference only. 
+That is parent reference cannot be used to access protected member from outside the package.
+
+Example 3:
+Package pack1;
+Public class A
+{
+Protected void m1()
+{
+SOP(“A.m1()”);
+}
+}
+Package pack2;
+Import pack1.A;
+Class C extends A
+{}
+Class D extends C
+{
+PSVM(String []args)
+{
+A a =new A();
+a.m1();//invalid
+C c=new C();
+c.m1();//invalid
+D d=new D();
+d.m1();//valid
+A a1=new C();
+a1.m1();//invalid
+A a2=new D();
+a2.m1();//invalid
+C c1=new D();
+c1.m1();//invalid,CTE, m1() has protected access in pack1.A
+}
+}
+We can access protected members from outside package only in child classes 
+and we should use that child class reference only. 
+
+
+Summary table of private, default, protected & public modifiers
+
+Visibility								Private	Default	Protected		public
+Within the same class					Y		Y		Y				Y
+From the child class of same package	N		Y		Y				Y
+From non-child class of same package	N		Y		Y				Y
+From the child class of outside package	N		N		Y, We should use child reference only	Y
+From non-child class of outside package	N		N		N				Y
+
+Restrictes Access Modifier: Private>default>protected>public
+
+In C , default modifier for  local variable is private.
+Recommended modifier for data member(field) is private. But recommended modifier for methods is public. 
+

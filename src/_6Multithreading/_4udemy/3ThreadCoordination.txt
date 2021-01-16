@@ -1,0 +1,81 @@
+Thread Coordination
+Thread termination
+	Thread.interrupt()
+	Daemon Threads
+Joining Threads
+	Thread coordination with Thread.join()
+	Case Study
+	
+	
+	
+		
+Thread termination-Why & When?
+Threads consumes resources:
+	When thread not doing anything
+		Memory & Kernal resources
+	When running
+		also,CPU cycles & cache memory 
+If a thread finished its work, but the application is still running, 
+	we want to clean up the thread's resources, consumed by that unused thread.
+If a thread is misbehaving, we want to stop it.
+	Like it is sending a requests to a server that is not responding
+	It running a long calculation, much longer than we want to allow it.
+The application will not atop as long as one thread is stil running.
+
+
+Thread.interrupt()
+	threadB.interrupt();//Sends a signal from ThreadA to interrupt ThreadB
+	If the thread is executing a method that throws as InterruptedException
+	If the thread's code is handling the interrut signal explicitly.
+		 if (Thread.currentThread().isInterrupted()) {}
+	Example:
+		ThreadTerminationUsingInterrupt1.java
+		ThreadTerminationUsingInterrupt2.java
+		
+Daemon Threads
+	Background threads that do not prevent the application from existing if the main thread terminates.
+	 thread.setDaemon(true);
+	Scenario1:Background tasks that should not block our application from terminating
+		Example:File saving thread in a text editor
+	Scenario2:Code in a worker thread is not under our control & we do not want it to block our application from terminating.
+		Exampe:Worker thread that uses an external library.
+	Example:ThreadTerminationUsingDaemon.java
+	
+	
+	
+	
+
+Joining Threads
+	Thread coordination with Thread.join()
+	Case Study
+
+Thread coordination- Why do we need it?
+	Different threads run independently.
+	Order of execution is out of control.
+
+If one thread depends on another:	
+	Thread Coordination:Naive Solution	
+		Thread B runs in a loop & keep checking if Thread A's result is ready.
+		if (factorialThread.isFinished()) {}
+	thread.join()
+		Example:JoiningThreads.java
+		Safely collect & aggregate results
+		Gracefully handle runaway threads using thread.join(timeout)
+		
+		A race condition occurs when two or more threads can access shared data 
+			and they try to change it at the same time. 
+			Because the thread scheduling algorithm can swap between threads at any time, 
+			you don't know the order in which the threads will attempt to access the shared data
+		
+Thread Coordination-Summary
+Do not rely on the order of execution
+Always use thread coordination
+Desing code for worst case scenario
+Threads may take unreasonably long time. Always use thread.join() with a time limit.
+Terminate the thread if it is not done in time.
+
+
+ComplexCalculation.java
+
+
+

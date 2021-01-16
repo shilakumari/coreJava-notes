@@ -1,0 +1,54 @@
+new  vs newInstance()
+1)	If class name is available dynamically at runtime (from database or from console or from business logic) then newInstance() is required.
+	 Servlet container also create servlet object using newInstance() method.
+	String className=”Dog”;
+	Object obj=Class.forName(className).newInstance();
+	SOP(o.getClass().getName());//Dog
+2)	To use newInstance() method, corresponding class must have no-arg constructor otherwise InstantiationException
+	Every servlet class must have no-arg constructor.
+3) 
+	If corresponding class  not found:
+    	 Test t1=new Test(); //NoClassDefFoundError (unchecked exception)
+     String className=”Test”;
+    Object obj=Class.forName(className).newInstance();//ClassNotFoundException (checked exception)
+
+
+NoClassDefFoundError vs  ClassNotFoundException
+NoClassDefFoundError 
+	If hard coded class not found at runtime
+	Unchecked exception
+	When we create object using new keyword
+ClassNotFoundException
+	If name is provided dynamically but corresponding class not found
+	Checked exception 
+	When we create object using newInstance() method
+
+
+
+
+
+
+
+
+
+
+
+
+
+⦁	Access specifiers vs Access Modifiers
+In Java there is no terminology like specifiers.
+In old language like c++ public, private, protected, default are considered as access specifiers. 
+	Except this the remaining (like static) are considered as Accsess modifiers.
+But in Java there is no terminology like  specifiers. All are by default considered as modifiers only
+	public, private, protected, default
+	final, static ,synchronized, abstract, native, strictfp(1.2v), transient, volatile
+	private  class Test{}//CTE, modifier private not allowed here
+Sometimes we call to public, private, protected, default,  access modifiers also 
+		but strictly speaking there are modifiers only. 
+
+
+
+
+
+
+ 

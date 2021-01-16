@@ -1,0 +1,140 @@
+Language Fundamentals
+	Introduction
+	Elements Of Java
+	Flow Control
+	Array
+	Variable
+	
+Getting Started
+	Source code (.java save)
+	Compile
+	Object code (Run or execute)
+	First Program in Java
+	Entry point
+		Main() method
+	Path Environment Variable
+
+Elements of Java
+1)Reserved Words(53)
+	Keyword
+	Reserved Literals
+2)Identifiers
+	Rules
+	conventions
+3)Data types
+	Primitive(8)
+	Non-primitive
+4)Literals
+5)Operator & Separators
+6)Syntax
+7)Comment
+
+Type of Variables
+Main method
+	CLA
+Java Coding Standard
+JVM
+
+
+Reserved words(53)
+Keyword(50): functionality associated with it
+Used Keyword(48)
+Unused Keyword(2) 
+	goto 
+	const
+Reserved Literals(3): 
+	true
+	false
+	null
+strictfp (1.2 v)
+assert   (1.4 v)
+enum   (1.5 v)
+
+
+Identifier
+A name in Java program is considered as identifier, which can be used for identification purpose.
+It can be, Method name, Variable name, Class name/interface name, Label name.
+
+Data Type
+	Non- Primitive/Reference Type
+	Primitive data type(8)
+		Numeric data type
+			Integral type
+			 byte 
+			 short 
+			 int
+			 long
+			Floating point type
+			 float 
+			 double
+		Non-numeric data type
+		 char  
+		 boolean
+		 
+Literals/Constant
+A constant value which can be assigned to the variable is called literal.
+Integral literal : For integral data type(byte, short, int, long)
+	int  literals
+		Decimal literals
+		Octal literals
+		Hexadecimal literals
+		Binary literals
+	long literals
+		Decimal literals with suffix l/L
+
+Octal literals with suffix 0
+Hexadecimal literals with suffix 0x/0X
+Binary literals with suffix 0b/0B
+
+	Floating point literals
+		float literals with suffix f/F
+	double literals
+		with or without suffix d/D
+Exponential form/scientific notation
+	Example: 
+	 double d=1.2e3;//1.2*10^3,1200.0
+Boolean Literals
+	true
+	false
+String literals: “”
+Null literal : null keyword
+char Literals
+	Within single quotes i.e. ‘a’
+As integral literal which represents uni-code value of the character  (0 to 65535)
+Decimal literals
+Octal literals
+Hexadecimal literals
+Binary literals
+In Unicode representation i.e.  ‘\uxxxx’
+8 escape characters
+Uses of underscore symbol in numeric literals
+
+
+Variable
+Variable is the name of memory allocation.
+
+Types of Variables
+Division 1: Based on type of value represented by a variable
+			 Primitive Variable:
+							int x=10;
+			 Reference Variable:
+							Student s=new Student();
+Division 2: Based on position of declaration & behavior of variable
+			 Instance variable /object level variable /attribute /fields
+			 Static variable /class level variables /attribute /fields 
+			 Local variable/ temporary variable /stack variable /automatic variable/ thread safe variable
+Type of variable    Thread safe 		Life		            	 		Scope
+Instance variable   No              same as object                         according to public/protected/<default>/private
+Static variable	    No              same as .class file                   according to public/protected/<default>/private
+Local variable	    Yes	            same as block execution inside block
+
+main() method
+	For main() method, inheritance & overloading concepts are applicable but overriding concept is not applicable. 
+	Instead of overriding, method hiding is applicable.
+Q:Without writing main() method, is it possible to print some statements to the console?
+Ans:Yes, by static block till 1.6 v but from 1.7 v onwards it is not possible to print some statements to the console.
+
+Java Coding Standards
+Advantage:
+	Readability
+	Maintainability

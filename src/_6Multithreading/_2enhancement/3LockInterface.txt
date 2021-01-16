@@ -1,0 +1,84 @@
+Lock interface
+Lock object is similar to implicit lock acquired by a thread to execute synchronized method or synchronized block. 
+Lock implementation provide more extensive operations than traditional implicit locks.
+
+
+Important methods of lock interface
+	void lock()
+	boolean tryLock()
+	boolean tryLock(long time, TimeUnit unit)
+	void lockInterruptibly()
+	void unlock()
+
+void lock()
+We can use this method to acquires a lock. 
+	If the lock is already available then immediately current thread will get that lock.
+	If the lock is not already available then it will wait until getting the lock.
+It it exactly same behaviour of traditional synchronized keyword.
+
+boolean tryLock()
+N number of ideas & ambitions, even beggers
+Every s/w engineer having idea to start his own ccompany 
+	but only 5 % people are going to try like  to start a company. 
+	The many problems comes & only 1 % persons are going to continue into middle of sea and 
+	then found that sea is calm and  they succeed.
+
+if(l.tryLock())
+{
+	Perform safe operation
+}
+else
+{
+	Perform alternative operation
+}
+To acquire the lock without waiting . 
+	If lock is available then the thread acquires the lock & returns true . 
+	If lock is not available then this method returns false & can continue its execution without waiting. 
+In this case thread never be entered into waiting state.
+
+
+boolean tryLock(long time, TimeUnit unit)
+If lock is available then the thread will get the lock & continue its execution. 
+If the lock is not available then thread will wait unitl specified amount of time. 
+	Still if the lock is not available then thread can continue its execution.
+
+TimeUnit 
+TimeUnit is an Enum (intranally a abstract class) present  in java.lang.concurrent package.
+NANOSECONDS
+MICROSECONDS
+MILLISECONDS
+SECONDS
+MINUTES
+HOURS
+DAYS
+
+If(l.tryLock(1000,TimeUnit.MILLISECONDS))
+{
+}
+
+
+void lockInterruptibly()
+Aquires the lock if it is available & returns immediately.
+If the lock is not available then it will wait. 
+While waiting if the thread is not interrupted then thread will get the lock.
+If the thread is interrupted then thread won’t get the lock.
+
+void unlock()
+To release the lock.
+PSVM(String [] args)
+{
+l.lock();
+.
+.
+.
+.
+.
+.
+l.unlock();
+}
+
+PSVM(String [] args)
+{
+l.unlock();//RE, IllegalMonitorStateException
+}  
+To call these method compulsory current thread should be owner of the lock otherewise we will get Re, saying IlligalMonitorStateException

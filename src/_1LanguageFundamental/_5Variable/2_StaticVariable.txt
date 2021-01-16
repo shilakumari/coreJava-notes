@@ -1,0 +1,121 @@
+Static variable
+
+Static variable should be declared within the class directly but outside of any block, method or constructor.
+
+If the value of a variable is not varied from object to object then it is not recommended to declare variable as instance variable. 
+We have to declare such type of variable at class level by using static modifier.
+
+In the case of instance variable for every object a separate copy will be created. 
+But in the case of static variables a single copy will be created at class level & shared by every object of the class.
+
+class Human{
+	int height;
+	int age;
+	String name;
+	static int population;	//Represent property of class, not individual objects
+}
+
+class Student{
+	String name;
+	int rollno;
+	static	String collegeName;//memory efficient
+}
+
+
+Static variables will be created at the time of class-loading & destroyed at the time of class unloading. 
+Hence scope of static variable is exactly same as scope of .class file.
+
+java Test
+start JVM
+create & start main thread
+locate and load Test.class 
+execute main() method
+unload Test.class
+Terminate main() thread
+Shutdown JVM
+
+Instance variable will be stored in heap area.
+Static variable will be stored in method area.
+Local variable will be stored in stack area.
+
+class Test{
+	static  int x=10;
+	PSVM(){
+		Test t=new Test();
+		SOP(t.x);
+		SOP(Test.x);//Recommended way
+		SOP(x);
+	}
+}
+We can access static variables either by object reference or by class name but recommended to use class-name.
+Within the same class, it is not required to use class-name & we can access directly.
+
+class Test{
+	static  int x=10;
+	P Static VM()
+	{
+		SOP(Test.x);
+		SOP(x);
+	}
+	public  void m1()
+	{
+		SOP(Test.x);
+		SOP(x);
+	}
+}
+We can access static variable directly from both instance & static areas.Because:
+1) It does not required to be access using this or any object reference
+2) It created during class-loading (early)
+
+class Test{
+	static  int x;
+	static double d;
+	static String s;
+	PSVM()
+	{
+		SOP(x);
+		SOP(d);
+		SOP(s);
+	}
+}
+For static variables JVM will provide default values & we are not required to perform initialization explicitly.
+
+Static variable also known as class level variables/attribute/fields.
+class  Test{
+	static int x=10;
+	int y=20;
+	PSVM(){	
+		Test t1=new Test();
+		t1.x=888;
+		t1.y=999;
+		Test t2=new Test();
+		SOP(t2.x+”\t”+t2.y);//888 20 
+	}
+}
+If we change for any object, a instance variable, it won’t reflect in another object . But it would reflect in case of static variable.
+
+class Test{
+   static int x=10;
+   int y=20;
+	public static void main(String [] args){
+		Test t1=new Test();
+		System.out.println(t1.x);//	10
+		System.out.println(t1.y);//	20
+
+		t1.x=888;
+		t1.y=999;
+
+		System.out.println(t1.x);//	888
+		System.out.println(t1.y);//	999
+
+		Test t2=new Test();
+
+		System.out.println(t2.x);//	888
+		System.out.println(t2.y);//	20
+
+		System.out.println(t1.x);//888
+		System.out.println(t1.y);//999
+
+	}
+}
+

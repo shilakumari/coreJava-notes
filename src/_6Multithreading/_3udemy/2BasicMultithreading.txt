@@ -1,0 +1,174 @@
+   Sequential Processing
+	SequentialProcessing.java
+	Runner1,java
+	Runner2.java
+Starting Threads
+	Runnable interface
+	Thread class	
+main thread==application thread
+sleep()
+join()
+
+Volatile
+Every read of a volatile variable will be read from the RAM(main memory).
+	(not from cache, usually variables are cached for performance reasons)
+Caches are faster
+	Do not use volatile keyword if not necessary
+	It prevents instruction rendering which is a performance boost technique.
+	
+	https://www.javatpoint.com/volatile-keyword-in-java
+	VolatileVariable.java
+	https://javarevisited.blogspot.com/2011/06/volatile-keyword-java-example-tutorial.html
+	https://www.geeksforgeeks.org/volatile-keyword-in-java/
+	VolatileVariable2.java
+		http://vanillajava.blogspot.com/2012/01/demonstrating-when-volatile-is-required.html
+
+
+Deadlock
+Deadlock is a situation in which two or more competiting actions are each waiting for the other to finish.
+	And thus neither ever does.
+Databases:Deadlock happens when two processes each within its own transaction updates two rows of information but in the opposite order.
+	For example:Process A updates rwo 1 then row 2 in the exact same timeframe that process B updates row 2 then row 1.
+OS:Deadlock is a situation which occurs when a process or thread enters a waiting state 
+	because a resource requested is being held by another waiting process, 
+	which in turn is waiting for another resource held by another waiting process. 
+	This deadlock can be detected using directed graph. If there is a cycle that means there is deadlock.
+
+
+Livelock
+	A thread often acts in response to the action of another thread.
+	If the other thread's action is also a response to the action of another thread. Livelock!!!
+	Livelocked threads are unable to make further progress. However the threads are not blocked.
+		They are simple too busy responding to each other to resume work.
+	Like two people attempting to pass each other in a narrow corridor.
+		A moves to his left to let B pass, while B moves to his right to let A pass. 
+		THey are still blocking each other, A moves to his right , while B moves to his left.  Still not good.
+	Livelock is a special case of resource starvation.
+	https://www.geeksforgeeks.org/deadlock-starvation-and-livelock/
+	
+Synchronization
+	public synchronized void increament(){  ++counter;}
+	
+Synchronized Block
+	SynchronizedBlock1.java
+	1)
+	static void increament1() {
+		synchronized (SynchronizedBlock1.class) {
+			count1++;
+		}
+	}
+	static void increament2() {
+		synchronized (SynchronizedBlock1.class) {
+			count2++;
+		}
+	}
+	2)
+	static Object lock1 = new Object();
+	static Object lock2 = new Object();
+	static void increament1() {
+		synchronized (lock1) {
+			count1++;
+		}
+	}
+	static void increament2() {
+		synchronized (lock2) {
+			count2++;
+		}
+	}
+	
+	
+wait() & notify(), notifyAll()
+	WaitAndNotify1.java
+	Producer & Consumer problem  with wait() & notify()
+	ProducerAndConsumer1.java
+	
+	 
+Reentrant locks
+	ReentrantLock1.java
+	lock.lock()
+	try{
+		//Critical section
+	}finally{
+		lock.unlock()
+	}	
+	Producer & Consumer problem  with Reentrant locks
+		Condition condition=lock.newCondition();
+		condition.await();
+		condition.signal();
+		ProducerAndConsumer2.java
+
+Reentrant locks vs Synchronized block
+	A reentrant lock has the same basic behavior as we have seen for synchronized blocks.
+		Of-course there are some extended features.
+	We can make a lock fair (FCFS), prevent thread starvation.
+		Synchronized blocks are unfair by default.
+	We can check whether the given lock is held or not with the reentrant locks.
+				if (lock.tryLock()) {}
+	We can get the list of threads waiting for the given lock with the reentrant locks.
+	Synchronized block are nicer:We do not need try-catch-finally lock.
+	
+	
+	
+	
+Semaphores
+	Invented by Dijkstra in 1962
+	Semaphores are variables or ADT that are used for controlling access to a common resource.
+	Important in OS!!!
+	Semaphores -> is a record of how many units of a particular resource are available...wait until a unit of the resource becomes available.
+	Counting Semaphore: allows an arbitrary resource count
+	Binary semaphores: semaphores which are restricted to the value 0 and 1
+	Library analogy
+	Semaphore tracks only how many resources are free. It does not keep track of which of the resources are free!!!
+	The semaphore count may serve as a useful trigger for a number of different actions.
+	Producer-consumer problem can be implemented with the help of semaphores.
+	
+	- semaphore maintains a set of permits
+ 	- acquire() -> if a permit is available then takes it
+ 	- release() -> adds a permit
+ 		
+ 	Semaphore just keeps a count of the number available
+ 		new Semaphore(int permits, boolean fair) !!!
+	Semaphore1.java
+	
+Mutexes
+	A mutex is essentially the same thing as the binary semaphore
+	While a binary semaphore may be used as a mutex, a mutex is a more specific use-case
+	Mutexes have a concept of an owner. 
+		Only the process that locked the mutex is supposed to unlock it.
+	Mutexes may provide priority inversion safety. 
+		If the mutex knows its current owner, 
+		it is possible to promote the priority of the owner 
+		whenever the higher priority task starts waiting on the mutex.
+	Mutex can provide deletion safety.
+		
+		
+Executors
+	   1.) ExecutorService es = Executors.newCachedThreadPool();
+	   	- going to return an executorService that can dynamically
+	   		reuse threads
+	 		- before starting a job -> it going to check whether there are any threads that
+	 			finished the job...reuse them
+	 		- if there are no waiting threads -> it is going to create another one 
+	 		- good for the processor ... effective solution !!!
+	 
+	 	2.) ExecutorService es = Executors.newFixedThreadPool(N);
+	 		- maximize the number of threads
+	 		- if we want to start a job -> if all the threads are busy, we have to wait for one
+	 			to terminate
+	 
+	 	3.) ExecutorService es = Executors.newSingleThreadExecutor();
+	 		It uses a single thread for the job
+	 
+	 		execute() -> runnable 
+	 		submit() -> runnable+callable
+	
+	 Executors1.java
+
+
+
+
+Callable & Future
+	CallableAndFuture1.java
+	Executors in merge sort
+
+		

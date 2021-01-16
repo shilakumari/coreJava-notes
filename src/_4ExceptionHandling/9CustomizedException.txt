@@ -1,0 +1,58 @@
+Customized or user defined exception
+Sometimes to meet programming requirements we can define our own exceptions. 
+Such type of exceptions are called customized or user defined exceptions.
+Example: TooYoungException, TooOldException, InsufficientFundException
+
+Every exception is mapped with a Java class.
+
+class TooYoungException extends RuntimeException{
+}
+
+class TooYoungException extends RuntimeException{
+	TooYoungException(String s){
+		super(s);//to make description available to default exception handler
+	}
+}
+
+Class CustomisedException{
+PSVM(String[] args){
+	int age= Integer.parseInt(args[0]);
+	if(age>60)
+	{
+		Throw new TooYoungException(“Plz wait until get best match”);
+	}
+	Else IF(AGE<18)
+	{
+		Throw new TooOldException(“ur age already crossed marriage & no chance of getting marriage”);
+	}
+	Else
+	{
+		SOP(“Have a nice honeymoon!”);
+	}
+}
+}
+
+throw  keyword is best suitable for user-defined or customized exceptions but not for predefined exceptions.
+It is highly recommended to define customized exception as unchecked. 
+That is we have to extends RuntimeException but not Exception.
+
+
+
+Exception handling keywords summary
+Try: to maintain risky code
+Catch: to maintain exception handling code
+Finally: to maintain cleanup code
+Throw: to handover our created exception object to the JVM manually
+Throws: to delegates the responsibility of exception handling to the caller(either another method or JVM)
+
+Various possible CTE in exception handling(8)
+1: unreported exceptionXXX; must be caught or declared to be thrown
+2: exception XXX has already been caught	
+3: exception XXX is never thrown  in body of corresponding try statement
+4: unreachable statement
+5: incompatible types
+	Founf:Test
+	Required :java.lang.Throwable
+6: try without catch or finally
+7: catch without try
+8: finally without try.

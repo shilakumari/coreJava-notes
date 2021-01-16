@@ -1,0 +1,73 @@
+Inner classes
+Sometimes we can declare a class inside another class, such type of classes are called inner classes.
+
+Java 1.0 V
+PI
+OOPs
+Robust
+Secure
+Simple
+
+area where Java was not up to the mark:
+Performance
+GUI(AWT) has n number of bugs
+
+Java 1.1V(3 month after 1.0V)
+JIT compiler (0.0000000001 % improvement)- even till Java 8 problem not still solved
+Inner classes concept introduced in 1.1V to fix GUI bugs as the part of event handling 
+	but because of powerful feature & benefits of inner classes, slowly programmers started using in regular coding also.
+
+
+Without existing one type of object, if there is no chance of existing, another type of object then we should go for inner classes.
+Example:
+Class University//outer class{
+	Class Department//inner class{
+	}
+}
+
+Example:
+Class Car//outer class
+{
+	Class Engine//inner class
+	{
+}
+
+}
+
+Example 3:
+Interface Map//outer interface
+{
+	Interface Entry//inner interface
+	{}
+}
+Map is a group of key value pairs & each key value pair is called an entry.
+Without existing Map object, there is no chance of existing Entry object. 
+	Hence interface Entry is defined inside Map interface.
+
+Note:
+The relation between outer class & inner class is not IS-A relation & it is HAS-A relationship (composition or aggregation).
+
+
+Based on position of declaration & behavior all inner classes are divided into following 4 categories:
+1: Normal or regular inner classes
+2: Method local inner classes
+3: Anonymous inner classes
+4: Static nested classes
+
+
+The only applicable modifier for outer classes are 
+	Public
+	<Default>
+	Final
+	Abstract
+	Strictfp
+For inner classes applicable modifier for outer classes are 
+	Public
+	<Default>
+	Final
+	Abstract
+	Strictfp
+	
+	Private
+	Protected
+	Static

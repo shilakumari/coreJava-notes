@@ -1,0 +1,57 @@
+TreeSet
+	Underlying ds-Balanced Tree.
+	Duplicates are not allowed.
+	Insertion order not preserved , Sorting order
+	Heterogeneous object are not allowed without comparator-RE,ClassCastException
+		Write a program to insert String and StringBuffer objects into the TreeSet 
+			where sorting order is increasing length order if two objects having the same length then consider their alphabetical order?
+			TreeSet t = new TreeSet(new MyComparator());
+			
+	Null insertion is not allowed
+
+Null acceptance till 1.6v
+	For empty set null insertion is possible.
+	For non-empty set null insertion is not possible because comparison is required // NPE
+
+
+Constructor
+TreeSet() t =new TreeSet();
+TreeSet() t =new TreeSet(Comparator c);
+TreeSet() t =new TreeSet(Collection c);
+TreeSet() t =new TreeSet(SortedSet c);..what is need of this???
+
+
+
+
+Example:
+	import java.util.*;
+	class TreeSetDemo{
+		public static void main(String[] args){
+			TreeSet t = new TreeSet();
+			t.add(new StringBuffer("A"));
+			t.add(new StringBuffer("Z"));
+			t.add(new StringBuffer("L"));
+			t.add(new StringBuffer("B"));
+			System.out.println(t);//ClassCastException
+		}
+	}
+
+Note:
+1. If we are depending on default natural sorting order then objects should be homogeneous and comparable. 
+	Otherwise we will get runtime exception saying ClassCastException.
+	TreeSet t = new TreeSet();
+2. An object is said to be comparable if and only if the corresponding class implements java.lang.Comparable interface.
+3. String class and all wrapper classes already implements comparable interface. 
+	But StringBuffer doesn't implement comparable interface.
+	Hence the above program we got ClassCastException.
+
+
+Comparison of Set(I) implemented classes
+Property							HashSet				LinkedHashSet			TreeSet
+1. Underlying data structure		HashTable 			HashTable+Linked		List Balanced Tree
+2. Insertion order					not preserved 		preserved				Not applicable
+3. Sorting order					Not applicable 		Not applicable			Applicable
+4. HeterogeneousObjects				Allowed				Allowed					Not allowed
+5. Duplicate objects				Not allowed 		Not allowed				Not allowed
+6. null acceptance					Allowed(only once)	Allowed(only once) 		Not allowed
+																				

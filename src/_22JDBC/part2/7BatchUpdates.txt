@@ -1,0 +1,75 @@
+Batch Updates 
+Need of Batch Updates: 
+	When we submit multiple SQL Queries to the database one by one then lot of time will be wasted in request and response. 
+ 
+In the case of simple Statement: 
+	 Java Application -->Request time -->DB -->Compile time
+	 Java Application <--Response time <--DB <--Execution time
+
+	Total Time per Query = Req.T+C.T+E.T+Resp.T                                         
+						 = 1 ms + 1 ms + 1 ms + 1 ms = 4ms 
+			per 1000 Queries = 4 * 1000ms = 4000ms
+
+In the case of PreparedStatement: 
+	 Java Application -->Request time -->DB -->Compile time
+	 Java Application <--Response time <--DB
+
+	Total Time per Query  = Req.T+Resp.T+E.T                                         
+						  = 1 ms + 1 ms + 1 ms = 3ms  
+			1000 Queries = 3000ms 
+	
+In the above 2 cases, we are trying to submit 1000 queries to the database one by one. 
+For submitting 1000 queries we need to communicate with the database 1000 times. 
+It increases network traffic between Java application and database and even creates performance problems also. 
+ 
+To overcome these problems, we should go for Batch updates. 
+We can group all related SQL Queries into a single batch and we can send that batch at a time to the database. 
+
+
+	Java App  <----> Query-1,Query-2,..,..,..,Query-n <----> DB
+					<--------Batch of queries-------->
+
+	With Simple Statement Batch Updates: 
+	Per 1000 Queries = Req.Time+1000*C.T+1000*E.T+Resp.Time                                 
+					 = 1ms+1000*1ms+1000*1ms+1ms      
+					 = 2002ms                  
+	With PreparedStatement Batch Updates:  
+	Per 1000 Queries = Req.Time+1000*E.T+Resp.Time                                 
+					 = 1ms+1000*1ms+1ms      
+					 = 1002ms 
+					  
+Hence the main advantages of Batch updates are  
+	1. We can reduce network traffic 
+	2. We can improve performance. 
+ 
+We can implement batch updates by using the following two methods  
+	1. public void addBatch(String sqlQuery)     
+		To add query to batch 
+	2. int[] executeBatch()     
+		to execute a batch of sql queries 
+	We can implement batch updates either by simple Statement or by PreparedStatement 
+
+
+Program to Demonstrate Batch Updates with Simple Statement 
+	Example: BatchUpdates1.java
+
+Program to Demonstrate Batch Updates with PreparedStatement
+	Example: BatchUpdates2.java
+
+
+Limitations of Batch updates: 
+	1. We can use Batch Updates concept only for non-select queries. 
+		If we are trying to use for select queries then we will get RE saying BatchUpdateException.  
+	2. In batch if one sql query execution fails then remaining sql queries wont be executed. 
+ 
+*****Q: In JDBC How Many Execute Methods Are Avaialble? 
+In total there are 4 methods are available 
+1. executeQuery() 
+	For select queries 
+2. executeUpdate() 
+	For non-select queries(insert|delete|update) 
+3. execute()      
+	For both select and non-select queries      
+	For calling Stored Procedures 
+4. executeBatch()
+	For Batch Updates 

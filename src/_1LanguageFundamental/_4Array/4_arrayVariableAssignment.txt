@@ -1,0 +1,143 @@
+Array Variable Assignment
+
+Case1:
+Element level promotions are not applicable at array level.
+For example, char value can be assign to int type where as char array can not be assign to int array type.
+int[] i1={1,2,3};
+char[] ch={‘a’,’b’,’c’};
+int[] i2=i1;
+int[] i3=ch;//CTE
+
+But in the case of Object type arrays, child class type array can be promoted to parent class type array.
+Child type array can be assign to parent type:
+String[] str={‘a’,’b’,’c’};
+Object[] obj=str;
+
+Which of the following promotions will be performed automatically?
+char->int
+char[]->int[]//invalid
+int->double
+int[]->double[]//invalid
+float->int//invalid
+float[]->int[]//invalid
+String->Object
+String[]->Object[]
+
+
+Case2:
+When we assign one array to another array then internal elements won’t  be copy, just reference variable will be assign, 
+	not the underline array. 
+Hence it not request to check size.
+int[] a={1,2,3,4,5,6,};
+int[] b={7,8};
+a=b;
+b=a;
+
+Case3:
+At the time of array assignment array dimension(not size) must be same.
+int[][] a=new int[3][];
+a[0]=new int[2];
+a[0]=10;//CTE
+a[0]=new int[2][4];//CTE
+Whenever we assign one array to another array both dimensions & type must be match but sizes are not required to match.
+
+Example 1:
+class Test
+{	public static void main(String [] args)
+	{	for(int i=0;i<=args.length;i++)
+		{ 
+			System.out.println(args[i]);
+		}	
+	}
+}
+Java Test A B C
+A
+B
+C
+RE,ArrayIndexOutOfBoundsException
+
+Java Test A B 
+A
+B
+RE,ArrayIndexOutOfBoundsException
+
+Java Test 
+RE,ArrayIndexOutOfBoundsException
+
+Example 2:
+class Test
+{	public static void main(String [] args)
+	{	//String[] argh={"x","y","z"};
+		//args=argh;
+		for(String s:args)
+		{
+			System.out.println(s);
+		}
+	}
+}
+
+Java Test A B C
+A
+B
+C
+
+Java Test A B 
+A
+B
+
+Java Test 
+
+
+Example 3:
+class Test
+{	public static void main(String [] args)
+	{	String[] argh={"x","y","z"};
+		args=argh;
+		for(String s:args)
+		{
+			System.out.println(s);
+		}
+	}
+}
+
+Java Test A B C
+X
+Y
+Z
+Java Test A B 
+X
+Y
+Z
+
+Java Test 
+X
+Y
+Z
+
+
+Example 3:
+int[][] a=new int[4][3];
+a[0]=new int[4];
+a[1]=new int[2];
+a=new int[3][2];
+Total created object:11
+Object eligible for GC:7
+
+
+Convert primitive array to list???????????  And vice-versa
+
+https://www.geeksforgeeks.org/program-to-convert-array-to-list-in-java/
+Methods to convert Array to List in Java????????
+1)Brute Force or Naive Method
+	 list.add(); 
+2)Using Arrays.asList() method
+	List<T> list = Arrays.asList(array); 
+	Array should me reference type not primitive type.
+	Create the List by passing the Array as parameter in the constructor of the List with the help of Arrays.asList() method
+3)Using Collections.addAll(): 
+	 Collections.addAll(list, array); 
+4)Using Java 8 Stream API
+	Array should me reference type not primitive type.
+	Arrays.stream(array).collect(Collectors.toList()); 
+5)Using Guava Lists.newArrayList(): 
+	Lists.newArrayList(array) creates a mutable ArrayList instance containing the elements of the specified array.

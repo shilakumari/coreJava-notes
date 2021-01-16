@@ -1,0 +1,36 @@
+
+Performance Considerations
+	Memory Constraints
+	Application Speed
+ 
+Aspects of how to assess and improve application performance
+	Design Time Aspects
+	Run time Aspects
+
+Java
+	The programming Language
+	The platform, the JVM
+
+Vendors of JDK & JVM
+	Oracle 
+	OpenJDK
+
+Other JVM
+	Eclipse OpenJ9
+
+
+Java Long Term Support(LTS) Versions
+Java8
+Java11
+Java17
+	
+Different JVM languages
+	Java
+	Scala
+	Groovy
+	Kotlin
+	Clojure
+	
+	
+Database Caching
+Asynchronous method calls to external systems

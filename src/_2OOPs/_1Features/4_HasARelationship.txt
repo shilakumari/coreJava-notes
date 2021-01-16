@@ -1,0 +1,80 @@
+HAS- A relationship
+It is also called composition/aggregation
+No specific keyword to implement Has-A relationship, but most of the time we depends on 'new' keyword.
+Most common used relationship
+Advantage- code re-usability
+
+Example: 
+Teacher and Student. 
+Department and teacher. 
+University and Department. 
+
+Example:
+Class Student
+{
+int id; //Student HAS- A id
+String name;
+}
+
+
+Example:
+Class Car
+{
+Engine e=new Engine();
+}
+Class Engine
+{
+//
+}
+
+Association
+Association is a relationship where all object have their own lifecycle and there is no owner. 
+Example: Teacher and Student. 
+Multiple students can associate with single teacher and single student can associate with multiple teachers 
+but there is no ownership between the objects and both have their own lifecycle. Both can create and delete independently.
+
+Aggregation
+Aggregation is a specialize form of Association where all object have their own life-cycle. 
+but there is ownership and child object can not belongs to another parent object. 
+Example: Department and teacher. 
+A single teacher can not belongs to multiple departments, but if we delete the department teacher object will not destroy. 
+We can think about "has-a" relationship.
+
+Composition
+Composition is again specialize form of Aggregation and we can call this as a "death" relationship. 
+It is a strong type of Aggregation. Child object dose not have their lifecycle and if parent object deletes all child object will also be deleted. 
+Example: House and rooms. 
+House can contain multiple rooms there is no independent life of room and any room can not belongs to two different house
+if we delete the house, room will automatically delete.
+
+Difference b/w aggregation & composition
+Aggregation
+Without existing container object, if there is a chance of existing contained object, then 
+container and contained objects are weakly associated. And this weak association is called aggregation.
+Department contains several professors. Without existing departments, there may be a chance of existing professor objects.
+ Hence departments and professor objects are weakly associated.And this weak association is called aggregation.
+
+Composition
+Without existing container object, if there is no chance of existing contained object, 
+then container and contained objects are strongly associated. And this strong association is called composition.
+Example: University contains several departments. 
+Without existing university, there is no chance of existing the department. So university and departments are strongly associated.
+And this strong association is called composition.
+
+Conclusions:
+In composition, objects are strongly associated where as in aggregation , objects are weakly associated.
+In composition, container object holds directly the contained objects where as in aggregation, 
+	container object holds just references of the contained objects.
+
+
+IS-A vs Has-A
+If we want total functionality of a class automatically then we should go for IS-A relationship.
+If we want partial functionality of a class automatically then we should go for Has-A relationship.
+
+
+Method signature
+In Java, method signature consists of method name followed by argument/parameter types.
+Return type is not part of method signature in Java.
+
+Compiler will use method signature, to resolve, method calls.
+	Within a class, two methods with same signature not allowed.

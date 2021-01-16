@@ -1,0 +1,21 @@
+1. What is java?
+2. How many reserved words in java?how many types of reserved word?
+3. Difference between keywords and reserved literals.(reserved literals - true, false, null)
+4. Distinguish between used keywords and unused keyword.(unused keyword - goto, const)
+5. In which version introduced strictfp, assert, enum?(strictfp-1.2v, assert-1.4v, enum-1.5v)
+6. What is Identifier?
+7. Define literals.
+9. Without writing main() method, is it possible to print some statements to the console?
+10. Advantages of java.(Maintainability, readability)
+
+1. how many types of data-type?(2- primitive, non-primitive)
+2. Range of char data-type(0 to 65535)
+3. Difference between float and double.
+4. What is the use of boolean data-type?(To represent logical result value)
+5. Define literals.
+6. How many ways are possible to specify literal value for integral data types?
+7. How many escape characters?
+8. Define Identifier?
+9. How many characters allowed in identifier?
+10. How many types of comment  supported in java?
+

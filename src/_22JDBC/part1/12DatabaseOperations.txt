@@ -1,0 +1,127 @@
+How To Read Dynamic Input From Key Board?  
+Scanner is specially designed Class to read Dynamic Input from the Keyboard. 
+Scanner Class introduced in Java 1.5V. Scanner Class present in java.util Package. 
+1) import java.util.*;   
+2) class Test   
+3) {   
+4)     public static void main(String[] args)    
+5)     {   
+6)         Scanner sc = new Scanner(System.in);    
+  		   System.out.println("Enter Employee Number:");   
+8)         int eno=sc.nextInt();   
+9)         System.out.println("Enter Employee Name:");   
+10)         String ename=sc.next();   
+11)         System.out.println("Enter Employee Salary:");   
+12)         double esal=sc.nextDouble();   
+13)         System.out.println("Enter Employee Address:");   
+14)         String eaddr=sc.next();   
+15)         System.out.println(eno+"\t"+ename+"\t"+esal+"\t"+eaddr);   
+16)     }   
+17) }
+
+
+Application-1: How to Create a Table 
+Example: CreateTable.java   
+ 
+Application-2: How To Delete A Table 
+Example: DeleteTable.java
+
+Formatting SQL Queries With Dynamic Input 
+	String sqlQuery="insert into employees values(100,'durga',1000,'Hyd')"; 
+If Data is available in the following Variables  eno, ename, esal, eaddr 
+	String sqlQuery="insert into employees values("+eno+",'"+ename+"',"+esal+",'"+eaddr+"')"; 
+It is highly recommended to use String Class format() Method while writing SQL Queries with Dynamic Input. 
+	String sqlQuery = String.format("insert into employees values (%d,'%s',%f,'%s')", eno,ename,esal,eaddr); 
+
+
+Database Operations: Insert Operation 
+Use Cases Of Insert Operation: 
+1. Adding new Train Information in the IRCTC Database. 
+2. Adding new Movie Information in BookMyShow Database. 
+3. Adding new Book Information in Amazon Database. 
+4. Adding a new Customer.  
+Application-3: How to Insert a Record into Table 
+Example: InsertSingleRow.java
+
+Note: 
+	From SQL Plus Command Prompt, if we are performing any Database Operations then compulsory we should perform Commit Operation 
+		explicitly because Auto Commit Mode is not enabled. 
+	From JDBC Application if we perform any Database Operations then the Results will be committed automatically and 
+		we are not required to Commit explicitly, because in JDBC Auto Commit is enabled by default.	
+Application-4: How to Insert Multiple Records into Table 
+Example: InsertMultipleRow.java
+
+Database Operations: Update Operation   
+Use Cases of Update Operation: 
+	1. Update Train Information According To New Schedule 
+	2. Update/Change Price Of Book In Amazon Database. 
+	3. Update Bonus For All Employees Whose Salary Less Than 5000  
+Application-5: How to Update a Record in the Table 
+Example: UpdateSingleRowDemo.java
+
+Application-6: How to Update Multiple Records in the Table 
+Example: UpdateMultipleRows.java
+
+Database Operations: Delete Operation   
+Use Cases of Delete Operation:  
+	1. Terminate all Employees whose Salary greater than 7 Lakhs. 
+	2. Delete out-dated Book Information from Amazon Database. 
+	3. Delete Old Movie Information from BookMyShow Database. 
+Application-7: How to Delete a Record from the Table 
+Example: DeleteSingleRow.java
+
+Application-8: How to Delete multiple Records from the Table
+Example: DeleteMultipleRows.java
+
+
+Database Operations: Select Operation   
+Use Cases Of Select Operation:  
+	1. Display all Trains Information from HYD to Mumbai 
+	2. Display all Book Names written by Greene 
+	3. Display all Movies Names in HYD City 
+ 
+Application-9: How to Select all Rows from the Table 
+Example: SelectAllRows.java
+
+Application-10: How to Select all Rows from the Table based on sorting Order of the Salaries 
+Example: SelectAllRowsSorting.java
+Note: For Ascending Order Query Is : select * from employees order by esal ASC; 
+
+
+Selecting particular Columns from the Database: 
+While retrieving Data from Database, we have to consider Order of Columns in the ResultSet but not in the Database Table. 
+Database Table Columns Order and ResultSet Columns Order need not be same. We have to give Importance only for ResultSet Columns Order. 
+Eg-1: select * from employees; 
+In this case Database Table contains 4 Columns and ResultSet also contains 4 Columns and Order is also same. 
+DB:(eno,ename,esal,eaddr) RS:(eno,ename,esal,eaddr) 
+	while(rs.next()) {    
+		SOP(rs.getInt(1)+"..."+rs.getString(2)+"..."+rs.getDouble(3)+".."+rs.getString(4)); 
+	} 
+Eg-2: select esal, eno, eaddr, ename from employees;
+In this case Database Table contains 4 Columns and ResultSet also contains 4 Columns, but Order is not same.  
+	DB:(eno,ename,esal,eaddr) RS:(esal,eno,eaddr,ename)  
+We have to write the Code w.r.t ResultSet. 
+	while(rs.next()) {    
+		SOP(rs.getDouble(1)+"..."+rs.getInt(2)+"..."+rs.getString(3)+".."+rs.getString(4)); 
+	} 
+Eg-3: select ename,eaddr from employees; 
+In this case Database Table contains 4 Columns, but ResultSet contains 2 Columns. 
+	DB:(eno,ename,esal,eaddr) RS:(ename,eaddr) 
+	while(rs.next()) {    
+		SOP(rs.getString(1)+"..."+rs.getString(2)); 
+	} 
+
+
+Application-11: How to Select particular Columns from the Table 
+Example: SelectParticularColumns.java
+
+Application-12: How to Select Range of Records based on Address 
+Example: SelectRangeOfRecords.java
+
+Application-13: How to Select Range of Records based on Salaries 
+Example: SelectRangeOfRecords2.java
+
+Application-14: How to Select Range of Records based on Initial Characters of the Employee Name 
+Example: SelectRangeOfRecords3.java
+
+

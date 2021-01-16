@@ -1,0 +1,95 @@
+Interface
+
+Example:
+JDBC API acts as requirement specification to develop database driver.
+Sun people are responsible to develop JDBC API.
+Database vendors(MySQL or Oracle) are responsible to implement this JDBC API.
+
+Example:
+Servlet API acts as requirement specification to develop web server.
+Web server vendors are responsible to implement Servlet API.
+
+Any service requirement specification (SRS) is considered as interface.	
+Any contracts b/w client & service provider is considered as an interface.
+From client point of view, an interface defines the set of services, what he is expecting.
+From service provider point of view, an interface defines the set of services, what he is offering.
+
+Example:
+Through bank ATM GUI screen, bank people are highlighting the set of services, what they are offering. 
+At the same time, same GUI screen represents the set of services, what customer is expecting. 
+Hence this GUI screen acts as contract b/w customer and bank people.
+
+Interface declaration & implementation
+Whenever we are implementing an interface, for each and every method of that interface, 
+    we have to provide implementation. Otherwise we have to declare class as abstract. 
+	Then next level child class is responsible to provide implementation.
+Every interface method is always public, whether we are declaring or not. 
+	Hence whenever we are implementing an interface method, compulsory we should declare as public. 
+	Otherwise we will get CTE.
+
+Interface MyInterface
+{
+void m1();
+void m2();
+}
+
+abstract class ServiceProvider implements MyInterface
+{
+public void m1()
+{
+}
+}
+class SubServiceProvider extends ServiceProvider
+{
+public void m2()
+{
+}
+}
+
+
+Exetnds vs Implements
+A class can extends only one class at a time.
+class A extends B
+{}
+A class can can implements any number of interface simultaneously.
+Class A implements M,N,O  
+{}
+A class can extends another class and can implements any number of interface simultaneously.
+Class A extends B implements M,N,O  
+{}
+
+An interface can extends any number of interface simultaneously.
+interface M extends N,O
+{}
+
+True/ False (Valid/invalid)
+A class can extends any number of classes at a time.//invalid
+A class can implements only one interface at a time.//invalid
+An interface can extends only one interface at a time.//invalid
+An interface can implements any number of interfaces simultaneously.//invalid
+A class can extends another class or can implements an interface but both not simultaneously.//invalid
+None of the above.//valid
+
+X extends Y
+1: Both X and Y should be classes//invalid
+2: Both X and Y should be interfaces//invalid
+3: Both X and Y can be either classes or interfaces//valid
+4: No restriction.//invalid
+
+X extends Y,Z
+X,Y & Z should be interfaces
+
+X implements Y,Z
+X-class
+Y,Z-interface
+
+X extends Y implements Z
+X,Y-class
+Z-interface
+
+X implements Y extends Z
+CTE, because we have to take extends first followed by interface.
+
+
+To reduce the complexity and simplify the language, multiple inheritance is not supported in java.
+	Diamond Problem

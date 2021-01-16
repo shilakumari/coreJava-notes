@@ -1,0 +1,102 @@
+Flow Control
+	At runtime, in which order statement will be executed, is decided by flow control.
+	Flow control describes the order in which the statement will be executed at runtime.
+
+Selection Statement
+	If, else, switch, ?:
+Iterative statement
+	For, while, do-while, for, for each(since 1.5v)
+Transfer statement or jump statement
+	Break, continue, return, 
+	try, catch, finally, 
+	assert (since 1.4 v)
+Among several options, only one statement will be selected and will be executed , is selection statement.
+A group of statement will be executed iteratively, is called iterative statement.
+
+
+
+Selection Statement
+If-else
+The argument to the if statement should be Boolean type. By mistake if we are trying to provide any other type then we will get CTE.
+Example 1
+int x=0;
+if(x){ //CTE, incompatible type, found:int, required:boolean
+SOP(“hello”);
+}else
+{SOP(“hi”);
+}
+
+Example 2
+int x=10;
+if(x=20){ //CTE, incompatible type, found:int, required:boolean
+SOP(“hello”);
+}else
+{SOP(“hi”);
+}
+
+Example 3
+int x=10;
+if(x==20){ //NO CTE
+SOP(“hello”);
+}else{
+SOP(“hi”);
+}
+Output:
+	hi
+
+Example 4
+Boolean b=true;
+If(b=false){
+SOP(“hello”);
+}else{
+SOP(“hi”);
+}
+Output:
+	Hi
+	
+Example 5
+Boolean b=false;
+If(b==false){
+SOP(“hello”);
+}else{
+SOP(“hi”);
+}
+Output:
+	Hello 
+
+Example 6
+If(true)
+SOP(“hello”);
+Output:
+ hello
+
+Example 7
+Semicolon is a valid java statement.	
+If(true);
+Output:
+
+Example 8
+If(true);
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Output:
+
+Example 9
+If(true)
+int x=10;//CTE
+
+Example 10
+If(true){
+int x=10;//no CTE
+}
+Semicolon is an valid Java statement, which is also known as empty statement. Else part and curly braces are optional.
+Without curly braces, only one statement is allowed under if, which should not be declarative statement. 
+Because if would declare variable then there is no possibility to use of that variable further.
+
+Example 11
+Java compiler is very strong. Unlike other old languages, there is no dangling problem in java. 
+Every else is mapped to the nearest if statement in the same block.
+if(true)
+	if(true)
+		SOP(“hello”);
+else
+            SOP(“hi”);

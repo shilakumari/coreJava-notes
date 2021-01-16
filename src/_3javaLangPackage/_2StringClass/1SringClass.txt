@@ -1,0 +1,272 @@
+String class
+If you don't know String concept then don't go for SCJP or interview.
+
+Don't save page for writing notes otherwise:
+CTE: Found:old page
+Required:new page
+
+Point 1: 
+Once we create a String object, we cannot perform any changes in the existing object. 
+	If we are trying to perform any change, then with those changes a new object will be created. 
+	This non-changeable behavior is nothing but immutability of String object.
+
+Once we create a StringBuffer object, we can perform any change in the existing object.
+	This changeable behavior is nothing but mutability of StringBuffer object.
+
+		StringBuffer sb = new StringBuffer("rahul");
+		sb.append("software");
+		System.out.println(sb);// rahulsoftware
+
+		String s1 = new String("rahul");
+		s1.concat("software");
+		System.out.println(s1);// rahul
+
+		String s2 = new String("rahul");
+		s2 = s2.concat("software");
+		System.out.println(s2);// rahulsoftware
+
+Point 2:
+In String class equals() method is overridden for content comparison. 
+Even though objects are different , content is same, equals() method return true.
+In StringBuffer class equals() method is not overridden for content comparison. 
+	Hence objects class equals() method got executed, which is meant for reference comparison(address comparison). 
+	Due to this if objects are different equals() method return false even-though content is same.
+
+String s1=new String("rahul");
+String s2=new String("rahul");
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//true
+
+StringBuffer s1=new StringBuffer("rahul");
+StringBuffer s2=new StringBuffer("rahul");
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//false
+
+Point 3:
+String s=new String("rahul");
+In this case, two objects will be created, one in the heap area and the other is in SCP.
+And s is always pointing to heap Object.
+
+String s="rahul":
+In this case, only one object will be created in SCP and s is always pointing to that object.
+
+Note: 
+Object creation in SCP is  optional. 
+	First it will check, is there any object ALREADY PRESENT IN SCP, with required content.  
+	If object already present then existing object will be reused. 
+	If object not already available then only a new object will be created. 
+	But this rule is applicable only for SCP but not for heap.
+Garbage collector is not allowed to access in SCP area. 
+	Hence even though object does not contain reference variable, 
+	it is not eligible for garbage collector, if it is present in SCP area.
+All SCP objects will be destroyed automatically at the time of JVM shutdown.
+	Scheduled restart are required due to this.
+
+String s1=new String("rahul");
+String s2=new String("rahul");
+String s3="rahul";
+String s4="rahul
+Heap objects:2
+SCP objects:1
+
+Whenever we are using new opearator, compulsory a new object will be created in heap area 
+	hence there may be a chance if existing two objects with same content in heap area but not in SCP . 
+	That is duplicates objects are possible in heap area but not in SCP.
+
+		String s11 = new String("rahul");
+		s11.concat("software");
+		String s12 = s11.concat("solutions");
+		s11 = s11.concat("soft");
+		String s13 = "rahul";
+		String s14 = "rahul";
+		System.out.println(s11);
+		System.out.println(s12);
+		Heap objects:4
+		SCP objects: 4
+	
+Note:
+For every String constant/literal, one object will be placed in SCP area.
+Because of some run time operation, if an object is require to create, 
+	that object will be placed only on heap area but not in SCP area.
+
+SCP
+	""
+	No duplicate String
+	No GC(GC is not responsible to destroy object those are in SCP)
+	JVM shut down(object destroy at the time of JVM shutdown)
+	Compile time constant	
+
+		String s31 = new String("spring");
+		s31.concat("summer");
+		String s32 = s31.concat("winter");
+		s31 = s32.concat("fall");
+		System.out.println(s31);// springwinterfall
+		System.out.println(s32);// springwinter
+		Total objects:8
+		SCP objects:4
+
+		"dfg"+"gfhgf"//in SCP or heap? Perhaps SCP
+
+Because of runtime operation: (Whether the object present in heap or SCP, the following rule is same.)
+	if there is a change in the content then with those changes a new object will be created on the heap. 	
+	If there is  no change in the content then existing object will be reused. And new object will not be created. 
+				
+		String s1="rahul";
+		String s2=s1.toUpperCase();
+		String s3=s1.toLowerCase();//no new object will be created 
+		String s4=s2.toLowerCase();//new object will be created
+		String s5=s4.toLowerCase();//no new object will be created
+		SOP(s1==s2);//false
+		SOP(s1.equals(s2));//false
+
+
+		String s1="rahul";
+		String s2=s1.toString();
+		SOP(s1==s2);//true
+		String s3=s1.toLowerCase();
+		String s4=s1.toUpperCase();
+		String s5=s4.toLowerCase();
+		
+
+If everything is CT(compile time) constant then everything will be perform at CT.
+SOP(20+30);At compile timeSOP(50);
+
+		String s1=new String("You cannot change me!");
+		String s2=new String("You cannot change me!");
+		System.out.println(s1==s2);//false
+		
+		String s3="You cannot change me!";		
+		System.out.println(s1==s3);//false
+		String s4="You cannot change me!";
+		System.out.println(s4==s3);//true
+		
+		String s5="You cannot"+ " change me!";// this operation will be performed at CT only because both arguments are CT constants
+		System.out.println(s5==s3);//true
+		String s6="You cannot";
+		System.out.println(s6==s3);//false
+		String s7=s6+ " change me!";// this operation will be performed at RT only because at least one argument is normal varibale
+		System.out.println(s7==s3);//false
+		
+		final String s8="You cannot";
+		System.out.println(s8==s3);//false
+		String s9=s8+ " change me!";//// this operation will be performed at CT only because both arguments are CT constants
+		System.out.println(s9==s3);//true
+		System.out.println(s6==s8);//true
+
+
+Interning of String objects
+We can use intern() method to get corresponding SCP object reference by using heap object reference.
+		Or
+By using heap object reference if we want to get corresponding SCP object reference then we should go for intern() method.
+		String s1=new String("Abhi");
+		String s20=s1;		
+		String s21=s1.intern();
+		System.out.println(s1==s20);//true
+		System.out.println(s1==s21);//false
+		String s3="Abhi";
+		System.out.println(s3==s21);//true
+
+
+If the corresponding object is not available in the SCP, then intern() method will create the corresponding SCP object.
+		String s1=new String("Abhi");
+		String s2=s1.concat("Software2");
+		String s3=s2.intern();
+		System.out.println(s2==s3);//true, how?????????????
+		String s4="AbhiSoftware2";
+		System.out.println(s3==s4);//true		
+	
+		
+It follows that for any two strings s & t,
+      s.intern() == t.intern() is true, if and only if  s.equals(t) is true.		
+
+
+Importance of StringConstantPool
+In java most commonly used object is String object.
+Daily Customer in bar special discount
+In voter registration form -> city a crore voter will use same object for city delhi
+
+In our program 
+	if a String object is repeatedly required then it is not recommended to create separate object for every requirement because
+	it creates performance & memory problem.
+Instead of creating a separate object for every requirement we have to create only one object & we can reuse the same object for
+	every requirement so that performance & memory utilization will be improved.
+	This thing is possible because of SCP.
+Hence the main advantages of SCP are:
+Performance improve
+Memory utilization
+
+But the main problem with SCP is, as several references pointing to the same object, 
+	by using one reference if we are trying to change the content then remaining reference will be affected.
+To overcome this problem SUN people implemented String object as immutable.
+That is once we create a String object, we cann't perform any changes in the existing object. 
+	If we are trying to perform any changes, with those changes, a new object will be created.
+Hence SCP is the only reason for the immutability of String object.
+
+
+FAQs
+Q) What is difference b/w String & StringBuffer
+Q)Explain about immutability & mutability with an example.
+Q)What is the difference b/w 
+	String s=new String("Abhi"); and
+	String s="Abhi";
+	Other than immutability & mutability is any other difference b/w String & StringBuffer.
+Q)What is SCP?
+	Specially designed memory area for String objects.
+Q)What is the advantage of SCP?
+	Memory utilization
+	Performance improve
+Q)What is the disadvantage of SCP?
+	SCP is the only reason for Immutable String.
+	We are unable to perform any changes on the Object those are created inside SCP.
+	If we are trying to perform any changes on existing object then a new object will be created.
+Q)Why SCP like concept  is available only for String but not for StringBuffer?
+	String is the most commonly used object & hence SUN people provided special memory management for String objects. 
+	But StringBuffer is not commonly used object & hence special memory management is not required for StringBuffer.
+Q)Why String objects are immutable where as StringBuffer objects are mutable.
+	In the case of String, because of SCP a single object can be referenced by multiple references.
+	By using one reference if we are allowed to change the content in the existing object 
+		then remaining references will be affected. 
+		To overcome this problem SUN people implemented String object as immutable. 
+		According to this, once we creates a String object we cann't perform any changes in the existing object, 
+		if we are trying to perform any changes with those changes a new object will be created.
+	But in String buffer there is no concept like SCP. 
+		Hence for every requirement a separate object will be created. 
+		By using one reference if we are trying to change the content then there is no affect on remaining references. 
+		Hence immutability concept is not required for StringBuffer.
+
+Q)Is, in addition to String objects any other objects are immutable in Java?
+	Yes, all wrapper class objects. 
+Q)Is it possible to create our own immutable class?
+	Yes
+Q)How to create our own immutable class? Exlain with an example.
+Q)Immutable means non-changeable where as final means also non-changeable. 
+  Then what is the difference b/w final & immutable.
+	In addition to String objects all wrapper class objects are also immutable.
+
+
+Summary
+SCP
+	""
+	No duplicate String
+	No GC(GC is not responsible to destroy object those are in SCP)
+	JVM shut down(object destroy at the time of JVM shutdown)
+	Compile time constant
+Because of some run time operation, if an object is require to create, 
+	that object will be placed only on heap area but not in SCP area.
+If everything is CT(compile time) constant then everything will be perform at CT.
+		String s0 = "You cannot";
+		String s = s0 + " change me!";// this operation will be performed at RT only because at least one argument is normal varibale
+		String s22 = "You cannot change me!";
+		System.out.println(s.hashCode());//1201201320
+		System.out.println(s22.hashCode());//1201201320
+		System.out.println(s==s22);//false
+		s = "You cannot"+ " change me!";
+		System.out.println(s==s22);//true
+Interning of String objects
+	We can use intern() method to get corresponding SCP object reference by using heap object reference.
+	If the corresponding object is not available in the SCP, then intern() method will create the corresponding SCP object.
+	s.intern() == t.intern() is true, if and only if  s.equals(t) is true.
+	Performance improve
+	Memory utilization
+	SCP is the only reason for the immutability of String object.
+In addition to String objects all wrapper class objects are also immutable 

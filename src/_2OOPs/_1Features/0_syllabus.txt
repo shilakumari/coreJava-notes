@@ -1,0 +1,65 @@
+OOPs
+	Diff b/w oop & oops
+		OOP=ObjectOrientedProgramming
+		OOPS = Object Oriented Programming System
+	Class & Object
+	Data Hiding
+	Abstraction
+	Encapsulation, Tightly Encapsulated class
+	Coupling
+	Cohesion
+	IS-A relationship/INHERITANCE
+	HAS-A relationship
+	Method signature
+	Method Overloading or compile time polymorphism or early binding or static binding
+		Within same class
+		Diff classes but in same class hierarchy
+	Method Overriding or run time polymorphism
+	Static control flow
+	Instance control flow
+	Constructors
+	Type-casting
+
+Relationship
+	IS-A relationship
+	Has-A relationship
+	
+Parent reference can be used to hold child object. But using that reference, we can not call child specific methods. 
+
+Message Passing
+3 pillars of oops
+Advantage of OOPs
+
+Class
+	Members
+		Fields
+		Methods
+	Static members
+	non-static members
+	static vs non-static members
+	Type of Variables
+
+Type-casting
+	Primitive type casting
+	Object type casting
+
+Ways of creating Objects in Java
+Design Pattern
+	Singleton Class
+	
+Abstract class 
+Abstract keyword
+Abstract and concrete method
+Abstract Class
+	Cannot create object
+	0 or more abstract method
+Constructor, static & non static blocks may be present, Main() method in abstract class
+Used using inheritance 
+	Until complete implementation all child classes will be abstract.
+Partial implementation
+O to 100 % Abstraction achieved
+Polymorphism achieved
+Advantage
+Disadvantage
+When we used abstract class?
+	

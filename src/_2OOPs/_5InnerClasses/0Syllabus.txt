@@ -1,0 +1,116 @@
+Inner classes
+
+History
+	Inner classes concept introduced in 1.1V to fix GUI bugs as the part of event handling 
+
+Inner classes
+Without existing one type of object, if there is no chance of existing, another type of object 
+	then we should go for inner classes.
+The relation between outer class & inner class is not IS-A relation 
+	& it is HAS-A relationship (composition or aggregation).
+
+
+Based on position of declaration & behavior all inner classes are divided into following 4 categories:
+1: Normal or regular inner classes
+2: Method local inner classes
+3: Anonymous inner classes
+4: static nested classes
+
+Normal or regulr inner class Non-static class
+	public,<Default>,final,abstract,strictfp,	private,protected,static
+	Outer o=new Outer(); 
+		Outer.Inner  oi=o.new Inner();
+		oi.m1();
+	Inside normal or regular inner class we cannot declare any static members. 
+	From normal or regular inner class, we can access both static & non-static members of outer class directly. 
+	Inside inner class, we can declare another inner class, that is nesting of inner classes is possible.
+	Within the inner class, this always refers, current inner class object. 
+		If we want to refer current outer class object, we have to use outer_class_name.this(for both static & non-static).
+		
+Static nested class
+	In normal or regular inner classes, we cannot declare any static members. 
+		But in static nested classes, we can declare static members including main() method. 
+		Hence we can invoke static nested class directly from command prompt.
+	We can access static members of outer class directly and we cannot access non-static members.
+
+	In the case of normal or regular inner class, without existing outer class object, 
+		there is no chance of existing inner class object. 
+		That is, inner class object is strongly associated with outer class object. 
+	But in the case of static nested classes, without existing outer class object 
+		there may be a chance of existing nested class object. 
+		Hence static nested class object is not strongly associated with outer class object. 
+	Outer.Nested n=new Outer.Nested();
+		n.m1();
+		
+Local method non-static inner class
+	The main purpose of method local inner class is to define, method specific repeatedely functionality.
+	Method local inner classes are best suitable to meet, nested method requirement.
+	We can access method local inner classes, only within the method where we declared.Outside of the method, we cannot access. 
+		Because of its less scope method local inner classes are most rarely used type of inner classes.
+	
+	We can declare method local inner class, inside both instance & static method.
+	If we declare inner class, inside instance method, then from that method local inner class, 
+		we can acces both static & non-static members of outer class directly.
+	If we declare inner class, inside static method, then from that method local inner class, 
+		we can acces static members of outer class directly but not, non- static member of outer class.
+	We cannot declare static members inside method local inner classes.
+	The only applicable modifier for method local inner classes are strictfp, final, and abstract 
+	
+	From method local inner class, we cannot access, local variables of the method in which we declared inner class. 
+		But if the local variable declared as final or effectively  final, then we can access.
+		
+	Every final variable will be replaced by value at compile time.
+	From method local inner class, we cannot access non-final and non-effectively final local variable of the method in which it is declared because  
+	after completing method(here m1()), local variable will be gone. But object is there on heap. 
+	On the object if anyone called directly inner class method (here m2()) and within that method if we access that local variable, 
+	that has been gone (because local variable stored in stack memory).
+	But if we declare local variable as a final or effectively final, then there is no problem of accessing that. 
+	Because final variable will be replaced by value at the compile time value.
+	
+Anonymous
+If the requirement is temporary & required only once (instant use) then we should go for anonymous inner class..
+Type
+	Anonymous inner class that extends a class
+		Normal class
+		Abstract class
+	Anonymous inner class that implements an interface
+	Anonymous inner class that define inside method arguments
+
+Normal java class vs anonymous inner class
+A normal java class and anonymous inner class, both, can extends only one class at a time.
+A normal java class can implement any number of interfaces but anonymous inner class can implements only one interface.
+A normal java class can extends a class and can implements any number of interfaces simultaneously 
+	but anonymous inner class  either can extends a class or implements a interface but not both simultaneously.
+In normal java class, we can write any number of constructors but in anonymous inner classes we cannot write any constructor explicitly 
+	(because the name of the class & name of the constructor must be same but anonymous inner classes not having any name).
+
+Q)Can we declare variable inside anonymous class?. Yes we can.
+new Thread(){
+			int x=10;
+			public void run(){
+				System.out.println("hiii"+x);
+			}
+		}.start();
+
+Normal java class vs anonymous inner class????????
+	Cannot write contructor????????????
+	Cannot implements more than one interface
+	Cannot extends and implements simultaneously
+	Q)Can we declare variable inside anonymous class???????????//Doubt
+	//???? final effective final local variable concept
+Anonymous Array and anonymous inner class????????
+
+
+Various combinations of nested classes & interfaces
+Every interface , present inide interface is always public and static whether we are declaring or not.
+	Hence we can implements inner interface directly without implementing outer interface.
+	Similarly whenever we are implementing outer interface, we are not required to implement inner interface. 
+	That is we can implement outer and inner interfaces independently.
+The Class which is declared inside an interface, is always public and static, whether we are declaring or not.
+	Hence we can create, class Object directly without having outer interface type object.
+We can also define a class inside interface, to provide implementation for that interface.
+The interface which is declared inside a class is always static but need not be public.
+Among classes and interfaces, we can declare anything inside anything.
+
+
+

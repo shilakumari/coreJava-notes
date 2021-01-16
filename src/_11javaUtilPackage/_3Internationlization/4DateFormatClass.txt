@@ -1,0 +1,48 @@
+DateFormat	
+Various location follows various styles to represent date.
+Example:
+IN : DD:MM:YYYY
+US: MM:DD:YYYY
+
+We can use DateFormat to format java date according to a particular locale.
+Abstract class DateFormat present in java.text package.
+
+Getting DateFormat object for default locale
+public static DateFormat getInstance()
+public static DateFormat getDateInstance()
+public static DateFormat getDateInstance(int style)
+
+Style
+DateFormat.FULL -> 0 -> wednesday 10th September 2014
+DateFormat.LONG -> 1 -> 10th September 2014
+DateFormat.MEDIUM -> 2 -> 10th Sep 2014
+DateFormat.SHORT -> 3 -> 10|09|14
+
+The default style is medium.
+
+Getting DateFormat object for specific locale
+public static DateFormat getDateInstance(int style, Locale l)
+
+
+
+Once we get DateFormat object, we can call the following method on that object:
+Public String format(Date d)
+	To convert java Date form to locale specific String form
+Public Date format(String s) throws ParseException
+	To convert locale specific String form form to java Date form
+
+DateFormat dateFormat= DateFormat.getDateInstance(0,Locale.US);
+dateFormat.format(new Date());
+
+
+
+
+
+Getting DateFormat object to display both date & time
+DateFormat class defines the following method:
+public static DateFormat getDateTimeInstance()
+public static DateFormat getDateTimeInstance (int dateStyle, int timeStyle)
+public static DateFormat getDateTimeInstance (int dateStyle, int timeStyle, Locale l)
+
+DateFormat dateFormat= DateFormat.getDateInstance(0,0,Locale.US);
+dateFormat.format(new Date());//Wednesday, September 10, 2014 9:38:55 PM IST

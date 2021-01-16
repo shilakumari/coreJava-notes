@@ -1,0 +1,119 @@
+OOPs concepts
+	Class & Object
+	Data Hiding:
+		Outside person cann't access our internal data. After validation or authentication,could be able to access.
+		Achieve data hiding: Declare data member as private.
+	Abstraction
+		Showing essential details and hiding non-essential details.
+	Encapsulation, Tightly Encapsulated class
+		Wrapping  data and corresponding methods into a single unit is called encapsulation. (Data hiding + Abstraction)
+	Coupling
+		The degree of dependency between the components.
+	Cohesion
+		For every component a clear well defined functionality is defined.
+	Relationship
+		IS-A relationship/INHERITANCE
+			Using "extends" keyword.
+		HAS-A relationship
+			Using "new" keyword.
+	Inheritance (Multiple inheritance doesn't support)
+	
+	Method signature
+		Consists of method name followed by parameter types.
+	Method Overloading / compile time polymorphism / early binding / static binding
+		Within same class. Diff classes but in same class hierarchy.
+		While resolving overloaded methods compiler will always gives a precedence in the following order:
+			Widening>Autoboxing>Var-arg
+				int -->AB-->Integer--> Widening -> Object
+				AB--> W
+	Method Overriding / run time polymorphism
+	
+	Association
+		A relationship where all object have their own life-cycle and there is no owner.(Example: Teacher and Student)
+	Aggregation
+		Specialize form of Association,object has own life-cycle,there's ownership(child cann't belongs to another parent). 
+		(Example: Department and teacher) 
+	Composition
+		Specialize form of Aggregation and we can call this as a "death" relationship.(Example: House and rooms)
+	
+	Static control flow
+		One time activity. It occur at the time of class-loading.
+			Identification of static members from top to bottom > Execution from top to bottom > Execution of main()
+	Instance control flow
+		It occur each time when object created.
+			first static control flow > Identification of instance members from top to bottom > Execution from top to bottom
+				> Execution of constructor
+	Constructors
+	Type-casting
+		Primitive type casting
+		Object type casting
+			A  b=  (C) d;//Compile-time check:C<>=d,C<=A, Run-time check:C>=_d
+
+	Ways to create object in Java
+		1) new keyword
+		2) Using newInstance() method of java.lang.Class
+			Only no-arg Constructor will be called
+			Class.forName("pack1.Student").newInstance();
+		3)Using newInstance() method of java.lang.reflect.Constructor
+			Any Constructor can be called
+			Always wraps the thrown exception with an InvocationTargetException (Spring, Struts, Hibernate uses this approach)
+			Student.class.getConstructor().newInstance();
+		4)Object Cloning
+			Constructor will not be called
+			st.clone();
+			Implements Cloneable interface
+		5)De-serialization of Object
+			Constructor will not be called
+			Implements Serializable interface
+			FileInputStream fis=new FIS(“abc.txt”);
+    		ObjectInputStream ois=new OIS(fis);
+    		Dog d=(Dog)ois.readObject();
+
+	Way of class-loading
+		1)Class.forName("pack1.Student");
+		2)Student.class
+	
+
+Declaration & Access Modifiers	
+	import statements
+		Implicit import
+		Explicit import//Recommended way
+		static import(1.5v): we can access static members directly without class-name.
+	Modifiers
+		Class level modifiers
+			5 Outer-class level (public, <default>, final, abstract, strictfp)
+			8 Inner-class level ( 5 Outer-class level + protected, private, static )
+		Member level modifiers
+			Abstract, final, 
+	
+	
+	
+	5memberLevelModifiers.txt
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+Parent reference can be used to hold child object. But using that reference, we can not call child specific methods. 
+
+
+Design Pattern
+	Singleton Class
+	
+Abstract class 
+Abstract keyword
+Abstract and concrete method
+Abstract Class
+	Cannot create object
+	0 or more abstract method
+Constructor, static & non static blocks may be present, Main() method in abstract class
+Used using inheritance 
+	Until complete implementation all child classes will be abstract.
+Partial implementation
+
+When we used abstract class?

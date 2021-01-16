@@ -1,0 +1,21 @@
+Elements of Java
+1)Reserved Words
+	Keyword
+	Literals
+2)Identifiers
+	Rules
+	conventions
+3)Data types
+	Primitive
+	Non-primitive
+4)Literals
+5)Operator & Seperators
+	Operator in java is a symbol that is used to perform operations. For example: +, -, *, / etc.
+	Separators help define the structure of a program.
+6)Syntax
+7)Comment
+	1. Single line comment(//)
+	2. Multi-line comment(/*   */)
+	3. Documentation comment(/**     */)
+
+	

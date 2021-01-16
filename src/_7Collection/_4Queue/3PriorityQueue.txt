@@ -1,0 +1,48 @@
+PriorityQueue
+	If we want to represent a group of individual objects prior to processing according to some priority, 
+		then we should go for priority queue.
+	The priority can be either default natural sorting order or customized sorting order defined by comparator.
+	
+	Insertion Order is not preserved & it is based on some priority.
+	Duplicate objects are not allowed.
+	Null insertion is not possible even as a 1st element.
+	
+If we are depending on default natural sorting order then compulsory object should be homogeneous & comparable otherwise 
+	we will get RTE saying ClassCastException.
+If we are defining our own sorting order by comparator then object need not be homogeneous & comparable.
+
+Constructor of PriorityQueue
+PriorityQueue q = new PriorityQueue();
+	11, DNSO
+PriorityQueue q = new PriorityQueue(int initialCapacity);
+PriorityQueue q = new PriorityQueue(int initialCapacity, Comparator c);
+PriorityQueue q = new PriorityQueue(SortedSet s);
+PriorityQueue q = new PriorityQueue(Collections c);
+
+Example:	
+		PriorityQueue q = new PriorityQueue();
+		System.out.println(q.peek());//null
+		// System.out.println(q.element());//NoSuchElementException
+		for (int i = 1; i <= 10; i++) {
+			q.offer(i);
+		}
+		System.out.println(q);//[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		System.out.println(q.poll());//1
+		System.out.println(q);//[2, 4, 3, 8, 5, 6, 7, 10, 9]
+	
+Some platform not provide proper support for thread priorities & PriorityQueue.
+class PriorityQueueComparator implements Comparator {
+	public int compare(Object o1, Object o2) {
+		String s1 = (String) o1;
+		String s2 = o2.toString();
+		return s2.compareTo(s1);
+	}
+}
+
+		PriorityQueue q = new PriorityQueue(15, new PriorityQueueComparator());
+		q.offer("A");
+		q.offer("Z");
+		q.offer("L");
+		q.offer("B");
+		System.out.println(q);//[Z, B, L, A]
+	

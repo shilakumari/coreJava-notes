@@ -1,0 +1,338 @@
+Introduction to programming language
+History of programming language
+History of Java
+	Java is a programming language & platform also
+Features of Java
+Application area & scope of Java language
+Advantage & Disadvantage
+Comparison C, C++ and Java and other languages
+
+
+Introduction to programming language
+Computer program
+A computer program, or just a program, is a sequence of instructions, 
+  written to perform a specified task with a computer.
+
+Programmer
+A programmer, a computer programmer,a developer,a coder, or a software engineer
+    is a person who writess computer software.
+
+Programming Language
+A programming language is an artificial language designed to communicate instructions to a machine, 
+  particularly a computer.
+
+History of programming language
+	1st generation Language(Machine Language)
+		Machine Language
+	2nd generation language(Assembly Language)
+		Assembly Language
+	3rd generation language(High-level Languages)
+		C, C++, Java
+	4th generation language(Very High-level Languages)
+		SOL, CSS, coldfusion
+	5th generation language(Artificial Intelligence Language)
+		mercury, prolog, OPS5
+		
+Complexity Problem- Machine > Assembly > C > C++,Java,C#
+Debugging Problem- Machine > Assembly > C > C++,Java,C#
+Portability - Machine < Assembly < C < C++,C#Java
+Machine Dependent- Machine > Assembly > C > C++>Java
+Fast- Machine > Assembly > C > C++,Java,C#
+
+Java Technology
+Java technology is both a programming language and a platform.
+
+History of Java
+1991, Green Project in Sun-micro-system headed by James Goshling  
+Embedded System
+OAK, 1995
+Oracle
+Open source
+
+Application Areas and The Scope of Java Technology
+According to Sun, 3 billion devices run java. Some of them are as follows:
+	Desktop Applications such as acrobat reader, media player, antivirus etc.
+	Web Applications such as irctc.co.in, javatpoint.com etc.
+	Enterprise Applications such as banking applications.
+	Mobile
+	Embedded System
+	Smart Card
+	Robotics
+	Games etc.
+
+Java Features ( Java Buzzwords )
+	Architecture Neutral
+	Compile & Interpreted
+	Distributed
+	Dynamic
+	Object Oriented
+	High Performance
+	Simple
+	Strongly Typed Language (improve robustness)
+	Secure
+	Robust
+	Multi-Threaded
+	Platform Independent
+	Portable
+
+Simple
+Easy to learn, Many complex concept not present:
+	Pointer
+	Operator Overloading
+	GC for Destroying useless Object: No memory problem and less complexity
+
+Robust (Strong)
+Chance of failing is very rare.
+Strong type checking at compile time int i=10.0;
+No need to Destroy object: Garbage Collector: rarely memory problem at runtime
+Exception Handling: rare failure at runtime
+Platform Independent: so platform related issue not come
+
+Secure
+Test.java Compiler Bytecode (Test.class)JVM Machine Code
+Sandbox checking
+	Bytecode verifier 
+		Is bytecode from valid compiler or not
+		Java.lang.VerifyError
+	Security Manager
+It will not harm our computer.
+We will never get message like - Code may harm your computers.
+
+Object Oriented
+Object Oriented is a programming language model in which programs are organized around data,or objects,
+	rather than functions and logic. 
+		An object can be defined as a data field that has unique attributes and behavior.
+	The first step in OOP is to identify all of the objects, a programmer wants to manipulate and 
+		how they relate to each other, an exercise often known as data modeling. 
+	Everything is in terms of object.
+	Encapsulation(Security)
+	Inheritance(Re-usability)
+	Polymorphism(Flexibility)
+	
+Multi-Threading 
+	Advantage: multiple tasks simultaneously , performance will be improved.
+Distributed Supported
+	Analogy: Distribute sweet if we cann't eat
+	If our program distributed across several machine on network(For this RMI, EJB, CORBA etc are available).
+	Advantage: Load Balancing, Fail Over Handling, hence rarely collision occurs. 
+Compiled & Interpreted
+	Compiled advantage: No syntax error during runtime.
+High Performance
+	Compared to other interpreted programming languages like Perl, Java Script etc. Java is better in performance.
+	When performance is crucial :We use native keyword
+	Strictly speaking performance wise Java is not up to the mark compare to C, C++.
+Dynamic
+	In Java nothing will be loaded at beginning
+#include<stdio.h>: static loading
+Import java.util.*;
+Class Test
+{	Psvm()
+	{	;;;;;;;;;;;;;;;;;;;;;;;
+		;;;;;;;;;;;;;;;;;;;;;;
+		Date d=new Date();}//now Date class will be loaded
+}
+Portability
+	Analogy: Number portability during SIM change
+	Without making any change to Java Program we can run same program on different platform and get same output.
+Architecture Neutral
+	Neutral/independent to underlying architecture: 32bit/64bit/RAM/OS/Processor change
+Platform Independent
+	Write Once & Run Anywhere (WORA)
+	Byte Code/intermediate code is platform independent code.
+	JVM is platform dependent.
+	Because of Byte Code & JVM, java is platform independent.
+
+
+JDK vs JRE vs JVM
+JDK
+	Java Development kit
+	JDK provides environment to develop & run Java application.
+	JDK = JRE + Development Tools
+JRE
+	Java Runtime Environment
+	JRE provides environment to run Java application.
+	JRE = JVM + Library classes
+JVM
+	Java Virtual Machine
+	It is an interpreter.
+	It is responsible to run Java Program line by line. 
+
+Java is platform independent.
+JVM is platform dependent.
+
+Developer
+	Develop+Run
+Client
+	Run
+
+Q. Which of the following are true?
+A) Java is platform dependent but JVM is platform independent.
+B) Java is platform independent but JVM is platform dependent.
+C) Java Byte Code is platform dependent but JVM is platform independent.
+D) Java Byte Code is platform independent but JVM is platform dependent.
+Ans:: B,D
+
+Q: Which statement is true about Java Byte Code?
+A) It can run in any platform.
+B) It can run in any platform only if it was compiled for that platform.
+C) It can run in any platform that has the Java Runtime Environment (JRE).
+D) It can run in any platform that has a Java compiler.
+E) It can run in any platform only if that platform has both JRE and Java Compiler.
+Answer: C
+
+
+Q) Is it impact to compile when JDK & JRE  version different?
+Ans):Version Javac>java: Unsupported Version Error
+Version  Javac<=java: ok
+
+Advantage of Java
+	PI(Platform independent)
+	Secure 
+	Robust
+Disadvantage of Java
+	Performance	
+	Huge
+	
+Comparison C, C++ and Java and other languages
+ C language
+ 1)C follows the procedural style programming
+ 2)Data is less secured in C.
+ 3)C follows the top-down approach.
+ 4)C does not support function overloading and Operator overloading.
+ 5)In C, you can't use functions in structure.
+ 6)C does not support reference variables.
+ 7)In C, scanf() and printf() are mainly used for input/output.
+ 9)C programs are divided into procedures and modules.
+ 10)C does not provide the feature of namespace.
+ 11)Exception handling is not easy in C. It has to perform using other functions.
+ 
+ C++ language
+ 1)C++ is multi-paradigm. It supports both procedural and object oriented.
+   C++ is platform-dependent.
+ 2)In C++, you can use modifiers for class members to make it inaccessible for outside users.
+   C++ is mainly used for system programming.
+ 3)C++ follows the bottom-up approach.
+   C++ was designed for systems and applications programming. It was an extension of C programming language.
+ 4)C++ supports function overloading and Operator overloading.
+   C++ supports the goto statement and multiple inheritance.
+ 5)In C++, you can use functions in structure.
+ 6)C++ supports reference variables.
+ 7)C++ mainly uses stream cin and cout to perform input and output operations.
+   C++ supports pointers. You can write pointer program in C++.
+ 8)C++ uses compiler only. C++ is compiled and run using the compiler which converts source code into machine code so, 
+   	C++ is platform dependent.
+ 9)C++ programs are divided into functions and classes.
+   C++ supports both call by value and call by reference.
+ 10)C++ supports the feature of namespace.
+ 11)C++ provides exception handling using Try and Catch block.
+    C++ doesn't have built-in support for threads. It relies on third-party libraries for thread support.
+ 12)C++ doesn't support documentation comment.
+ 13)C++ supports virtual keyword so that we can decide whether or not override a function.
+ 14)C++ doesn't support >>> operator.
+ 15)C++ creates a new inheritance tree always.
+ 16)C++ is nearer to hardware.
+ 	C++ is an object-oriented language. However, in C language, single root hierarchy is not possible.
+ 
+ Java language
+ 1)Java is platform-independent.
+ 2)Java is mainly used for application programming. It is widely used in window, web-based, enterprise and mobile applications.
+ 3)Java was designed and created as an interpreter for printing systems but later extended as a support network computing.
+ 	It was designed with a goal of being easy to use and accessible to a broader audience.
+ 4)Java doesn't supports 
+ 		structures and unions,
+ 		operator overloading, goto statement & multiple inheritance through class(achieved by interfaces).
+ 5)Java supports pointer internally. However, you can't write the pointer program in java. 
+ 		It means java has restricted pointer support in java.
+ 6)Java uses compiler and interpreter both. Java source code is converted into bytecode at compilation time. 
+    	The interpreter executes this bytecode at runtime and produces output. 
+    	Java is interpreted that is why it is platform independent.
+ 7)Java supports call by value only. There is no call by reference in java.
+ 8)Java has built-in thread support.
+ 9)Java supports documentation comment (/** ... */) to create documentation for java source code.
+ 10)Java has no virtual keyword. 
+ 		We can override all non-static methods by default. In other words, non-static methods are virtual by default.
+ 11)Java supports unsigned right shift >>> operator that fills zero at the top for the negative numbers. 
+     	For positive numbers, it works same like >> operator.
+ 12)Java uses a single inheritance tree always because all classes are the child of Object class in java. 
+     The object class is the root of the inheritance tree in java.
+ 13)Java is not so interactive with hardware.
+ 	Java is also an object-oriented language. However, everything (except fundamental types) is an object in Java. 
+ 	 It is a single root hierarchy as everything gets derived from java.lang.Object.
+
+ 
+Java has no virtual keyword. We can override all non-static methods by default. 
+In other words, non-static methods are virtual by default.
+Java is not so interactive with hardware.
+
+Getting  Started.
+	Source code (.java save)
+	Compile_Setting the path
+	Byte-code code and Run or execute
+
+	
+SOME IMPORTANT DEFINITIONS
+OOPs
+	Object-Oriented Programming is a methodology or paradigm to design a program using classes and objects.
+	It simplifies software development and maintenance by providing some concepts:
+		Object
+		Class
+		Inheritance
+		Polymorphism
+		Abstraction
+		Encapsulation
+
+Object
+	An object contains an address and has some space in memory.
+	Objects can communicate without knowing the details of each other's data or code. 
+	The only necessary things is the type of message accepted and the type of response returned by the objects.
+		Example: Dog with different colour, name, breed etc
+				 Wagging the tail, barking, eating etc
+
+Class
+	Collection of objects is called class. It is a logical entity.
+	It is a blueprint from which we can create an individual object.
+	Class doesn't consume any space.
+
+Inheritance
+	When one object acquires all the properties and behaviors of a parent object, it is known as inheritance.
+	It provides code reusability.
+	It is used to achieve runtime polymorphism.
+
+Polymorphism
+	If one task is performed in different ways, it is known as polymorphism.
+		Example: To convince the customer differently, to draw something like shape, triangle, rectangle etc.
+				 In Java, we use method overloading and method overriding to achieve polymorphism.
+
+Abstraction
+	Hiding internal details and showing functionality is known as abstraction. 
+		Example: phone call, we don't know the internal processing.
+				 In Java, we use abstract class and interface to achieve abstraction.
+
+Encapsulation
+	Binding(or wrapping) code and data together into a single unit are known as encapsulation.
+		Example: capsule, it is wrapped with different medicines.
+	A Java class is the example of encapsulation(class -> variables+methods).
+	Java bean is the fully encapsulated class because all the data members are private here.
+
+
+Advantage of OOPs over Procedure-oriented programming language
+1. OOPs makes development and maintenance easier whereas in a procedure-oriented programming language 
+	it is not easy to manage if code grows as project size increases.
+2. OOPs provides data hiding whereas in a procedure-oriented programming language a global data can accessed from anywhere.
+3. OOPs provides the ability to simulate real-world event much more effectively. 
+	We can provide the solution of real world problem if we are using the Object-Oriented Programming language.
+	Global data
+		fun1()
+		fun2()
+		fun3()
+	Data Representation in Procedure-Oriented Programming
+
+	Object data
+		fun1()
+		fun2()
+	Object data
+		fun1()
+		fun2()
+	Data Representation in Object-Oriented Programming
+
+IDE STS->Preferences->Instslled JREs-->Select JDK not JRE path

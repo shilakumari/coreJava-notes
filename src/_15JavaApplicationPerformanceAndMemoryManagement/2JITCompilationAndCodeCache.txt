@@ -1,0 +1,137 @@
+Bytecode
+JIT Compilation	
+
+Bytecode
+
+
+
+JIT Compilation
+C is compiled natively & so it is fast.
+
+To help get around the problem of slower execution in interpreted languages than compiled languages,
+the Java Virtual Machine has a feature called just in time compilation or JIT compilation for short,
+the JVM will monitor which branches of code are run the most often, which methods or parts of methods
+specifically loops are executed the most frequently and then the virtual machine can decide for example
+that a particular method is being used a lot and so code execution would be speeded up if that method
+was compiled to native machine code and it will then do so.
+So at this point some of our application is being run in interpretive mode as byte code and some is
+no longer byte code but is running as compiled native machine code.
+The part that has been compiled to native machine code will run faster than the bite code interpreted
+part just to be clear then by native machine code we mean executable code that can be understood directly
+by your operating system.
+So if you're running this application on Windows part of the byte code has been compiled into code that
+can be natively understood by the Windows operating system.
+If we were running on a Mac then the JVM would have compiled this to native MAC code the native Windows
+code and a native MAC code would of course be different. They're not compatible.
+
+So the windows JVM is able to create native Windows code and the Mac JVM is able to create native MAC code.
+This process of native combination is completely transparent to the user but it has an important implication.
+Your code will generally run faster.
+That's because the virtual machine can profile your code and work out which bits of it could be optimized
+by compiling them to native machine code.
+So a method that runs multiple times every minutes is very likely to be just in time compiled quite
+quickly but a method that might run once a day might not ever be checked compiled.
+The process of compiling converting the byte code to native machine code is run in a separate thread.
+
+The virtual machine is of course a multi threaded application itself so the threads within the virtual
+machine responsible for running the code that is interpreting the bite code and executing the byte code
+won't be affected by the thread doing JIT compiling.
+So the process of JIT compiling doesn't stop the application running while the compilation is taking
+place.
+The JVM will continue to use the interpreted version but once that combination is complete and the native
+machine code version is available well then the virtual machine will seamlessly switch to use the compiler
+version instead of the more byte code.
+Now if your application is heavy on processing using all of the available CPA resources you could potentially
+see a temporary reduction in performance.
+If JIT compilation is taking place although it would only be in the most critical and high power processing
+applications that you might notice this and even then it's going to be well worth the slight dip in
+processing power to get the benefit of the native code version for your method.
+
+One impact of Jet compilation is that if you're assessing the performance of a particular piece of code you actually need to think
+about when you're going to do that assessment.
+Supposing you're trying to determine how long a process takes to run and you want to see which of two
+alternative methods will run more quickly.
+
+If you assess the performance of these methods when your application first starts you might find that
+you get different results than if you assessed it after your application has been running for a short
+while.
+You need to think about whether you're assessing the performance of the code before it has been natively
+compiled or after will actually come back and consider this point in some detail later on in the course.   
+When we look at measuring performance but as a programmer it can be interesting to know which methods
+or code blocks are being compiled to native machine code.
+Actually until this point I've been really a bit vague here about what can get compiled to native machine
+code.
+The answer is any sequence of byte code can be compiled now from our point of view as programmers we
+can think of this as meaning any method or any code block.
+It's not a completely accurate translation but it is good enough to understand what's going on.
+
+
+java>run as>configuration>
+Main
+	Project
+	Main class
+Argumaents
+	Program Arguments
+	VM Arguments
+	 
+
+So we want to know which of the methods or code blocks in an application that we've written are being compiled.
+When the application runs well there's a JVM flag we can use to find that out so that we have an example for us to investigate.
+
+Virtual Machine Flags
+	-XX:+PrintCompilation
+Here XX means, it is an advanced option.
+
+java -XX:+PrintCompilation _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 4
+First column is number of miliseconds since JVM started
+Second column is the order in which method or code block was compiled
+Third Column is:
+	n native method
+	s synchronized method
+	! Exception handling going on
+	% code has been natively compiled & part of code cache
+Fourth Column is:
+	0- No compilation, code just interpreted
+	1 to  4 means , progressevily deeper level of comiplation
+	
+	
+	
+	
+	
+Built Compiler in JVM
+	C1
+		Do 1 to 3 level of comiplation or compilation tier 1 to 3
+	C2
+		Do 4th level of comiplation
+
+Profiling the code	
+JVM decides which level of compilation should be done on particular block of code 
+	based on how often it is being run & how complext & time consuming it is.	
+
+Logging the compilation activity
+java -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 4
+hotspot_pid5564.log
+
+
+
+
+Tuning Code Cache Size
+-XX:+PrintCodeCache
+-XX:InitialCodeCacheSize  (about 160 KB)
+-XX:ReservedCodeCacheSize
+	java -XX:ReservedCodeCacheSize=28m -XX:+PrintCodeCache _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 5000
+-XX:CodeCacheExpansionSize
+
+Maximum code cache size
+	240MB (Java 8 64 bit)
+	
+	
+	
+	
+Remotely Monitoring the code cache with JConsole
+Provide full control to the logged user of the following folder:
+	C:\Users\User\AppData\Local\Temp\hsperfdata_User
+	Here PID of Java application is used by JConsole.
+JConsole use 2MB about as code cache.
+jconsole>connection
+

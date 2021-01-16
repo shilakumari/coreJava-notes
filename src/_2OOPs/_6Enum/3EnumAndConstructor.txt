@@ -1,0 +1,149 @@
+ Enum vs constructor
+	An enum can contain constructor. 
+	Enum constructor will be executed separately, for every enum constant at the time of enum class-loading automatically.
+
+	class Test{
+		public static void main(String args[]){
+			System.out.println("Hello");
+			Beer b=Beer.RC;//line 1
+			System.out.println("Bye");
+	}}
+	enum Beer{
+		KF,KO,RC,FO;
+		Beer()	{System.out.println("Constructor");}
+	}
+	Output:
+		Hello
+		Constructor
+		Constructor	
+		Constructor
+		Constructor
+		Bye
+		
+	If we comment line 1 then output: 
+		Hello
+		Bye
+
+
+We cannot create enum object directly using new keyword and hence we cannot call enum constructor directly.
+Beer b=new Beer()// CTE, enum type can not be instantiated
+	class Test{
+		public static void main(String args[]){
+			System.out.println("Hello");
+			Beer b[]=Beer.values();
+			for(Beer b1:b){
+				System.out.println(b1+"..."+b1.getPrice());
+			}
+			System.out.println("Bye");
+		}
+	}
+	enum Beer{
+		KF(17),KO(80),RC(90),FO;
+		int price;
+		Beer(int price){
+			this.price=price;
+		}
+		Beer(){
+			this.price=65;
+		}
+		public int getPrice(){
+			return this.price;
+		}
+	}
+	//KF: public static final Beer KF=new Beer();
+	//KF(17): public static final Beer KF=new Beer(17);
+	Output:
+		Hello
+		KF...17
+		KO...80
+		RC...90
+		FO...65
+		Bye
+
+Inside enum we can declare methods but should be concrete method only. And we cannot declare abstract methods.
+Case 1:
+Every enum constant represent an object of the type Enum.
+Hence whatever methods we can apply on normal java objects, can be applied on enum constants also.
+
+Beer.BK.equals(Beer.RC);
+Beer.KF.hashCode()> Beer.RC.hashCode();
+
+Beer.KF.ordinal()<Beer.RC.ordinal();
+Beer.KF<Beer.RC;//invalid, order is not defined
+
+Case 2: 
+If we want to use any class/interface directly from outside the package then the required import is normal import. 
+If we want to access static member without class name,then the required import is static import. 
+
+Package pack1;
+Public enum Fish {STAR,GUPPY}
+
+Packge pack2
+Import pack1.Fish; or Import pack1.*; 
+Public class Test1
+{
+PSVM()
+{
+Fish f=Fish.GUPPY;
+SOP(f);
+}
+}
+
+Packge pack2
+Import static pack1.Fish.*; or Import static pack1.Fish.STAR; 
+Public class Test1
+{
+PSVM()
+{
+ SOP(STAR);
+}
+}
+
+Packge pack2
+Import pack1.Fish; or Import pack1.*; 
+Import static pack1.Fish.*; or Import static pack1.Fish.STAR; 
+Public class Test1
+{
+PSVM()
+{
+Fish f=Fish.GUPPY;
+SOP(STAR);}
+}
+
+
+Case 3:
+Enum Color
+{BLUE, RED, GREEN;
+Public void info(){SOP(“Universal color”);}}
+Class Test
+{PSVM(){
+Color[] c= Color.values();
+For(Color c1:c){C1.info();}
+}}
+Output:
+Universal Color
+Universal Color
+Universal Color
+
+
+Enum Color
+{  BLUE, 
+  RED{Public void info(){SOP(“Dangerous color”);}}, //anonymous class concept
+GREEN;
+
+Public void info(){SOP(“Universal color”);}
+}
+Output:
+Universal Color
+Dangerous color
+Universal Color
+
+
+
+Enum vs enum vs Enumeration
+enum  is a keywod which can be used to define a group of named constants.
+Enum is a base class for all enums. Every enum in java must be direct child class of Enum class.
+Enumeration is an interface present in java.util.package. 
+	We can use enumeration object to get objects one by one form the collection.
+
+

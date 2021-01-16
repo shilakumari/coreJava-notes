@@ -1,0 +1,75 @@
+Type Casting
+	Implicit type casting/widening/up-casting
+	Explicit type casting/narrowing/down-casting
+
+Implicit type casting	
+int x=’a’; //compiler converts char to int automatically  by implicit type casting
+SOP(x);//97
+
+double d=10;//compiler converts int to double automatically  by implicit type casting
+SOP(d);//10.0
+
+Compiler is responsible to perform implicit type casting
+Whenever we are assigning smaller data type value to bigger data type, implicit type casting will be performed. Smaller bigger
+It is also known as widening  or upcasting.
+There is no loss of information in this type casting.
+The following are various possible conversions where implicit type casting will be performed.
+Byte short int long float double
+char int long float double
+
+
+Explicit type casting	
+int x=130;
+byte b=x;//CTE, possible loss of precision, found:int, required:byte
+
+int x=130;
+byte b=(byte)x;
+SOP(b);//-126
+
+int x=130 ;  //-  00000000……010000010
+byte b=(byte)x  ; //1 0000010 (this number is –ve)
+1 1111101 (1’s complement form without sign bit)
+1 1111110 (2’s complement )
+-126
+
+Number =(2’s complement form of(2’s complement form))
+
+int x=127;
+byte b=(byte)x;
+SOP(b);//127
+
+Programmer is responsible to perform explicit type casting
+Whenever we are assigning bigger data type value to smaller data type variable, explicit type casting will be performed. biggersmaller
+It is also known as narrowing  or down casting.
+There may be loss of information in this type casting.
+The following are various possible conversions where explicit type casting will be performed.
+	Byte short int long float double
+	Char int long float double
+
+int x=130;
+byte b=(byte)x;
+SOP(b);//-126 = (130-256)
+
+int x=130-  00000000……010000010
+byte b=(byte)x1 0000010 (this number is –ve)
+1 1111101 (1’s complement form without sign bit)
+1 1111110 (2’s complement )
+-126
+Whenever we are assigning bigger data type value to smaller data type variable by explicit type casting, the MSBits will be lost. 
+We have to consider only LSBs(Least significant bits).
+
+int x=150;
+byte b=(byte)x;
+SOP(b);//-106 =(150-256)
+
+short b=(short)x;
+SOP(b);//150
+
+double  d=130.456;
+int x=(int)d;
+SOP(x);//130
+
+byte b=(byte)d;
+SOP(b);//-126
+
+If we assign floating point values to the integral types by explicit type casting, the digits after the decimal point will be lost.

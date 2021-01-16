@@ -1,0 +1,93 @@
+Data Sharing Between Threads
+	Stack & Heap Memmory Regions
+	Resource Sharing & Introduction to Critical Section
+	
+	
+Stack & Heap Memmory Regions
+
+What is stack?
+	Memory Region where	
+		Methods are called
+		Arguments are passed
+		Local variables are stored
+	Stack+Instruction Pointer=State of each thread's execution
+	
+	Stack Frame created for each method calls.
+	Result of method calles first stored in Special CPU register then assign to variable from where it was called.
+	
+	Stack of Frames are there & thats why it is called Stack memory.
+	
+	
+Stack's properties
+	All variables belong to the thread, executing on that stack
+	Statically allocated when the thread is created
+	The stack's size is fixed & relatively small(platform specific)
+	If our calling hierarchy is too deep, we may get an StackOverFlowException.(Risky with recursive calls)
+	
+	
+What is allocated on Heap Memory Region
+	Objects(anything create dwith the new Operator)
+	Members of classes
+	Statc variables ???????????
+	
+Heap Memory Management
+	Governed & managed by Garbage Collector
+	Objects- stays as long as we have a reference t0 them
+	Members varibales of classes- exists as along as their contained objects exist(same life cycle as their contained objects)
+	Static Variable- stays forever 	
+	
+	
+References vs Objects
+	References!=Objects
+	References can be allocated on Stack or heap depends upon where they are declared.
+	Objects always allocated on Heap.
+
+Memory Regions-Summary
+Heap(Shared)
+	Objects
+	Class Members
+	Static Variables
+Stack(Exclusinve)
+	Local Primitive types
+	Local references
+	
+Notes
+ Class members are allocated on the heap and therefore, are shared among threads
+
+
+
+Resource Sharing & Introduction to Critical Section
+Resource Sharing B/w Threads
+Atomic Operations
+
+
+Resource
+	Something that represents data or a state
+	Variables(integers, String, Student)
+	Data Structure (Collections)
+	File or connections handles
+	Message or work queues
+	Any objects..
+	
+As a side note everything outside the process is also shared b/w threads. 
+
+Why do we want to share resources b/w threads?
+	TextEditor
+	WorkQueue
+	Database Microservice
+	
+
+What is the problem of sharing resources?
+
+
+Atomic Operations
+An operation or a set of operations is considered atomic, 
+	if it appears to the rest of the system as if it occured at once.
+Single step-All or nothing
+No intermediate state
+NonAtomicOperationsDemo.java
+
+Summary
+Benefits of sharing resources b/w threads
+CHallenge of multithreaded programming
+Case study about a non atomic operation, performed concurrently by different threads

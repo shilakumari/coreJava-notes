@@ -1,0 +1,146 @@
+Local Variable
+Based on the programming requirement we have to declare variable 
+	inside a method or 
+	inside a constructor or 
+	inside a block 
+to meet temporary requirement of the programmer.
+
+It is also known as temporary variable.
+It is also know as stack variable because it is stored in stack memory area.
+Local variable are automatic variable, sometimes available and sometimes not.
+
+m1()
+{}
+
+static
+{}
+
+{
+}
+
+Test()
+{
+}
+
+for()
+{
+}
+
+if
+{
+}
+
+
+Local variable will be created while executing the block in which we declared it. 
+Once block execution completes, automatically local variable will be destroyed. 
+Hence the scope of local variable is the block in which we declare it. 
+
+class  Test{
+PSVM(){
+	int i=0;
+	for(int j=0;j<3;j++)
+	{
+		i=i+j;
+	}
+	SOP(i+”\t”+j);//CTError, cannot find symbol
+}}
+
+class Test{
+PSVM(){
+	try{
+		int j=Integer.parseInt("ten");
+	}
+	catch(NumberFormatException e){
+		j=10;//CTE
+	}
+	SOP(j);//CTE
+}
+}
+
+
+For local variables JVM won’t provide default values, so compulsory we should perform initialization explicitly, before using that variable. 
+	if we are not using then it is not required to perform initialization.
+class Test{
+PSVM(){
+	int x;
+	SOP(“Hello”);
+}
+}
+
+class Test{
+PSVM(){
+	int x;
+	SOP(“Hello”);
+	SOP(x);//CTE, variable x might not have been  initialized
+}
+}
+
+class Test{
+PSVM(){
+	int x;
+	if(args.length>0)
+	{
+		x=10;
+	}
+	SOP(x);//CTE, variable x might not have been  initialized
+}}
+
+class Test{
+PSVM(){
+	int x;
+	if(args.length>0)
+	{
+		x=10;
+	}
+	else
+	{	
+		x=20;
+	}
+	SOP(x);
+}}
+It is never recommended to perform initialization for locale variable inside logical block. 
+Because there is no guarantee for the execution of these blocks, always, at runtime.
+It is highly recommended to perform initialization for locale variable at the time of declaration at least with default values. 
+class Test{
+PSVM()
+{	int x=0;
+	if(args.length>0)
+	{
+		x=10;
+}
+	else
+	{	
+		x=20;
+	}
+	SOP(x);
+}}
+
+
+class Test
+{
+public int x=10;
+public static int y=20;
+PSVM()
+{	
+final int z=30;
+public int z2=30;//CTE, illegal start of expression
+}
+}
+The only applicable modifier for local variable is final.
+By mistake, if we are trying to apply any other modifier then we will get CTE.
+
+
+If we are not declaring variable with any modifier then by default it is default. 
+But this rule is applicable only for instance & static variable but not for local variables. 
+
+class Test{
+int  x=10;
+static int  y=20;
+PSVM()
+{
+	int z=30;
+	SOP(“Hello”);
+}
+}
+
+Local variables are thread safe.

@@ -1,0 +1,129 @@
+Overloading w.r.t. widening, auto-boxing  & var-arg methods
+
+Case 1: Widening vs Auto-boxing
+Analogy: widening having more experience than auto-boxing
+
+Widening dominates auto-boxing.
+public class Test21 {
+	public static void main(String[] args) {
+			int x=10;
+			m1(x);
+	}
+	public static void m1(long l)
+	{
+		System.out.println("Widening");
+	}
+	public static void m1(Integer I)
+	{
+		System.out.println("Autoboxing");
+	}
+}
+output:	Widening
+
+
+Case 2: Widening vs Var-arg
+Widening dominates Var-arg.
+public class Test21 {
+	public static void main(String[] args) {
+			int x=10;
+			m1(x);
+	}
+	public static void m1(long l)
+	{
+		System.out.println("Widening");
+	}
+	public static void m1(int... I)
+	{
+		System.out.println("Var-arg");
+	}
+}
+output:	Widening
+
+Case 3: Autoboxing vs Var-arg
+Autoboxing dominates Var-arg.
+In general var-arg method will get least priority, 
+	that is if no other method matched then only var-arg method will get the chance. 
+	It is like as default case inside switch.
+public class Test21 {
+	public static void main(String[] args) {
+			int x=10;
+			m1(x);
+	}
+
+	public static void m1(Integer l)
+	{
+		System.out.println("Autoboxing");
+	}
+	public static void m1(int... I)
+	{
+		System.out.println("Var-arg");
+	}
+
+}
+output:	Autoboxing
+
+
+Priority
+While resolving overloaded methods compiler will always gives a precedence in the following order:
+Widening>Autoboxing>Var-arg
+
+
+
+Widening followed by autoboxing is not allowed in Java. 
+Where as autoboxing followed by widening is allowed.
+public class Test21 {
+public static void main(String[] args) {
+	int x=10;
+	m1(x);//CTE, m1(java.lang.Long) in Test21 cannot be applied to m1(int)
+}
+public static void m1(Long l)
+{
+	System.out.println("Widening <- Autoboxing");
+}
+}
+
+
+
+Long l=10;//CTE, incompatible type
+long l=10;//widening
+
+public class Test21 {
+	public static void main(String[] args) {
+			
+			m1(10);//int -->AB-->Integer--> Widening -> Object
+			Integer x=10;
+			m1(x);
+	}
+	public static void m1(Object o)
+	{
+		System.out.println("autoboxing -->widening ");
+	}
+}
+
+int -->AB-->Integer--> Widening -> Object//valid
+int -->AB-->Integer--> Widening -> Long//invalid
+
+W--> AB//invalid
+AB--> W//Valid
+
+
+Object o=10;//valid
+Number n=10;//valid
+
+Which of the following assignments are legal?
+int i=10;
+Integer I=10;//AB
+int i=10L;//CTE, possible loss of precision
+Long L1=10L;//AB
+Long L2=10;//CTE,incompatible types
+long l=10;//W
+Object o=10;//AB-->W
+double d=10;//W
+Double D=10;//CTE,incompatible types
+Number N=10;
+
+Summary
+int -->AB-->Integer--> Widening -> Object//valid
+int -->AB-->Integer--> Widening -> Long//invalid
+W--> AB//invalid
+AB--> W//Valid

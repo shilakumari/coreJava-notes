@@ -1,0 +1,5 @@
+1. Define variable.
+2. How many types of variable?
+3. What is Instance variable?
+4. Define static variable.
+5. Define local variable.

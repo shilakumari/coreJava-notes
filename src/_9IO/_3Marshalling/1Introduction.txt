@@ -1,0 +1,55 @@
+https://www.javatpoint.com/jaxb-tutorial
+
+JAXB tutorial provides concepts and API to convert object into XML and XML into object. Our JAXB tutorial is designed for beginners and professionals.
+JAXB stands for Java Architecture for XML Binding. It provides mechanism to marshal (write) java objects into XML and unmarshal (read) XML into object. Simply, you can say it is used to convert java object into xml and vice-versa.
+
+
+@XmlRootElement specifies the root element for the xml document.
+
+@XmlAttribute specifies the attribute for the root element.
+
+@XmlElement specifies the sub element for the root element.
+
+
+
+public static void main(String[] args) throws Exception{  
+    JAXBContext contextObj = JAXBContext.newInstance(Question.class);  
+  
+    Marshaller marshallerObj = contextObj.createMarshaller();  
+    marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);  
+  
+    Answer ans1=new Answer(101,"java is a programming language","ravi");  
+    Answer ans2=new Answer(102,"java is a platform","john");  
+      
+    ArrayList<Answer> list=new ArrayList<Answer>();  
+    list.add(ans1);  
+    list.add(ans2);  
+      
+    Question que=new Question(1,"What is java?",list);  
+    marshallerObj.marshal(que, new FileOutputStream("question.xml"));  
+       
+}
+
+
+
+public static void main(String[] args) {  
+   
+     try {  
+   
+        File file = new File("question.xml");  
+        JAXBContext jaxbContext = JAXBContext.newInstance(Question.class);  
+   
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();  
+        Question que= (Question) jaxbUnmarshaller.unmarshal(file);  
+          
+        System.out.println(que.getId()+" "+que.getQuestionname());  
+        System.out.println("Answers:");  
+        List<Answer> list=que.getAnswers();  
+        for(Answer ans:list)  
+          System.out.println(ans.getId()+" "+ans.getAnswername()+"  "+ans.getPostedby());  
+   
+      } catch (JAXBException e) {  
+        e.printStackTrace();  
+      }  
+   
+    }  

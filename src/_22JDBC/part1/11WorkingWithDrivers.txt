@@ -1,0 +1,191 @@
+Working with type-1 Driver:
+	java Application <----> JDBC-ODBC Bridge Driver <----> ODBC Driver  <---->DB
+	<------------------------Client Machine--------------------------->
+Also known as JDBC ODBC Bridge Driver. 
+Type-1 Driver is available as the Part of JDK and hence we are not required to set any Class Path explicitly. 
+Driver Class Name: sun.jdbc.odbc.JdbcOdbcDriver JDBC URL: jdbc:odbc:demodsn username: scott pwd: tiger query: select * from movies; 
+Note: 
+	We should Create Movies Table in the Database and Insert some Sample Data... 
+	create table movies(no number, name varchar2(20),hero varchar2(20),heroine varchar2(20)); 
+	insert into movies values(1,'Bahubali','Prabhas','Anushka'); 
+	insert into movies values(2,'Raees','Sharukh','Sunny'); 
+	insert into movies values(3,'Winner','Sai','Rakul'); 
+ 
+Eg: 
+ import java.sql.*;   
+ public class  Type1DriverDemo  
+ {  
+     public static void main(String[] args) throws Exception  
+     {  
+         Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");   
+         Connection con= DriverManager.getConnection("jdbc:odbc:demodsn","scott","tiger"); 
+         Statement st = con.createStatement();   
+         ResultSet rs = st.executeQuery("select * from movies");   
+         while(rs.next())   
+         {   
+            System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.get String(4));   
+         }   
+         con.close();   
+     }   
+ }   
+Note: Type-1 Driver is available until 1.7 Version only. From 1.8 Version onwards, the above Program won't work. 
+
+
+Working with Type-2 Driver: 
+	   Java Application <----> Native API Partly Java Driver <----> Vendor specific native libraries <----> DB
+	   <-------------------------------------Client Machine----------------------------------------->
+
+Oracle People provided Type-2 Driver is OCI (Oracle Call Interface) Driver.  Internally OCI Driver uses OCI Native Libraries. 
+OCI Driver and corresponding Native Libraries are available in the following Jar File. 
+
+ojdbc14.jar ->  Oracle 10g (Internally Oracle Uses Java1.4V) ojdbc6.jar  -> Oracle 11g (Internally Oracle Uses Java 6V) ojdbc7.jar   
+		-> Oracle 12c (Internally Oracle Uses Java 7V) 
+ 
+To make Driver Software available to our Program we have to place ojdbc6.jar in Class Path. 
+We have to collect Jar File from the following Location of Oracle Installation. 
+	C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar 
+	D:\Tomcat 7.0\lib\servlet-api.jar; 
+	D:\Tomcat 7.0\lib\jsp-api.jar; 
+	D:\mysql-connector-java-bin.jar;.; 
+
+Driver Class Name: oracle.jdbc.driver.OracleDriver                                    
+				   oracle.jdbc.OracleDriver 
+ 
+jdbc url:  jdbc:oracle:oci8:@XE (until oracle 8V)                  
+		   jdbc:oracle:oci:@XE  (From Oracle 9 onwards)                  
+		   where XE is SID(System ID) 
+Every Database has a Unique System ID. We can find SID of our Database in the following 2 ways.  
+
+1st way: 
+We have to execute the following Command from SQL Plus Command Prompt SQL> select * from global_name; 2nd way: 
+We can find SID from the following File 
+	C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora 
+
+2nd way: 
+We can find SID from the following File 
+	C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora 
+
+1) import java.sql.*;   
+2) public class  Type2DriverDemo   
+3) {   
+4)     public static void main(String[] args) throws Exception   
+5)     {   
+6)         Class.forName("oracle.jdbc.OracleDriver");   
+7)        Connection con= DriverManager.getConnection("jdbc:oracle:oci:@XE","scott","tiger"); 
+8)         Statement st = con.createStatement();   
+9)         ResultSet rs = st.executeQuery("select * from movies");   
+10)         while(rs.next())  
+11)         {   
+12)             System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.get String(4));   
+13)         }   
+14)         con.close();  
+		}
+	}	 
+
+
+Working With Type-4 Driver: 
+	 Java Application <----> All Java Native Protocol Driver<----> DB
+	 <-------------------Client MAchine--------------------->
+Also known as Pure Java Driver OR Thin Driver. 
+Type-2 and Type-4 Drivers of Oracle having same Jar File, same Driver Class Name, but different JDBC URL's. 
+
+Driver Class Name:  oracle.jdbc.driver.OracleDriver                                      
+					oracle.jdbc.OracleDriver 
+ 
+JDBC URL: jdbc:oracle:thin:@localhost:1521:XE 
+1) import java.sql.*;   
+2) public class  Type4DriverDemo  
+3) {   
+4)     public static void main(String[] args) throws Exception   
+5)     {   
+6)         Class.forName("oracle.jdbc.OracleDriver");   
+7)         Connection con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE ","scott","tiger");   
+8)         Statement st = con.createStatement();   
+9)         ResultSet rs = st.executeQuery("select * from movies");   
+10)         while(rs.next())   
+11)         {
+12)             System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.get String(4));   
+13)         }   
+14)         con.close();  
+15)     }   
+16) } 
+
+
+Working with Type-3 Driver:
+	Java Application <---->All Java Native Protocol Driver <----> Middleware Server(IDS) <---->DB
+	<----------------------Client Machine----------------->
+An extra activity in Type-3 Driver is we have to install Middleware Server. Eg:  IDS Server (Internet Database Access Server) 
+ 
+How to install IDS Server? 
+	idssoftware.com -> Download -> IDS Server Trial -> IDS Server 4.2.2 Lite Evaluation -> Windows (2008/2003/XP/2000/NT) 
+Download and Install IDS Server. 
+	We have to set Driver Software in the Class Path. For this the following Jar File should be placed in the Class Path.  
+C:\IDSServer\classes\jdk13drv.jar 
+	Driver Class Name: ids.sql.IDSDriver 
+	jdbc url: jdbc:ids://localhost:12/conn?dsn=mysysdsn 
+ 
+Internally IDS Server will use Type-1 Driver to communicate with Database. For this we have to configure "System DSN" and we have to choose "Oracle In XE". 
+1) import java.sql.*;   
+2) public class  Type3DriverDemo   
+3) {   
+4)     public static void main(String[] args) throws Exception   
+5)     {   
+6)         Class.forName("ids.sql.IDSDriver");  
+7)         Connection con= DriverManager.getConnection("jdbc:ids://localhost:12/conn?dsn=m ysysdsn","scott","tiger");   
+8)         Statement st = con.createStatement();  
+9)         ResultSet rs = st.executeQuery("select * from movies")
+10)         while(rs.next())   
+11)         {   
+12)             System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.get String(4));   
+13)         }   
+14)         con.close();   
+		}
+	}
+
+
+Working With Type-5 Driver: 
+This Driver introduced by "Progress Data Direct" Software Company. 
+This Driver is the enhanced Version of Type-4 Driver. This Driver is not Industry recognized Driver. 
+We have to Download Driver Software from Progress Data Direct Web Site as follows... 
+ 
+https://www.progress.com/jdbc -> Available JDBC Data Sources -> Relational and Analytics -> Oracle Database 
+						-> Download JDBC connectors -> Windows -> Fill Form and Download 
+ 
+We will get Setup File and execute so that Driver Software available in our System.  
+Type-5 Driver Software available in oracle.jar which is available in the following Location. 
+	C:\Program Files\Progress\DataDirect\Connect_for_JDBC_51\lib\oracle.jar 
+We have to Place this Jar File in the Class Path 
+	Driver Class Name: com.ddtek.jdbc.oracle.OracleDriver 
+	jdbc_url: jdbc:datadirect:oracle://localhost:1521;ServiceName=XE 
+1) import java.sql.*;   
+2) public class  Type5DriverDemo   
+3) {   
+4)     public static void main(String[] args) throws Exception   
+5)     {   
+6)         Class.forName("com.ddtek.jdbc.oracle.OracleDriver");   
+7)         Connection con= DriverManager.getConnection("datadirect:oracle://localhost:1521;S erviceName=XE","scott","tiger");   
+8)         Statement st = con.createStatement();   
+9)         ResultSet rs = st.executeQuery("select * from movies");   
+10)         while(rs.next())   
+11)         {   
+12)             System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.get String(4));   
+13)         }   
+14)         con.close();   
+15)     }
+
+
+Summary of All JDBC 5 Drivers 
+Driver Type 		Required Jar File 		Driver Class Name 					JDBC URL 
+Type - 1 			No jar File required 	sun.jdbc.odbc.JdbcOdbcDriver 		jdbc:odbc:demodsn 
+Type - 2 			ojdbc14.jar 			oracle.jdbc.driver.OracleDriver		jdbc:oracle:oci:@XE 
+					ojdbc6.jar 				oracle.jdbc.OracleDriver 
+					ojdbc7.jar 
+Type - 3 			jdk13drv.jar 			ids.sql.IDSDriver 					jdbc:ids://localhost: 12/conn?dsn=demo systemdsn3  
+Type - 4 			ojdbc14.jar 			oracle.jdbc.driver.OracleDriver		jdbc:oracle:thin: @localhost:1521:XE
+					ojdbc6.jar 				oracle.jdbc.OracleDriver
+					ojdbc7.jar 
+Type - 5 			oracle.jar 				com.ddtek.jdbc.oracle.OracleDriver 	jdbc:datadirect: oracle://localhost: 1521;ServiceName= XE
+		
+		
+		
+		

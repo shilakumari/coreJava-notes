@@ -1,0 +1,34 @@
+Introduction
+How the JVM runs your code
+	JIT Compilation & Code Cache
+		ByteCode
+		JIT Compilation
+		Finding which methods are being compiled in our application
+		C1 & C2 compiler
+		Logging the copilation history
+		Tunning the code cache size
+		Remotely monitoring the code cache with jConsole
+	Selecting the JVM
+		The diff b/w 32bit & 64 bit JVM
+		Specifying which compiler to use at runtime
+		Turning off Tiered compilation
+		Turning native compilation within the VM
+		
+How the JVM Manages Memory
+Escaping References Problem
+The Metaspace And Internal JVM Memory Optimizations
+Tuning The JVM's Memory Settings
+
+Introducing Garbage Collection
+Garbage Collection & Heap Analysis
+	Monitoring The Heap
+	Analysing A Heap Dump
+Generational Garbage Collection
+Garbage Collector Tuning And Selection
+
+
+Measuring Performance
+Benchmarking Framework-AMH
+How Programming Choices Impact Performance
+The future & Other JVM languages
+

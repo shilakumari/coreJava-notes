@@ -1,0 +1,98 @@
+MetaData 
+	Metadata means data about data. i.e. Metadata provides extra information about our original data. 
+	Eg: Metadata about database is nothing but database product name, database version etc.. 
+	Metadata about ResultSet means no of columns, each column name, column type etc.. 
+
+JDBC provides support for 3 Types of Metadata 
+	1. DatabaseMetaData 
+	2. ResultSetMetaData 
+	3. ParameterMetaData 
+ 
+1. DatabaseMetaData(I)
+	It is an interface present in java.sql package. 
+	Driver Software vendor is responsible to provide implementation. 
+	We can use DatabaseMetaData to get information about our database like 
+		database product name, driver name, version, number of tables etc.. 
+	We can also use DatabaseMetaData to check whether a particular feature is supported by DB or 
+		not like stored procedures, full joins etc.. 
+	We can get DatabaseMetaData object by using getMetaData() method of Connection interface. 
+		public DatabaseMetaData  getMetaData(); 
+		Eg: DatabaseMetaData dbmd=con.getMetaData(); 
+
+	Once we got DatabaseMetaData object we can call several methods on that object like     
+		getDatabaseProductName()     
+		getDatabaseProductVersion()     
+		getMaxColumnsInTable()     
+		supportsStoredProcedures()     
+		etc...
+
+App1: Program to display Database meta information by using DataBaseMetaData 
+	Example: DatabaseMetaDataDemo1.java 
+ 
+App2: Program to display Table Names present in Database by using DataBaseMetaData 
+	Example: DatabaseMetaDataDemo2.java 
+ 
+
+Note: Some driver softwares may not capture complete information. 
+	In that case we will get default values like zero. 
+Eg: getMaxRowSize() -> 0 
+ 
+ResultSetMetaData: 
+	It is an interface present in java.sql package. 
+	Driver software vendor is responsible to provide implementation. 
+	It provides information about database table represented by ResultSet object. 
+	Useful to get number of columns, column types etc.. 
+	We can get ResultSetMetaData object by using getMetaData() method of ResultSet interface.
+		public ResultSetMetaData getMetaData() 
+		Eg: ResultSetMetaData rsmd=rs.getMetaData(); 
+	Once we got ResultSetMetaData object, we can call the following methods on that object like     
+		getColumnCount()     
+		getColumnName()     
+		getColumnType()  etc... 
+
+App3: Program to display Columns meta information by using ResultMetaData 
+	Example: ResultSetMetaDataDemo.java 
+
+App3: Program to display Table Data including Column Names by using ResultMetaData 
+	Example: ResultSetMetaDataDemo1.java
+
+
+ParameterMetaData (I): 
+	It is an interface and present in java.sql package. 
+	Driver Software vendor is responsible to provide implementation. 
+	In General we can use positional parameters(?) while creating PreparedStatement object. 
+		PreparedStatement pst=con.prepareStatement("insert into employees values(?,?,?,?)"); 
+	
+	We can use ParameterMetaData to get information about positional parameters 
+		like parameter count,parameter mode, and parameter type etc... 
+	
+	We can get ParameterMetaData object by using getParameterMetaData() method of PreparedStatement interface. 
+		ParameterMetaData pmd=pst.getParameterMetaData(); 
+
+Once we got ParameterMetaData object, we can call several methods on that object like 
+	1. int getParameterCount()    
+	2. int getParameterMode(int param)        
+	3. int getParameterType(int param)        
+	4. String getParameterTypeName(int param)        etc.. 
+
+Important Methods of ParameterMetaData: 
+1. int getParameterCount()     
+	Retrieves the number of parameters in the PreparedStatement object for which this ParameterMetaData object contains information.  
+2.int getParameterMode(int param)        
+	Retrieves the designated parameter's mode.  
+3. int getParameterType(int param)        
+	Retrieves the designated parameter's SQL type.  
+4. String getParameterTypeName(int param)       
+	Retrieves the designated parameter's database-specific type name.  
+5. int getPrecision(int param)     
+	Retrieves the designated parameter's specified column size.  
+6. int getScale(int param)       
+	Retrieves the designated parameter's number of digits to right of the decimal point.  
+7. int isNullable(int param)     
+	Retrieves whether null values are allowed in the designated parameter
+8. boolean isSigned(int param)     
+	Retrieves whether values for the designated parameter can be signed numbers. 
+ 
+App14: Program to display Parameter meta information by using ParameterMetaData 
+	Example: ParameterMetaDataDemo.java
+Note: Most of the drivers won't provide support for ParameterMetaData. 

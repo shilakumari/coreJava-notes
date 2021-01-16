@@ -1,0 +1,40 @@
+Monitoring The Heap
+	What is a soft leak?
+	Introducing (J)VisualVM
+	Monitoring the size of heap over time
+	Fixing the problem and checking the heap size
+	
+What is a soft leak?
+	The Java Virtual Machine will automatically release all of its allocated memory 
+		back to the operating system when the application finishes.
+	This means that a traditional leak is not possible at least assuming that 
+		the Java Virtual Machine is correctly implemented.
+	But some leaks are possible and I'm going to refer to these as soft leaks.
+	
+	CustomerHarness.java
+	-Xmx20m
+	
+Introducing (J)VisualVM
+	Oracle JDK
+		C:\Program Files\Java\jdk1.8.0_121\bin\jvisualvm.exe
+	Open JDK
+		https://visualvm.github.io/
+		Provide full control to the logged user of the following folder:
+			C:\Users\User\AppData\Local\Temp\hsperfdata_User
+
+Monitoring the size of heap over time
+	CustomerHarness.java
+	-Xmx20m
+	-Xmx80m
+	
+
+
+Fixing the problem and checking the heap size
+	public Optional<Customer> getNextCustomer2() {
+		synchronized (customers) {
+			if (customers.size() > 0) {
+				return Optional.of(customers.remove(0));
+			}
+		}
+		return Optional.empty();
+	}

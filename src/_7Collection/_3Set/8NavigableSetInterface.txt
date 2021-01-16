@@ -1,0 +1,53 @@
+NavigableSet(since 1.6v)
+	It is the child interface of SortedSet(since 1.2v).
+	Its implementation class is TreeSet(since 1.2v)
+	It defines several methods for navigation purpose.
+
+Collection(1.2v)
+Set(1.2v)
+	SortedSet(1.2v)
+		NavigableSet(1.6v)
+			TreeSet(1.2v)
+
+1.6 v Enhancements in Collection Framework
+	NavigableSet (I)
+	Queue (I)
+	NavigableMap (I)
+
+
+NavigableSet (since 1.6v)
+	It is the child interface of SortedSet.
+	It defines several methods for navigation purposes.
+lower(e)  :<
+	returns highest element which is <e
+floor(e)  :<=
+	returns highest element which is <=e
+higher()  :>
+	returns lowest element which is >e
+ceiling()  :>=
+	returns lowest element which is >=e
+
+pollFirst()
+	remove & returns first element
+pollLast()
+	remove & returns last element
+descendingSet()
+	it returns NavigableSet in reverse order
+
+
+Example 
+		TreeSet<Integer> t = new TreeSet<Integer>();
+		t.add(1000);
+		t.add(2000);
+		t.add(3000);
+		t.add(4000);
+		t.add(5000);
+		System.out.println(t);
+		System.out.println(t.ceiling(2000));//2000
+		System.out.println(t.higher(2000));//3000
+		System.out.println(t.floor(3000));//3000
+		System.out.println(t.lower(3000));//2000
+		System.out.println(t.pollFirst());//1000
+		System.out.println(t.pollLast());//5000
+		System.out.println(t.descendingSet());//[4000, 3000, 2000]
+		System.out.println(t);//[2000, 3000, 4000]

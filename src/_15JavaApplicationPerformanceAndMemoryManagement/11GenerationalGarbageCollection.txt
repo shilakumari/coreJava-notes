@@ -1,0 +1,66 @@
+Generational Garbage Collection
+	How the garbage collector works out what is garbage?
+	Why the heap is divided into generations
+	The internal of Young generation
+	Viewing the generations in VisulaVM
+	Viewing the heap when there is a soft leak
+	
+How the garbage collector works out what is garbage?
+Garbage Collector Algorithm/Garbage Collector
+	Stage1:Marks
+	Stage2:Sweeps
+	The program's execution is first paused(this is sometimes called a stop the world event).
+		Now all the threads of application paused.
+		Now GC marks all the live objects(references directly or referenced from live objects) from Heap & MetaSpace.
+		Except live objects, rest are free up.
+		And finally the objects which are being kept are moved into a single contiguous block of memory. 
+		This stops the heat from becoming fragmented overtime 
+			& makes it easier & quicker for the VM to find memory to allocate to future objects.
+	So it means, GC just keep live objects & rearrange them. It does not remove the garbage objects.
+		This means that GC process would be faster if more garbage is present. 
+		If every thing on heap is garbage then the GC would be pretty much instantaneous.
+
+Why the heap is divided into generations?
+	Application is paused while GC runs, it may be for few seconds at a time.
+	To avoid this, we have Generational Garbage Collection.
+	Most objects don't live for long.
+	If an object survives between 2 gc then,  it is likely to live forever.
+	Heap is divided into two sections.
+	1)Young Generation
+	2)Old Generation
+	Memory:Young Generation<<Old Generation
+	New objects will be stored in Young Generation.
+	Young generation is small also so it will full very soon & GC will run only on young generation.
+	Becuase most of the time, new objects not survives long, so most objects will be freed up.
+	And survived objects moved to the old generation memory.
+	Garbage Collection of young generation is called minor GC. 
+	During running the application, a lots of minor GC taking place & 
+	they will be pretty much instantaneous because young generation is pretty small & full of garbage.
+	Thus, most of the time only GC will run on young generation.
+	GC will also run on Old Generation but only if it is needed. 
+	For example if it is full. This is called a major collection.
+
+
+The internal of Young generation
+1)Eden
+2)s0
+3)s1
+so & s1 are called surviver space.
+First new object will go in Eden space.
+When it full, GC takes place & surviver objects moved to s0 space.
+During next GC, surviver objects will moved to s1 space.
+so & s1 will be used for surviver object alternatively.
+(Here there is one negative impact on this strategy, 
+	one small amount of memory s0 or s1 will always unused.)
+If  any surving object o s0 or s1 , survived for a threshold(lets suppose 5) minor generation, then it will be moved to old generation.
+
+
+Viewing the generations in VisulaVM
+Manual GC using VisualVM
+	Monitor>Perform GC
+Tools>Plugins>Available Plugins>Visual GC>Select 7 Install
+Select Eclipse>Visual GC tab
+
+
+Viewing the heap when there is a soft leak
+

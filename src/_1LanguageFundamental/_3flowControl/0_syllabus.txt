@@ -1,0 +1,681 @@
+Flow control
+Selection Statement
+	If, else, switch, ?:
+Iterative statement
+	for, while, do-while, for each(since 1.5v)
+Transfer statement or jump statement
+	Break, continue, 
+	return, 
+	try, catch, finally, 
+	assert (since 1.4 v)
+Among several options, only one statement will be selected and will be executed , is selection statement.
+A group of statement will be executed iteratively, is called iterative statement.
+
+Selection Statement
+If-else
+The argument to the if statement should be Boolean type. By mistake if we are trying to provide any other type then we will get CTE.
+int x=0;	   if(x)//CTE, incompatible type, found:int, required:boolean
+       int x=0;  if(x=20)//CTE, incompatible type, found:int, required:boolean
+       int x=0;  if(x==20)//NO CTE
+       boolean b=true; If(b=false)//NO CTE
+       boolean b=false; If(b==false)//NO CTE
+If(true) SOP(“hello”);//Hello
+If(true);
+Semicolon is a valid java statement.
+If(true);   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+If(true) int x=10;//CTE
+If(true){int x=10;}//no CTE
+Semicolon is an valid Java statement, which is also known as empty statement.
+Else part and curly braces are optional
+Without curly braces, only one statement is allowed under if, which should not be declarative statement. 
+Because if would declare variable then there is no possibility to use of that variable further.
+Java compiler is very strong. Unlike other old languages, there is no dangling problem in java. 
+Every else is mapped to the nearest if statement in the same block.
+if(true)
+	if(true)
+		SOP(“hello”);
+        else
+            SOP(“hi”);
+Switch
+If several options are available, never recommended to go for if-else, because it will reduce code readability. 
+To handle this requirement we should go for switch statement.
+1)The allowed argument types for switch statement are:
+byte,	short,	char,		int
+Byte,	Short,	Character,	Integer(since 1.5v)
+enum(since 1.5v)
+String (since 1.5v)
+2)switch is the only place where curly braces are mandatory. Except switch, everywhere curly braces are optional.
+switch(x)
+{}
+3)Both case & default are optional. An empty switch statement is a valid statement.
+switch(x)
+{}
+4)Inside switch, every statement should be under some case or default, independent statement are not allowed inside switch. 
+Otherwise we will get CTE.
+switch(x){
+SOP(“hello”);//CTE
+}
+5)Every case level should be compile time constant that is constant expression.
+int x=10;
+int y=20;
+switch(x){
+case 10:
+	SOP(“hello”);
+case y://CTE, constant expression required
+	SOP(“hii”);
+}
+If we declare y as final then we won’t get any CTE.
+6) Both switch argument & case label can be expression but case label should be constant expression.
+int x=10;
+switch(x+1){
+case 10:
+	SOP(“hello”);
+break;
+case 10+20+30;
+	SOP(“byee”);
+}
+7) Every case label should be in the range of switch() argument type. Otherwise we will get CTE.
+byte b=10;
+switch(b){
+case 10:
+	SOP(10);
+case 100:
+	SOP(100);
+case 1000://CTE, possible loss of precision, found:int, required:byte
+	SOP(1000);
+}
+
+byte b=10;
+switch(b+1){ //int
+case 10:
+	SOP(10);
+case 100:
+	SOP(100);
+case 1000://no CTE
+	SOP(1000);
+}
+8)Duplicate case labels are not allowed.
+int  x=10;
+switch(x){
+case 97:
+	SOP(97);
+case 98:
+	SOP(98);
+case 99:
+	SOP(99);
+case ‘a’:
+	SOP(‘a’);
+}
+Outut:
+CTE, duplicate case label
+9)Case label:
+It should be constant expression.
+The value should be in the range of switch argument type.
+Duplicate case labels are not allowed.
+10)Fall through inside switch()
+Within the switch if any case matches, from that case onwards all statements will be executed until break or end of the switch(). 
+This is called fall through inside switch().
+
+11)Fall through is an advantage feature only.
+The main advantage of fall through inside a switch is , we can define common action for multiple cases (code re-usability).
+12)Default case:
+Within the switch, we can take default case at most once.
+Default case will be executed if & only if there is no case matched.
+Within the switch, we can write default case anywhere but it is recommended to write as last case.
+switch(x){
+	default:
+		SOP(“def”);
+	case 0:
+		SOP(0);
+	case 1:
+		SOP(1);
+		break;
+	case 2:
+		SOP(2);
+}
+Output:
+	If x=0
+	If x=1, 2
+	If x=2
+	If x=def 0 
+
+Iterative statement
+while
+for 
+do-while
+for-each
+
+while()
+1)if we don’t know number of iteration in advance , then we should go for while loop.
+while(rs.next()){}
+while(e.hasMoreElements())
+while(itr.hasNext()){}
+2)In the below example, the argument b should be boolean type. If we trying to provide any other type then we will get CTE.	
+while(b){
+//action
+}
+while(1){ //CTE,incompatible types, found:int, required:boolean
+	SOP(“Hello”);
+}
+3) Curly braces are optional. And without curly braces, we can take only one statement under while, which should not be declarative statement.
+while(true)
+	SOP(“hello”);
+
+while(true);
+while(true)
+	int x=10;//CTE
+
+while(true)
+{
+	int  x=10;
+}
+4)while(true){
+	SOP(“Hello”);
+}
+SOP(“hi”);// CTE,unreachable statement
+
+while(false)
+{SOP(“hello”);}// CTE,unreachable statement
+SOP(“hi”);
+
+Compiler is responsible to check unreachable statement.
+At runtime, unreachable statement, JVM will never going to check.
+int a=10;
+int b=20;
+while(a<b){
+	SOP(“hello”);
+}
+SOP(“hi”);
+Output:
+	Hello
+	Hello
+	Hello
+	………..
+
+int a=10;
+int b=20;
+while(a>b){
+	SOP(“hello”);
+}
+SOP(“hi”);
+Output:
+	Hi
+
+final int a=10;
+final int b=20;
+while(a<b){
+	SOP(“hello”);
+}
+SOP(“hi”);// CTE,unreachable statement
+
+final int a=10;
+final int b=20;
+while(a>b){
+	SOP(“hello”);} // CTE,unreachable statement
+SOP(“hi”);
+}
+
+Every final variable will be replaced by the value at the compile time .
+final  int a=10;
+int b=20;
+SOP(a);//after compilation SOP(10);
+SOP(b);//after compilation SOP(b);
+
+If every arguments are final variable (compile time constants) then that operation will be performed at compile time only.
+final int a=10,b=20;
+int c=30;
+SOP(a+b); after compilationSOP(30);
+SOP(a+c); after compilationSOP(a+c);
+SOP(a<b); after compilationSOP(true);
+SOP(a<c); after compilationSOP(a<c);
+
+do-while()
+If we want to execute loop body at-least once, then we should go for do-while().
+1)do{
+}while(b);
+Here b is boolean type.
+Here semicolon is mandatory (unlike c++);
+2)Curly braces are optional. And without curly braces, we can take only one statement under while, which should not be declarative statement.
+do
+	SOP(“hello”);
+while(true);
+
+do;
+while(true);
+
+do//CTE
+while(true);
+
+do
+	int x=10;//CTE
+while(true);
+
+do{
+	int x=10;
+}while(true);
+
+3)Valid code:
+do while(true)
+SOP(“Hello”);
+while(false);
+Here it seems do- while loop contains 2 statement without curly braces but logically it has one statement. Hence it is valid.
+Here it seems while(false) is not reachable statement but actually it is associated with do and when we entered inside do-while(false) then 
+it has been reached.
+do 
+while(true)
+SOP(“Hello”);
+while(false);
+Output:
+Hello
+Hello
+.
+.
+.
+
+Valid code:
+do 
+while(true)
+SOP(“Hello”);
+while(true);
+
+try
+{
+//1 lakh lines
+}
+catch(x e)
+{
+//l lakh lines
+}
+finally
+{
+//1 lakh lines
+}
+
+do
+System.out.println("hello");
+System.out.println("hello");
+while(false);
+Output://CTE
+
+do
+{
+	while(true)
+		System.out.println("hello");
+		System.out.println("hiii");//CTE, error: unreachable statement
+}while(true);
+
+4)
+do
+{
+	SOP(“hello”);
+}while(true);
+SOP(“Hi”);//CTE, unreachable statement
+
+do
+{
+	SOP(“hello”);
+}while(false);
+SOP(“Hi”);
+Output:
+Hello 
+Hi
+
+int a=10,b=20;
+do
+{
+	SOP(“hello”);
+}while(a<b);
+SOP(“Hi”);
+Output:
+Hello 
+Hello
+.
+.
+.
+
+int a=10,b=20;
+do{
+	SOP(“hello”);
+}while(a>b);
+SOP(“Hi”);
+Output:
+Hello 
+Hi
+
+final int a=10,b=20;
+do{
+	SOP(“hello”);
+}while(a<b);
+SOP(“Hi”);//CTE, unreachable code
+
+
+for loop
+If we know number of iteration in advance then for loop is the best choice.
+It is most commonly used loop in Java.
+for(initialization_section;conditional_check;increment_decrament_section){
+//loop body
+}
+
+1)
+for(int i=0;true;i++)
+SOP(“Hello”);
+
+for(int i=0;i<10;i++);
+for(int i=0;i<10;i++)
+	int x=10;//CTE
+Curly braces are optional & without curly braces, we can take only one statement under for loop which should not be declarative statement.
+
+2)Initialization section
+for(int i=0;i<10;i++){
+SOP(“Hello”);
+}
+for(int i=0, j=0;i<10;i++)
+{}
+for(int i=0,String s=”Abhi”;i<10;i++)//CTE
+{}
+for(int i=0,int j=0;i<10;i++)//CTE
+{}
+This part will be executed only once in loop life cycle.
+Here we can declare & initialize local variables of for loop.
+Here we can declare any number of variables but should be of the same type.
+By mistake, if we are trying to declare different data type variables then we will get CTE.
+int i=0;
+for(SOP(“A”);i<3;i++){
+	SOP(“B”);
+}
+Output:
+A
+B
+B
+B
+
+In initialization section we can take any valid Java statement including SOP. But not return statement.
+int i=0;
+for((return );i<3;i++)//CTE{
+	System.out.println("Hii");
+}
+
+3)Conditional check
+for(int i=0;i<j;i++){}
+for(int i=0;(i<j && k<30);i++){}
+for(int i=0;true;i++) {SOP(“Hello”)}
+for(int i=0;;i++) {SOP(“Hello”)}
+Here we can take any valid java expression but should be of the type boolean.
+This part is optional & if we are not taking anything, then compiler will always place true.
+
+4)Increment or decrement section
+int i=0;
+for(SOP(“hello”);i<j; SOP(“hi”)){
+i++;
+}
+Output:
+Hello
+Hi
+Hi
+Hi
+In the increment or decrement section, we can take any valid statement including SOP().
+
+5)for(int i=0;i<10;i++){}
+for(;;){SOP(“hello”);}   or   for(;;);  //infinite loop
+All 3 parts of for loop, are independent of each other and optional.
+
+6)for(int i=0;true;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);//CTE,unreachable statement
+for(int i=0;false;i++){// CTE,unreachable statement
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+for(int i=0;   ;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);// CTE,unreachable statement
+
+int a=10,b=20;
+for(int i=0;a<b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+Output:
+Hello
+Hello
+.
+.
+.
+
+int a=10,b=20;
+for(int i=0;a>b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+Output:
+Hii
+
+final int a=10,b=20;
+for(int i=0;a<b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);// CTE,unreachable statement
+
+final int a=10,b=20;
+for(int i=0;a>b;i++){// CTE,unreachable statement
+	System.out.println(“Hello”); 
+}
+System.out.println(“hii”);
+
+
+For-each loop or enhanced for loop(since 1.5v)
+It is specially designed loop to retrieve elements of arrays & collections.
+Case 1: To print elements of 1D array
+int [] x={10,20,30,40};
+for(int i=0;i<x.length;i++){
+	System.out.println(x[i]);
+}
+int [] x={10,20,30,40};
+for(int i:x){
+	System.out.println(i);
+}
+
+Case 2: To print elements of 2D array
+int[][] x={{10,20,30},{40,50}};
+for(int i=0;i<x.length;i++){
+	for(int j=0;i<x[i].length;j++){
+		System.out.println(x[i][j]);
+	}
+}
+int[][] x={{10,20,30},{40,50}};
+for(int[] x1:x){
+	for(int i:x1){ //read as for each i in x
+		System.out.println(i);
+	}
+}
+
+Case 3: To print elements of 3D array
+int[][][] x={
+{{10, 20}, {30, 40}}
+{{50, 60, 70}, {80, 90}}
+                   };
+for(int[][] x1:x){
+	for(int[] x2 :x1){
+		for(int i:x2){
+			System.out.println(i);
+		}
+	} 
+}
+For each loop is the best choice to retrieve elements of arrays & collections but it’s limitation is , 
+	it is applicable only for arrays & collections and it is not a general purpose loop.
+for(int i=0;i<10;i++){
+	System.out.println(“Hello”);
+}
+We cann’t write an equivalent for-each loop directly.
+int[]  x={10,20,30,40,50};
+for(int i=x.length-1;i>=0;i--){
+	System.out.println(x[i]);
+}
+We cann’t write an equivalent for-each loop  indirectly.
+By using normal for loop, we can print array elements either in original order or in reverse order but by using for each loop we can print
+array elements only in original order but not in reverse order.
+
+Iterable interface(since 1.5v)
+It contains only one method iterator().
+All array related classes and collection implemented classes already implements Iterable interface.
+Being a programmer we are not required to do anything. Just we should aware the point.
+for(each_item:target){}
+Here, target element can be either array or collection
+Target element should be Iterable object.
+An object is said to be iterable if and only if corresponding class implements java.lang.Iterable interface.
+
+Diff b/w iterator & iterable
+Iterator(I)															Iterable(I)
+It is related to collections.										It is related to for-each loop.
+We can use to retrieve the elements of collections one by one.		the target element in for-each loop should be Iterable.
+It is present in java.util package.									It is present in java.lang package.
+It contains 3 methods, hasNext(), next() & remove().				It contains 1 method, iterator()
+
+Transfer Statement
+	break statement
+	We can use break statements in the following places:
+		Inside switch
+		Inside loops
+		Inside labeled blocks
+There are the only places where we can use the break statements. If we are using anywhere else we will get CTE, 
+saying break outside swtich() or loop.
+inside switch to stop fall through
+Inside loops to break loop execution, based on some condition
+for(int i=0;i<10;i++){
+	if(i==5){
+		break;
+}
+System.out.print(i);
+}
+Output:
+0 1 2 3 4 
+Inside labeled blocks to break block execution based on some condition
+class Test{
+	PSVM(){
+		int x=10;
+		l1:{
+			SOP(“begin”);
+			if(x==10){
+				Break l1;
+			}
+			SOP(“end”);
+		}
+		SOP(“Hello”);
+	}
+}
+Output:
+	Begin
+	Hello
+
+class Test{
+	public static void main(String args[]){
+		int x=10;
+		if(x==10)
+			break;
+		System.out.println("Hello");
+	}
+}
+Output:CTE, error: break outside switch or loop
+
+Continue statement
+There is the only one place i.e.  inside loops, to skip current iteration & continue for the next iteration, 
+where we can use the continue statements. 
+If we are using anywhere else we will get CTE, saying continue outside of loop.
+Inside loops to skip current iteration & continue for the next iteration
+for(int i=0;i<10;i++){
+	if(i%2==0){
+		continue;
+}
+SOP(i);
+}
+Output:
+1 3 5 7 9 
+Labeled break & continue
+We can use labeled break & continue to break or continue the particular loop in nested loops.
+L1:
+for(){
+	L2:
+	For(){
+		For(){
+			//break L1;
+			//break L2;
+			//break;
+		}
+	}
+}
+Output:
+Break L1:break outermost loop L1
+Break L2:break middle loop L2
+Break :break innermost loop
+class Test{
+	public static void main(String args[]){
+		l1:
+		for(int i=0;i<3;i++){
+			for(int j=0;j<3;j++){
+				if(i==j){
+					//line 1
+					//break;
+					//continue ;
+				}
+				System.out.println(i+"..."+j);
+			}
+		}
+	}
+}
+Output:
+At line 1 empty statement:
+0...0
+0...1
+0...2
+1...0
+1...1
+1...2
+2...0
+2...1
+2...2
+
+At line 1 break:
+1...0
+2...0
+2...1
+
+At line 1 break l1:
+No output
+
+At line 1 continue :
+0...1
+0...2
+1...0
+1...2
+2...0
+2...1
+
+At line 1 continue l1:
+1...0
+2...0
+2...1
+
+Do-while vs continue(dangerous combination)
+class Test{
+	public static void main(String args[]){
+		int x=0;
+		do{
+			//x++;
+			System.out.println(x);
+			if(++x<5){
+				continue;
+			}
+			x++;
+			System.out.println(x);
+		}
+		while(++x<10);
+	}
+}
+Output:
+1
+4
+6
+8
+10

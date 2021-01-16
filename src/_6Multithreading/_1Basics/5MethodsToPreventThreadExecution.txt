@@ -1,0 +1,568 @@
+Methods to prevent thread execution- 
+â¦�	yield()
+		public static native void yield();
+â¦�	join
+		public final void join() throws InterruptedException; 
+		public final void join(long ml) InterruptedException;
+		public final void join(long ml, int ns) InterruptedException;
+â¦�	sleep
+		public static native void sleep(long ms) throws InterruptedException;
+		public static void sleep(long ms, int ns) throws InterruptedException;
+
+
+
+Yield()
+Example:
+In a great village telephone booth, someone doing long batting call and I was waiting for my chance.
+Long batting was just normal talk, hi, how r u?, what r u doing? And all.
+Like students ends talk after dinner only if either battery discharge or balance ends.
+You r just like a aishwarya. Even lady has feeling but she is not expecting. After half an hour she will accept it after u convince the same
+Now next half an hour same pinch she use like he is salman. Now 1 hour completed.
+Now I m on road, one dog is doing, do u know color of dog? 1 hour gone.
+If someone disturb him, he get very angry.
+I advice to booth owner , use yield() method , long batsban should do his batting and 
+	check for every 10-15 min for high priority customer came  or not, 
+	if high priority customer is there then he should pause his batting 
+	and give a chance to high priority customer. 
+
+Public void run()//10 hours to complete
+{
+	Thread.yield();
+}
+â¦�	Yield()  method causes to pause current executing thread to give the chance for remaining waiting threads of same priority.  
+â¦�	If there is no waiting thread or all waiting thread have low priority then same thread can continue its execution.
+â¦�	If multiple threads are waiting with same priority, then which waiting thread will get the chance, we cannâ€™t expect, 
+	it depends on thread scheduler.
+â¦�	The thread, which is yielded, when it will get the chance once again, 
+	it depends on thread scheduler. And we cannâ€™t expect exactly.
+	
+â¦�	Public static native void yield();
+â¦�	Running stateâ†’Thread.yield()â†’Ready/Runnable State
+
+
+class Test
+{
+	public static void main(String args[])throws Exception
+	{
+		MyThread t=new MyThread();
+		t.start();
+		for(int i=0;i<100;i++)
+		{
+			System.out.println("main- thread");//
+		}
+	}
+}
+class MyThread extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<100;i++)
+		{
+			System.out.println("child thread-1");
+			//Thread.yield();//line 1
+			System.out.println("child thread-2");
+		}
+	}
+}
+In the above program, if we are commenting line 1, 
+	then both threads will be executed simultaneously and we cannâ€™t expect, which thread can complete first.
+If we are not commenting line 1 
+	then child thread always calls yield() method. 
+	Because of this main thread will get chance more number of times and the chance of completing main thread first is high.
+
+It is recommended to use yield() method frequently, if threads takes long time to execute.
+Some platform does not provide proper support for yield() method.
+
+
+Joins
+The join method allows one thread to wait for the completion of another thread. 
+	If t is a Thread object whose thread is currently executing,
+		t.join();
+	causes the current thread to pause execution until t's thread terminates. 
+	
+	Overloads of join allow the programmer to specify a waiting period. 
+		However, as with sleep, join is dependent on the OS for timing, 
+		so you should not assume that join will wait exactly as long as you specify.
+	
+	Like sleep, join responds to an interrupt by exiting with an InterruptedException.
+
+
+
+Join()
+If a thread(t1) wants to wait until completing another thread(t2). 
+Then inside t1, 	t2.join();
+Now t1 will be entered into waiting state, until t2 completes.
+Now when t2 will complete, t1 can continue its execution.
+
+Example:
+2 frnds and room partner class time clash
+1 frnd(t1), whose class end 1st wait for another(t2) for going home.
+
+
+Example:
+Venue fixing activity(t1)
+Wedding cards prinintg(t2)- t1.join();
+Wedding cards distribution(t3)-t2.join();
+
+
+Prototypes of join method
+	Public final void join() throws InterruptedException; 
+	Public final void join(long ml) InterruptedException;
+	Public final void join(long ml, int ns) InterruptedException;
+InterruptedException is a checked exception. 
+
+Example:
+2 frnds and room partner class time clash
+1 frnd(t1), whose class end 1st wait for another(t2) for going home.
+And if some cute girls (interrupt )comes and ask for tea party then he will go for tea with her.
+
+
+Running stateâ†’	t2.join	â†’	waiting state(thread got blocked for joining)â†’ X â†’ Ready/Runnable State
+Where X is:
+1)If t2 completes
+2)If time expires
+3)If waiting thread(t1) get interrupted
+
+
+Case 1:
+Waiting main thread until completing child thread
+ class Test
+{
+	public static void main(String args[])throws Exception
+	{
+		MyThread t=new MyThread();
+		t.start();
+        		t.join();//line 1
+		//t.join(10000);
+		//t.join(10000,300);
+for(int i=0;i<5;i++)
+		{
+			System.out.println("main- thread");//
+		}
+	}
+}
+class MyThread extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("child thread-1");
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(Exception e){	}
+			System.out.println("child thread-2");
+		}	}
+}
+}
+Output:
+child thread-1
+child thread-2
+child thread-1
+child thread-2
+child thread-1
+child thread-2
+child thread-1
+child thread-2
+child thread-1
+child thread-2
+main- thread
+main- thread
+main- thread
+main- thread
+main- thread
+
+If we comment line 1, then both main and child threads will be executed simultaneously and we cannâ€™t expect exact output.
+If we are not commenting line 1,  then main thread calls join method on child thread object. 
+Hence main thread will wait until completing, child thread.
+
+
+Case 2: Waiting of Child thread until completing main thread
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		MyThread.mt=Thread.currentThread();
+		MyThread t=new MyThread();
+		t.start();
+		//t.join(); it will cause deadlock like situation
+for(int i=0;i<5;i++)
+		{
+			System.out.println("main- thread");
+			Thread.sleep(2000);
+		}	
+}	
+}
+class MyThread extends Thread
+{
+	static Thread mt;
+	public void run()
+	{
+		try
+		{
+			mt.join(); //child thread calls join method on main thread object.
+		}
+		catch(InterruptedException e)		{		}
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("child thread");
+		}	
+}
+}
+Output:
+main- thread
+main- thread
+main- thread
+main- thread
+main- thread
+child thread
+child thread
+child thread
+child thread
+child thread
+
+
+
+
+Case 3:
+If main thread call join method on child thread object and
+child thread call join method on main thread object, 
+then both threads will wait forever. 
+And program will be stucked. This is something like deadlock.
+
+Case 4:
+If a thread calls join() method on the same thread itself, then the program will be stucked. 
+This is something like deadlock.
+In this case thread has to wait infinite amount of time.
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Thread.currentThread().join();
+   }
+}
+
+
+
+Pausing Execution with Sleep
+Thread.sleep causes the current thread to suspend execution for a specified period. 
+This is an efficient means of making processor time available to the other threads of an application 
+or other applications that might be running on a computer system. 
+The sleep method can also be used for pacing, as shown in the example that follows, 
+and waiting for another thread with duties that are understood to have time requirements, 
+as with the SimpleThreads example in a later section.
+
+Two overloaded versions of sleep are provided: 
+one that specifies the sleep time to the millisecond 
+and one that specifies the sleep time to the nanosecond. 
+However, these sleep times are not guaranteed to be precise, 
+because they are limited by the facilities provided by the underlying OS. 
+Also, the sleep period can be terminated by interrupts, as we'll see in a later section. 
+In any case, you cannot assume that invoking sleep will suspend the thread for precisely the time period specified.
+
+The SleepMessages example uses sleep to print messages at four-second intervals:
+public class SleepMessages {
+    public static void main(String args[])throws InterruptedException {
+        
+        String importantInfo[] = {
+            "Mares eat oats",
+            "Does eat oats",
+            "Little lambs eat ivy",
+            "A kid will eat ivy too"
+        };
+
+        for (int i = 0;i < importantInfo.length;i++) {
+            //Pause for 2 seconds
+            Thread.sleep(2000);
+            System.out.println(importantInfo[i]);
+        }
+    }
+}
+Notice that main declares that it throws InterruptedException. 
+This is an exception that sleep throws when another thread interrupts the current thread while sleep is active. 
+Since this application has not defined another thread to cause the interrupt, it doesn't bother to catch InterruptedException.
+
+
+
+Sleep()
+Example:
+When we should go for sleeping()??? If we are tired.
+The worst thing of our life if we cannâ€™t control. 7 hours is max enough. 
+Sleeping makes man very poor.-Bible
+
+If a thread donâ€™t want to perform any operation, for a particular amount of time, then we should go for sleep() method. 
+
+Public static native void sleep(long ms) throws InterruptedException;
+Public static void sleep(long ms, int ns) throws InterruptedException;
+
+Every sleep() method throws InterruptedException, which is checked Exception, 
+hence whenever we are using sleep method, compulsory we should handle, interrupted exception 
+either by try catch or throws clause. Otherwise we will get CTE.
+
+Running stateâ†’ X â†’Sleeping stateâ†’Y â†’ Ready/Runnable Sate
+Where
+X- Thread.sleep(2000); or Thread.sleep(2000,234);
+Y-If time expires or if sleeping thread got interrupted
+
+ class Test{
+	public static void main(String args[])throws InterruptedException{
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("Slide-"+i);
+			Thread.sleep(2000);
+		}
+	}
+}
+Output:
+Slide-0
+Slide-1
+Slide-2
+Slide-3
+Slide-4
+
+
+
+How a thread can interrupt another thread
+Example:
+Waiting for a bus at bus stop to go for native place
+public void interrupt()
+
+A thread can interrupt a sleeping thread or waiting thread by using interrupt() method of Thread class.
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+        MyThread t=new MyThread();
+        t.start();
+        t.interrupt();//line1
+        System.out.println("End of main");
+	}
+}
+class MyThread extends Thread
+{
+	public void run()
+	{	
+		try {
+			for (int i = 0; i < 5; i++) {
+				System.out.println("I am lazy thread "+i);
+				if (i > 1) {
+					Thread.sleep(5000);
+				}
+			}
+		} catch (InterruptedException e) {
+			System.out.println("I got interrupted");
+		}
+	}
+Output:
+End of main
+I am lazy thread
+I got interrupted
+
+If we comment line 1 , then main thread would not interrupt child thread and the output:
+End of main
+I am lazy thread
+I am lazy thread
+I am lazy thread
+I am lazy thread
+I am lazy thread
+
+
+
+
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+        MyThread t=new MyThread();
+        t.start();
+        t.interrupt();//line 1
+        System.out.println("End of main");
+	}}
+class MyThread extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<10000;i++)
+		{
+			System.out.println("I am lazy thread "+i);
+		}
+		System.out.println("I want to sleep");
+		try
+		{
+			Thread.sleep(4000);
+		}
+		catch(InterruptedException e)
+		{
+			System.out.println("I got interrupted");
+		}
+
+	}
+}
+Output:
+I am lazy thread 1 and so onâ€¦
+I want to sleep
+I got interrupted
+
+If we comment line 1 then output :
+I am lazy thread 1 and so onâ€¦.
+I want to sleep
+
+In the above program interrupt call waited until child thread completes for loop 10000 times.
+
+Interrupt() method is something like snake, it wait forever it get chance to bite.
+      
+Note:
+Whenever we are calling interrupt method, if the target thread  is not in sleeping /waiting state ,then
+there is no immediate impact of interrupt call. Interrupt call will be waited until, target thread entered into sleeping or waiting state.
+If the target thread entered into sleeping or waiting state then immediately interrupt() method call will interrupt, the target thread.
+If the target thread never enter into waiting or sleeping state in its life time,
+	 then there is no impact of interrupt call. 
+	This is the only case where interrupt call will be wasted.
+
+
+
+Interrupts
+An interrupt is an indication to a thread that it should stop what it is doing and do something else. 
+It's up to the programmer to decide exactly how a thread responds to an interrupt, 
+but it is very common for the thread to terminate. 
+This is the usage emphasized in this lesson.
+
+A thread sends an interrupt by invoking interrupt on the Thread object for the thread to be interrupted. 
+For the interrupt mechanism to work correctly, the interrupted thread must support its own interruption.
+
+Supporting Interruption
+How does a thread support its own interruption? 
+	This depends on what it's currently doing. 
+	If the thread is frequently invoking methods that throw InterruptedException, 
+	it simply returns from the run method after it catches that exception. 
+For example, suppose the central message loop in the SleepMessages example were in the run method of a thread's Runnable object. 
+Then it might be modified as follows to support interrupts:
+
+for (int i = 0; i < importantInfo.length; i++) {
+    // Pause for 4 seconds
+    try {
+        Thread.sleep(4000);
+    } catch (InterruptedException e) {
+        // We've been interrupted: no more messages.
+        return;
+    }
+    // Print a message
+    System.out.println(importantInfo[i]);
+}
+
+Many methods that throw InterruptedException, such as sleep,join, are designed to cancel their current operation 
+and return immediately when an interrupt is received.
+What if a thread goes a long time without invoking a method that throws InterruptedException? 
+Then it must periodically invoke Thread.interrupted, which returns true if an interrupt has been received. 
+
+For example:
+for (int i = 0; i < inputs.length; i++) {
+    heavyCrunch(inputs[i]);
+    if (Thread.interrupted()) {
+        // We've been interrupted: no more crunching.
+        return;
+    }
+}
+
+In this simple example, the code simply tests for the interrupt and exits the thread if one has been received. 
+In more complex applications, it might make more sense to throw an InterruptedException:
+if (Thread.interrupted()) {
+    throw new InterruptedException();
+}
+This allows interrupt handling code to be centralized in a catch clause.
+
+The Interrupt Status Flag
+The interrupt mechanism is implemented using an internal flag known as the interrupt status. 
+Invoking Thread.interrupt() sets this flag. 
+When a thread checks for an interrupt by invoking the static method Thread.interrupted, interrupt status is cleared. 
+The non-static isInterrupted method, which is used by one thread to query the interrupt status of another, 
+	does not change the interrupt status flag.
+By convention, any method that exits by throwing an InterruptedException clears interrupt status when it does so. 
+However, it's always possible that interrupt status will immediately be set again, by another thread invoking interrupt.
+
+
+Comparison among yield(), join() & sleep()
+If a thread wants to pause its execution to give the chance for remaining thread of same priority, then we should go for yield() method.
+If a thread wants to wait until completing some other thread then we should go for join() method.
+If a thread donâ€™t want to perform any operation, for a particular amount of time, then we should go for sleep() method.
+Property								Yield()			Join()			Sleep()
+It is overloaded or not					No				Yes				Yes
+Is it final?							No 				Yes				No
+Is it throws InterruptedException		No 				Yes				Yes
+Is it native or not?					Yes				No				Sleep(long ms)-native 
+																		Sleep(long ms, int ns)-not native
+Is it static							Yes				No				Yes
+
+
+The SimpleThreads Example 
+SimpleThreads consists of two threads. 
+The first is the main thread that every Java application has. 
+The main thread creates a new thread from the Runnable object, MessageLoop, 
+	and waits for it to finish. If the MessageLoop thread takes too long to finish, the main thread interrupts it.
+The MessageLoop thread prints out a series of messages. 
+	If interrupted before it has printed all its messages, the MessageLoop thread prints a message and exits.
+
+
+package test;
+
+public class SimpleThreads {
+
+	// Display a message, preceded by the name of the current thread
+	static void threadMessage(String message) {
+		String threadName = Thread.currentThread().getName();
+		System.out.format("%s: %s%n", threadName, message);
+	}
+	private static class MessageLoop implements Runnable {
+		public void run() {
+			String importantInfo[] = { "Mares eat oats", "Does eat oats", "Little lambs eat ivy",
+					"A kid will eat ivy too" };
+			try {
+				for (int i = 0; i < importantInfo.length; i++) {
+					// Pause for 4 seconds
+					Thread.sleep(4000);
+					// Print a message
+					threadMessage(importantInfo[i]);
+				}
+			} catch (InterruptedException e) {
+				threadMessage("I wasn't done!");
+			}
+		}
+	}
+	public static void main(String args[]) throws InterruptedException {
+
+		// Delay, in milliseconds before we interrupt MessageLoop thread (default one hour).
+		long patience = 1000 * 1;
+
+		// If command line argument present, gives patience in seconds.
+		if (args.length > 0) {
+			try {
+				patience = Long.parseLong(args[0]) * 1000;
+			} catch (NumberFormatException e) {
+				System.err.println("Argument must be an integer.");
+				System.exit(1);
+			}
+		}
+
+		threadMessage("Starting MessageLoop thread");
+		long startTime = System.currentTimeMillis();
+		Thread t = new Thread(new MessageLoop());
+		t.start();
+
+		threadMessage("Waiting for MessageLoop thread to finish");
+		// loop until MessageLoop thread exits
+		while (t.isAlive()) {
+			threadMessage("Still waiting...");
+			// Wait maximum of 1 second for MessageLoop thread to finish.
+			t.join(1000);
+			if (((System.currentTimeMillis() - startTime) > patience) && t.isAlive()) {
+				threadMessage("Tired of waiting!");
+				t.interrupt();
+				// Shouldn't be long now -- wait indefinitely
+				t.join();
+			}
+		}
+		threadMessage("Finally!");
+	}
+}

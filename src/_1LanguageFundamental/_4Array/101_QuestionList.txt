@@ -1,0 +1,27 @@
+1) What is diff b/w length and length()?
+
+length:
+int[] x=new int[6];
+SOP(x.length());//CTE, cannot find symbol….
+SOP(x.length);
+Length is a final variable, applicable for arrays. Length variable represents the size of an array.
+
+Length()
+String s="rahul";
+SOP(s.length);//CTE, cannot find symbol…..
+SOP(s.length());
+Length() method is a final method, applicable for String object.length() method returns, number of characters, present in the string.
+Length variable applicable for arrays but not for String object. Where as  length() method is applicable for String objects but not for arrays.
+
+String s={“s”,”ss”,”sss”};
+SOP(s.length);//3
+SOP(s.length());//CTE, cannot find symbol…….
+SOP(s[0].length);//CTE, cannot find symbol…….
+SOP(s[0].length());//1
+
+int [][] x=new int[6][3];
+SOP(x.length);//6
+SOP(x[0].length);//3
+SOP(x[1].length);//3
+In multidimensional array, length variable represents only base size but not total size.
+There is no direct way to find total length of multidimensional array but indirectly we can find.

@@ -1,0 +1,106 @@
+How to stop a thread
+Killing a person in middle of life is not recommended. 
+
+We can stop a thread execution by using stop() method of thread class.
+public void stop()
+If we call stop() method then immediately the thread will enter into dead states. 
+Anyway stop() method is deprecated & not recommended to use.
+
+run()
+{
+		Open db connection			//t.start()
+		Read data				//t.stop()
+		Close db connection// will not execute
+}
+ 
+
+class Test
+{
+	public static void main(String [] args)
+	{
+		MyThread t=new MyThread();
+		t.start();
+		System.out.println("End of main thread");
+		t.stop();//line 1
+}}
+class MyThread extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<10;i++)
+		{
+			System.out.println("Child Thread");
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+
+			}
+		}
+	}
+}
+After compilation:
+Note: C:\Users\Java\Documents\Test.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+
+Output:
+If we are not commenting line 1:
+End of main thread
+Child Thread
+	Or 
+End of main thread
+	Or
+Child Thread
+End of main thread
+
+If we are commenting line 1:
+End of main thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+Child Thread
+
+
+
+How to suspend(temporarily paused) & resume a thread
+We can suspend a thread by using suspend() method of thread class. Then immediately the thread will be entered into suspended state.
+We can resume a suspended thread by using resume() method of Thread class. Then suspended can continue its execution.
+
+
+public void suspend()
+public void resume()
+Anyway these methods are deprecated & not recommended to use.
+
+
+Green Thread
+There in no concept of pink thread. ☺ 
+
+Java multi-threading concept is implemented by using two model:
+⦁	Green Thread model
+⦁	Native OS model
+
+Green Thread model
+The thread which is managed completely by JVM without taking underlying OS support, is called green thread model.
+Very few OS like SUN solaries provide support for  green thread model.
+Anyway green thread model is deprecated & not recommended to use.
+
+Native OS model
+The thread which is managed by JVM with the help of underlying OS , is called native OS  model.
+All window based OS provides support for native OS model.
+
+
+Life cycle of a thread
+
+ 
+
+
+

@@ -1,0 +1,134 @@
+Java 1.7V enhancements w.r.t. exception handling
+	Try with resources
+	Multi-catch blocks
+
+Try with resources
+
+Until 1.6v, it is highly recommended to write finally block, to close resources, which are open at the part of try block.
+BufferedReader br=null;
+Try
+{
+	Br=new BufferedReader(new FileReader(“input.txt”));
+	//use br, based on our requirement
+}
+Catch(IOException e)
+{
+	//handling code
+}
+Finally
+{
+	If(br!=null)
+	{
+		br.close();
+	}
+}
+
+
+The problems in this approach are
+	Compulsory programmer is required to close the resources inside finally block.
+	It increases complexity of programming.
+	Burden to programmer
+	We have to write finally block compulsory and hence it increases length of the code and reduces readability.
+
+To overcome above problems, SUN people introduced try with resources in 1.7v.
+The main advantage of try with resources is whatever resources we open as the part of try block, 
+	will be closed automatically. 
+	Once a control reaches end of try block, either normally  or abnormally.  
+	And hence we are not required to close explicitly. 
+	So that complexity of programming will be reduced.
+We are not required to write finally block so that length of the code will be reduced and readability will be improved.
+
+
+BufferedReader br=null;
+Try( br=new BufferedReader(new FileReader(“input.txt”)) )//try with resource
+{
+	//use br, based on our requirement
+	//& resource will be closed automatically, once control reaches end of try block either normally or
+	//abnormally and we are not responsible to close explicitly
+}
+Catch(IOException e)
+{
+	//handling code
+}
+
+Conclusions
+We can declare multiple resources but these resources should be separated with semicolon.
+Try(R1;R2;R3)
+{
+}
+
+Try(FileWriter fw=new FileWriter(“output.txt”); FileWriter fw=new FileWriter(“input.txt”);)
+{}
+
+All resources should be AutoClosable resources.
+A resource is said to be AutoClosable iff  corresponding class implement java.Lang.AutoClosable interface.
+
+All IO related resource, database related resources & network related resources are already implemented AutoClosable interface.
+Being a programmer we are not required to do anything, just we should aware the point.
+AutoClosable() interface came in 1.7 version and it contains only one method close().
+
+All the resource variables are implicitly final & hence within the try block, 
+we cannot perform reassignment.Otherwise we will get CTE, saying 
+Try(BF bf=new BF(new FR(“input.txt”)))
+{
+Br=new BF(new FR(output.txt));//CTE, Auto-closeable resource br may not  assigned. 
+}
+
+Until 1.6v try should be associated with either catch() or finally 
+but from 1.7v onwards, we can take only try, with resource without catch or finally.
+Try(r1)
+{
+}
+The main advantage of try with resources is we are not required to write finally block explicitly 
+because we are not required to close, resource explicitly. 
+Hence until 1.6v, finally block is just like hero 
+but from 1.7v  onwards, it is dummy & becomes zero.
+
+
+Multi-catch block:
+Until 1.6 v, even though multiple diff  exceptions, having same handling code, for every exception type, 
+we have to write a separate catch block, It increases the length of code and reduces readability.
+Try{}
+Catch(ArithemeticException e)
+{
+	e.printStackTrace();
+}
+Catch(IOException e)
+{
+	e.printStackTrace();
+}
+Catch(NPE e)
+{
+	e.getMessage();
+}
+Catch(InterruptedException e)
+{
+	e.getMessage()
+}
+
+To overcome this problem, sun people introduce multi-catch block in 1.7v.
+According to this, we can write a single block that can handle , multiple diff type exception.
+The main advantage of this approach is length of the code  will be reduced and readability will be improved.
+Try{}
+Catch(ArithemeticException   | IOException     e)
+{
+	e.printStackTrace();
+}
+Catch(NPE e | InterruptedException)
+{
+	e.getMessage();
+}
+
+Try{
+	SOP(10/2);
+	String s=null;
+	SOP(s.length());
+}
+Catch(ArithmeticException | Exception e)//CTE
+{
+	SOP(e);
+}
+In the above example, whether raised exception either AE or NPE, the same catch block can listen.
+In multi-catch block there should not be any relation between exception types(either child to parent, or parent to child or same type. ) 
+	Otherwise we will get CTE.alternatives in a muti-catch statement cannot be related by sub-classing.
+

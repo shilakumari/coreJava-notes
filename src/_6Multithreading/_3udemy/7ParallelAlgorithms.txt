@@ -1,0 +1,29 @@
+We have two approaches as far as computational algorithms are concerned.
+	Sequential Algorithm
+		We execute the tasks one after another.
+		Numerical methods or every algorithm where the next step relies heavily on the previous one.
+		Example:Newton-method, Euler-method
+	Parallel Algorithms
+		We execute different tasks with different processors +combine the results.
+		Exampe:Checking prime numbers in a range.
+Some problems are easy to parallelizable. Other problems are completely Sequential.
+So the motivation for parallel Algorithm: 
+	We have multicore processors so may be we could boost our algorithm with making them parallel.
+
+	
+There is a huge difference b/w parallel execution & concurrent prgramming.
+Because if we use thread, then it is not necessarily going to be executed as parallel.
+It depends on the concrete OS or machine. 
+	If it is a single processor, of-course it is not going to handle two or more thread at the same time.
+	It makes stime-sharing b/w threads which may be slower than simple sequential implementation.
+	
+Problems in Paralllel algorithm
+1)Communication
+	For serial algorithms we have space & time complexity.
+	For parallel algorithm, we have to take the communication b/w threads into the consideration 
+	Parallel Slowdown: Sometimes parallel algorithm are slower. 
+2)Load-balance
+	We have to make sure that we split the work evenly amongst the processor.
+	
+Parallel Algorithms
+	Merge Sort

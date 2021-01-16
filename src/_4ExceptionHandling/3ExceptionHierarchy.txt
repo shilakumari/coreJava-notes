@@ -1,0 +1,84 @@
+Exception hierarchy
+Throwable class acts as root for exception hierarchy.
+Throwable class defines 2 child classes Exception & Error.
+
+Exception
+Most of the times, exceptions are caused by our program and these are recoverable.
+	Try{
+		Read data from remote file locating at London
+	}Catch(FileNotFoundExceptiion e){
+		Use local file and continue rest of program normally
+	}
+
+Error
+Most of the times, Error are not caused by our program and these are due to lack of system resources. 
+Errors are non-recoverable.
+Example: if OutOfMemoryError occurs, being a programmer, we cannot do anything and 
+	program will be terminated abnormally.
+	System-admin or server-admin is responsible to increase heap memory.
+
+Throwable
+	Error
+	Exception
+
+Exception
+	RuntimeException
+		AE
+		NPE
+		CCE
+		IndexOutOfBoundException
+			ArrayIOOBE
+			StringIOOBE
+		IllegalArgumentException
+			NumberFormatException
+	IOException
+		EOFE
+		FileNotFoudException
+		InterruptedIOException
+	ServletException
+	RemoteException
+.
+.
+.
+Error
+	VMError
+		StackOverflowError
+		OutOfMemoryError
+	AssertionError
+	ExceptionInInitializerError
+	LinkageError
+		VerifiyError
+
+
+
+Methods to print exception information
+class Test{
+public static void main(String args[]){
+	try{
+		System.out.println(10/0);
+	}catch(ArithmeticException e){
+		e.printStackTrace();
+		System.out.println(e);
+		System.out.println(e.toString());
+		System.out.println(e.getMessage());
+	}
+}}
+Output:
+java.lang.ArithmeticException: / by zero
+        at Test.main(Test.java:7)
+java.lang.ArithmeticException: / by zero
+java.lang.ArithmeticException: / by zero
+/ by zero
+
+
+Throwable methods
+Method  					 Printable Format
+printStackTrace()            Name of exception: Description
+							 StackTrace
+toString()					 Name of exception: Description
+getMessage()				 Description
+
+
+Internally, default exception handler will use printStackTrace() method to print exception information to console.
+
+

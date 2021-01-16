@@ -1,0 +1,87 @@
+To overcome limitation of enumeration we should go for iterator cursor.
+
+Limitation of enumeration
+It only applicable for legacy classes. It is not universal cursor.
+We can perform only read operation but not remove operation.
+
+Advantage of iterator
+1. We can apply Iterator for any Collection object, hence it is universal cursor.
+2. By using iterator we can perform both read and remove operations.
+
+Iterator
+We can create Iterator object by using iterator() method of Collection interface.
+	public Iterator iterator();
+
+	Example:
+	Iterator itr = c.iterator();
+	where c is any Collection object
+
+Methods in Iterator
+1. public boolean hasNext()
+2. public Object next()
+3. public void remove()
+
+Demo program
+import java.util.*;
+class IteratorDemo{
+	public static void main(String[] args){
+		ArrayList i = new ArrayList();
+		for(int i=0; i<10; i++){
+			i.add(i);
+		}
+		System.out.println(l);//[0, 1, 2,...., 9]
+
+		Iterator itr = l.iterator();
+		while(itr.hasNext()){
+			Integer n = (Integer)itr.next();
+			if(n%2==0)
+				System.out.println(n);//0 2...8
+			}
+		System.out.println(l);//[0, 1, 2,..., 9]
+	}
+}
+
+Example:
+	AL l = new AL();
+	for(int i=0; i<=10; i++){
+		i.add(i);
+	}
+	System.out.println(l);//[0, 1, 2,..., 10]
+	Iterator itr = l.iterator();
+	while(itr.hasNext()){
+		Integer I = (Integer)itr.next();
+	if(i%2==0)
+		System.out.println(I);//0, 2,..., 10
+	else
+		itr.remove();
+	}
+	System.out.println(l);//[0, 2, 4,..., 10]
+
+Limitation of iterator
+1) only forward direction cursor
+2)	Read &	Remove-possible but
+	Replace & addition of new object- not possible
+
+Limitations of Iterator
+1. By using Enumeration and Iterator we can move only towards forward direction and we can not move to backward direction, 
+   and hence these are single direction cursors.
+2. By using Iteration we can perform only read and remove operations and we can not perform replacement of new objects.
+
+Note:
+To overcome limitations of Iterator we should go for ListIterator.
+
+https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/
+
+The iterators returned by this class's iterator method are fail-fast: 
+	if the it is modified at any time after the iterator is created, 
+		in any way except through the iterator's own remove method, 
+		the Iterator throws a ConcurrentModificationException. 
+	Example: Modify a collection when another thread is iterating over it
+	Thus, in the face of concurrent modification, the iterator fails quickly and cleanly, 
+		rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future.
+	Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, generally speaking, 
+		impossible to make any hard guarantees in the presence of unsynchronized concurrent modification. 
+		Fail-fast iterators throw ConcurrentModificationException on a best-effort basis. 
+		Therefore, it would be wrong to write a program that depended on this exception for its correctness: 
+			the fail-fast behavior of iterators should be used only to detect bugs.
+

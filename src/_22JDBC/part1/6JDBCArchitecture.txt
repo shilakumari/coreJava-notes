@@ -1,0 +1,43 @@
+JDBC Architecture
+						Java Application
+								|
+							Java API
+								|
+							DriverManager(class- present inside java.sql package)
+			|					|						|				
+Driver for Oracle		Driver for MySql		Driver for SyBase
+			|					|						|
+			Oracle DB			MySql DB				SyBase DB
+JDBC API provides DriverManager to our Java Application. 
+Java Application can communicate with any Database with the help of DriverManager and Database Specific Driver.
+
+DriverManager: 
+	It is the Key Component in JDBC Architecture. 
+	DriverManager is a Java Class present in java.sql Package. 
+	It is responsible to manage all Database Drivers available in our System. 
+ 	DriverManager is responsible to register and unregister Database Drivers. 
+ 		DriverManager.registerDriver(Driver); 
+ 		DriverManager.unregisterDriver(Driver); 
+ 	DriverManager is responsible to establish Connection to the Database with the help of Driver Software. 
+ 		Connection con = DriverManager.getConnection (jdbcurl, username, pwd); 
+ 		
+Database Driver: 
+	It is the very Important Component of JDBC Architecture. 
+	Without Driver Software we cannot touch Database. 
+	It acts as Bridge between Java Application and Database. 
+	It is responsible to convert Java Calls into Database specific Calls and Database specific Calls into Java Calls. 
+ 
+Note: 
+1) Java Application is Database Independent but Driver Software is Database Dependent. 
+	Because of Driver Software only Java Application will become Database Independent. 
+2) Java Application is Platform Independent but JVM is Platform Dependent. 
+	Because of JVM only, Java Application will become Platform Independent.
+Example:
+
+						Java Application
+								|(java)
+							ByteCode(.class) 							
+			|					|						|				
+		JVM for Windows		JVM for Linux			JVM for MAC
+			|					|						|
+		Windows platform	Linux platform			MAC platform

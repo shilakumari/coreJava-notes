@@ -1,0 +1,11 @@
+LinkedHashMap
+It is child class of HashMap.
+It is exactly same as HashMap except the following differences:
+	Underlying data structure is Hashtable + LinkedList(that is hybrid data structure)
+	1.4v
+	Insertion order must be preserved
+
+
+Example
+LinkedHasMap & LinkedHashSet are commonly used for developing Cache based application where duplicates are not allowed & 
+	insertion order must be preserved.

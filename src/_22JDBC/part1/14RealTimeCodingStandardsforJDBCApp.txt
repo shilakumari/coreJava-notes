@@ -1,0 +1,42 @@
+Real Time Coding Standards for JDBC Application 
+ 1. Every Java Class should be Part of some Package. Hence it is recommended to take Package Statement. 
+ 2. It is recommended to use explicit Class Imports than implicit Class Imports because 
+ 	these Imports improve Readability of the Code. 
+ 	Eg:  
+ 		import java.sql.*; -> Implicit Class Import  
+ 		import java.sql.Connection; -> Explicit Class Import 
+3. It is recommended to use try-catch over throws Statement, because there is a Guarantee for the Normal Termination of the Program.   
+	Even we are using throws Statement, somewhere compulsory we should handle that Exception by using try-catch. 
+ 	Eg: 
+	 m1(){   
+	     try{   
+	         m2();   
+	     }catch(Exception e){ }   
+	 }   
+	    
+	 m2() throws Exception {   
+	     ....   
+	 }   
+4. Avoid Duplicate Code as much as possible, otherwise Maintenance Problems may rise.
+5. We have to use meaningful Names for Classes, Methods, Variables etc. It improves Readability of the Code. 
+	If any Code repeatedly required, we have to separate that Code inside some other Class and we can call its Functionality 
+	where ever it is required. 
+	In JDBC Applications, getting Connection and closing the Resources are common Requirement. 
+	Hence we can separate this Code into some util Class, and we can reuse that Code where ever it is required.  
+Program-1: To Demonstrate JDBC Coding Standards 
+	Example: JDBCCodingStandards.java
+
+javac -d . JDBCCodingStandards.java 
+java com.durgasoft.jdbc.JDBCCodingStandards 
+
+Note: If any code repeatedly required then it is not recommended to write that code every time separately. 
+We have to define that code inside a separate component and we can call that code where ever it is required without rewriting. 
+	It promotes re-usability of the code. 
+ 
+Program-2:  To Demonstrate JDBC Coding Standards with Code Re-usability 
+	Example: JDBCCodingStandards2.java: 
+				JdbcUtil.java
+
+javac -d . JDBCCodingStandardsDemo2.java 
+java com.durgasoft.jdbc.JDBCCodingStandards2 
+

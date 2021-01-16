@@ -1,0 +1,53 @@
+Introduction
+	Motivation
+	OS Fundamentals
+	Quiz
+Threading Fundamental-Thread Creation
+	Thread Capabilities & Debugging
+	Thread Inheritance
+	Thread Creation
+	MultiExecutor
+	MultiExecutor Solution
+Threading Fundamental-Thread Coordination
+	Thread Termination & Daemon Threads
+	Joining threads
+	Multithreaded Calculation
+Performance Optimization
+	Introduction to performance & Optimizing for latency
+	Optimizing for latency 2-Image Processing
+	Optimizing for throughput part 1
+	Optimizing for throughput part 2- HttpServer+Jmeter
+	Performance Optimization
+Data Sharing Between Threads
+	Stack & Heap Memmory Regions
+	Resource Sharing & Introduction to Critical Section
+The Concurrency Challenges & Solutions
+	Critical Section & Synchronization
+	Atomic Operations, Volatile & Metrics Practical Example
+	Min-Max Metrices
+	Race Conditions & Data Races
+	Locking Strategies & Deadlocks 
+Advanced Locking
+	Reentrant Lock
+		trylock
+		interruptible
+		User Interface Application Example
+		Q&A
+		Reentrant Read Write Lock $ Database Implementation
+		Q&A
+		Product Review Service Problem
+Inter-thread communication
+	Semaphore-Scalable Produce Consumer Implementation
+	Semaphores-Barrier
+	Condition variables- All purpose, Inter-thread communication
+	Object as condition variables-wait(), notify(), notifyAll()
+	Condition Variables 
+Lock-free algorithm, Data Structures & Techniques
+	Introduction to Non-blocking, lock free operations
+	Atomic Integers & Lock free E-Commerce
+	Atomic references, COmpare & Set, Lock-free High Performance Data Structure
+	Lock-free Algorithm, Data Structures & Techniques
+Beyond Multithreading
+	Distributed Systems,Big Data & Performance
+	
+

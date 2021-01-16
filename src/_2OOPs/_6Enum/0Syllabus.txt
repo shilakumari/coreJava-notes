@@ -1,0 +1,64 @@
+Introduction
+	enum keyword
+	History(Since 1.5v)
+	Internal implementation of enum
+		implicitly final
+		implicitly extends Enum
+		Every enum constant is always public, static & final.
+	Declarations & Uses
+		We can declare enum either within the class or outside of the class but not inside a method. 
+		Applicable modifiers(3+3):
+			public, default, strictfp(only for outer enum)
+			Enum is implicitly final but we cannot declare it final.
+			Enum is implicitly final & hence abstract is not allowed modifier for enum.
+			private, protected & static
+		We can pass enum type as argument to switch statement.
+	Enum vs inheritance
+		Every enum in Java is always direct child class of java.lang.Enum. 
+		Every enum is always final implicitly and hence for our enum, we cannot create child enum. 
+		Inheritance concept is not applicable for enum explicitly, and we cannot use extends keyword enum
+		An enum can implement any number of interfaces.
+	 About java.lang.Enum
+		Every enum in java is direct child class of java.lang.Enum 
+			& hence this class acts as base class for all Java enums.
+		Java.lang.Enum is an abstract class and it is direct child class of Object class. 
+		It implements Serializable & Comparable interfaces.
+	
+	enum methods
+		1. values(): Beer[] b=Beer.values();
+		2. ordinal():	Ordinal values are zero based like array index.
+		3. name()
+		4. toString(): return name 
+			Inside enum toString() method is internally implemented to return name of the constant.
+	
+	EnumDemo.java m3()
+	Inside enum, we can take methods, constructors, normal variables etc.
+		Even in enum, we can declare main() method & we can run enum class directly from command prompt.
+	In addition to constant, if we are taking any extra member (like a method) in enum, 
+		then list of constant should be in the first line & must ends with semicolon.	
+		Inside enum, if we are taking any extra member like a  method, compulsory the first line should contains, 
+			list of constant ,or  at-least semicolon.
+		An empty enum , a valid java syntax.
+	
+Enum vs constructor
+Enum constructor will be executed separately, for every enum constant at the time of enum class-loading automatically.
+We cannot create enum object directly using new keyword and hence we cannot call enum constructor directly.
+Inside enum we can declare methods but should be concrete method only. And we cannot declare abstract methods.
+
+
+Imports in enum
+
+Enum Color
+{  BLUE, 
+  RED{Public void info(){SOP(“Dangerous color”);}}, //anonymous class concept
+GREEN;
+
+Public void info(){SOP(“Universal color”);}
+}
+Output:
+Universal Color
+Dangerous color
+Universal Color
+Enum vs enum vs Enumeration
+
+		

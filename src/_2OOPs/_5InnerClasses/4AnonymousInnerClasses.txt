@@ -1,0 +1,295 @@
+Anonymous Inner Classes
+Sometimes we can declare inner class without name, such type of inner classes are called anonymous inner classes.
+
+Example:
+Someone helped to finding address, but we do not ask his name, his address.
+
+Anonymous Array and anonymous inner class
+
+Example:
+Conductor give us ticket. But we do not know his name, his address, his mobile no, do u have any daughter?
+
+
+The main purpose of anonymous inner classes is just for instant use (one time uses).
+
+Based on declaration & variable, types of anonymous inner classes
+	Anonymous inner class that extends a class
+	Anonymous inner class that implements an interface
+	Anonymous inner class that define inside method arguments
+
+
+Anonymous inner class that extends a class
+Popcorn p=new Popcorn();
+
+Popcorn p1=new Popcorn(){
+					m1(){
+					}
+			};
+		p1.m1();
+
+Thread t=new Thread();
+Thread t=new Thread()
+		{
+			run(){}
+		};
+
+Runnable r=new Runnable()
+			{
+				run(){}
+			};
+
+
+Class Popcorn{
+	Public void taste()
+	{
+		SOP(“Salty”);
+	}
+	100more merhods
+}
+
+Class SubPopcorn extends Popcorn{
+	Public void taste()
+	{
+		SOP(“Spicy”);
+	}
+}
+
+Class Test{
+	PSVM(){
+		Popcorn p=new Popcorn()
+		{
+			Public void taste()
+			{
+				SOP(“spicy”);
+			}
+		};
+		p.taste();//spicy
+		
+		Popcorn p1=new Popcorn();
+		P1.taste();//Salty
+
+		Popcorn p2=new Popcorn()
+					{
+						Public void taste()
+						{
+							SOP(“Sweet”);
+						}
+					};
+		P2.taste();//Sweet
+	}
+}
+
+
+Generated .class files: (   SOP(p.getClass().getName());  )
+Popcorn.class
+Test.class
+Test$1.class
+Test$2.class
+
+We use when we require a class for 1 time only.
+
+
+Analysis
+Popcorn p =new Popcorn();
+Just we are creating popcorn object.
+
+Popcorn p=new Popcorn()
+{
+};
+1: We are declaring a class that extends popcorn without name(anonymous inner class).
+2: For that child class, we are creating an object with parent reference.
+
+Popcorn p=new Popcorn()
+{
+	Public void taste()
+	{
+		SOP(“Spicy”);
+	}
+};
+1: We are declaring a class that extends popcorn without name(anonymous inner class).
+2: For that child class, we are creating an object with parent reference.
+3: In the child class, we are overriding taste() method.
+
+
+Defining a thread by extending thread class
+Normal class approach
+Class MyThread extends Thread
+{
+	Public void run()
+	{
+		For(int i=0;i<=10;i++)
+		{
+			SOP(“Child() Thread”);
+		}
+	}
+}
+Class ThreadDemo
+{
+PSVM()
+{
+	MyThread t=new MyThread();
+	t.start();
+
+	For(int i=0;i<=10;i++)
+	{
+		SOP(“Main() Thread”);
+	}
+}}
+
+Anonymous inner class
+Class ThreadDemo
+{
+PSVM()
+{
+Thread t=new Thread()
+{
+	Public void run()
+	{
+		For(int i=0;i<=10;i++)
+		{
+			SOP(“Child() Thread”);
+		}
+	}
+};
+t.start();
+For(int i=0;i<=10;i++)
+{
+	SOP(“Main() Thread”);
+}
+}}
+
+
+Anonymous inner class that implements an interface
+Defining a thread by implementing Runnable interface
+Normal class approach
+Class MyRunnable implements Runnable
+{
+	Public void run()
+	{
+		For(int i=0;i<=10;i++)
+		{
+			SOP(“Child() Thread”);
+		}
+	}
+}
+Class ThreadDemo
+{
+PSVM()
+{
+MyRunnable r=new MyRunnable();
+Thread t=new Thread(r);
+t.start();
+For(int i=0;i<=10;i++)
+{
+	SOP(“Main() Thread”);
+}
+}}
+Anonymous inner class approach
+Class ThreadDemo
+{
+PSVM()
+{
+Runnable r=new Runnable()
+{
+	Public void run()
+	{
+		For(int i=0;i<=10;i++)
+		{
+			SOP(“Child() Thread”);
+		}
+	}
+};
+Thread t=new Thread(r);
+t.start();
+For(int i=0;i<=10;i++)
+{
+	SOP(“Main() Thread”);
+}
+}}
+
+Anonymous inner class 
+  It can be defined inside argument
+
+Class ThreadDemo
+{
+PSVM()
+{
+//Runnable r=
+
+Thread t=new Thread(
+new Runnable()
+{
+	Public void run()
+	{
+		For(int i=0;i<=10;i++)
+		{
+			SOP(“Child() Thread”);
+		}
+	}
+}
+).start();
+
+//;
+//Thread t=new Thread(r);
+//t.start();
+
+For(int i=0;i<=10;i++)
+{
+	SOP(“Main() Thread”);
+}
+}}
+
+
+Normal java class vs anonymous inner class
+A normal java class and anonymous inner class, both, can extends only one class at a time.
+A normal java class can implement any number of interfaces but anonymous inner class can implements only one interface.
+A normal java class can extends a class and can implements any number of interfaces simultaneously 
+	but anonymous inner class  either can extends a class or implements a interface but not both simultaneously.
+In normal java class, we can write any number of constructors but in anonymous inner classes we cannot write any constructor explicitly 
+	(because the name of the class & name of the constructor must be same but anonymous inner classes not having any name).
+
+Q)Can we declare variable inside anonymous class?. Yes we can.
+new Thread(){
+			int x=10;
+			public void run(){
+				System.out.println("hiii"+x);
+			}
+		}.start();
+
+If the requirement is standard and required several times, then we should go for normal top level class. 
+If the requirement is temporary & required only once (instant use) then we should go for anonymous inner class.
+Best suitable:  We can use anonymous inner class frequently in GUI based applications to implement event handling.
+Class MyGUIForm extends JFrame
+{
+	JButton b1,b2,b3;
+	b1.addActionListener( new ActionListener()
+			{
+				Public void actionPerformed(ActionEvent e)
+				{
+					SOP(“b1 specific funtionality”);
+				}
+			}
+	);
+	b2.addActionListener( new ActionListener()
+			{
+				Public void actionPerformed(ActionEvent e)
+				{
+					SOP(“b2 specific funtionality”);
+				}
+			}
+	);
+	Frame f=new Frame();
+	f.addWindowListener(new WindowAdapter()
+		{
+			Public void windowClosing(WindowEvent e)
+			{
+				For(int i=1;i<=10;i++)
+				{
+					SOP(“I am closing window: ”+i);
+					System.exit();
+				}
+			}
+		}
+	);
+}
+

@@ -1,0 +1,39 @@
+Array
+
+Introduction
+An array is an 
+	indexed based collection of 
+	fixed number of
+	homogeneous element,
+	stored at contiguous memory location
+	referred by a single name
+
+The main advantage of array is we can represent huge number of values by using single variable so that readability of the code will be improved.
+Using single name, we can refer many values.
+
+But the main disadvantage of array is fixed in size. 
+That is once we create an array, there is no chance of increasing or decreasing size based on our requirement. 
+Hence to use array concept compulsory we should know the size in advance, which may not possible always.
+int [] x=new int[1000];
+
+int a=3,b=5,c=1,d=11,e=9;
+int max=a;
+if(max<b)	max=b;
+If(max<c)	max=c;
+If(max<d)	max=d;
+If(max<e)	max=e;
+
+int[] arr=new int[5];
+For(i=0;i<=arr.length;i++){
+	if(max<arr[i]){
+		max=arr[i];
+	}
+}
+
+Sorting of values
+	Without array using variable
+	With array 
+
+https://javarevisited.blogspot.com/2012/12/3-example-to-print-array-values-in-java.html
+System.out.println(Arrays.asList(sortedArray));
+System.out.println(Arrays.toString(sortedArray));

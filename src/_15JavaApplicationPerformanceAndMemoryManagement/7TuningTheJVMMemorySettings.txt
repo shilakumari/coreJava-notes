@@ -1,0 +1,58 @@
+Tuning The JVM's Memory Settings
+	How the String Pool is implemented
+	Undestanding the size & the density of String Pool
+	Tuning the size of String pool
+	Tuning the size of Heap
+	
+How the String Pool is implemented
+String Pool is implemented using HashMap.
+
+Undestanding the size & the density of String Pool
+	-XX:+PrintStringTableStatistics
+		SymbolTable statistics:
+		StringTable statistics:
+	Elapsed time was 0 ms.
+SymbolTable statistics:
+Number of buckets       :     20011 =    160088 bytes, avg   8.000
+Number of entries       :     10683 =    256392 bytes, avg  24.000
+Number of literals      :     10683 =    420136 bytes, avg  39.328
+Total footprint         :           =    836616 bytes
+Average bucket size     :     0.534
+Variance of bucket size :     0.535
+Std. dev. of bucket size:     0.731
+Maximum bucket size     :         5
+StringTable statistics:
+Number of buckets       :     60013 =    480104 bytes, avg   8.000
+Number of entries       :       871 =     20904 bytes, avg  24.000
+Number of literals      :       871 =     56632 bytes, avg  65.020
+Total footprint         :           =    557640 bytes
+Average bucket size     :     0.015
+Variance of bucket size :     0.014
+Std. dev. of bucket size:     0.120
+Maximum bucket size     :         2
+	
+	StringMain.java m2()
+	
+	
+Tuning the size of String pool
+Total footprints for String Pool: 800MB
+	-XX:+StringTableSize=N
+	Here N is a prime number
+	This flags can be change only before the application running.
+Normally we use above flag when Average bucket size >=50;	
+
+
+
+Tuning the size of Heap
+-XX:+UnlockDiagnosticVMOptions -XX:+PrintFlagsFinal
+
+	InitalHeapSize
+		-XX:InitalHeapSize=1g
+		-Xms1g
+	MaxHeapSize
+		-XX:MaxHeapSize=1g
+		-Xmx1g
+		
+	jinfo -flag -XX:CompileThreshold JavaProcessId
+	java -XX:InitalHeapSize=1g _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.StringMain
+	

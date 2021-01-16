@@ -1,0 +1,276 @@
+Thread
+Thread is separate flow/path of execution.
+For every thread , there is separate independent job.
+Thread is a light weight process.
+
+Thread Objects
+Each thread is associated with an instance of the class Thread. 
+
+There are two basic strategies for using Thread objects to create a concurrent application.
+	1)To directly control thread creation and management, simply instantiate Thread each time the application needs to initiate an asynchronous task.
+		By extending thread class
+		By implementing runnable interface
+	2)To abstract thread management from the rest of your application, pass the application's tasks to an executor.
+
+	
+Defining and Starting a Thread
+An application that creates an instance of Thread must provide the code that will run in that thread. 
+There are two ways to do this:
+	Provide a Runnable object
+	Subclass Thread
+Which of these idioms should you use? 
+	The first idiom, which employs a Runnable object, is more general, 
+	because the Runnable object can subclass a class other than Thread. 
+	The second idiom is easier to use in simple applications, but is limited by the fact that your task class must be a descendant of Thread. 
+
+This lesson focuses on the first approach, which separates the Runnable task from the Thread object that executes the task. 
+Not only is this approach more flexible, but it is applicable to the high-level thread management APIs covered later.
+
+
+
+
+By extending thread class
+class Test
+{
+	public static void main(String args[])////executed by main thread
+	{
+		MyThread t=new MyThread();//thread instantiation
+		t.start();//starting of a thread
+
+		for(int i=0;i<=10;i++)
+		{
+			System.out.println("main Thread");
+		}
+	}
+}
+class MyThread extends Thread//Defining a thread
+{
+	//start(){  1000000 lines of code}
+	
+	public void run() //Job of thread,executed by child thread
+	{
+		for(int i=0;i<=10;i++)
+		{
+			System.out.println("Child Thread");
+		}
+	}	
+}
+
+Main thread is responsible to run main() method.
+
+
+Case 1: Thread Scheduler
+Thread scheduler is the part of JVM. 
+	It is responsible to schedule threads. 
+	That is , if multiple threads are waiting to get the chance of execution, 
+	then in which order , threads will be executed , is decided by thread scheduler.
+
+Thread scheduler uses diff algos on diff JVMs. 
+	We cann’t expect, exact algorithm followed by thread scheduler. It varied from JVM to JVM.
+Hence we cann’t expect, thread execution order and exact output.
+Hence whenever situation comes to multi-threading, there is no guarantee 
+	for exact output (except few cases when we use few methods like join() etc.). 
+	But we can provide several possible outputs.
+
+Case2:Diff b/w output of t.start() & t.run()
+In the case of t.start() , a new thread will be created, which will be responsible for the execution of run() method. 
+But in case of t.run(), a new thread will not be created and run() method will be executed just like a normal method call by main thread.
+
+Case3:Importance of Thread class start() method
+Finding school for our child
+Thread class start() method,is responsible
+	to register the thread with the thread scheduler 
+	to perform all other mandatory activities
+	to invoke run() method.
+Hence without executing thread class start() method,there is no chance of executing a new thread in java. 
+Due to this thread class start() method is considered as the heart of multithreading.
+Inside start() method 70k lines are written. It is a utility method for programmer.
+
+
+Case4: Overloading of run() method
+Overloading of run() method is always possible but t.start() method can invoke only no-arg run() method.
+ class Test
+{	public static void main(String args[])
+	{
+		MyThread t=new MyThread();
+		t.start();
+	}}
+class MyThread extends Thread
+{
+	public void run() 
+	{
+		for(int i=0;i<=10;i++)
+		{
+			System.out.println("run()Thread");
+		}	}
+	public void run(int i) 
+	{
+		for(int i=0;i<=10;i++)
+		{
+			System.out.println("run(int i)Thread");
+		}	}}
+
+
+
+Case5:
+If we are not overriding run() method, then thread class run() method will be executed, which has empty implementation.
+
+Case6:Overriding of start() method
+If we override start() method, then our start() method will be executed just like a normal method call
+ and new thread wonn’t be created. And total output will be produced by main thread only.
+
+
+Case7:
+It is not recommended to override start() method.
+
+Case8:
+ class Test
+{
+	public static void main(String args[])
+	{
+		MyThread t=new MyThread();
+		t.start();
+		System.out.println("main() method");
+	}
+}
+class MyThread extends Thread
+{
+	public void run() 
+	{
+		System.out.println("run() method");
+	}
+	public void start() 
+	{
+		super.start();
+		System.out.println("start() method");
+	}
+}
+Output 1:
+run() method
+start() method
+main() method
+
+Output 2:
+start() method
+run() method
+main() method
+
+Output 3:
+start() method
+main() method
+run() method
+
+
+Case9:Thread life cycle
+Born state/New state ->Ready/Runnable state -> Running state -> Dead/Death State
+
+
+Case 10:
+MyThread t=new MyThread();
+t.start();
+.
+.
+.
+t.start();//RE,IllegalThreadStateException
+
+
+When a Java Virtual Machine starts up, there is usually a single non-daemon thread 
+	(which typically calls the method named main of some designated class). 
+The Java Virtual Machine continues to execute threads until either of the following occurs:
+	The "exit()" method of class "Runtime" has been called and the security manager has permitted the "exit()" operation to take place.
+	All threads that are not daemon threads have died, 
+		either by returning from the call to the run method or by throwing an exception that propagates beyond the run method.
+
+
+Defining a thread by Implementing Runnable interface
+Runnable
+MyRunnable
+
+Runnable
+Thread
+MyThread
+
+
+Runnable interface present in java.lang package. And it contains only one method.
+Public void run();
+
+class Test{
+	public static void main(String args[])throws Exception
+	{
+		MyRunnable r=new MyRunnable();
+		Thread t=new Thread(r);
+		t.start();
+
+		for(int i=0;i<10;i++)
+		System.out.println("main() thread");
+	}
+}
+class MyRunnable implements Runnable//defining a thread
+{
+	public void run()//job of a thread
+	{
+		for(int i=0;i<10;i++)
+		{
+			System.out.println("child thread");
+		}
+	}
+}
+
+
+
+Case study
+MyRunnable r=new MyRunnable();
+Thread t1=new Thread();
+Thread t2=new Thread(r);
+
+Case 1:
+t1.start();
+Thread will be created and Thread class run() method will be executed,but we wonn’t get any output.
+
+Case 2:
+t1.run();
+Thread will not be created and Thread class run() method will be executed as a normal method call.
+
+Case 3:
+t2.start();
+Thread will be created and MyRunnable class run() method will be executed.
+
+Case 4:
+t2.run();
+Thread will not be created and MyRunnable class run() method will be executed as a normal method call.//how????????
+
+Case 5:
+r.start();
+CTE, saying MYRunnable class does not have start capability.
+CTE, cannot find symbol
+Symbol:method start()
+Location:class MyRunnable
+
+Case 6:
+r.run();
+Thread will not be created and MyRunnable class run() method will be executed as a normal method call.
+
+
+Which approach is best, to define a thread?
+Among two ways of defining a thread, implements Runnable interface approach is recommended to use than extending thread class.
+In the extends Thread approach, there is no chance of extending any other class. Hence we are missing inheritance benefit. 
+
+
+Hybrid approach
+Durga’s approach’s to define a thread(not recommended to use).
+class Test{
+	public static void main(String args[])throws Exception
+	{
+		MyThread t=new MyThread();
+		Thread t1=new Thread(t);
+		t1.start();
+		System.out.println("main() method");
+	}
+}
+class MyThread extends Thread
+{
+	public void run()
+	{
+		System.out.println("child method");
+	}
+}

@@ -1,0 +1,25 @@
+AssertionError
+AssertionError is the child class of Error. Hence it is unchecked exception.
+
+If assert statements fails( that is argument evaluated to false) then we will get assertion error.
+
+Class Test
+{
+Psvm()
+{
+	Int x=10;
+	Try
+	{
+		Assert(c>10);
+	}
+	Catch(AssertionErro e)
+{	
+	SOP(“I am stupid because I am catching assertion error”);
+}
+	SOP(x);
+}
+}
+It is legal to catch AssertionError but it is not a good programming practice.
+
+In the case of web based applications, if we run java program in debug mode, automatically assert statements will be executed.
+

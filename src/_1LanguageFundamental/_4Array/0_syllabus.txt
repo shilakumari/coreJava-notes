@@ -1,0 +1,44 @@
+Array
+
+Introduction
+	Advantage
+	Disadvantage
+Array declaration
+	1D array declaration
+	2D array declaration
+	3D array declaration
+Array creation
+	In java, array is created using object.
+	array size: byte, short, char, int.
+	At the time of array creation, we have to provide array size either explicitly or implicitly
+	Multidimensional array creation
+		Array of arrays approach for array creation(not using matrix style).
+		The main advantage of this approach is memory utilization will be improved.
+	Once we creates an array every element by default initialized with default values.
+	int[] x7 = new int[3];
+	int[] x5 = { 1, 2, 3 };
+	int[] x6 = new int[] { 1, 2, 3 };
+	Anonymous arrays: sum(new int[]{1,2,3});
+	Length vs length()
+Array initialization
+	Array declaration, creation & initialization in a single line
+
+Array element assignments
+	Array type 					Allowed element type
+	Primitive arrays			Any type which can be implicitly promoted to declared type
+	Object type arrays			Either declared type or its child class object
+	Abstract class type arrays  Its child class object
+	Interface type arrays 		Its implementation class object
+	
+Array variable assignment
+
+Var Arg Method
+m1(int… x){}
+We can call this method by passing any number of int values including zero number.
+If we mix normal parameter with var-arg parameter then var-arg parameter should be last parameter.
+
+
+Command Line Arguments
+The main purpose of command line arguments is, we can customize behavior of the main() method.
+
+Array Operations

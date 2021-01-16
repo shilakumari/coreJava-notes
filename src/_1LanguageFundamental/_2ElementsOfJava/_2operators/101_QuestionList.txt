@@ -1,0 +1,19 @@
+1. What is mean by NAN?
+	( to represent undefined results. )
+2. What is overloaded operator in Java? (+)
+3. How many relational operators?
+4. What is the difference b/w == operator and equals() method?
+5. Why do we use Instanceof operator?
+	( It checks whether an object is of particular type or not. )
+6. What is the use of bitwise(&,|,^)?
+7. Difference between ~(tilde) and ! operator?
+8. Define Short-circuit operators (&&, ||).
+9. How many types of type casting?
+10. Who is responsible to perform implicit type casting and Explicit type casting?
+11. What is the use of "new" operator?
+12. use of [] operator.
+	 (to declare and create arrays.)
+13. difference between "new" operator  and "newInstance()" method?
+14. use of isInstance()
+15. Difference between instanceof operator and isInstance() method?
+ 

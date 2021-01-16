@@ -1,0 +1,263 @@
+Normal or regular inner classes
+
+Example:
+Which is not method local inner class, not anonymous class and not static nested class is called normal or regular class.
+
+If we are declaring any named class, directly inside a class without static modifier, 
+	such type of inner class is called normal or regular inner class.
+
+Example 1:
+Outer.java
+class Outer{
+	class Inner{
+	}
+}
+
+After Javac Outer.java
+Outer.class
+Outer$Inner.class
+
+After java Outer
+RE:exception in thread main:NoSuchMethodError:main
+
+After java Outer$Inner
+RE:exception in thread main:NoSuchMethodError:main
+
+Example 2:
+Outer.java
+Class Outer
+{
+	Class Inner
+	{
+		
+	}
+	PSVM(String [] args)
+	{
+		SOP("Outer class main method");
+	}
+}
+After java Outer
+Output: Outer class main method
+
+After java Outer$Inner
+RE:exception in thread main:NoSuchMethodError:main
+
+Example 3:
+Outer.java
+Class Outer
+{
+	class Inner
+	{
+		PSVM(String [] args)
+		{
+			SOP(Inner class main method);
+		}
+	}
+}
+After Javac Outer.java
+CTE, inner classes cannot have static declarations
+
+Inside normal or regular inner class we cannot declare any static members. 
+	Hence we cannot declare main method & we cannot run inner class directly from command prompt. 
+
+
+Case 1:
+Accessing inner class code from outside of outer class
+
+Outer.java
+Class Outer
+{
+	Class Inner
+	{
+		Public void m1()
+		{
+			SOP("Inner class method()");
+		}
+	}
+}
+class Test
+{
+	Psvm(String [] args)
+	{
+		Outer o=new Outer(); 
+		Outer.Inner i=o.new Inner();
+		i.m1();
+	}
+}
+After java Outer
+Output: Inner class method()
+
+After java Outer$Inner
+RE:exception in thread main:NoSuchMethodError:main
+ 
+Case 2:
+Accessing inner class code from static area of outer class
+
+Outer.java
+Class Outer{
+	Class Inner{
+		Public void m1(){
+			SOP(Inner class method());
+		}
+	}
+	Psvm(String [] args){
+		Outer o=new Outer(); 
+		Outer.Inner  i=o.new Inner();
+		
+		/* 	Outer.Inner i=new Outer().new Inner();  */
+		i.m1();
+		/* 	new Outer().new Inner().m1();   */
+	}
+}
+After java Outer
+Output: Inner class method()
+
+After java Outer$Inner
+RE:exception in thread main:NoSuchMethodError:main
+
+
+Case 3 :
+Accessing inner class code from instance area of outer class
+Outer.java
+Class Outer
+{
+	Class Inner
+	{
+		Public void m1()
+		{
+			SOP("Inner class method()");
+		}
+	}
+	Public void m2()
+	{
+		Inner i=new Inner();
+		//this.Inner i=this.new Inner();//doubt
+		i.m1();
+	}
+	Psvm(String [] args)
+	{
+		Outer o=new Outer(); 
+		o.m2();
+	}
+}
+After java Outer
+Output: Inner class method()
+
+After java Outer$Inner
+RE:exception in thread main:NoSuchMethodError:main
+ 
+
+Conclusion:
+Case 1:
+Accessing inner class code from outside of outer class
+Outer o=new Outer(); 
+Outer.Inner i=o.new Inner();
+i.m1();
+
+Case 2:
+Accessing inner class code from static area of outer class
+Outer o=new Outer(); 
+Outer.Inner i=o.new Inner();
+i.m1();
+
+Case 3 :
+Accessing inner class code from instance area of outer class
+Inner i=new Inner();
+i.m1();
+
+
+From normal or regular inner class, we can access both static & non-static members of outer class directly. 
+(Inside inner class we cannot declare any static members.)
+class Test
+{
+	int x=10; 
+	static int y=20;
+	class Inner
+	{
+		public void m1()
+		{
+			System.out.println(x);
+			System.out.println(y);
+		}
+	}
+	public static void main(String args[])
+	{
+		new Test().new Inner().m1();
+	}
+}
+Output:
+10
+20
+
+
+Within the inner class, this always refers, current inner class object. 
+If we want to refer current outer class object, we have to use outer_class_name.this.
+class Test
+{
+	int x=10;
+	class Inner
+	{
+		int x=100;
+		public void m1()
+		{
+			int x=1000;
+			System.out.println(x);//1000
+			System.out.println(this.x);//100
+			System.out.println(Test.this.x);//10
+		}
+	}
+	public static void main(String args[])
+	{
+		new Test().new Inner().m1();
+	}
+}
+
+Example: Accessing static member of outer class from inside inner class
+class Test
+{
+	static int x=10;
+	class Inner
+	{
+		int x=100;
+		public void m1()
+		{
+			int x=1000;
+			System.out.println(x);//1000
+			System.out.println(this.x);//100
+			System.out.println(Test.this.x);//10
+		}
+	}
+	public static void main(String args[])
+	{
+		new Test().new Inner().m1();
+	}
+}
+
+
+Nesting of inner classes
+Inside inner class, we can declare another inner class, that is nesting of inner classes is possible.
+
+class A
+{
+	class B
+	{
+		class C
+		{
+			public void m1()
+			{
+				System.out.println("Inner most class method");
+			}
+		}
+	}
+}
+Class Test
+{
+public static void main(String args[])
+	{
+		A a=new A();
+		A.B b=a.new B();
+		A.B.C c=b.new C();
+		c.m1();
+	}
+}
+}

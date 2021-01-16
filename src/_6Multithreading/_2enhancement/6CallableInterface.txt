@@ -1,0 +1,29 @@
+Callable interface 
+In the case of Runnable job, thread won’t return anything after completing the job. 
+If a thread is required to return the some result after execution  then we should go for Callable.
+
+Callable interface contains only one method 
+	public Object call() throws Exception
+If we submit a callable object to executors then after completing the job,  
+	thread returns an object of the type Future. 
+	The  future object can be used to retrieve the result form callable job.
+	
+Example: ThreadPoolDemo.java(m2())
+
+
+Differences b/w Runnable & Callable
+⦁	If a thread is not required to return anything after completing the job then we should go for Runnable. 
+If a thread required to return something after completing the job then we should go for callable.
+⦁	Runnable interface contains only one method, run();
+Callable interface contains only one method, call();
+⦁	Runnable job not required to return anything & hence return type of run() method is void.
+Callable job is required to return anything & hence return type of call() method is Object.
+⦁	Within the run()method if there is any chance of rising Checked exception, compulsory we should handle by using try-catch because  we cann’t use throws keyword for run()method.
+Within the call()method if there is any chance of rising Checked exception, we are not required to handle by using try-catch because  call method already throws Exception.
+⦁	Runnable interface present in java.lang package. 
+Callable interface present in java.util.concurrent package. 
+⦁	Runnable interface introduced in 1.0 v.
+Callable interface introduced in 1.5 v.
+
+
+

@@ -1,0 +1,378 @@
+Syllabus
+Operators
+	Increment & decrement operators(++, --)
+	Arithmetic operators(+, -, *, /, %)
+	String concatenation operator(+)
+	Relational operators(<=, >=, <, >)
+	Equality operators(==, !=)
+	Instanceof operator(instanceof)
+	Bitwise operators(&, |, ^)
+	Short circuit operators(&&, ||)
+Type cast operator(Implicit type casting, Explicit type casting)
+	Expression  evaluation with cast operator
+Assignment operators(=, +=, -=, *= ...)
+Conditional operator(?:)
+New operator(new)
+[] operator([])
+
+Operator precedence
+Evaluation order of operands
+
+New vs newInstance()
+Instanceof vs isInstance()
+ClassNotFoundException vs NoClassDefFoundError
+
+Expression
+
+Operators
+logical, and 
+Others
+	?:
+	*,&
+	sizeof
+	. ->
+ 	[] ()
+Precedence Summary and parenthesis
+Expressions
+Type Conversion in Assignments
+Type Conversion in Expressions
+Casts
+Spacing and Parentheses
+Multiple Assignments
+Compound Assignments (shorthand assignment )
+
+
+Increment & decrement operators
+Increment
+	Pre-increment, post-increment
+Decrement
+	Pre-decrement,post-decrement
+	
+We can apply increment & decrement operators only for variables but not for constant values.
+       int y=++10;  SOP(y);//CTE, Unexpected type
+       
+Nesting of increment & decrement operators are not allowed.
+int x=10; int y=++(++x); SOP(y);//CTE , unexpected type	Required: variable	Found: value
+
+We can apply increment & decrement operator for every primitive type except boolean.
+
+For final variables we can not apply increment & decrement operators.
+final int  x=10; x++//CTE, cannot assign a value to final variable x
+
+In case of increment & decrement operator, internal type cast will be performed automatically.
+b++ (type of b)(b+1);
+
+byte b=10;
+b=b+1;//CTE,Type mismatch: cannot convert from int to byte
+b=(byte)(b+1);
+b++;
+
+byte c=a+b;	SOP(c);//CTE
+byte  c=(byte)(a+b); SOP(c);//c
+
+byte  b=10;	b=b+1;	SOP(b);//CTE, possible loss of precision	Fount: int Required: byte
+byte b=10; b=(byte)(b+1);  SOP(b);//11
+byte  b=10;	b++;	            SOP(b);//11
+
+
+Arithmetic operators(+,-,*,/,%)
+If we apply any arithmetic operator b/w two variable a & b then,	
+Type of Result of a+-*/b =max(int, type of a, type of b)
+
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+
+SOP(‘a’+’b’);//195
+SOP(‘a’+0.89);//97.89
+
+In integral arithmetic(byte, short, int , long) there is no way to represent infinity. 
+Hence if infinity is the result, 
+we will get ArithmeticException in integral arithmetic.
+SOP(10/0);//RE,ArithmeticException: /by zero
+char a='a'; System.out.println(a/0);
+
+But in floating point arithmetic (float & double), there is a way to represent infinity. 
+For this Float & Double classes contains the following two constants:
+POSITIVE_INFINITY
+NEGATIVE_INFINITY
+SOP(10/0.0);// Infinity(it is the value of variable POSITIVE_INFINITY)
+SOP(-10.0/0);// -Infinity
+
+
+NAN(not a number)
+In integral arithmetic(byte, short, int , long) there is no way to represent undefined results.
+Hence if the result is undefined, we will get RTE, saying ArithmeticException / by zero.
+In floating point arithmetic(float, double), there is a way to represent undefined result. 
+For this Float  & Double classes contains NaN constant. 
+Hence if the result is undefined, we won’t get any ArithmeticException in floating point arithmetic.
+SOP(0/0);// RE, ArithmeticException /by zero
+SOP(0.0/0);//NaN,(not a number)
+SOP(-0.0/0);//NaN,(not a number)
+
+SOP(10/0);RE, AE / by zerp
+SOP(10/0.0); Infinity
+SOP(0/0);RE, AE / by zerp
+SOP(0.0/0);NaN
+
+SOP(10<Float.NaN); //false
+SOP(10<=Float.NaN);//false
+SOP(10>Float.NaN);//false
+SOP(10>=Float.NaN);//false
+SOP(10==Float.NaN);//false
+SOP(Float.NaN==Float.NaN);//false
+
+SOP(Float.NaN !=Float.NaN);//true
+SOP(10!=Float.NaN); //true
+
+
+For any x value including NaN, the following expressions return false:
+x<NaN
+x<=NaN
+x>NaN
+x>=NaN
+x==NaN
+
+For any x value including NaN, the following expressions return true:
+X!=NaN
+
+
+Arithmetic Exception
+It is runtime exception but not CTE.
+It is possible only in integral arithmetic but not in floating point arithmetic.
+The only operator which cause ArithmeticException are / and %.
+
+
+String Concatenation operator (+)
+The only overloaded operator in Java is +. 
+In  general, at language level, Java not provide support for operator overloading. 
+But exceptional case is + symbol.
+If at least 1 argument is String type then + operator acts as string concatenation operator & 
+if both arguments are number type the + operator acts as arithmetic addition operator.
+String a=”rahul”;
+int b=10,c=20;d=30;
+SOP(a+b+c+d);//rahul102030
+SOP(b+c+d+a);//60rahul
+SOP(b+c+a+d);//30rahul30
+SOP(b+a+c+d);//10rahul2030
+
+Relational operators(<,<=, >, >=)
+We can apply relational operator for every primitive type except boolean.
+We cannot apply relational operators  for object types.
+Nesting of relational operators is not allowed. Otherwise we will get CTE.
+	SOP(10<20<30);// CTE, operator > cannot be applied to boolean, int
+
+Equality operators(==, !=)
+We can apply equality operators for every primitive type including boolean type also.
+SOP(‘a’==97.0);//true
+SOP(false==false);//true
+We can apply equality operators for  object types also. For object references r1,r2:
+R1==r2 returns true if and only if both references pointing to the same object(reference comparison or address comparison).
+Thread t1=new Thread();
+Thread t2=new Thread();
+Thread t3=t1;
+SOP(t1==t2);//false
+SOP(t1==t3);//true
+SOP(t3==t2);//false
+
+If we apply equality operators for object types then compulsory there should be some relation b/t argument types
+(either child to parent  or parent to child or same type). 
+Otherwise we will get CTE, saying like, incomparable types: java.lang.Thread and java.lang.String
+Thread t1=new Thread();
+Object o=new Object();
+String s=new String(“abhi”);
+SOP(t==o);//false
+SOP(o==s);//false
+SOP(t==s);//CTE, incomparable types: java.lang.Thread and java.lang.String
+
+Difference b/w == operator and equals() method
+In general we can use == operator for reference comparison(address comparison). 
+But equals() method meant for content comparison (although equals() method of Object class also do reference comparison ).
+String s1=new String(“abhi”);
+String s2=new String(“abhi”);
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//true
+
+For any object reference r, where r refering any object, r==null is always false.
+But null==null is always true.
+String s=null;
+SOP(s==null);//true
+SOP(null==null);//true
+
+
+Instanceof operator
+We can use instanceof operator to check whether the given object is of particular type or not.
+obj instanceof A/M
+Here obj is a object reference
+A is class and M interface name
+
+To use instanceof operator, compulsory there should be some relation between argument types, 
+either child to parent or parent to child or same type otherwise we will get CTE, saying inconvertible type.
+
+Thread t=new Thread();
+SOP(t instanceof Thread);//true
+SOP(t instanceof Object);//true
+SOP(t instanceof Runnable);//true
+SOP(t instanceof String);//CTE, inconvertible type, found:java.lang.Thread, required: java.lang.String
+
+Object obj = new Object();
+System.out.println(obj instanceof Thread);//false
+		
+SOP(null instance of X);//false
+SOP(null instance of Object);//false
+SOP(null instance of Runnable);//false
+For any class or interface X, null instanceof X is always false.
+
+
+Bitwise operators(~,&,|,^, <<,>>>,>>)
+Bitwise operators(<<,>>>,>>)
+>> signed right shift operator
+>>> unsigned or zero filling right shift operator
+<<left shift operator
+
+Bitwise operators(&,|,^)
+&ANDreturns true if both arguments are 1.
+|ORreturns true if at least one argument is 1
+^XORreturns true if both arguments are different.
+
+Bitwise complement operator:~(tilde)	
+We can apply this operator only for integral types but not for boolean type.
+SOP(~ 4);//-5 not 3
+
+Boolean/Logical operators(&,|,^)
+& AND returns true iff both arguments are true.
+| OR returns true iff at least one argument is true
+^ XOR returns true iff both arguments are different.
+Both arguments evaluated always
+
+Boolean complement operator(!, negation)
+We can apply this operator only for boolean type not for integral type.
+SOP(!4);//CTE, operator ! cannot be applied to int
+SOP(!false);//true
+
+Short-circuit operators (&&, ||)
+Applicable for boolean type only but not for integral types
+Both arguments evaluated optional
+x&&yy will be evaluated if x is true ie. If x is false then y will not be evaluated.
+X||yy will be evaluated if x is false ie. If x is true then y will not be evaluated.
+
+&,|,^
+Applicable for both boolean & integral types.
+Both arguments evaluated always
+
+
+Type Casting
+Implicit type casting/widening/upcasting
+Explicit type casting/naarrowiing/downcasting
+
+Implicit type casting/widening/upcasting
+Compiler is responsible to perform implicit type casting
+Whenever we are assigning smaller data type value to bigger data type variable, implicit type casting will be performed. Smaller to bigger	
+There is no loss of information in this type casting.
+The following are various possible conversions where implicit type casting will be performed.
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+In case on reference type, parent reference can hold child reference/object.
+
+Explicit type casting/narrowing/down-casting
+Programmer is responsible to perform explicit type casting.
+Whenever we are assigning bigger data type value to smaller data type variable, explicit type casting will be performed. bigger to smaller
+There may be loss of information in this type casting.
+The following are various possible conversions where explicit type casting will be performed.
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+Whenever we are assigning bigger data type value to smaller data type variable by explicit type casting, the MSBits will be lost.
+ We have to consider only LSBs.
+If we assign floating point values to the integral types by explicit type casting, the digits after the decimal point will be lost.
+
+
+Assignment operator
+Simple assignment, int  x=10;
+		int x=10;
+		System.out.println((x=100)+5);//105
+chained assignment, a=b=c=20;
+Compound assignment operator
++=,-=,*=,/=,%=,   &=,|=,^=,    >>=,>>>=,<<=
+a+=20;
+In the case of compound assignment operator, internal type casting will be performed automatically.
+byte b=127;		b+=3;	SOP(b);//-126
+
+Conditional operator(?:)
+we can perform nesting of conditional operator also.
+ 	
+new operator
+We can use new operator to create object.
+
+[] operator (square bracket open & close operator)
+We can use this operator to declare and create arrays.
+int[] x=new int[10];//reading,  new int array of 10 
+
+
+Operator precedence Chart
+Unary operators
+[]	x++	x—
+++x	--x	~	!
+new<type>
+
+Arithmetic operators
+* 	/	%
++	-
+
+Shift operators
+>>	>>>	<<
+
+Comparison operators
+<	<=	>	>=	instanceof
+
+Equality operator
+==	!=
+
+Bitwise operators
+&
+^
+|
+
+Short circuit operators
+&&
+||
+
+Conditional operator
+?:
+
+Assignment operators
+=	+=	-=	*=………
+
+In any programming language, usually highest precedence goes to unary operator and then binary operator and last ternary operator.
+In any programming language, usually least precedence goes to assignment operator.
+
+Evaluation order of java operands
+In Java, we have only operator precedence but there is no precedence for operands. 
+Before applying any operator, all operands will be evaluated form left to right.
+
+new  vs newInstance()
+We use new operator to create object, If we know the class name at beginning.
+newInstance() is a "method of class" Class. We can use newInstance() method to create object, 
+if we do not know class name at the beginning & it is available dynamically at runtime.
+But newInstance() method  internally calls no-arg constructor. 
+Hence to use newInstance() method, compulsory  corresponding class should contain no-arg constructor.
+Otherwise we will get RE, saying InstantiationException.
+Because of this every servlet class must contain no-arg constructor.
+	Object o=Class.forName(args[0]).newInstance();
+1)new is an operator in Java.
+newInstance() is a method present in java.lang.Class
+2)We can use new, to create object if we know class name at the beginning.	
+We can use newInstance(), to create object if we don’t know class name at the beginning & it is available dynamically at runtime.
+3) To use new , corresponding class not required to contain no-arg constructor.	
+To use newInstance(), corresponding class must contain no-arg method otherwise we will get RE saying, InstantiationException
+4)At runtime if corresponding class file is not available then we will get RE, saying NoClassDefFoundError, which is unchecked exception.	
+At runtime if corresponding class file is not available then we will get RE, saying ClassNotFoundException, which is checked exception.
+
+
+instanceof vs isInstance()
+isInstance() is a method equivalent of instanceof operator.
+Thread t=new Thread();
+
+SOP(t instanceof Runnable);//true
+SOP(Class.forName("Runnable").isInstance(t));//true

@@ -1,0 +1,82 @@
+Need of customizer class loader
+Default class loaders will load .class file only once even though we are using multiple times that class in our program.
+After loading .class file, if it is modified outside then default class loader wonn’t load updated version of .class file
+	(because .class file already available in method area).
+We can resolve this problem by defining our own customized class loader.
+
+Advantages:
+The main advantage of Customized Class Loader is we can control class loading mechanism based on our requirement.
+
+Example: 
+	We can load .class file separately every time so that updated version is available to our program.
+
+Default class loading
+Student s1 = new Student();//load - Load Student class file
+.
+.(Student class modified)
+.
+Student s2 = new Student();//use
+.
+.
+.
+Student s3 = new Student();//use
+.
+.
+.
+Student sn = new Student();//use
+
+
+Customized lass loading
+Student s1 = new Student();//load - Load Student class file
+.
+.(Student class modified)
+.
+Student s2 = new Student();//Check whether Student class is modified or not, if it is modified, 
+load specified class file. If it is not modified, use already loaded class file
+.
+.
+.
+Student s3 = new Student();//Check whether Student class is modified or not, if it is modified, 
+load specified class file. If it is not modified, use already loaded class file
+.
+.
+.
+Student sn = new Student();//Check whether Student class is modified or not, if it is modified, 
+load specified class file. If it is not modified, use already loaded class file
+
+
+
+How to define customized class loader
+We can define our own customized class loader by extending java.lang.ClassLoader class
+
+Example:
+	public class CustClassLoader extends ClassLoader{
+		public class loadClass(String name) throws ClassNotFound{
+			//Check for updates & load updated .class file and returns corresponding class
+		}
+	}
+	class Client{
+		public static void main(String[] args){
+			Dog d1 = new Dog();//Loaded by default class loader
+			CustClassLoader cl = new CustClassLoader();
+			cl.loadClass("Dog");//Loaded by customized class loader
+			.
+			.
+			.
+			cl.loadClass("Dog");//Loaded by customized class loader
+			.
+			.
+			.
+		}
+	}
+
+
+While developing web servers and application servers usually, we can go for customized class loader to customized class loading mechanism.
+
+Q) What is the need/ use of ClassLoaderClass?
+	We can use java.lang.ClassLoaderClass to define our own customized class loaders.
+	Every class loader in Java should be child class of java.lang.ClassLoader
+	Class either directly or indirectly. 
+		Hence this class act as base class for all customized class loaders.
+
+

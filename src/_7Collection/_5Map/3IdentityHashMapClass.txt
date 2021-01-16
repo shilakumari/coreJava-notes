@@ -1,0 +1,21 @@
+IdentityHashMap class
+IdentityHashMap is exactly same as HashMap including methods & constructors except the following difference:
+	In case of IdentityHashMap, JVM will use == operator to identify duplicate key. 
+	In case of HashMap, JVM will use equals() method to identify duplicate key. 
+
+Example:
+		HashMap m = new HashMap();
+		Integer i1 = new Integer(10);
+		Integer i2 = new Integer(10);
+		m.put(i1, "pawan");
+		m.put(i2, "kalyan");
+		System.out.println(m);//{10=kalyan}
+		
+		IdentityHashMap m2 = new IdentityHashMap();
+		i1 = new Integer(10);
+		i2 = new Integer(10);
+		m2.put(i1, "pawan");
+		m2.put(i2, "kalyan");
+		System.out.println(m2);//{10=pawan, 10=kalyan}
+	
+	

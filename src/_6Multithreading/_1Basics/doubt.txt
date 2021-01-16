@@ -1,0 +1,10 @@
+Interrupt() with sleep & wait : internal flag set true & false
+Threas.state
+THread methods
+SecurityManager.exit()  Runtime.getSecurityManager()
+
+Adv & DisAdv of synchronization 
+
+
+Producer-consumer problem : The CR
+Future f=Service.submit(job);

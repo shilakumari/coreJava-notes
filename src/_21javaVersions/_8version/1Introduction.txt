@@ -1,0 +1,46 @@
+Java Versions
+java 7 – July 28th 2011
+Java 8 - March 18th 2014
+Java 9 - September 22nd 2016
+Java 10 -March 2018
+Java 11 -September 2018
+Java 12- March 2019
+Java 13- September 2019
+
+
+After Java 1.5version, Java 8 is the next major version.
+Before Java 8, sun people gave importance only for objects 
+but in 1.8version oracle people gave the importance for functional aspects of programming to bring its benefits to Java.
+but it doesn’t mean Java is functional oriented programming language.
+
+Java 8 Features
+ Introduction
+ Lambda Expressions
+ Functional Interfaces
+ 	Predicate
+ 	Function
+ 	Consumer
+ 	Supplier
+ Default methods in Interface
+ Static Methods in Interfaces.
+ Method Reference & Constructor Reference by Double Colon(::) Operator(in c++, scope resolution operator)
+ Stream API
+ Date & Time API ( Joda API)
+ etc.
+
+
+
+Objective of java 8 version
+To simplify the programming
+	More readable
+	More Maintainable
+	More concise ( Less Code )
+	more convenient
+	more clean
+To utilize functional programming benefits in java by using
+	Lambda Expression
+	Functional Interface
+To enable parallel programming
+	To utilize multi core processor
+
+

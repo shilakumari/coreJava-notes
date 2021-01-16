@@ -1,0 +1,38 @@
+Ways to create object in Java
+1) Using new keyword
+	Construcor will be called
+2) Using newInstance() method of java.lang.Class
+		Only no-arg Construcor will be called
+		It internally calls newInstance() method of java.lang.reflect.Constructor
+		i)Class.forName("pack1.Student").newInstance();
+		ii)Student.class.newInstance();
+3)Using newInstance() method of java.lang.reflect.Constructor
+	Any Construcor, no-arg or parameterized constructor can be called
+	Private constructor can be called
+	Always wraps the thrown exception with an InvocationTargetException
+	Spring,Struts, Hibernate uses this approach.
+	Student.class.getConstructor().newInstance();
+4)Object Cloning
+	Construcor will not be called
+	st.clone();
+	Implements Cloneable interface
+	Override clone() method
+5)Deserialiation of Object
+	Construcor will not be called
+	Implements Serializable interface
+	FileInputStream fis=new FIS(“abc.txt”);
+    ObjectInputStream ois=new OIS(fis);
+    Dog d=(Dog)ois.readObject();
+6: String s="Hello";
+7: Integer I=10;
+    Integer I=Integer.valueOf(10);
+8: Array
+
+
+Way of classloading
+1)Class.forName("pack1.Student");
+2)Student.class
+
+Singleton Class
+Immutable Class
+ 

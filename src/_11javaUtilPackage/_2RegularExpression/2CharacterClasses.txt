@@ -1,0 +1,80 @@
+Character classes(Groups)
+Construct		Description
+[abc]			Either a, b, or c (simple class)
+[^abc]			Any character except a, b, or c (negation)
+[a-z]			Any lower case alphabet symbol from a to z
+[A-Z]			Any upper case alphabet symbol from A to Z
+[a-zA-Z]		a through z, or A through Z, inclusive (range)
+[0-9]			Any digit from 0 to 9
+[0-9a-zA-Z]		Any alphanumeric character
+[^0-9a-zA-Z]	Except alphanumeric character(special symbols)
+[a-d[m-p]]		a through d, or m through p: [a-dm-p] (union)
+[a-z&&[def]]	d, e, or f (intersection)
+[a-z&&[^bc]]	a through z, except for b and c: [ad-z] (subtraction)
+[a-z&&[^m-p]]	a through z, and not m through p: [a-lq-z] (subtraction)
+
+
+Predefined character classes(Groups)
+\s  space characters
+\S  except space any character
+\d any digit from 0-9
+\D except digit any character
+\w any word character (any alphanumeric character)
+\W special character
+.  any character
+
+
+Quantifiers
+We can use quantifiers to specify number of occurancs to match.
+a? --> at-most a
+a --> exactly one a
+a* --> any number of a’s including zero number
+a+ --> at-least one a
+
+
+Pattern p=Pattern.compile(“X”);
+Matcher m=p.Matcher(“a3b#k@9z”);
+while (m.find()) {
+	System.out.println(m.group() + "\t" + m.start() + "\t" + m.end());
+}
+
+Example 1: CharacterClassesDemo.java
+
+
+
+Q) Write a regular expression to represent all valid 10 digit mobile numbers:
+Rules:
+	Every number should contains exactly 10 digits.
+	The 1st digit should be 7 or 8 or 9.
+	[789] [0-9] [0-9] [0-9] [0-9] [0-9] [0-9] [0-9] [0-9] [0-9]
+		Or
+	[789][0-9]{9}
+
+Q) Write a regular expression to represent all valid 10 or 11 digit mobile numbers:
+Rules:
+	Every number should contains 10 or 11 digits.
+	If number contains 11 digits then 1st digit should be 0
+	If number contains 10 digits then 1st digit should be 7 or 8 or 9.
+	0?[7-9][0-9]{9}
+	
+Q) Write a regular expression to represent all valid 10 or 11 or 12 digit mobile numbers:
+Rules:
+	Every number should contains 10 or 11  or 12 digits.
+	If number contains 12 digits then 1st digit should be 9 and second digit should be 1
+	If number contains 11 digits then 1st digit should be 0
+	If number contains 10 digits then 1st digit should be 7 or 8 or 9.
+	(0|91)?[7-9][0-9]{9}
+	
+Q) Write a regular expression to represent all valid mail IDs, like d1z1_xyz.k@gmail.com
+	[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+
+	
+Q) Write a regular expression to represent all gmail IDs, like d1z1_xyz.k@gmail.com
+	[a-zA-Z0-9][a-zA-Z0-9_.]*@[gmail]+ [.]com
+
+Q) Write a regular expression to represent all yava language identifiers
+Rules:
+	Allowed characters are a to z, A-Z, 0-9, #, $.
+	Length  of each identifier should be atleast 2.
+	The first character should be lower case alphabet symbol from a to k
+	Second character should be a digit divisible by 3.
+	[a-k][0369][a-zA-Z0-9#$]*

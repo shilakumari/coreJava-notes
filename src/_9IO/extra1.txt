@@ -1,0 +1,44 @@
+
+Scanner class skip method
+
+Note: If you use the nextLine() method immediately following the nextInt() method, recall that nextInt() reads integer tokens; because of this, the last newline character for that line of integer input is still queued in the input buffer and the next nextLine()will be reading the remainder of the integer line (which is empty).
+
+int N = scanner.nextInt();
+scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+scanner.close();
+
+OpenJDK's source code shows that nextLine() uses this regex for line separators:
+
+private static final String LINE_SEPARATOR_PATTERN = "\r\n|[\n\r\u2028\u2029\u0085]";
+\r\n is a Windows line ending.
+\n is a UNIX line ending.
+\r is a Macintosh (pre-OSX) line ending.
+\u2028 is LINE SEPARATOR.
+\u2029 is PARAGRAPH SEPARATOR.
+\u0085 is NEXT LINE (NEL).
+
+
+https://stackoverflow.com/questions/52111077/explain-this-line-written-in-java
+
+
+"In computing, End Of File (commonly abbreviated EOF) is a condition in a computer operating system where no more data can be read from a data source." — (Wikipedia: End-of-file)
+
+Static initialization blocks are executed when the class is loaded, and you can initialize static variables in those blocks.
+
+
+A palindrome is a word, phrase, number, or other sequence of characters which reads the same backward or forward.(Wikipedia)
+
+Two strings,  and , are called anagrams if they contain all the same characters in the same frequencies. 
+
+
+An array is a simple data structure used to store a collection of data in a contiguous block of memory. Each element in the collection is accessed using an index, and the elements are easy to find because they're stored sequentially in memory.
+
+Because the collection of elements in an array is stored as a big block of data, we typically use arrays when we know exactly how many pieces of data we're going to have. 
+
+
+
+You are given a  2D array. An hourglass in an array is a portion shaped like this:
+a b c
+  d
+e f g
+

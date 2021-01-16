@@ -1,0 +1,41 @@
+Need Of Collections
+	Variable Approach
+	Array Approach
+	Collection approach
+	Difference b/w array & Collection
+
+Collection & Collection Framework
+
+Overview Of Collection Framework
+Collection framework hierarchy
+	List,Set & Queue
+	Map
+Collection Interface
+Collections class
+Arrays class
+
+
+
+List 
+	ArrayList
+	LinkedList implements Collection, Queue
+	Vector
+		Stack
+		
+
+	Diff b/w ArrayList & LinkedList
+	Diff b/w ArrayList & Vector
+	
+Set
+Difference b/w List & Set
+SortedSet And NavigableSet
+
+Queue  PriorityQueue
+
+
+Map
+	SortedMap And NavigableMap
+
+
+Capacity of all collection
+

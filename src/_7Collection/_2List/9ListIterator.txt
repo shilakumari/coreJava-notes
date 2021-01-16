@@ -1,0 +1,129 @@
+Iterator
+	Uni-directinal, only forward direction cursor
+	Read & Remove-possible but	Replace & addition of new object- not possible
+
+ListIterator
+	Bi-directional
+	Read & Remove-possible  &	Replace & addition of new object-possible
+
+
+We can create ListIterator Object by using listIterator() method of List interface.
+	public ListIterator listIterator()
+Example:
+ListIterator itr = l.listIterator();
+	where l is any List Object
+
+
+Methods
+ListIterator is the child interface of Iterator and hence all methods of Iterator by default available to ListIterator.
+
+ListIterator interface defines the following 9 methods
+forward direction
+1. public boolean hasNext()
+2. public void next()
+3. public int nextIndex()
+
+Backward direction
+4. public boolean hasPrevious()
+5. public void previous()
+6. public int previousIndex()
+
+Other capability methods
+7. public void remove()
+8. public void set(Object new)
+9. public void add(Object new)
+
+
+nextIndex() work on linkedlist ????????
+diff b/w set() & add()????
+
+
+import java.util.*;
+class ListIterator{
+	public static void main(String[] args){
+		ListIterator i = new ListIterator();
+		l.add("balakrishna");
+		l.add("chiru");
+		l.add("venky");
+		l.add("nag");
+		System.out.println(l);//[balakrishna, chiru, venkey, nag]
+
+		ListIterator itr = l.listIterator();
+		while(itr.hasNext()){
+			String s = (String)itr.next();
+			if(s.equals("venkey")){
+				itr.remove();
+			}else if(s.equals("nag")){
+				itr.add("chaitu");
+			}else if(s.equals("chiru")){
+				itr.add("charan");
+			}
+		}
+		System.out.println(l);//[balakrishna, charan, nag, chaitu]
+	}
+}
+
+
+LsiIterator
+Note:
+ListIterator is the most powerful cursor but its limitation is, 
+	it is applicable only for List implemented class objects and it is not a universal cursor.
+
+
+Example of all methods of ListIterator
+
+Applicable for
+	Only legacy classes(Enumeration)
+	Any Collection classes(Iterator)
+	Only List classes(ListIterator)
+
+Movement
+	Only forward direction(Enumeration )
+	Only forward direction(single direction)
+	Both forward and backward direction(bi-directional)
+ 
+Accessibility
+	Only read access:Enumeration
+	Both read and remove:Iterator
+	read, remove, replace and addition of new objects:ListIterator
+
+How to get it?
+	By using elements() method of Vector class
+	By using iterator() method of collection interface
+	By using listIterator() method of List interface
+
+Methods
+	2 methods
+		hasMoreElements()
+		nextElement()
+	3 methods
+		hasNext()
+		next()
+		remove()
+	9 methods
+
+Is it legacy
+	"yes"(1.0v)
+	"no"(1.2v)
+	"no"(1.2v)
+
+
+Enumeration(I) 
+Iterator(I)
+ListIterator(I)
+
+Implementation classes of cursor
+import java.util.*;
+class CursorDemo{
+	public static void main(String[] args){
+		Vector v = new Vector();
+		Enumeration e = v.element();
+		Iterator itr = v.iterator();
+		ListIterator ltr = v.listIterator();
+		System.out.println(e.getClass().getName());//java.util.Vector$1 
+		System.out.println(itr.getClass().getName());//java.util.Vector$Itr
+		System.out.println(ltr.getClass().getName());//java.util.Vector$ListItr 
+	}
+}
+Anonymous inner class name: Vector$1 
+

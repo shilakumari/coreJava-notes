@@ -1,0 +1,129 @@
+1) Reserved words(53)
+	In Java, some words are reserved to represent some meaning or functionality, such type of words are called reserved words.
+	1)Keyword(50): functionality associated with it
+		Used Keyword (48)
+		Unused Keyword(2) 
+	 		goto 
+			const
+	2)Reserved Literals(3): functionality is not associated with it
+		true
+		false
+		null
+		
+Keywords
+1:data types(8)
+	byte, short, int, long, float, double, boolean, char
+2:flow control(11)
+	if, else, switch, case, default, while, do, for, break, continue, return
+3:For exception handling(6)
+	try, catch, finally, throw, throws, assert(1.4v)
+4:For modifiers(11)
+	public, private, protected, static, final, abstract, synchronized, native, strictfp (1.2v), transient, volatile
+5:Class related(6)
+	class, interface, extends, implements, package, import
+6:Object related(4) 
+	new, instanceof, super, this
+7:Return type related(1) 
+	void
+		In C, return type is optional & default return type is int. But in Java, return type is mandatory. 
+		If a method won't return anything, then we have to declare that method with void return type.
+8:enum(1) 
+	we can use enum to define, a group of named constants
+	enum DAY{
+		MON, TUE, WED, THU, FRI, SAT, SUN;
+	}
+Unused keyword(2) 
+	goto, const  
+	Reserved for future use.
+	Uses of goto creates several problem in old languages & hence SUN people banned this keyword in Java. 
+	Use final instead of const.
+	goto & const are unused keyword and if we are trying to use, we will get CTE(Compile Time Error).
+
+Reserved Literals(3)
+	true, false: values for Boolean data types
+	null: default value for object reference
+
+Conclusion:
+	All 53 reserved words contains only lowercase alphabet symbols.
+	In Java, we have only new keyword & there is no delete keyword because 
+	destruction of useless object is the responsibility of garbage collector.
+	The following are new keywords in Java:
+		strictfp (1.2 v)
+		assert   (1.4 v)
+		enum     (1.5 v)
+	strictfp but not strictFp
+	instanceof, but not instanceOf
+
+2)Identifier
+	A name in Java program is considered as identifier, which can be used for identification purpose.
+	It can be, 
+		Method name
+		Variable name
+		Class name/interface name
+		Label name
+class Test  //i1
+{	public static void main(String [] args)//i2, i3, i4
+	{	int x=10; //i5	}
+}
+Rules for defining identifier
+1: Only allowed character in identifier are:
+	_
+    $
+	a to z
+	A to Z
+	0 to 9
+	If we are using any other character, we will get CTE (Compile Time Error).
+    	total_number //valid
+        total#    //invalid
+
+2: Identifiers cannot starts with digit.
+       Total123  //valid
+       123total   //invalid
+
+3:  Reserved words cannot be used as identifier. 
+	Class Test{
+		int x=10;
+		int if=10;  //CTE
+	}
+
+4: All predefined java class names & interface names, we can use as identifier. 
+   Even though it is valid, but it is not a good programming practice because it reduces readability and creates confusion.
+	Class Test{
+		Public static void main(String[] args){
+			int String=888;
+			System.out.println(String);//888
+
+			int  Runnable=999;
+			System.out.println(Runnable);//999
+		}
+	}
+5: Identifiers are case sensitive.
+	Class Test{
+		int number=10;
+		int Number=20;
+		int NUMBER=30;	
+}
+6: There is no length limit for java identifiers but it is not recommended to take too lengthy identifiers.
+	Class Test{
+		Public static void main(String[] args){
+			int xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy=78;
+			System.out.prinln(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxXxxxxxxxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyyyyyyyyy;
+		}
+	}
+7)  Method name and class name can be same.
+	Variable name and method name can be same.
+	Variable name and class name can be same.
+
+
+Which of the following are valid java identifiers?
+total# //invalid
+123total  //invalid
+total123
+total_number  
+cas$h
+_$_$_$
+java2share
+Integer
+Int //valid
+all@hands//invalid
+int//invalid

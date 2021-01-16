@@ -1,0 +1,16 @@
+LinkedHashSet
+It is child class of HashSet
+
+It is exactly same as HashSet except the following differences:
+	Underlying data structure is Hashtable + LinkedList(that is hybrid data structure) ???????
+	1.4v
+	Insertion order must be preserved
+
+LinkedHashSet 
+	Cache based application where duplicates are not allowed & insertion order must be preserved.
+
+
+Primary memory-RAM=very fast
+Secondary memory-very slow
+	To balance performance differences, we use cache memory.
+

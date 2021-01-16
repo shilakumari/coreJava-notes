@@ -1,0 +1,93 @@
+abstract class   NumberFormat
+Abstract class NumberFormat is present in  java.text package.
+Various location follows various styles to represent a Java number.
+
+double d = 123456.789;
+	In : 1, 23, 456.789
+	Us : 123, 456.789
+	ITALY : 123.456, 789 
+	
+
+We can use NumberFormat class to format a java number according to a particular locale.
+
+Getting NummberFormat object for default locale
+NumberFormat    numberFormat= NumberFormat.getInstance();
+NumberFormat    numberFormat= NumberFormat.getNumberInstance();
+NumberFormat    numberFormat= NumberFormat.getCurrencyInstance();
+NumberFormat    numberFormat= NumberFormat.gePercentagetInstance();
+
+Getting NummberFormat object for specific locale
+NumberFormat    numberFormat= NumberFormat.getInstance(Locale l);
+NumberFormat    numberFormat= NumberFormat.getNumberInstance(Locale l);
+NumberFormat    numberFormat= NumberFormat.getCurrencyInstance(Locale l);
+NumberFormat    numberFormat= NumberFormat.gePercentagetInstance(Locale l);
+	
+	
+Once we got NumberFormat object, we can call format() & parse() method on that object.
+public String format(long l)
+public String format(double l)
+	to convert java number form to locale specific String form
+public Number parse(String s)
+	to convert locale specific String form to java number form 
+	
+
+java number -format()-> Local specific String
+java number <-parse()- Local specific String
+
+
+Q) Write a program to display a Java number in ETALY specific form
+		double d = 123456.789;
+		NumberFormat    numberFormat= NumberFormat.getNumberInstance(Locale.ITALY);
+		String s=numberFormat.format(d);
+		System.out.println("ITALY specific form: "+s);//123.456,789
+
+Q) Write a program to display a Java number in UK,US & India currency forms
+Example: NumberFormateClassDemo.java
+		double d = 123456.789;
+		Locale india = new Locale("pa", "IN");
+		NumberFormat nf = NumberFormat.getCurrencyInstance(india);
+		System.out.println("India form is...: " + nf.format(d));//India form is...: INR 123,456.79
+		nf = NumberFormat.getCurrencyInstance(Locale.US);
+		System.out.println("US form is...: " + nf.format(d));//US form is...: $123,456.79
+		nf = NumberFormat.getCurrencyInstance(Locale.UK);
+		System.out.println("UK form is...: " + nf.format(d));//UK form is...: £123,456.79
+
+
+
+Decimal number round off after 2 decimal places by default.
+
+Setting maximum & minimum fraction & integer digits
+NumberFormat class defines the following methods for this purpose:
+	public void setMinimumFractionDigits(int n)
+	public void setMaximumFractionDigits(int n)
+	public void setMinimumIntegerDigits(int n)
+	public void setMaximumIntegerDigits(int n)
+
+	Nf.setMinimumFractionDigits(2);
+	Nf.setMaximumFractionDigits(3);
+	Nf.setMinimumIntegerDigits(2);
+	Nf.setMaximumIntegerDigits(3);
+
+123456.789
+where 123456 = Integer digits
+      789 = Fraction digits
+
+Example:
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(2);
+		System.out.println(nf.format(123.4567));//123.46
+		System.out.println(nf.format(123.4));//123.4
+
+		nf.setMinimumFractionDigits(2);
+		System.out.println(nf.format(123.4567));//123.46
+		System.out.println(nf.format(123.4));//123.40
+
+		nf.setMaximumIntegerDigits(3);
+		System.out.println(nf.format(123456.789));//456.79
+		System.out.println(nf.format(1.2345));//1.23
+
+		nf.setMinimumIntegerDigits(3);
+		System.out.println(nf.format(123456.789));//456.79
+		System.out.println(nf.format(1.2345));//001.23
+
+	

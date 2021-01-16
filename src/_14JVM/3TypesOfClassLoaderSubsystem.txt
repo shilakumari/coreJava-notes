@@ -1,0 +1,84 @@
+Types of class loaders subsystemn:
+Class loader sub-system containd following 3 types of class loader:
+⦁	Bootstrap class loader/Premordial class loader
+⦁	Extension class loader
+⦁	System class loader/ Application class loader
+
+
+Bootstrap class loader/Premordial class loader
+Bootstrap classpath-JDK/JRE/Lib
+Bootstrap class loader is responsible to load classes from bootstrap classpath.
+Bootstrap class loader is responsible to load core java API classes. That is the classes present in rt.jar
+
+JDK
+	JRE
+		lib
+			rt.jar
+
+JDK\JRE\lib --> Bootstrap classpath
+
+Bootstrap class loader is bydefault available with every JVM. 
+	It is implemented in native languages like C/C++ and not implemented in Java.
+
+Extension class loader
+It is responsible to load classes from extension classpath.
+Extension classpath-JDk/JRE/LIB/ext
+Extension class loader is implemented in Java and the corresponding .class file is
+sun.misc.Launcher$ExtClassLoader.class.
+
+
+Application class loader/ System class loader
+It is responsible to load classes from application classpath. It internally uses environment variable classpath.
+Application class loader is implemented in Java and the corresponding .class file name is sun.misc.Launcher$AppClassLoader.class.
+AppClassLoader is the child class of ExtClassLoader.
+
+Application class loader --> Extension class loader --> BootStrap class loader
+
+
+Q) How class loader works?
+	JVM
+	|(request)
+	class loader sub system
+	|(request)
+	Application classLoader <--delegates--> Extension classLoader <--delegates--> BootStrap classLoader
+	|(Scanner in)							|(Scanner in)						  |(Scanner in)
+	Application classPath                   Extension class path				  BootStrap class path(JDK|JRE|lib)
+	[Environment variable classes]				(JDK|JRE|lib|ext)
+
+ClassNotFoundException (or) NoClassDefFoundException
+
+
+Class loader follows Delegation hierarchy algorithm.
+Whenever JVM comes across a particular class, first it will check whether the corresponding .
+	class file is loaded or not. If it is already loaded in method area then JVM will consider that loaded class.
+If it is not loaded, then JVM request class loader sub-system, to load that particular class.
+Then class loader subsystem hand-overs the request to application class loader. 
+	Application class loader delegates the request to extension class loader which in-turn delegates the request to bootstrap class loader.
+Then bootstrap class loader will search in bootstrap class-path. 
+	If it is available then corresponding.
+
+class will be loaded by bootstrap class loader. If it is not available then bootstrap class loader delegates the request to extension class loader. 
+Extension class loader will search in extension class-path. If it is available then corresponding.
+	class will be loaded by extension class loader. 
+	If it is not available then extension class loader delegates the request to application class loader. 
+
+Application class loader will search in application class path. 
+	If it is available then corresponding .class will be loaded by application class loader. 
+	If it is not available then we will get runtime exception saying NoClassDefFoundError or ClassNotFoundException.
+
+Example:
+	class Tes{
+		public static void main(String[] args){
+			System.out.println(String.class.getClassLoader());
+			System.out.println(Test.class.getClassLoader());
+			System.out.println(Customer.class.getClassLoader());
+		}
+	}
+//sun.misc.Launcher$AppClassloader@1234
+//sun.misc.Launcher$ExtClassloader@7654
+//Assume Customer.class present in both extension and application class paths and Test.class present in only application class-path.
+
+Note:
+Bootstrap class loader is not java object. Hence we get null in first case.But extension and application class loaders are Java objects. 
+	Hence we are getting corresponding output for the remaining two SOP().[ClassName@hashCode in hexadecimal form]
+Class loader subsystem will give the highest priority for Bootstrap class-path then extension class-path and then application class-path.

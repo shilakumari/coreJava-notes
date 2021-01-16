@@ -1,0 +1,9 @@
+OOPS stands for "Object Oriented Programming System" in C++ programming, 
+
+There are following concepts of OOPS:
+Class
+Object
+Inheritance
+Data Encapsulation
+Data Abstractions
+Polymorphism

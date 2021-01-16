@@ -1,0 +1,14 @@
+Custom Annotation
+1)Define user defined annotation
+2)utilize user defined annotation in java program
+3)access data from user defined annotation
+
+1)Define user defined annotation
+Example: CustomAnnotationDemo.java(m1())
+Example: CustomAnnotationDemo.java(m2())
+
+java.lang.Class object for Student class:
+1)By using Class.forName() method
+2)By using getClass() method
+3)By using .class filename
+

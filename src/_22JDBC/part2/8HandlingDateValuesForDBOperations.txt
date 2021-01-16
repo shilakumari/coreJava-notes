@@ -1,0 +1,103 @@
+Handling Date Values For Database Operations 
+Sometimes as the part of programming requirement,we have to insert and retrieve Date like DOB,DOJ,DOM,DOP...w.r.t database. 
+It is not recommended to maintain date values in the form of String,b'z comparisons will become difficult. 
+In Java we have two Date classes 
+	1. java.util.Date 
+	2. java.sql.Date 
+java.sql.Date is the child class of java.util.Date. 
+	java.util.Date <-- java.sql.Date
+ 
+java.sql.Date is specially designed class for handling Date values wrt database. 
+Other than database operations,if we want to represent Date in our java program then we should go for java.util.Date.  
+java.util.Date can represent both Date and Time where as java.sql.Date represents only Date but not time.  
+ 
+Example:
+class DateClassDemo{   
+     public static void main(String[] args){   
+ 		 java.util.Date udate=new java.util.Date();   
+         System.out.println("util Date:"+udate);   
+                 long l =udate.getTime();   
+         java.sql.Date sdate= new java.sql.Date(l);   
+         System.out.println("sql Date:"+sdate);    
+    }  
+} 
+output: util Date:Mon Aug 05 11:03:59 IST 2019
+		sql Date:2019-08-05
+
+	
+Differences between java.util.Date and java.sql.Date 
+java.util.Date 	& java.sql.Date 
+1) It is general Utility Class to handle Dates in our Java Program. 
+1) It is specially designed Class to handle Dates w.r.t DB Operations. 
+2) It represents both Data and Time. 
+2) It represents only Date but not Time. 
+
+
+Note: In sql package Time class is available to represent Time values and TimeStamp class is available to represent both Date and Time. 
+ 
+Inserting Date Values into Database: 
+Various databases follow various styles to represent Date. 
+Eg:                   
+	Oracle: dd-MMM-yy    28-May-90                   
+	MySQL:  yyyy-mm-dd   1990-05-28 
+ 
+If we use simple Statement object to insert Date values then we should provide Date value in the database supported format,
+	which is difficult to the programmer.
+If we use PreparedStatement,then we are not required to worry about database supported form, just we have to call pst.
+	setDate (2, java.sql.Date); 
+This method internally converts date value into the database supported format. 
+ Hence it is highly recommended to use PreparedStatement to insert Date values into database. 
+ 
+Steps to insert Date value into Database: 
+	DB: create table users(name varchar2(10),dop date); 
+1. Read Date from the end user(in String form)       
+	System.out.println("Enter DOP(dd-mm-yyyy):");    
+	String dop=sc.next(); 
+2. Convert date from String form to java.util.Date form by using SimpleDateFormat object    
+	SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");    
+	java.util.Date udate=sdf.parse(dop); 
+3. convert date from java.util.Date to java.sql.Date   
+	long l = udate.getTime();    
+	java.sql.Date sdate=new java.sql.Date(l); 
+4. set sdate to query    
+	pst.setDate(2,sdate);
+
+	End User provided Date (In String Form) -By using SimpleDateFormat parse() -> java.util.Date -->
+											--> java.sql.Date --> PS.setDate (1, sdate) --> Database specific form 
+
+Program To Demonstrate Inserting Date Values Into Database: 
+DB: create table users(name varchar2(10),dop date); 
+	Example: DateInsert.java 
+
+Note: If end user provides Date in the form of "yyyy-MM-dd" then we can convert directly that String into 
+	  java.sql.Date form as follows... 
+	String s = "1980-05-27"; 
+	java.sql.Date sdate=java.sql.Date.valueOf(s); 
+ 
+Program To Demonstrate Inserting Date Values Into Database: 
+	DB: create table users(name varchar2(10),dop date); 
+	Example: DateInsert1.java 
+
+
+Retrieving Date values from the database:  
+	For this we can use either simple Statement or PreparedStatement.  
+The retrieved Date values are Stored in ResultSet in the form of "java.sql.Date" and we can get this value by using getDate() method. 
+Once we got java.sql.Date object,we can format into our required form by using SimpleDateFormat object
+	
+	Database --s.date = rs.getDate(2);--String s = sdf.format (sdate); --> java.sql.Date --> Our required String Form 
+
+Program To Retrieve Date Values From The Database:
+	Example: DateRetrive.java
+
+FAQs: 
+1. In Java how many Date classes are available? 
+2. What is the difference Between java.util.Date and java.sql.Date?
+3. What is the relation Between java.util.Date and java.sql.Date? 
+4.How to perform the following conversions?   
+	1. java.util.Date to java.sql.Date   
+	2. String to Date   
+	3. Date to String  
+Note: SimpleDateFormat class present in java.text package. 
+
+	String Form --sdf.parse (string)--> Date Form 
+	String Form <--sdf.format (date) -- Date Form

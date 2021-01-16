@@ -1,0 +1,53 @@
+The Metaspace And Internal JVM Memory Optimizations
+	The role of the metaspace
+	The PermGen
+	Are objects always created on heap?
+	The String pool
+	Interning Strings
+	
+	
+The role of the metaspace(SInce Java 1.8v)
+	The metaspace contains general metadata, static variable, methods & classes.
+	The metaspace never garbage collected.
+	The metaspace shared among threads.
+	The static varible can be accessed via any threads in the application.
+	The public & private variable of Objec live in Heap only.
+	It potentially never be full of memory.	
+	
+The PermGen(Till Java 1.7v)
+java.lang.OutOfMemoryError:PermGen
+-XX:PermSize=N
+-XX:MaxPermSize=N
+
+
+Are objects always created on heap?
+Varaible scope on stack are based on block.
+As a programmer, we don't have a control to create a Object on Heap or Stack.
+But JVM internally may optimize & create object on stack if JVM sees that object is only by used inside block.
+
+The String pool
+	StringMain.java
+		String s1 = "hello";
+		String s2 = "hello";
+		System.out.println(s1.equals(s2));// true
+		System.out.println(s1 == s2);// true
+
+		Integer i3 = 76;
+		String s3 = i3.toString();
+		String s4 = "76";
+		System.out.println(s3.equals(s4));// true
+		System.out.println(s3 == s4);// false, true if JVM optimizes
+	
+	Because String is immutable, so same string can be safely references by two different variable on stack.
+	
+
+Interning Strings
+	 String pool in PermGen.(Till Java 6)
+	 String Pool in Heap(Since Java 7). Now String pool can also be garbage collected.
+	 Integer i5 = 76;
+		String s5 = i5.toString().intern();//intern() return string from pool & create if already not in pool.
+		String s6 = "76";
+		System.out.println(s5.equals(s6));// true
+		System.out.println(s5 == s6);// true
+	When JVM optimize,Small strings are stored in String pool & large strings are stored in Heap.
+	

@@ -1,0 +1,32 @@
+SortedSet Interface
+It implements Set interface.
+If we want to represent a group of individual objects according to some sorting order and 
+duplicates are not allowed then we should go for SortedSet.
+
+SortedSet Specific methods
+Object first()
+	return first element of the SortedSet.
+Object last()
+	return last element of the SortedSet.
+SortedSet headSet(Object obj)
+	return the SortedSet whose elements are < obj.
+SortedSet tailSet(Object obj)
+	return the SortedSet whose elements are >= obj.
+SortedSet subSet(Object obj1, Object obj2)
+	return the SortedSet whose elements are >= obj and <obj2.
+Comparator comparator()
+	return Comparator object that describes underlying sorting technique. 
+	If we are using default natural sorting order then we will get null.
+
+Example: {100. 101, 103, 104, 107, 110, 115}
+first() - 100
+last() - 115
+headSet(104) - [100, 101, 103]
+tailSet(104) - [104, 107, 110, 115]
+subSet(103, 110) - [103, 104, 107]
+comparator() - null
+
+Note:
+1. Default natural sorting order for numbers, Ascending order and for String, alphabet order.
+2. We can apply the above methods only on SortedSet implemented class objects. That is on the TreeSet object.
+

@@ -1,0 +1,25 @@
+Modifier summary table
+Modifier	OuterClass	InnerClass	OuterInterface	InnerInterface	OuterEnum	InnerEnum	Method	Variable	Block	Constructor
+public		Y			Y			Y				Y				Y			Y			Y		Y					Y
+Private					Y							Y							Y			Y		Y					Y
+Protected				Y							Y							Y			Y		Y					Y
+<default>	Y			Y			Y				Y				Y			Y			Y		Y					Y
+Final 		Y			Y																	Y		Y		
+Abstract	Y			Y			Y				Y										Y			
+Static 					Y							Y							Y			Y		Y			Y	
+Synchronized																				Y					Y	
+Native 																						Y			
+Strictfp	Y			Y			Y				Y				Y			Y			Y			
+Transient																							Y		
+Volatile																							Y		
+
+The only applicable modifier for local variable is final.
+The only applicable modifiers for constructors are public, protected,<default>, private.
+The only applicable modifiers for block is static & synchronized.
+
+The modifiers which are applicable only for methods are native.
+The modifiers which are applicable only for variables are transient & volatile.
+
+The modifier which are applicable for classes but not for interfaces is final.
+The modifier which are applicable for classes but not for enum is final & abstract.
+

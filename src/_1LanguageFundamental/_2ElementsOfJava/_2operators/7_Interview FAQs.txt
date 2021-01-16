@@ -1,0 +1,124 @@
+new  vs newInstance()
+instanceof vs isInstance()
+ClassNotFoundException vs NoClassDefFoundError
+
+new  vs newInstance()
+Test t=new Test();
+Student s=new Student();
+Customer c=new Customer();
+We use new operator to create object. If we know the class name at beginning.
+
+There are some places where use of new operator is not very  good approach.
+class Test{
+	PSVM(String[] args){
+		If(args[0].equals(“Student”)){	
+			Student s=new Student();
+		}
+		If(args[0].equals(“Customer”)){	
+			Customer c=new Customer();
+		}
+		If(args[0].equals(“java.lang.String”)){	
+			String s=new String(“Hello”);
+		}
+	}
+}
+Java Test Student
+Java Test Customer
+Java Test java.lang.String
+
+class Test
+{	PSVM() throws Exception
+	{
+		Args[0] a=new args[0]();//CTE
+	}}
+class Test
+{	PSVM() throws Exception{
+		Object o=Class.forName(args[0]).newInstance();
+		SOP(o.getClass().getName());
+	}
+}
+newInstance() is method class Class. We can use newInstance() method to create object, 
+if we do not know class name at the beginning & it is available dynamically at runtime.
+
+WebContainer use newInstance() method to create object for Servlet.
+
+In the case of new operator, based on our requirement, we can invoke any constructor.
+
+Test t=new Test();
+Test t1=new Test(10);
+Test t2=new Test("Abhi");
+
+But newInstance() method  internally calls no-arg constructor. Hence to use newInstance() method, 
+	compulsory  corresponding class should contain no-arg constructor. Otherwise we will get RE, saying InstantiationException.
+Because of this, every servlet class must contain no-arg constructor.
+newInstance()
+{
+	NO-ARG Constructor();
+}
+
+class Test{
+	Test(){
+		SOP(“No-arg constructor”);
+	}
+	PSVM() throws Exception{
+		Object o=Class.forName(args[0]).newInstance();
+		SOP(o.getClass().getName());
+	}
+}
+
+class Test{
+	Test(inti){
+		SOP(“No-arg constructor”);
+}
+	PSVM() throws Exception{
+		Object o=Class.forName(args[0]).newInstance();
+		SOP(o.getClass().getName());
+	}
+}
+Output: RE, java.lang.InstantiatioonException
+
+
+Test t=new Test();
+//NoClassDefFoundError
+
+Object o=Class.forName(args[0]).newInstance();
+//ClassNotFoundException
+
+new																				newInstance()
+It is an operator in Java														It is a method present in java.lang.Class
+We can use it, to create object if we know class name at the beginning.			We can use it, to create object if we don’t know class name 
+																					at the beginning & it is available dynamically at runtime.
+To use it, corresponding class not required to contain no-arg constructor.		To use it, corresponding class must contain no-arg method otherwise
+																					we will get RE saying, InstantiationException
+At runtime if corresponding class file is not available then we will get RE, 	At runtime if corresponding class file is not available then we will  
+	saying NoClassDefFoundError, which is unchecked exception.					get RE,saying ClassNotFoundException, which is checked exception.
+
+
+Diff b/w NoClassDefFoundError & ClassNotFoundException
+Test t=new Test();
+For hard coded class name, at runtime if corresponding class is not available then we will get RE saying NoClassDefFoundError.
+
+Object o=Class.forName(args[0]).newInstance();
+For dynamically provided  class name, at runtime if corresponding class is not available then we will get RE saying ClassNotFoundException:Student.
+
+
+Instanceof vs isInstance()
+instanceof is a operator
+We can use instanceof to check, Whether the given object is of particular type or not and we know that type at beginning only.
+Thread t=new Thread();
+SOP(t instanceof Runnable);//true
+SOP(t instanceof Object);//true
+SOP(t instanceof String);//CTE
+
+isInstance() is a method
+We can use isInstance() method to check, Whether the given object is of particular type or not and 
+	we don’t know that type at beginning and it is available dynamically at runtime.
+Thread t=new Thread();
+SOP(Class.forName(args[0]).isInstance(t));
+
+Java Test java.langRunnable
+	true
+Java Test java.lang.String
+	false
+
+isInstance() is a method equivalent of instanceof operator.

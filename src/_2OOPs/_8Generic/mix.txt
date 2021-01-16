@@ -1,0 +1,63 @@
+Introduction to Generic
+	Mchanishm to provide type checking at compile time
+Purpose/Objective of Generic
+Generic Types
+	Generic classes & interfaces
+	
+Subclassing
+	A generic interface can extend other generic interface with same type parameter. 
+	A generic class can extend other generic class with same type parameter. 
+	A generic interface can be implemented by a non-generic class only if 
+		we define the particular class and interfaces as the type parameter.
+		class NonGenericClass implements GenericInterface<T>{} //CTE
+		class NonGenericClass implements GenericInterface<Student>{}
+	 		here Student is exact type it is not a type parameter like T, E, U, V etc.
+	A Generic class can extend a non-generic class.
+	A Generic class can implement a non-generic Interface.
+	If two generic class implements the same generic interface, and one generic class is extending another generic class then, 
+		arguments of interface must be matched.
+		interface GenericInterface<T>{}
+		class GenericClass<T> implements GenericInterface<T>{}
+		class GenericClass2<T> extends GenericClasss<T> implements GenericInterface<T>{}
+		class GenericClass2<T> extends GenericClasss<T> implements GenericInterface<Integer>{}//CTE
+		
+	 		
+Collection with generics
+Raw Types
+Multiple Type Parameters
+Sub Typing
+	List<Number> l1= new ArrayList<Integer>();
+	
+	class Data3<T> implements Comparable<T>{
+public int compareTo(T t){
+return 0;}
+}
+class Test1<T,U> extends Data3<T>{}
+class Test2<T,U> extends Data3<U>{}
+//Data<U> is having type parameter U, that is one of its parent's type parameter. Perfectly valid!
+class Test3<T,U> extends Data3<E>{}//CTE
+class Test4<E> extends Data3<E>{}//valid
+
+This assignment compiles fine, we can assign raw type list to any list.
+    list = rawList;                 //3
+    
+This assignment will compile fine because any type of list can be assigned to raw type.
+	    List rawList = list;            //1
+
+
+
+
+Generic Methods
+Bounded type parameters
+Wildcard: Upper Bounded & Lower Bounded
+Restriction on Wildcards
+Bahaviour in generic 7 non-generic area
+Type Erasure
+
+
+
+
+Question 1:
+	write a program to create general implementation of linkedlist. 
+	Note that one linkedlist must contain single type of data elements,
+	but we are allowed to create linkedlist of any type.

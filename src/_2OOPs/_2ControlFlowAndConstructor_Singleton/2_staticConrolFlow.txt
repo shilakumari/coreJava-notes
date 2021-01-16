@@ -1,0 +1,125 @@
+Static control flow
+Whenever we are executing a java class, the following sequence of activities/steps will be executed 
+	as the part of static control flow.
+	Whether main method present or not?
+	Identification of static members from top to bottom (step 1 to step 6)
+		i=0;(RIWO, read indirect write only)
+		j=0;(RIWO, read indirect write only)
+	Execution of static variable assignments and static block from top to bottom((step 7 to step 12)
+		i=10;(R&W, read & write)
+		j=20;(R&W, read & write)
+	Execution of main method (step 13 to step 15)
+
+Static members
+	static variable
+	static block
+	static method
+
+class Box{
+static int i=10;//1,7
+static//2
+{
+	m1();//8
+	System.out.println("First static block");//10
+}
+public static void main(String[] args )//3
+{
+	m1();//13
+	System.out.println("main() method");//15
+}
+public static void m1()//4
+{
+	System.out.println(j);//9,14
+}
+static//5
+{
+	System.out.println("Second static Block");//11
+}
+static int j=20;//6,12
+}
+Output:
+0
+First static block
+Second static Block
+20
+main() method
+
+
+
+Direct and indirect read of a variable
+Inside a static block, if we are trying to read a variable, that read operation is called direct read.
+If we are calling a method and within that method, if we are trying to read a variable, 
+	that read operation is called indirect read.
+class Test
+{
+static int i=10;
+static
+{
+	m1();
+	System.out.println(i);//direct read of i
+}
+public static void main(String[] args )//3
+{
+	System.out.println(i);////indirect read of i
+}
+}
+
+Read Indirectly & Write Only (RIWO) state
+If a variable is just identified by the JVM and original value not yet assigned, then variable is said to be in RIWO state.
+If a variable is in RIWO state, then we cann't perform direct read but we can perform indirect read.
+If we are trying to read directly, then we will get CTE, saying, Illegal forward reference.
+
+Example 1
+class Box
+{
+static int x=10;
+static
+{
+	System.out.println(x);//RE, main method not found in class Box
+}
+}
+Output:
+Error: Main method not found in class Box, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+
+Output for  before java version 1.7
+	NoSuchMethodError
+
+
+Example 2
+class Box
+{
+static
+{
+	System.out.println(x);//CTE, Illegal forward reference
+}
+static int x=10;
+}
+Output://CTE
+Box.java:5: error: illegal forward reference
+System.out.println(x);
+                   
+
+
+Example 3:
+class Box
+{
+static
+{
+	m1();
+}
+public static void m1()
+{
+	System.out.println(x);//RE
+}
+static int x=10;
+}
+Output:
+Error: Main method not found in class Box, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+
+Output for  before java version 1.7
+	NoSuchMethodError
+

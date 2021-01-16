@@ -1,0 +1,141 @@
+Dancing between String, wrapper object & primitive
+
+Utility methods of wrapper classes
+valueOf(): primitive or string to wrapper object (boxing)
+xxxValue(): wrapper to primitive(un-boxing)
+parseXxx(): String to primitive
+toString(): wrapper Object to String
+
+Primitive/String -->valueOf()-->wrapper Object
+WrapperObject/Primitive-->toString()-->String
+String-->parseXxx()-->primitive
+wrapper Object-->xxxValue()-->Primitive
+
+
+valueOf()
+	Integer I=new Integer(10);
+	Integer I=new Integer(“10”);
+	We can use valueOf() methods to create wrapper object for the given primitive or String.
+
+Form 1:
+Every wrapper class including Character class contains static valueOf() method to create wrapper object for the given primitive.
+public static [wrapper] valueOf([primitive] p)
+Integer I =Integer.valueOf(10);
+Character I = Character.valueOf(‘A’);
+Boolean I =Boolean.valueOf(true);
+
+Form2:
+public  static [Wrapper] valueOf(String s)
+Integer I=Integer.valueOf(“10”);
+Double D=Double.valueOf(“10.5”);
+Boolean B=Boolean.valueOf(“Abhi”);
+Every wrapper class except character class contains a static valueOf() method to create wrapper object for the given String.
+
+Form3:
+Every integral type wrapper class(Byte,Short,Integer,Long)contains the following valueOf() method 
+	to create wrapper object for the given specified radix string.
+	The allowed range of radix is : 2 to 36
+		2<=radix<=36 otherwise RTE saying NumberFormatException
+		36-0 to 9, a to z
+Integer I =Integer.valueOf(“1111”);
+SOP(I);//1111
+Integer I =Integer.valueOf(“1111”,2);
+SOP(I);//15
+Integer I =Integer.valueOf(“1111”,36);
+Integer I =Integer.valueOf(“1111”,37);//RTE, NumberFormatException
+
+
+
+parseXxx()
+We can use parseXxx() methods to convert String to primitive.
+Form 1:
+Every wrapper class except character class contains the following parseXxx()  method to find primitive for the given String object.
+public static primitive  parseXxx(String s)
+int  i=Integer.parseInt(“10”);
+double  i=Double.parseDouble(“10.5”);
+boolean  i=Boolean.parseBoolean(“true”);
+
+Form 2:
+Every integral type wrapper class (Byte, Short, Integer, Long) contains the following parseXxx() method 
+	to convert specified radix string to primitive.
+public static primitive  parseXxx(String s, int radix)
+int  i=Integer.parseInt(“1111”,2);
+SOP(i);//15
+
+
+xxxValue()
+We can use xxxValue() methods to get primitive for the given wrapper object.
+Integer I=new Integer(130);
+SOP(I.byteValue());//-126
+SOP(I.shortValue());//130
+SOP(I.intValue());//130
+SOP(I.longValue());/130
+SOP(I.floatValue());//130.0
+SOP(I.doubleValue());//130..0
+
+Every number type wrapper class(Byte, Short, Integer, Long, Float, Double) contains 
+	the following six methods to get primitive for the given wrapper object.
+public byte byteValue()
+public byte shortValue()
+public byte intValue()
+public byte longValue()
+public byte floatValue()
+public byte doubleValue()
+
+public char charValue()
+Character class contains charValue() method to get char primitive for the given character object.
+Character ch=new Character(‘A’);
+char c=ch.charValue();
+SOP(ch);//’a’
+
+public boolean booleanValue()
+Boolean class contains booleanValue() method to get boolean primitive for the given Boolean  object.
+Boolean B=new Boolean (“Abhi”);
+boolean b=B. booleanValue();
+SOP(b);//false
+
+In total 38(6*6+1+1) xxxValue() methods are possible.
+
+
+toString()
+We can use toString() method to convert wrapper object or primitive to String.
+
+Form 1
+Every wrapper class the following toString() method to convert wrapper object to String type.
+public String toString()
+Integer I =new Integer(10);
+String s=I.toString();
+SOP(s);
+It is overridden version of Object class, toString() method.
+When ever we are trying to print wrapper object reference internally this toString() method will be called.
+SOP(I);SOP(I.toString());
+
+Form 2
+Every wrapper class including character class contains the following static toString() method to convert primitive to String.
+public  static String toString([primitive] p)
+String s=Integer.toString(10);
+String s=Boolean.toString(true);
+String s=Character.toString(‘a’);
+		
+		System.out.println(Integer.toString(10)==new Integer(10).toString());//false
+		System.out.println(Integer.toString(10).equals(new Integer(10).toString()));//true
+
+Form 3
+Integer & Long classes contains the following toString() method to convert primitive or specified radix String.
+public static String toString([primitive] p, int radix)
+String s=Integer.toString(15,2);
+SOP(s);//1111
+
+Form 4
+toXxxString()
+Integer & Long classes the following toXxxString() methods
+public  static String toBinaryString(primitive p)
+public  static String toOctalString(primitive p)
+public  static String toHexadecimalString(primitive p)
+
+String s= Integer.toString(15,2);//1111
+String s= Integer.toBinaryString(10);//1010
+
+String s= Integer.toOctalString(10);//12
+String s= Integer.toHexString(10);//a
+

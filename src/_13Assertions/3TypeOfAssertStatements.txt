@@ -1,0 +1,161 @@
+Types of assert statements
+⦁	Simple version
+⦁	Argumented version
+
+Simple version
+Syntax: 
+assert(b);
+where b should be Boolean type.
+
+If b is true then our assumption satisfied and hence rest of the program will be executed normally.
+If b is false, then our assumption fails that means somewhere something goes wrong. 
+	And hence program will be terminated abnormally by rising AssertionError.
+Once we got an assertion error, we will analize the code and we will fix the problem.
+
+class Test
+{
+	public static void main(String args[])
+	{
+		int x=10;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		assert(x==10);
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		System.out.println(x);
+	}
+}
+Output: Java –ea Test
+10
+
+⦁	By default assert statement wouldn’t be executed. Because assertions are disable by default. 
+	But we can enable assertions by using –ea options
+class Test
+{
+	public static void main(String args[])
+	{
+		int x=10;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		assert(x>10);
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		System.out.println(x);
+	}
+}
+Output: Java –ea Test
+RTE, AssertionError
+
+
+
+Argumented version
+We can argument some discription with essertion error by using argumented version.
+assert(b):e
+Here b is an Boolean type and 
+e can be any type but mostly String type.
+
+class Test
+{
+	public static void main(String args[])
+	{
+		int x=10;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		assert(x>10):”Here x value should be >10 but it is not.” ;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		System.out.println(x);
+	}
+}
+Conclusion 1:
+assert (b):e; 
+Here e will be executed if and only if 1st argument is false. 
+That is if 1st argument is true, then second argument wonn’t be evaluated or executed.
+class Test
+{
+	public static void main(String args[])
+	{
+		int x=10;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		assert(x==10):++x ;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		System.out.println(x);
+	}
+}
+Javac Test.java
+Java Test
+O/p:10
+
+Javac –ea Test
+o/p: 10
+
+
+Conclusion 2:
+assert(b):e,
+For the second argument, we can take method call but void return type method call is not allowed, otherwise we will get CTE.
+class Test
+{
+	public static void main(String args[])
+	{
+		int x=10;
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		assert(x>10):m1();
+		;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		System.out.println(x);
+	}
+	Public static int m1()
+{
+	Return 777;
+}
+}
+Javac Test.java
+Java Test
+O/p:10
+
+Javac –ea Test
+o/p: RE, AssertionError:777
+
+If m1() method return type is void then we will get CTE saying void type is not allowed here.
+
+Among two versions of assertions it is recommended to use, argumented version. Because it provides more information for debugging.
+
+
+
+Class Test
+{
+PSVM()
+{
+	
+		boolean assertOn = false;
+		try {
+			assert (assertOn) : assertOn = true;
+		} catch (AssertionError e) {
+		}
+		if (assertOn) {
+			System.out.println("assertOn");
+		}
+	
+}
+}
+If assertion are not enabled:
+Output: No output 
+
+If assertion are enabled:
+Output: RE:AssertionError:true
+	assertOn
+
+Class Test
+{
+PSVM()
+{
+	Boolean assertOn=true;
+	Assert(assertOn):assertOn=false;
+	If(assertOn)
+	{
+		SOP(“assertOn”);
+}
+}
+}
+If assertion are not enabled:
+Output: assertOn
+
+If assertion are enabled:
+Output: assertOn
+
+
+
+

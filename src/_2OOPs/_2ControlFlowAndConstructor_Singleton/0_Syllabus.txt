@@ -1,0 +1,8 @@
+Control Flow
+	Static control flow
+		One time activity
+		It occur at the time of class-loading
+	Instance control flow
+		It occur each time when object created	
+Constructors
+Singleton class

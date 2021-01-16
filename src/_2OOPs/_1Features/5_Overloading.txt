@@ -1,0 +1,174 @@
+Method Overloading
+Two methods are said to be overloaded if and only if both methods having same name but different argument types.
+It is also called as compile-time polymorphism.
+
+In C method overloading concept is not available.
+C
+	abs(int i)
+	fabs(float i)
+	dabs(double i)
+Java
+	abs(int i)
+	abs(float i)
+	abs(double i)
+
+Having overloading concept in Java, reduces complexity of programming.
+
+In method overloading, method resolution always takes care by compiler, based on reference type.
+So also called, compile time polymorphism or early binding or static binding.
+
+class Student
+{
+	public void m1(){ SOP(“no-arg”);}
+	public void m1(int i){ SOP(“int-arg”);}
+	public void m1(double d){ SOP(“double-arg”);}
+}
+Class Test
+{
+Psvm()
+{
+	Student st=new Student();
+	st.m1();//no-arg
+	st.m1(1);//int-arg
+	st.m1(1.2);//double-arg
+}
+}
+
+Case 0: Method resolution will be based on method name & argument list
+Case 1:Automatic promotion of primitive type in method overloading
+While resolving overloaded methods, if exact match method is not available then we wonn’t get compile time error immediately, 
+First it will promotes argument to next level and check whether match method is available or not. 
+If match method is available then it will be considered and if the match method is not available 
+	then compiler promotes argument once again to the next level. 
+This process will be continue until all possible promotions. 
+Still it the match method is not available then we will get compile time error.
+
+The following are all possible promotions in overloading:
+byte	short	int		long	float	double
+		char	int		long	float	double
+This process is called automatic promotion in overloading.
+
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		ml.m1(10);
+		ml.m1(10.2f);
+		ml.m1('a');
+		ml.m1(10l);
+		ml.m1(10);
+		// ml.m1(10.5);//CTE
+	}
+	private void m1(float f) {
+		System.out.println("Float-arg");
+	}
+	private void m1(int i) {
+		System.out.println("Int-arg");
+	}
+
+
+	
+Case2a:
+While resolving overloaded methods, compiler will always give the precedence for child type argument 
+	when compared with parent type argument. 
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		ml.m1(new Object());
+		ml.m1("Durga");
+		ml.m1(null);	
+	}
+	private void m1(String s) {
+		System.out.println("String version");
+	}
+	private void m1(Object o) {
+		System.out.println("Object version");
+	}
+ 
+Case2b:
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		ml.m1("Durga");
+		ml.m1(new StringBuffer());
+		//ml.m1(null);//CTE, reference to m1() is ambiguous	
+	}
+	private void m1(String s) {
+		System.out.println("String version");
+	}
+	private void m1(StringBuffer sb) {
+		System.out.println("StringBuffer version");
+	}
+ 
+Case 3:
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		ml.m1(10, 10.3f);
+		ml.m1(20.9f, 30);
+		//ml.m1(5, 5);//CTE
+		//ml.m1(55.0f, 59.0f);//CTE
+	}
+	private void m1(int i, float f) {
+		System.out.println("int-float version");
+	}
+	private void m1(float f, int i) {
+		System.out.println("float-int version");
+	}
+	
+Case5:
+Var-arg method has less priority than general method.
+To provide backward compatibility to older version of Java)
+In general, Var-arg get least priority , that is ,if no other matched then only var-arg method get chance. 
+It is exactly same as default case inside switch.
+
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		ml.m1();
+		ml.m1(10);
+		ml.m1(10, 10);
+	}
+	private void m1(int i) {
+		System.out.println("int version");
+	}
+	private void m1(int... i) {
+		System.out.println("var-arg version");
+	}
+ 
+Case6:
+In overloading, method resolution always takes care by compiler based on reference type.
+In overloading run time object never play any role.
+ public class MethodOverloading {
+	public static void main(String[] args) {
+		MethodOverloading ml = new MethodOverloading();
+		Animal a = new Animal();
+		Monkey m = new Monkey();
+		Animal a1 = new Monkey();
+		
+		ml.m1(a);
+		ml.m1(m);
+		ml.m1(a1);
+	}
+	private void m1(Animal a) {
+		System.out.println("Animal version");
+	}
+	private void m1(Monkey m) {
+		System.out.println("Monkey version");
+	}
+}
+class Animal{
+}
+class Monkey extends Animal{
+}
+
+Output:
+Animal version
+Monkey version
+Animal version
+
+
+While resolving overloaded methods compiler will always gives a precedence in the following order:
+Widening>Autoboxing>Var-arg
+
+Widening followed by autoboxing is not allowed in Java. 
+Where as autoboxing followed by widening is allowed.
+	int -->AB-->Integer--> Widening -> Object//valid
+	int -->AB-->Integer--> Widening -> Long//invalid
+	W--> AB//invalid
+	AB--> W//Valid
+

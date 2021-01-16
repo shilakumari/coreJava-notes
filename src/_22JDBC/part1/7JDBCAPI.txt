@@ -1,0 +1,109 @@
+JDBC API 
+	JDBC API provides several Classes and Interfaces. 
+	Programmer can use these Classes and Interfaces to communicate with the Database. 
+	Driver Software Vendor can use JDBC API while developing Driver Software. 
+
+JDBC API defines 2 Packages
+1) java.sql Package: 
+It contains basic Classes and Interfaces which can be used for Database Communication. 
+
+	Interfaces 
+	1) Driver 
+	2) Connection 
+	3) Statement
+	4) PreparedStatement 
+	5) CallableStatement 
+	6) ResultSet 
+	7) ResultSetMetaData 
+	8) DataBaseMetaData 
+
+	Classes 
+	1) DriverManager 
+	2) Date
+	3) Time 
+	4) TimeStamp 
+	5) Types 
+
+
+2) javax.sql Package: 
+It defines more advanced Classes and Interfaces which can be used for Database Communication. 
+There are multiple Sub Packages are also available 
+	javax.sql.rowset; (To get update-able / scroll-able resultSet)
+	javax.sql.rowset.serial; 
+	javax.sql.rowset.spi; 
+
+	Interfaces
+	1) DataSource 
+	2) RowSet 
+	3) RowSetListener 
+	4) ConnectionEventListener 
+	5) StatementEventListener 
+	
+	Classes
+	1) ConnectionEvent 
+	2) RowSetEvent 
+	3) StatementEvent 
+	::::::::::::::::::: 
+
+
+Programmers are not responsible to provide Implementation for JDBC API Interfaces. 
+	Most of the times Database Vendor is responsible to provide Implementation as the Part of Driver Software. 
+	Every Driver Software is a Collection of Classes implementing various Interfaces of JDBC API, 
+		which can be used to communicate with a particular Database
+
+Java application <----> Driver s/w <----> DB
+							|
+						Implementation Classes Of JDBC API 
+
+For Example, Driver Software of Oracle means Collection of Implementation Classes of JDBC API, 
+	which can be used to communicate with Oracle Database.
+Every Driver Software is identified with some Special Class which is nothing but Driver Class. 
+	It is the Implementation Class of Driver Interface present in. java.sql Package. 
+
+As the Part of JDK, SUN People provided one Built-In Driver Software which implements JDBC API, 
+	which is nothing but Type-1 Driver (JDBC-ODBC Bridge Driver - sun.jdbc.odbc.JdbcOdbcDriver).
+						 Type-4 Driver (oracle.jdbc.OracleDriver).
+The corresponding Driver Class Name is: 
+	sun.jdbc.odbc.JdbcOdbcDriver
+		where Package name - sun.jdbc.odbc
+		  	  Driver Class name - JdbcOdbcDriver
+		  
+
+Difference between Driver Interface, Driver Class and Driver Software: 
+1) Driver Interface: 
+	This Interface present in java.sql Package. This Interface acts as Requirement Specification to implement Driver Class. 
+2) Driver Class: 
+	It is the Implementation Class of Driver Interface Eg: sun.jdbc.odbc.jdbcodbcdriver 
+3) Driver Software: 
+	It is the Collection of Implementation Classes of various Interfaces present in JDBC API. 
+	It acts as Bridge between Java Application and Database. 
+	It is responsible to convert Java Calls into Database specific Calls and Database specific Calls into Java Calls. 
+ 
+	Usually Driver Softwares are available in the Form of jar File. 
+	Eg: 
+		ojdbc14.jar 
+		ojdbc6.jar 
+		ojdbc7.jar 
+		MySql-connector.jar 
+ 
+	Driver Softwares can be provided by the following Vendors 
+		Java Vendor - Type-1 Driver(Until 1.7 Version Only) 
+		Database Vendor - Thin Driver/Type-4 Driver(ojdbc6.jar, ojdbc7.jar, MySqlConnector.jar)
+		Third Party Vendor - Inet company(Providing Driver s/w for various Database)
+				
+
+Type-1 Driver (JDBC-ODBC Bridge Driver) provided by Java Vendor. 
+Thin Driver provided by Oracle Database Vendor. 
+Inet is a Third Party Vendor and providing several Driver Softwares for different Databases.  
+Eg: 
+	Inet Oraxo For Oracle Database 
+	Inet Merlia For Microsoft SQL Server 
+	Inet Sybelux For Sybase Database 
+
+Note: 
+	It is highly recommended to use Database Vendor provided Driver Softwares. 
+	While developing Driver Software, Vendors may use only Java OR Java with other Languages like C OR C++. 
+ 	If Driver Software is developed only in Java Language then such Type of Drivers are called Pure Java Drivers. 
+ 	If Driver Software developed with Java and other Languages, 
+ 		then such Type of Driver Softwares are called Partial Java Drivers.	
+

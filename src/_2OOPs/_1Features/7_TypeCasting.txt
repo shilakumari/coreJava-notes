@@ -1,0 +1,148 @@
+Type Casting
+	Primitive type casting
+	Object type casting
+
+Object type casting
+
+We can use parent reference to hold child object.
+We can use interface reference to hold implemented class object.
+
+
+Object o=new String("Hello");
+String s=(String)o;
+
+A  b=  (C) d;
+A-class/interface
+b-identifier
+C-class/interface
+d-indentifier
+
+Trying to convert d object to C type and trying to assign it to A type.
+
+Mantras
+1)C<>=d: 
+2)C<=A
+3)C>=_d
+
+Mantra 1(Compile time checking 1):C<>=d
+Compiler always check only reference type.
+The type of d and C must have some relationship(either child-parent or parent –child or same type). 
+Otherwise we will get CTE saying:
+Inconvertible type 
+found:d type
+required:C
+
+Example 1:
+Object o=new String("Hello");
+StringBuffer sb=(StringBuffer)o;
+
+Example 2:
+String s=new String("Hello");
+StringBuffer sb=(StringBuffer)s;//CTE, Inconvertible type ;found:String; required:StringBuffer
+
+Mantra 2(Compile time checking 2)
+Compiler always check only reference type.
+C must be either same or derived type of A.
+Otherwise we will get CTE. Saying 
+Incompatible type
+Found:C
+Required:A
+
+Example 1:
+Object o=new String("Hello");
+StringBuffer sb=(StringBuffer)o;
+
+Example 1:
+Object o=new String("Hello");
+Object o=(String)o;
+
+Example 1:
+Object o=new String("Hello");
+StringBuffer sb=(String)o;//CTE, Incompatible type;Found:String;Required:StringBuffer
+
+Mantra 3(Runtime checking)
+Runtime underlying object type of d must be either same or derived type of C. 
+Otherwise we will get runtime exception. Saying ClassCastException.
+Example 1:
+Object o=new String("Hello");
+StringBuffer sb=(StringBuffer)o;//RTE, ClassCastException;
+
+Example 2:
+Object o=new String("Hello");
+Object o1=(String)o;
+
+
+Strictly speaking, through type casting, we are not creating any new object.
+For the existing object, we are providing, another, type of reference variable. 
+That is we are performing, type casting but not object casting.
+Example 1:
+Object o=new String("Sachin");
+	String s=new String("Sachin");
+	Object o=(Object)s;
+	
+Example 2:
+Object o=new Integer("10");
+	Number n=new Integer("10");
+		Integer I =new Integer("10");
+		Number n=(Number)I;
+	Object o=(Object)n;
+	
+	SOP(I==n);//true
+	SOP(o==n);//true
+
+Note:
+class A{}
+class B extends A{}
+class C extends B{}
+C c=new C();
+B b =new C();  or b=(B)c;
+A a =new C(); or a=(A)((B)c);
+
+Example
+class P{	m1(){}	}
+class C extends P{ m2(){} }
+
+C c =new C();
+c.m1();
+c.m2();
+
+((P)c).m1();
+	P p =new C();
+	p.m1();
+
+((P)c).m2();//Invalid
+	P p =new C();
+	p.m2();//Invalid
+Parent reference can be used to hold child object. But by using that reference, 
+we cann't call child specific methods and we can call only methods available in parent class.
+
+Example
+It is overriding and method resolution is always based on runtime object.
+class A{	m1(){ SOP("A");}	}
+class B extends A{	m1(){ SOP("B");}	}
+class C extends B{	m1(){ SOP("C");}	}
+C c=new C();
+c.m1();//C
+((B)c).m1();//C,    B b =new C();  or b=(B)c;
+((A)((B)c)).m1();//C, A a =new C(); or a=(A)((B)c);
+
+Example
+It is method hiding and method resolution is always based on reference type.
+class A{	static m1(){ SOP("A");}	}
+class B extends A{	static m1(){ SOP("B");}	}
+class C extends B{	static m1(){ SOP("C");}	}
+C c=new C();
+c.m1();//C
+((B)c).m1();//B,    B b =new C();  or b=(B)c;
+((A)((B)c)).m1();//A, A a =new C(); or a=(A)((B)c);
+
+Example 
+Variable resolution is always based on reference type but not based on runtime object.
+class A{	int x=777;	}
+class B extends A{	int x=888;	}
+class C extends B{	int x=999;	}
+C c=new C();
+SOP(c.x);//999
+SOP(((B)c).x);//888,	B b =new C();  or b=(B)c;
+SOP(((A)((B)c)).x);//777,	 A a =new C(); or a=(A)((B)c);
+

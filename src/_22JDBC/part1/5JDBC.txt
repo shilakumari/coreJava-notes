@@ -1,0 +1,93 @@
+JDBC
+JDBC is a Technology, which can be used to communicate with Database from Java Application.
+
+Java application 		<-----JDBC----->	DB(Oracle, MySQL, DB2 etc...)
+
+JDBC is the Part of Java Standard Edition (J2SE|JSE) 
+JDBC is a Specification defined by Java Vendor (Sun Micro Systems) and implemented by Database Vendors. 
+Database Vendor provided Implementation is called "Driver Software". 
+ 
+JDBC Features:  
+1) JDBC API is Standard API. We can communicate with any Database without rewriting our Application i.e. 
+	it is Database Independent API. 
+2) JDBC Drivers are developed in Java and hence JDBC Concept is applicable for any Platform. 
+	i.e. JDBC Is Platform Independent Technology. 
+3) By using JDBC API, we can perform basic CRUD Operations very easily.
+	C - Create(Insert) 
+	R - Retrieve(Select) 
+	U - Update(Update) 
+	D - Delete(Delete) 
+	CRUD Operations officially Name given by JDBC API.
+	We can also perform Complex Operations (like Inner Joins, Outer Joins, calling Stored Procedures etc) 
+		very easily by using JDBC API.  
+
+4) JDBC API supported by Large Number of Vendors and they developed multiple Products based on JDBC API. 
+	List of supported Vendors we can check in the link 
+												http://www.oracle.com/technetwork/java/index-136695.html JDBC Versions: 
+ 	JDBC 3.0 is Part J2SE 1.4 
+ 	No Update in Java SE 5.0 
+ 	JDBC 4.0 is Part Java SE 6.0 
+ 	JDBC 4.1 is Part Java SE 7.0 
+ 	JDBC 4.2 is Part Java SE 8.0	
+ 	
+ 	
+Evolution of JDBC 	
+If we want to communicate with Database by using C OR C++, 
+	compulsory we have to use database specific Libraries in our Application directly 	
+	c / c++ Application(Use Oracle libraries)		<---->	 Oracle
+In the above Diagram C OR C++ Application uses Oracle specific Libraries directly. 
+ 
+The Problem in this Approach is, if we want to migrate Database to another Database then we have to 
+	rewrite Total Application once again by using new Database specific Libraries. 	
+	c / c++ Application(Use MySql libraries)		<---->	 MySql.
+	
+The Application will become Database Dependent and creates Maintenance Problems. 
+
+
+ODBC concept
+To overcome this Problem, Microsoft People introduced "ODBC" Concept in 1992. It is Database Independent API. 
+	With ODBC API, Application can communicate with any Database just by selecting corresponding ODBC Driver. 
+	We are not required to use any Database specific Libraries in our Application. 
+		Hence our Application will become Database Independent.		
+	c / c++ Application		<--> 	Oracle ODBC Driver 	<-->	 Oracle		
+	c / c++ Application		<--> 	MySql ODBC Driver 	<-->	 MySql		
+	c / c++ Application		<-->	SyBase ODBC Driver	<-->	 SyBase
+	
+Limitations of ODBC(Open database connectivity): 
+1) ODBC Concept will work only for Windows Machines. It is Platform Dependent Technology. 
+2) ODBC Drivers are implemented in C Language. If we use ODBC for Java Applications, 
+	then Performance will be down because of internal conversions from Java to C and C to Java. 
+Because of above Reasons, ODBC Concept is not suitable for Java Applications. 
+For Java Applications, SUN People introduced JDBC Concept
+
+
+JDBC concept(Introduced in 1997)
+JDBC Concept Applicable for any Platform. It is Platform Independent Technology. 
+JDBC Drivers are implemented in Java. If we use JDBC for Java Applications, 
+then internal Conversions are not required and hence there is no Effect on Performance		
+	Java Application		<--> 	JDBC Driver for Oracle	<-->	 Oracle		
+	Java Application		<--> 	JDBC Driver for MySql	<-->	 MySql		
+	Java Application		<-->	JDBC Driver	for SyBase  <-->	 SyBase
+
+Note: 
+1) ODBC Concept is applicable for any Database and for any Language, but only for Windows Platform. 
+2) JDBC Concept is Applicable for any Platform and for any Database, but only for Java Language. 
+
+
+Differences Between ODBC and JDBC 
+1) ODBC Stands for Open Database Connectivity 
+	JDBC Stands for Java Database Connectivity 
+2) Introduced by Microsoft in 1992. 
+	Introduced by Sun Micro Systems in 1997. 
+3) We can Use ODBC for any Languages like C, C++, Java, Etc. 
+	We can Use JDBC only for Java Language. 
+4) We can use ODBC only for Windows  Platforms. 
+	We can use JDBC for any Platform. 
+5) Mostly ODBC Drivers are developed in Native Languages like C OR C++. 
+	Mostly JDBC Drivers are developed in Java. 
+6) For Java Applications, it is not recommended to use ODBC because Performance will be  
+   Down due to Internal Conversions and  Application will become Platform Dependent. 
+	For Java Applications, it is highly recommended to use JDBC because there is no Performance Problems 
+	and Platform Dependency Problems.
+	
+		

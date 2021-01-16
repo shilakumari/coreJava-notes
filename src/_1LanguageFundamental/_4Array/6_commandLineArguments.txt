@@ -1,0 +1,147 @@
+Command Line arguments
+The arguments which are passing from command prompt, are called command line argument.
+With these command line arguments, JVM will create an array & by passing that array as argument JVM will call main() method.
+
+class Test{
+	PSVM(String[] args){
+		SOP(args[0]);//A
+		SOP(args[1]);//B
+		SOP(args[2]);//C
+		SOP(args.length);//3
+	}
+}
+Java Test A  B  C
+
+String[] args={“A”, “B”, “C”}	
+
+Class Test{
+PSVM()
+{;;;;;;;;;;;;;;;;
+SOP(“The square of 4 is 16”);
+;;;;;;;;;;;;;;;;;;;
+}}
+At java lab exam, Student Wait for correct time: at last when examiner were in hurry
+Java Test 4
+The square of 4 is 16
+
+Java Test 5
+The square of 4 is 16
+
+
+Class Test{
+PSVM(String[] args){
+	int n=Integer.parseInt(args[0]);
+	SOP(“The square of “+n+ “ is:”+(n*n));
+}
+}
+Java Test 4
+The square of 4 is 16
+Java Test 5
+The square of 5 is 25
+
+
+Class Test{
+PSVM(String... args){
+a.txt//args[0]
+b.txt//args[1]
+c.txt//args[2]
+}
+}
+The main purpose of command line arguments is, we can customize behavior of the main() method.
+
+Command line arguments are always in String form.
+In any java program most commonly used object is String.
+From String to any other primitive type is possible.
+
+Class Test{
+PSVM(){
+	for(int i=0;i<=args.length;i++){
+		SOP(args[i]);
+	}
+}
+}
+Java Test A B C
+A
+B
+C
+RE:ArrayIndexOutOfBoundsException
+
+Java Test A B 
+A
+B
+RE:ArrayIndexOutOfBoundsException
+
+Java Test 
+RE:ArrayIndexOutOfBoundsException
+
+Class Test{
+PSVM(String[] args){
+	for(int i=0;i<args.length;i++){
+		SOP(args[i]);
+	}
+}
+}
+Java Test A B C
+A
+B
+C
+
+Java Test A B 
+A
+B
+
+Java Test 
+
+
+Class Test{
+PSVM(String[] args){
+	String argh={“X”,”Y”,”Z”}
+	args=argh;
+	for(String s1:args){
+		SOP(s1);
+	}
+}
+}
+Java Test A B C
+X
+Y
+Z
+
+Java Test A B 
+X
+Y
+Z
+
+Java Test 
+X
+Y
+Z
+
+
+Class Test{
+PSVM(String[] args){
+	SOP(args[0]+args[1]);
+}
+}
+Java Test 10  20
+1020
+Within main() method command line arguments are available in String form. 
+
+
+Class Test{
+PSVM(String[] args){
+	SOP(args[0]);
+}
+}
+Java Test Note  Book
+Note
+
+Class Test{
+PSVM(String[] args){
+	SOP(args[0]);
+}
+}
+Java Test “Note  Book”
+Note Book
+Usually space itself is the separator b/w command line arguments. 
+If our command line arguments itself contains space then we have to enclose that command line arguments with in double quotes.

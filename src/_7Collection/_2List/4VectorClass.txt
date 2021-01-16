@@ -1,0 +1,84 @@
+Vector class
+	Re-sizable array / grow-able array- underline data structure
+	Duplicates are allowed
+	Insertion order is preserved
+	Heterogeneous objects are allowed
+	Null insertion is possible
+	
+	
+	Implements serializable & cloneable interface
+	Implements random access interface
+	
+
+	//default initial capacity=10;
+	New Capacity =2* old capacity (by default)
+	Most of the method present in Vector are synchronized, hence vector object is thread-safe.
+	
+
+Diff b/w array and vector
+Vector:
+	Thread safe
+	Capacity different from ArrayList
+	Legacy class
+		Enumeration also available
+		Lengthy name for methods: Half A-A-Akhil-NAGARAJUNA-Akhil.
+
+
+Vector specific methods
+For adding object:
+	add(Object o)//from Collection - List(I)
+	add(int index, Object o)//from List
+	addElement(Object o)//from Vector
+
+For removing Object:
+	remove(Object o)//from Collection
+	removeElement(Object o)//from Vector
+	
+	remove(int index)//from List	
+	removeElementAt(int index)//from vector
+	
+	clear()//from collection
+	removeAllElements()//from Vector
+
+For accessing elements:
+	Object get(int index)//from List
+	Object elementAt(int index)//from Vector
+
+	Object firstElement()//from Vector
+	Object lastElement()//from Vector
+
+Other methods:
+	int size();
+	int capacity();
+	Enumeration element();
+
+
+Constructor for Vector class
+1. Vector v = new Vector();
+	Creates an empty vector object with default initial capacity 10, 
+  	Once vector reaches it's max capacity a new vector Object will be created with 
+	new capacity = 2*current capacity.
+2. Vector v = new Vector(int initialCapacity); 
+	Creates an empty Vector Object with specified initial capacity.
+3. Vector v = new Vector(int iniwtialCapacity, int incrementalCapacity); 
+4. Vector v = new Vector(Collection c); 
+	Creates an equivalent vector object for the given collection.
+
+new capacity = initialCapacity + incrementalCapacity
+
+
+Demo program for Vector
+import java.util.*;
+class VectorDemo{
+	public static void main(String[] args){		
+		Vector v = new Vector();
+		System.out.println(v.capacity());//10
+		for(int i=0; i<10; i++){
+			v.addElement(i);
+		}
+		System.out.println(v.capacity());//10
+		v.addElement("A");
+		System.out.println(v.capacity());//20
+		System.out.println(v);
+	}
+}

@@ -1,0 +1,218 @@
+Demo program for customized sorting
+1)Write a program to insert Integer object into the TreeSet where the sorting order is descending order.
+import java.util.*;
+class TreeSetDemo3{
+public static void main(String[] args){
+TreeSet t = new TreeSet(new MyComparator());//line-1
+t.add(10);
+t.add(0);
+t.add(15);
+t.add(20);
+t.add(20);
+System.out.println(t);
+}
+}
+
+class MyComparator implements Comparator{
+public int compare(Object obj1, Object obj2){
+Integer i1 = (Integer)obj1;
+Integer i2 = (Integer)obj2;
+if(i1 < i2)
+	return +1;
+else if(i1 > i2)
+	return -1;
+else
+	return 0;
+}
+}
+
+TreeSet t = new TreeSet(new MyComparator());
+t.add(10);
+t.add(0);//+ve - compare(0, 10);
+t.add(15);//-ve - compare(15, 10);
+t.add(20);//+ve - compare(20, 10);
+t.add(20);//-ve - compare(20, 15);
+
+t.add(20);//+ve - compare(20, 10);
+t.add(20);//-ve - compare(20, 15);
+t.add(20);//0 - compare(20, 20);
+System.out.println(t);//[20, 15, 10, 0]
+}
+}
+
+
+At line-1 if we are not passing comparator object then internally JVM will call compareTo() method which meant for
+	default natural sorting order(ascending order).
+In this case output is [0, 10, 15, 20].
+
+If we passing comparator object at line-1 then internally JVM will call compare() method which is meant for 
+	customized sorting(Descending order).
+In this case output is [20, 15, 10, 0].
+
+Various possible implementations of compare() method
+class MyComparer implements Comparator{
+public int compare(Object obj1, Object obj2){
+Integer i1 = (Integer)obj1;
+Integer i2 = (Integer)obj2;
+//return i1.compareTo(i2);//[0, 10, 15, 20]ascending order
+//return -i1.compareTo(i2);//[20, 15, 10, 0]descending order
+//return i2.compareTo(i1);//[20, 15, 10, 0]descending order
+//return -i2.compareTo(i1);//[0, 10, 15, 20]ascending order
+//return +1;//[10, 0, 15, 20, 20]reverse of insertion order?????
+//return 0;//[10], only first element will be inserted and all the order elements are considered as duplicates
+}
+}
+
+Customized sorting
+Write a program to insert String object in to the TreeSet where sorting order is reverse of alphabetical order:
+import java.util.*;
+class TreeSetDemo{
+public static void main(String[] args){
+TreeSet t = new TreeSet(new MyComparator());
+t.add("Roja");
+t.add("Roja");
+t.add("Shobharani");
+t.add("Rajakumari");
+t.add("Ramulamma");
+System.out.println(t);
+}
+}
+
+class MyComparator implements Comparator{
+public int compare(Object obj1, Object obj2){
+String s1 = obj1.toString();
+String s2 = (String)obj2;
+//return s2.compareTo(s1);
+return -s1.compareTo(s2);
+}
+}
+
+
+Write a program to insert StringBuffer objects in to the TreeSet where sorting order is Alphabetical order:
+import java.util.*;
+class TreeSetDemo{
+public static void main(String[] args){
+TreeSet t = new TreeSet(new MyComparator());
+t.add(new StringBuffer("A"));
+t.add(new StringBuffer("Z"));
+t.add(new StringBuffer("K"));
+t.add(new StringBuffer("L"));
+System.out.println(t);
+}
+}
+
+class MyComparator implements Comparator{
+public int compare(Object obj1, Object obj2){
+String s1 = obj1.toString();
+String s2 = obj2.toString();
+return s1.compareTo(s2);
+}
+}
+output: [A, K, L, Z]
+
+
+Note:
+If we are defining our own sorting by Comparator, the objects need not be comparable.
+
+
+Write a program to insert String and StringBuffer objects into the TreeSet 
+	where sorting order is increasing length order if two objects having the same length then consider their alphabetical order?
+import java.util.*;
+class TreeSetDemo{
+public static void main(String[] args){
+TreeSet t = new TreeSet(new MyComparator());
+t.add("A");
+t.add(new StringBuffer("ABC"));
+t.add(new StringBuffer("AA"));
+t.add("XX");
+t.add("ABCD");
+t.add("A");
+System.out.println(t);
+}
+}
+
+class MyComparator implements Comparator{
+public int compare(Object obj1, Object obj2){
+String s1 = obj1.toString();
+String s2 = obj2.toString();
+int i1 = s1.length();
+int i2 = s2.length();
+if(i1<i2)
+	return -1;
+else if(i1>i2)
+	return 1;
+else
+	return s1.compareTo(s2);
+}
+}
+
+Note:
+1. If we are depending on default natural sorting order 
+then objects should be homogeneous and comparable otherwise we will get runtime exception saying ClassCastException.
+2. But if we are defining our own sorting by comparator then objects need not be homogeneous and comparable. 
+we can insert heterogeneous non comparable objects also.
+
+
+program for customized sorting for Employee class:
+import java.util.*;
+class Employee implements Comparable{
+String name;
+int eid;
+Employee(String name, int eid){
+this.name = name;
+this.eid = eid;
+}
+public String toString(){
+return name+"_"+eid;
+}
+public int compareTo(Object obj){
+int eid1 = this.eid;
+Employee e = (Employee)obj;
+int eid2 = e.eid;
+if(eid1<eid2){
+return -1;
+}else if(eid1>eid2){
+return 1;
+}else{
+return 0;
+}
+}
+}
+
+
+program for customized sorting for Employee class:
+class CompCompDemo{
+public static void main(String[] args){
+Employee e1 = new Employee("nag", 100);
+Employee e2 = new Employee("balaiah", 200);
+Employee e3 = new Employee("chiru", 50);
+Employee e4 = new Employee("venki", 150);
+Employee e5 = new Employee("nag", 100);
+TreeSet t = new TreeSet();
+t.add(e1);
+t.add(e2);
+t.add(e3);
+t.add(e4);
+t.add(e5);
+System.out.println(t);
+
+TreeSet t1 = new TreeSet(new MyComparator());
+t.add(e1);
+t.add(e2);
+t.add(e3);
+t.add(e4);
+t.add(e5);
+System.out.println(t1);
+}
+}
+
+class MyComparator implements Comparator{
+public int compare(Object obj1, Object obj2){
+Employee e1 = (Employee)obj1;
+Employee e2 = (Employee)obj2;
+String s1 = e1.name;
+String s2 = e2.name;
+return s1.compareTo(s2);
+}
+}
+

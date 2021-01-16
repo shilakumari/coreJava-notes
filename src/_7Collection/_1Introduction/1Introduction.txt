@@ -1,0 +1,182 @@
+Short notes
+Need of Collection
+	1)Individual variable approach(Not feasible approach for long list of elements for operations (like searching,sorting etc) , int x=10;int y=20;Readability problem)
+	2)Array approach(fixed in size,Heterogeneous not allowed, not underlying DS available)
+	
+Solution: 3)Collection approach:Grow-able in nature,Heterogeneous allowed,Underlying DS available
+			
+List(I)
+	ArrayList:
+		Underlying DS(re-sizable array Or grow-able array),Duplicates & Insertion(null also) order is preserved.
+		Const.(3)->ArrayList al=new ArrayList()/new ArrayList(int initialCapacity)/new ArrayList(Collection c).
+			//default initial capacity=10 	&	New capacity=(current capacity*3/2)+1=16
+		ArrayList & Vector implements RandomAccess(I).
+	LinkedList:
+		Underlying DS(doubly-linked list),Insertion(null also) order preserved,Duplicates are allowed.
+
+		
+
+
+
+
+
+
+
+Need or purpose of a collection
+1)Individual variable approach
+	int x=10;
+	int y=20;
+	int z=30;
+	Readability problem
+	Not feasible approach for long list of elements for operations (like searching,sorting etc)
+2)Array approach
+	Student[] st=new Student[1000];
+Advantage
+	Using single variable, we can represent multiple values
+	Readability improved
+
+
+Limitations of array:
+	1)Array are fixed in size. Once we created an array with some size 
+		there is no chance of increasing or decreasing the size based on requirement. 
+		To use arrays compulsory we should know the size in advance, which may not possible always. 
+		Like for seminar we taken big hall but at runtime only 2 person came.
+	2)Homogeneous data element
+		St[0]=new Student();
+		St[1]=new Customer();//CTE, incompatible type
+			Found:Customer
+			Required:Student
+
+		Object[] obj=new Object[10000];
+		obj[0]=new Student();
+		obj[1]=new Customer(); 
+	3)Array concept is not implemented based on some standard data structure.   
+		Therefore underline data structure is not there for array. 
+		Ready-made methods support we cannot expect. For every requirement, compulsory we are responsible to write the code.
+		For example: If we want to insert element in sorting order then we have to write code for this.
+		For every requirement, in collection we can expect ready-made method support. 
+
+3)Collection approach
+	Grow-able in nature
+		Based on our requirement we can increase or decrease the size.
+	Homogeneous & Heterogeneous objects allowed.
+	Every collection class is implemented based on some standard data structure.
+		Hence ready-made method support is available. 
+	
+	Disadvantage: 
+		Slow performance compare to array but better w.r.t. Memory
+		Only allowed Object, not primitive
+
+Difference b/w array & collection
+	Collection concept is not up to the mark according to performance.But collection is better w.r.t. memory.
+	In collection we can store only object but not primitive data type.
+	
+	It is highly recommended to use array not collection if initial sized is known in advance.
+	
+Array																	Collection
+1. Arrays are fixed in size.											1. Collections are grow-able in nature that is based on our requirement 
+																	  	   we can increase or decrease the size.
+2. With respect to memory arrays are not recommended to use.			2. With respect to memory collection are recommended to use. 
+3. With respect to performance arrays are recommended to use.			3. With respect to performance collection are not recommended to use.
+4. Array can hold homogeneous data-type elements.						4. Collection can hold both homogeneous and heterogeneous data-type elements.
+5. There is no underlying data structure for arrays and hence 			5. Every collections class is implemented based on some standard 
+ ready-made method support is not available.							   data structure. Hence ready-made method support is available for every 
+																		   requirement.
+
+
+
+
+
+
+
+
+
+
+
+
+Collection
+It is a group of individual objects, represented as a single entity. 
+If we want to represent a group of individual objects as a single entity then we should go for collection.
+
+Collection stores only object not primitive type.
+All collections are generic.
+
+Collection Framework
+It defines several classes & interfaces which can be used to represent a group of objects as single entity.
+
+Java 					C++
+Collection				Container
+Collection Framework	STL( Standard Template Library) 
+
+
+Library
+A group of classes & interfaces.
+
+
+Overview Of Collection Framework
+Collection framework hierarchy
+Collection(I 1.2v)
+	List(I 1.2v)
+		ArrayList(1.2v)
+		LinkedList(1.2v)
+		Vector(LC 1.0v)
+			Stack(LC 1.0v)
+	Set(I 1.2v)
+		HashSet(1.2v)
+			LinkedHashSet(1.4v) 
+		SortedSet(1.2v)
+			NavigableSet(I 1.6v)
+				TreeSet(1.2v)
+	Queue(I 1.5v)
+		Deque(I)
+			ArrayDeque
+			LinkedList
+		PriorityQueue(I 1.5v)
+		BlokingQueue(1.5v)
+			PriorityBlokingQueue(1.5v)
+			LinkedBlokingQueue(1.5v)
+
+Map(I)
+	HashMap(1.2v)
+		LinkedHashMap(1.4v)
+	WeakHashMap(1.2v)
+	IdentityHashMap(1.4v)
+	SortedMap(1.2v)
+		NavigableMap(1.6v)
+			TreeMap(1.2v)
+	HashTable(1.0v) ((Child class of abstract class Dictionary(since 1.0v))(since 1.0v))
+		Properties(1.0v)
+			//HashMap(1.0v)//In 1.0v, but not now
+
+
+
+
+
+
+Difference b/w Collection & Collections
+Collection is an interface which can be used to represent a group of individual objects as a single entity.
+Collections is an utility class present in java.util.package to define several utility methods(like Sorting, Searching..) for Collection objects.
+
+
+Sorting
+	Comparable(I)
+	Comparator(I)
+
+Cursors
+	Enumeration(I)
+	Iterator(I)
+	ListIterator(I)
+
+Utility Classes
+	Collections
+	Arrays
+	
+
+The process of creating, exactly duplicate objects,is called cloning.
+Most of the time receiver do not perform any operation directly on this object 
+	because if something goes wrong then it may not recover. 
+	So receiver creates a duplicate object for that object.
+	Cloning is very common process for collections.
+
+Usually we can use collection to hold & transfer objects from one place to another place, 
+	to provide support for this requirement every collection already implements Serializable & Cloneable interface.

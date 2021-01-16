@@ -1,0 +1,11 @@
+1) ScannerExample.java
+2) MergeDataFromTwoFiles.java(merge data from 2 files into a 3rd file)
+3) MergeDataFromTwoFilesLineByLineAlternatively.java(merging should be done line by line alternatively)
+4) MergeDataFromDirectoryToAFile.java(to merge data from all .txt files present in E:\\input into output.txt)
+5) FileExtractionOperation.java( put intersection of delete.txt & input.txt to  output.txt)
+6) RemoveDuplicateFromAFile.java
+7)
+8)
+9)
+10)
+

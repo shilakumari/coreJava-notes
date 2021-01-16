@@ -1,0 +1,141 @@
+Enum (enumuration)
+It is since 1.5 version
+
+byte  -128 to +127
+
+
+EDT-Enumerated data type 
+ADT-Abstract data type
+
+Meaning of enumerated
+	mention (a number of things) one by one
+
+If we want to represent a group of named constant, then we should go for enum.
+The main objective of enum is to define our own data types (enumerated data type).
+
+enum Day
+{
+Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday;
+//Here semicolon is optional
+}
+
+History
+When 1.0v java came, enum was not there then world wide programmer asked why enum is not in Java 1.0.
+	Sun people replied-in java 1.0 already we have final keyword to defined constant and so there is no need of enum. 
+But in java 1.5 v sun people introduced enum in java. 
+	Now world wide programmer felt happy but their ego got hearted. 
+	So they went to Sum people and asked , now why enum is introduced in java 1.5v. 
+		Sun people asked to world wide programmer, what is enum? 
+			World wide programmer responded, enum is an named constant. 
+		Sun people asked, who told you that enum is a named constant! 
+			In java enum is more powerful than enum of older languages and sun people said, 
+			it is the reason (adding extra features) enum is introduced late in java 1.5v.
+
+
+Enum can have methods, variable, classes etc in java.
+
+Internal implementation of enum
+enum Beer{
+	KF,
+	RC;
+}
+
+final class Beer{
+	public static final Beer KF=new Beer();
+	public static final Beer RC=new Beer();
+}
+Every enum is internally implemented by using class concept.
+Every enum constant is always public, static & final.
+Every enum constant represents an object of the type enum.
+	
+
+Enum declaration & uses
+	Every enum constant is always public static final,  hence we can access enum constant by using enum name.
+	class Test{
+		public static void main(String args[]){
+			Beer b1=Beer.RC;
+			SOP(b1);//RC, (toString() method is overridden in enum for returning name of constant)
+		}
+	}
+	enum Beer{
+		KF,KO,RC,FO;
+	}
+Inside enum toString() method is internally implemented to return name of the constant.
+
+
+We can declare enum either within the class or outside of the class but not inside a method. 
+If we are trying to declare inside a method then we will get CTE, saying error: enum types must not be local.
+
+Example 1: outside of class
+		   Enum x{}
+		   Class Y{}
+
+Example 1: inside of class
+		   class x{
+		   	enum Y{}
+		   }
+Example 1: inside of method
+	   	   class x{
+			public void m1(){
+				enum Y{}//CTE, error: enum types must not be local.
+		    }
+		   }
+
+
+
+Enum x{}
+Class Y{}
+If we declare enum outside the class then the applicable modifiers are 
+	public, 
+	default, 
+	strictfp.
+	Enum is implicitly final but we cannot declare it final.
+	Enum is implicitly final & hence abstract is not allowed modifier for enum.
+
+class x{
+	enum Y{}
+}
+If we declare enum inside the class then the applicable modifiers are 
+	public, 
+	default, 
+	strictfp.
+	private
+	Protected
+	static
+
+
+Enum and Switch()
+Switch(x)
+{
+}
+1.0v : byte, short, char, int
+1.5v:  Byte, Short, Character, Integer, enum
+1.7v : String
+We can pass enum type as argument to switch statement
+
+class Test{
+	public static void main(String args[])
+{
+Beer b=Beer.KF;
+switch(b){
+	case KF:
+		System.out.println("It is children brand");
+		break;
+	case KO:
+		System.out.println("It is too light");
+		break;
+	case RC:
+		System.out.println("It is not that much kick");
+		break;
+	case FO:
+		System.out.println("Buy one get one free");
+		break;
+	default:
+		System.out.println("Other brands are not recommended");
+}}}
+enum Beer{KF,KO,RC,FO;}
+
+If we pass enum type as argument to switch statement then every case label must be a valid enum constant, 
+	otherwise we will get CTE, saying error: an enum switch case label must be the unqualified name of an enumeration constant.
+	
+	

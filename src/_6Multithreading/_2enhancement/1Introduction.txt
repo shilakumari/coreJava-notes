@@ -1,0 +1,40 @@
+The problems with traditional synchronized keywords
+1)
+If lock is not available,We are not having any flexibility to try for a lock without waiting.
+Analogy:If bus not available, I will take ola cab
+
+Java.util.concurrent package
+if(l.tryLock())
+{
+//safe operation
+}
+else
+{
+//Alternative operation
+}
+Now deadlock problem solved. It is not going to happen.
+2)
+There is no way to specify maximum waiting time for a thread to get lock, 
+	so that thread will wait until getting the lock, which may creates performance problems, which may cause deadlock.
+3)
+If a thread releases a lock then which waiting thread will get that lock, we are not having any control on this. 
+Fairness policy not fair and lovely
+Longest waiting thread by default is going to get the chance after setting the flag.
+4)
+There is no API  support to list out all waiting threads for a lock.
+5)
+The synchronized keyword compulsory  we have to use either at method level or within the method. 
+And it is not possible to use across multiple methods.
+M1()
+{
+l.lock();
+m2();
+}
+M2()
+{
+l.unlock();
+}
+
+To overcome all these 5 problems SUN people introduce java.util.concurrent.locks package in 1.5v.
+This package, java.util.concurrent, provide several inhancement to the programmer to provide more control on concurrency.
+

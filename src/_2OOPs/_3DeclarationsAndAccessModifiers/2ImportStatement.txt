@@ -1,0 +1,130 @@
+import Statement
+
+class Test{
+	public static void main(String args[]){
+		ArrayList al=new ArrayList(); //CTE,  cannot find symbol:ArrayList
+	}
+}
+Output:CTE,
+error: cannot find symbol
+		ArrayList al=new ArrayList();
+		                 ^
+  symbol:   class ArrayList
+  location: class Test
+
+
+class Test{
+	public static void main(String args[]){
+		System.out.println(ArrayList);
+	}
+}
+Output:CTE,
+error: cannot find symbol
+		System.out.println(ArrayList);
+		                   ^
+  symbol:   variable ArrayList
+  location: class Test
+
+We can solve this problem by using fully qualified name(java.util.ArrayList).
+The problem with uses of fully qualified name, every time is , it increases the length of code and reduces readability.
+We can solve this problem using import statement.
+Whenever we are writing import statement, it is not required to use fully qualified name every time. 
+We can use short name directly. Hence
+import java.util.ArrayList;
+class Test{
+	public static void main(String args[]){
+		System.out.println(ArrayList);//short name for java.util.ArrayList
+	}
+}
+Hence import statement acts as typing shortcut.
+
+ world.asia.india.ncr.iijt.*;
+
+Fully Qualified name
+Java.util.ArrayList
+Using fully qualified name always reduces the readability of the code.
+import java.util.ArrayList;
+
+Case 1: Types of import statements
+	Explicit class import
+Java.util.ArrayList
+	It is highly recommended to use explicit class import. Because it improves readability of the code.
+	Best suitable for Hi-tech city where readability is important, typing is less important (because typing is one type activity.)
+	All IDE, generate this type of import.
+	Implicit class import
+Java.util.*;
+	It not recommended to use. Because it reduces readability of the code.
+	Best suitable for ameerpeth where typing in important.
+
+ Case 2:
+Import java.util.ArrayList;//valid
+Import java.util.ArrayList.*;//invalid
+Import java.util.*;//valid
+Import java.util;//invalid
+
+Case 3:
+Class MyClass extends java.rmi.UnicastRemoteObject//valid, because we used fully qualified name.
+{} 
+Whenever we are using fully qualified name, it is not required to write import statement. 
+Similarly, whenever we are writing import statement, it is not required to use fully qualified name.
+
+Case 4:
+import java.util.*;
+import java.sql.*;
+class Test
+{
+public static void main(String args[])
+{
+	Date d=new Date();//CTE, error: reference to Date is ambiguous
+}
+}
+Even in the case of List also, we may get same ambiguity problem because it is available in both util and awt packages.
+
+
+import java.util.Date;
+import java.sql.*;
+class Test
+{
+	public static void main(String args[])
+	{
+		Date d=new Date();
+		System.out.println(d.getClass().getName());//java.util.Date
+	}}
+
+While resolving the class-name, compiler is going to use precedence, in the following order,
+	Explicit class import
+	Classes present in working directory(default package)
+	Implicit class import
+
+Case 5:
+Whenever we are importing a Java package, all classes and interfaces , 
+ present in that package by default available but not sub-package classes.
+If we want to use sub-package class, compulsory we should write import statement, until sub-package level.
+
+To use Pattern class in our program , we have following options to import:
+Import java.util.regex.Pattern;
+Import java.util.regex.*;
+
+To use Method class in our program , we have following options to import:
+Import java.lang.reflect.Method;
+Import java.lang.reflect.*;
+
+Case 6:
+All classes and interfaces present in the following packages are by default available to every java program. 
+	Hence we are not required to write import statement:
+	Java.lang package
+	Default package(current working directory,CWD)
+
+Case 7:
+Import statement is totally compile time related concept.
+If more number of import statement then more will be the compile time.
+But there is no affect on execution time(run time).
+
+Case 8: 
+#include<stdio.h> in C
+In that case, i/o header file will be loaded at beginning(at translation time), hence it is static include.
+
+import java.io.*; in java
+In this case, no .class file will be loaded at the beginning. 
+	Whenever we are using a particular class, then only corresponding .class file will be loaded.
+	This is like dynamic include(or load on fly or load on demand).

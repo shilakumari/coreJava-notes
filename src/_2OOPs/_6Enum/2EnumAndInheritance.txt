@@ -1,0 +1,153 @@
+Enum vs inheritance
+Because of following reason we can conclude, 
+	inheritance concept is not applicable for enum explicitly, 
+	and we cannot use extends keyword enum.
+	1)Every enum in Java is always direct child class of java.lang.Enum. 
+		And hence our enum cannot extends any other enum (because java won’t provide support for multiple inheritance)
+	2)Every enum is always final implicitly and hence for our enum, we cannot create child enum. 
+
+Object
+	Enum
+		Beer
+
+enum Y extends java.lang.Enum{}//CTE
+
+enum X{}
+enum Y extends X{}//CTE
+
+class X{} 
+enum Y extends X{} //CTE
+
+enum X{}
+class Y extends X{} //CTE,The type Beer cannot be the superclass of Y; a superclass must be a class
+//CTE1,cannot inherit from final X
+//CTE2,enum types are not extensible 
+
+An enum can implement any number of interfaces.
+Interface X{}
+Enum Y implements X
+{}
+
+
+Conclusions about java.lang.Enum
+	Every enum in java is direct child class of java.lang.Enum 
+		& hence this class acts as base class for all Java enums.
+	Java.lang.Enum is an abstract class and it is direct child class of Object class. 
+	It implements Serializable & Comparable interfaces.
+	
+
+
+Methods
+1. values()
+2. ordinal()
+3. name()
+4. toString()
+
+1. Values() method
+   Purpose of values() method is to list out all values of enum.
+	class Test{
+		public static void main(String args[]){
+			Beer[] b=Beer.values();
+			for(Beer b1:b) {
+			 	System.out.print(b1+” ”); 
+			}}
+    }
+	enum Beer {
+		KF,KO,RC,FO;
+	}
+Output: KF KO RC FO
+
+Values() method not present in Enum class.
+	C:\Users\Java>javap java.lang.Enum
+	Compiled from "Enum.java"
+	public abstract class java.lang.Enum<E extends java.lang.Enum<E>> implements java.lang.Comparable<E>, java.io.Serializable {
+  		public final java.lang.String name();
+  		public final int ordinal();
+  		protected java.lang.Enum(java.lang.String, int);
+  		public java.lang.String toString();
+  		public final boolean equals(java.lang.Object);
+  		public final int hashCode();
+  		protected final java.lang.Object clone() throws java.lang.CloneNotSupportedException;
+  		public final int compareTo(E);
+  		public final java.lang.Class<E> getDeclaringClass();
+  		public static <T extends java.lang.Enum<T>> T valueOf(java.lang.Class<T>, java.lang.String);
+  		protected final void finalize();
+  		public int compareTo(java.lang.Object);
+	}
+Values() method not present in java.lang.Enum class & Object class. It is provided implicitly by enum keyword.
+
+Similar to values() method, there is an ordinal() method. 
+	Inside enum, order of constant is important. And we can represent this order by using ordinal value. 
+	We can find ordinal value of enum constant by using ordinal method.
+	Ordinal values are zero based like array index.
+
+class Test{
+	public static void main(String args[]){
+		Beer[] b=Beer.values();
+		for(Beer b1:b){
+			System.out.println(b1+"..."+b1.ordinal());
+}}}
+enum Beer{KF,KO,RC,FO;}
+Output:
+KF...0
+KO...1
+RC...2
+FO...3
+
+
+
+Speciality of java enum
+	In old languages enum , we can take only constants. 
+		But in java enum, in addition to constants, we can take methods, constructors, normal variables etc.
+		Hence java enum is more powerful than old languages enum.
+
+	Even in java enum, we can declare main() method & we can run enum class directly from command prompt.
+
+Fish is intelligent animal. It is highly recommended over chicken and meat by doctors. 
+It is specially good for our heart and mind.
+	enum Fish{
+		STAR, GUPPY, GOLD;
+		PSVM(){
+			SOP(“enum main() method”);
+		}
+	}
+	Output: enum main() method
+
+In addition to constant, if we are taking any extra member (like a method), 
+	then list of constant should be in the first line &must ends with semicolon.
+Enum Fish
+{	STAR, GUPPY, GOLD;
+	Public void m1(){}  }
+Enum Fish
+{	STAR, GUPPY, GOLD;
+}
+Enum Fish
+{	STAR, GUPPY, GOLD
+}
+
+Enum Fish
+{	STAR, GUPPY, GOLD  //invalid
+	Public void m1(){}  }
+
+Enum Fish
+{	Public void m1(){}  
+	STAR, GUPPY, GOLD;//invalid
+}
+
+
+Enum Fish
+{	public void m1(){}//invalid
+}
+
+Enum Fish
+{	; //valid
+public void m1(){}//valid
+}
+Inside enum, if we are taking any extra member like a  method, 
+    compulsory the first line should contains, list of constant ,or  at-least semicolon.
+
+An empty enum , a valid java syntax.
+Enum Fish
+{	; //valid
+}
+Enum Fish{}

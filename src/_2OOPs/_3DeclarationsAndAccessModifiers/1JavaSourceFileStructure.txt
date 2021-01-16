@@ -1,0 +1,150 @@
+Java Source File Structure
+A .java file can contain any number of classes but at most one class can be declared as public.
+If there is no public class then we can use any name for the file and there are no restriction.
+If there is a public class then name of the file and name of the public class must be matched. 
+	Otherwise we will get CTE saying, class Test is public, should be declared in a file named Test.java
+
+
+B.java
+class A
+{
+}
+public class B
+{
+}
+public class C
+{
+}
+Output: CTE, class C is public, should be declared in a file named C.java
+
+Test.java
+class A
+{
+	public static void main(String args[])
+	{
+		System.out.println("inside A class");
+	}
+}
+class B
+{
+	public static void main(String args[])
+	{
+		System.out.println("inside B class");
+	}
+}
+class C
+{
+}
+
+Javac Test.java
+
+Java Test //NoClassDefFoundError
+Java A
+Java B
+Java C//NoSuchMethodError
+
+
+
+Conclusions
+Whenever we are compiling a Java source file, for every class present in the .java file, a separate .class file will be generated.
+We can compile a java source file, but we can run a java class containing main method.
+Whenever we are executing a java class, the corresponding class main method will be executed.
+ 
+If class does not contain main method then we will get RTE saying NoSuchMethodError:main.
+If the corresponding .class file is not available then we will get RTE saying NoClassDefFoundError.
+
+It is not recommended to declare multiple classes in a single source file. 
+It is highly recommended to declare only one class per source file 
+	and name of the source file, we should keep same as class name. 
+	The main advantage of this approach is readability and maintainability of the code will be improved.
+
+
+In any java source file, there can be at-most 1 package statement. 
+Otherwise we will get CTE saying class, interface or enum expected.
+package pack1;
+package pack2;
+public class Test
+{}
+
+In any java source file, the first non-comment statement should be package statement, (if it is available). 
+	Otherwise we will get CTE, saying class, interface or enum expected.
+import java.util.*;
+package pack1;
+public class Test{}
+
+Java source file structure
+	Package statement//atmost 1
+	Import statement//any number of times
+	Class/interface/enum declaration//any number of times
+	Here order is important
+
+Test1.java //valid java source fle
+An empty source file is a valid java program.//no CTE
+
+Test2.java //valid java source fle
+package pack1;
+
+Test3.java //valid java source fle
+Import java.util.*;
+
+Test4.java //valid java source fle
+Package pack1;
+Import java.util.*;
+
+Test5.java //valid java source fle
+class Test{}
+
+Package
+	Group of related things
+	Yearly Package
+	Europe tour package
+
+Package
+It is an encapsulation mechanism to group related classes & interfaces into a single unit.
+
+Example 1: All classes & interfaces, which are required for database operations are grouped into a single package java.sql package.
+Example 2: All classes & interfaces, which are useful for file I/O operations are grouped into a single package java.io package.
+
+Advantage of package
+	Resolve naming conflicts (unique identification of our components)– without it only one possible 
+	Improves modularity of the application
+	Improves maintainability of the application
+	Provides security for our components
+
+
+Purpose of package:
+	Unique identification
+
+In universe: internet domain name is unique
+
+There is one universally accepted naming convention for packages, that is, to use internet domain name in reverse.
+com.icicibank.loan.banking.account
+Reverse of client’s internet domain name + module name+ sub module name+ class/interface name
+
+package com.durgasoft.scjp;
+public class Test{Psvm(String[] args){SOP(“package demo”);}}
+
+Javac Test.java
+If the corresponding package structure is not already available, 
+	then this command itself will not create corresponding package structure.
+Generated .class file will be placed in current working directory(CWD).
+
+Javac –d Test.java
+If the corresponding package structure is not already available, 
+  then this command itself will create corresponding package structure.
+Generated .class file will be placed in corresponding package structure..
+
+Javac -d F:/new abc/Test.java
+If the specified directory is not already available then we will get CTE saying, directory not found: e:.
+Javac –d e:\new Test.java
+
+At the time of execution, we have to use fully qualified name.
+Java -classpath F:/temp/ com.durgasoft.scjp.Test
+Java com.durgasoft.ocjp.Test
+
+Javac
+C:\Users\Java>javac
+Usage: javac <options> <source files>
+where possible options include:
+  -classpath <path> (OR) -cp <path>          Specify where to find user class files and annotation processors
+

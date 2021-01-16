@@ -1,0 +1,63 @@
+Interface
+	Introduction
+	Interface declaration & implementation
+	Extends vs implements
+	
+	Interface methods
+	Interface variables
+	Interface naming conflicts
+		Method naming conflicts
+		Variable naming conflicts
+
+	Marker Interface
+	Adapter classes
+
+	Interface vs Abstract class Vs Concrete class
+	Differences b/w interfaces and abstract class
+	Conclusions
+
+	Default method
+Static method
+
+
+Summary
+
+Abstract class use cases
+We want to share code among several closely related classes.
+We expect that classes that extend your abstract class have many common methods or fields 
+	or require access modifiers other than public.
+We want to declare non-static or non-final fields, enabling us to define methods that can access & modify the state of the object to which they belong.
+
+Interface Use cases
+We expect that unrelated classes would implement our interface.
+We want to specify the behaviour of a particular data type, but not concerned about who implements its behaviour.
+We want to take advantage of multiple inheritance of type
+
+
+An interface can extends any number of interface simultaneously.
+
+As every interface methods are always public and abstract, we cannot declare interface method with the following modifiers:
+	private 
+	protected	 
+	final
+	synchronized
+	strictfp
+	native
+	<default>
+	static
+
+As every interface variable is always public , static , final .
+We cann't declare with the following modifiers:
+private 
+protected
+transient 
+Volatile
+
+Q ) Is a java class can implement any number of interface simultaneously.
+Ans ) Yes, a particular case. 
+	If two interface contains a method with same signature but diff return types(not co-varient also). 
+	Then it is impossible to implements both interface simultaneously.
+
+Marker Interface/Empty Interface/Tag Interface/Ability Interface
+More  or  less GenericServlet class acts as adapter class for Servlet interfae.
+

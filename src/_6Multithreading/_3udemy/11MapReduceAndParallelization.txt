@@ -1,0 +1,133 @@
+Map Reduce And Parallelization
+	Introduction
+	Example
+	Map Reduce And Fork-Join
+	
+	
+Introduction
+MapReduce is fundamental building block of BigData.
+MapReduce is a programming model
+	It is a way of structuring the computation that allows it easilt to be run on lots of nodes(servers)
+	We can make an algorithm parallel.
+The algorithm has three steps:
+1)Map 
+	Splits the original data set
+2)Shuffle & sort
+	All the data is re-arranged for the next step to run in parallel.
+		It makes sure that items with same keys will get to the same reducer.
+3)Reduce
+	Combines the final results
+	
+So for example we want to sort a huge array of integers:
+	We can do it with sequential mrge sort in O(nlogn)...but we can implement it in a parallel manner.
+	We split the original dataset into smaller subsets & assign these subproblems to distinct nodes(server).
+	So these servers form a cluster or a directed graph. Thats why the servers are usually called nodes.
+	
+	
+	
+	
+MapReduce Illustration
+1)Map
+	The input is dataset.
+	FOr example array of integers or Iris dataset we want ot classify
+	Output:List<Key,Value> pairs
+2)Shuffle & Sort
+	It is the so called combine function.
+	Combine all key-alue pairs with same keys+sort them.
+	Output: List<Key, List<Value>> pairs
+3)Reduce
+	Combine the sub-results
+	Output: List<Key, Value>pairs
+	
+	
+MapReduce Illustration 
+1)Mapping
+a)
+Dataset
+windy, hot, cold, windy
+hot, hot, hot, cold,
+cold, cold, windy,
+windy, hot,
+hot, cold, windy,
+cold, hot, hot,
+hot, windy, windy
+
+b)
+DataSet1
+windy, hot, cold, windy
+hot, hot, hot, cold,
+cold, cold, windy,
+
+DataSet2
+windy, hot,
+hot, cold, windy,
+cold, hot, hot,
+hot, windy, windy
+
+c)
+DataSet1
+windy=1
+hot=1
+cold=1 
+windy=1
+hot=1
+hot=1 
+hot=1 
+cold=1
+cold=1 
+cold=1 
+windy=1
+
+DataSet2
+windy=1  
+hot=1 
+hot=1  
+cold=1  
+windy=1 
+cold=1  
+hot=1  
+hot=1 
+hot=1  
+windy=1  
+windy=1
+
+
+
+2)Suffle & Sort
+DataSet1
+windy=(1,1,1)
+hot=(1,1,1,1)
+cold=(1,1,1,1,1)
+
+DataSet2
+windy=(1,1,1,1)
+hot=(1,1,1,1,1)
+cold=(1,1)
+
+
+3)Reduce
+a)
+Dataset
+windy=(1,1,1,1,1,1,1)
+hot=(1,1,1,1,1,1,1,1,1)
+cold=(1,1,1,1,1,1)
+
+b)
+Dataset
+windy=(7)
+hot=(9)
+cold=(6)
+
+
+
+
+
+
+
+MapReduce vs Fork-Join
+Fork-joinis designed to work on a single Java JVM
+	MapReduce is designed to work on a large cluster of nodes(servers, machines)
+Fork-join splits the original tasks into several subtasks. It is recursive approach & there may be inter-fork communication
+	MapReduce does only one split. These slitted subtasks to not communicate at all.
+		MapReduce is Massively Scalable.
+		

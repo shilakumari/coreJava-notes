@@ -1,0 +1,46 @@
+Working with RowId and RowIdLifetime
+
+RowId interface:  
+	Present in java.sql package. 
+	Introduced in JDBC 4.0V. 
+	For every row Database engine will associate a unique id, which is nothing but RowId. 
+	Internally RowId represents logical address of the row. 
+	Whenever we are inserting rows automatically Database engine will generate RowId for each row and programmer is not responsible to provide. 
+	Database Engine will use RowId internally to retrieve Data. 
+	The main advantage of RowId is Fast Retrieval of Data. 
+ 
+Sample Java Code to get RowId: 
+	ResultSet rs = st.executeQuery("select rowid,eno,ename,esal,eaddr from employees"); 
+	RowId id = rs.getRowId("rowid"); or    RowId id = rs.getRowId(1);  
+
+RowId is an object and hence we have to convert into byte[].  
+	byte[] b=id.getBytes(); 
+ 
+We have to convert byte[] into String, so that we will get meaningful String representation 
+	String s = new String(b); 
+	System.out.println(b); 
+ 
+Demo Program to Retrieve Data including RowId
+	Example: RowIdDemo1.java (m1())
+Demo Program to Retrieve Databased on given RowId
+	Example:  RowIdDemo1.java (m2())
+
+RowIdLifetime: 
+	It is an enum present in java.sql package 
+	RowIdLifetime represents the life time of generated RowIds 
+	The possible values for RowIdLifetime are 
+		1. ROWID_UNSUPPORTED     
+			Indicates that DB won't provide support for RowIds 
+		2. ROWID_VALID_FOREVER      
+			Indicates that life time is forever and unlimited       
+		3. ROWID_VALID_SESSION      
+			Indicates that rowid applicable only for current session 
+
+4. ROWID_VALID_TRANSACTION      
+	Indicates that rowid is valid only for current Session    
+Note:  For oracle database it is  ROWID_VALID_FOREVER  
+	   But for MySQL database it is   ROWID_UNSUPPORTED    
+
+Demo Program to get  RowIdLifetime of Database
+	Example: RowIdLifetimeDemo.java
+

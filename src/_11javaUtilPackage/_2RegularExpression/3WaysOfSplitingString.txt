@@ -1,0 +1,91 @@
+Pattern class split() method
+	We can use pattern class split() method, to split the target string, according to a particular pattern.
+
+Pattern p = Pattern.compile("X");
+String[] s = p.split("Durga Software Solutions");
+for (String s1 : s) {
+	System.out.println(s1);
+}
+
+1)x=\\s  (except space all are tokens)
+Durga
+Software
+Solutions
+
+2) x=a  (except a all are tokens)
+Durg
+ Softw
+re Solutions
+
+3)x=o (except o all are tokens)
+Durga S
+ftwareS
+luti
+ns
+
+
+Pattern p = Pattern.compile("X");
+String[] s = p.split("www.durgajobs.com");//best Level-3 job portal
+for (String s1 : s) {
+	System.out.println(s1);
+}
+X=.
+No output
+
+X=\.
+Illegal escape character
+
+X=\\.
+www
+durgajobs
+com
+
+
+x=[.]
+www
+durgajobs
+com
+
+
+
+String class split() method
+	To split the target string according to a particular pattern.
+	String str="Durga Software Solutions";
+	String[] s2 = str.split("\\s");
+	for (String s1 : s2) {
+		System.out.println(s1);
+	}
+	Output:
+	Durga
+	Software
+	Solutions
+
+Note:
+Pattern class split method, can take target string as argument, where as String class split method can take pattern as argument.
+
+
+StringTokenizer
+	It is a specially designed class for tokenization activity.
+	It is present in java.util package
+
+Note:
+Default regular expression for StringTokenizer is space.
+
+StringTokenizer st = new StringTokenizer("Durga Software Solutions");
+while (st.hasMoreElements()) {
+	System.out.println(st.nextToken());
+}
+Output:
+Durga
+Software
+Solutions
+
+StringTokenizer st=new Tokenizer(“19-09-2014”,”-”);
+Output:
+19
+09
+2014
+
+Here – is regular expression or pattern as a delimeter.
+
+Example: PatternClassSplitMethodDemo.java

@@ -1,0 +1,10 @@
+1. What is flow control?
+2. Define Selection Statement.	(Only one selected statement will be executed)
+3. Define Iterative statement.	(A group of statement will be executed)
+4. What is the use of "switch" selection statement?	(if several options are available, then go for switch but not for if-else)
+5. When will execute Default case in switch selection statement?
+6. Who is responsible to check unreachable statement?
+7. What is the difference b/w Iterator interface & Iterable interface?
+8. How many transfer Statement?(7- Break, continue, return, try, catch, finally, assert (since 1.4 v) )
+9. Difference between for-loop and while-loop.
+10.Use of for-each loop.

@@ -1,0 +1,134 @@
+String Concatenation operator (+)
+
+10+2030
+“ab”+”cd””abcd”
+
+The only overloaded operator in Java is +.	
+Sometimes it acts as arithmetic addition operator & sometimes it acts as string concatenation operator.
+In  general, at language level, Java not provide support for operator overloading. But exceptional case is + symbol.
+
+
+String a=”rahul”;
+Int b=10,c=20;d=30;
+SOP(a+b+c+d);//rahul102030
+SOP(b+c+d+a);//60rahul
+SOP(b+c+a+d);//30rahul30
+SOP(b+a+c+d);//10rahul2030
+
+a+b+c+d
+“rahul10”+c+d
+“rahul1020”+d
+“rahul102030”
+
+
+b+c+d+a
+30+d+a
+60+a
+“60rahul”
+
+If at least 1 argument is String type then + operator acts as string concatenation operator & 
+if both arguments are number type the + operator acts as arithmetic addition operator.
+String a=”rahul”;
+int b=10,c=20;d=30;
+a=b+c+d;//CTE, incompatible type. Found: int, required: java.lang.String
+a=a+b+c;//valid
+b=a+c+d;//invalid
+b=b+c+d;//valid
+
+Relational operators(<,<=, >, >=)
+SOP(10<20);//true
+SOP(‘a’<10);// false
+SOP(‘a’<976);//true
+SOP(‘a’>’A’);//true
+SOP(true>false);//CTE,operator > cannot be applied to boolean,boolean
+We can apply relational operator for every primitive type except boolean.
+
+SOP(“rahul123”>”rahul”);//CTE, operator > cannot be applied to java.lang.String, java.lang.String
+We cannot apply relational operators  for object types.
+SOP(10<20);//true
+SOP(10<20<30);// CTE, operator > cannot be applied to boolean, int
+
+10<20<30True<30CTE
+Nesting of relational operators is not allowed. Otherwise we will get CTE.
+
+Equality operators(==, !=)
+SOP(10==20);//false
+SOP(‘a’==’b’);//false
+SOP(‘a’==97.0);//true
+SOP(false==false);//true
+We can apply equality operators for every primitive type including boolean type also.
+
+We can apply equality operators for  object types also. For object references r1,r2:
+R1==r2 returns true if and only if both references pointing to the same object(reference comparison or address comparison).
+
+Thread t1=new Thread();
+Thread t2=new Thread();
+Thread t3=t1;
+SOP(t1==t2);//false
+SOP(t1==t3);//true
+SOP(t3==t2);//false
+
+Thread t1=new Thread();
+Object o=new Object();
+String s=new String(“abhi”);
+SOP(t==o);//false
+SOP(o==s);//false
+SOP(t==s);//CTE, incomparable types: java.lang.Thread and java.lang.String
+
+If we apply equality operators for object types then compulsory there should be some relation b/t argument types
+(either child to parent  or parent to child or same type). Otherwise we will get CTE, saying like, 
+incomparable types: java.lang.Thread and java.lang.String
+
+Difference b/w == operator and equals() method
+In general, we can use == operator for reference comparison(address comparison) but equals() method meant for content comparison.
+String s1=new String(“abhi”);
+String s2=new String(“abhi”);
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//true
+
+For any object reference obj,
+obj==null is always false.
+But null==null is always true.
+
+String s=new String(“abhi”);
+SOP(s==null);
+
+String s=null;
+SOP(s==null);//true
+
+SOP(null==null);//true
+
+Instanceof operator
+ArrayList list=new ArrayList();
+.
+.
+.
+Object o=list.get(0);
+	It checks whether an object is of particular type or not.
+If(o instancof Student)
+{
+	Student s=(Student)o;
+}
+else if(o instanceof Customer)
+{
+	Customer c=(Customer)o;
+}
+
+We can use instanceof operator to check whether the given object is of particular type or not.
+obj instance A/M
+Here obj is a object reference
+A is class and M interface name
+
+Thread t=new Thread();
+SOP(t instanceof Thread);//true
+SOP(t instanceof Object);//true
+SOP(t instanceof Runnable);//true
+SOP(t instanceof String);//CTE, inconvertible type, found:java.lang.Thread, required: java.lang.String
+
+To use instanceof operator, compulsory there should be some relation between argument types, either child to parent or parent to child or 
+same type otherwise we will get CTE, 
+saying inconvertible type.
+SOP(null instanceof X);//false
+SOP(null instanceof Object);//false
+SOP(null instanceof Runnable);//false
+For any class or interface X, null instanceof X is always false.

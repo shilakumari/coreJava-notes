@@ -1,0 +1,225 @@
+ThreadLocal 
+ThreadLocal can be used to define thread scope.
+ThreadLocal class provides thread local variables.
+Thread local class maintains values per thread basis.
+Each ThreadLocal object maintains a separate values like used id , transaction id etc. for each thread that accesses that object.
+Thread can access its local value, can manipulate its value & even can remove its value.
+In every part of the code which is executed by the thread, we can access its local variable.
+
+Consider a servlet, which invokes some business methods, 
+	we have a requirement to generate a unique transaction id for each & every request & 
+	we have to pass this transaction id to the business methods. For this requirement, 
+	we can use ThreadLocal to maintain a separate transaction ID for every request.
+That is for every thread.
+
+Note:
+1)ThreadLocal class introduced in 1.2v. & enhanced in 1.5v.
+2) ThreadLocal  can be associated with thread scope.
+3) Total code which is executed by the thread has access to the corresponding thread local variable.
+4) A thread can access its own local variables & cannot access other threads local variables.
+5)Once a thread entered into dead states, all its local varaibles are by default elligible for garbage collection.
+
+
+
+
+
+Constructor
+ThreadLocal t1=new ThreadLocal();
+	Creates a thread local varaible.
+
+Methods
+Object get()
+It returns the value of ThreadLocal variable associated with current thread.
+
+Object InitialValue()
+It returns initial value of ThreadLocal variable associated with current thread.
+The default implementation of this method returns null.
+To customize our own initial value, we have to override this method.
+
+void set(Object newValue)
+To set a newValue.
+
+void remove()  //since 1.5v
+To remove the value of ThreadLocal variable associated with current thread.
+After removal if we are trying to access, it will be re-initialized once again by invoking its initialValue() method.
+
+
+class ThreadLocalDemo1
+{
+PSVM()
+{
+ThreadLocal tl=new ThreadLocal();
+SOP(tl.get());//null
+tl.set(“Sachin”);
+SOP(tl.get());//Sachin
+Tl.remove();
+SOP(tl.get());//null
+}
+}
+
+Overriding of intialValue() method
+class ThreadLocalDemo1
+{
+PSVM()
+{
+ThreadLocal tl=new ThreadLocal()
+{ 
+	public Object initilValue()
+	{
+		return “Guest”;
+}
+};
+SOP(tl.get());//Guest
+tl.set(“Sachin”);
+vSOP(tl.get());//Sachin
+Tl.remove();
+SOP(tl.get());//Guest
+}
+}
+For each thread if you want to maintain a separate copy then you should go for thread local.
+
+
+
+class  Test
+{
+Psvm()
+{
+	CustomerThread c1=new CustomerThread(“Customer Thread-A”);
+	CustomerThread c2=new CustomerThread(“Customer Thread-B”);
+	CustomerThread c3=new CustomerThread(“Customer Thread-C”);
+	CustomerThread c4=new CustomerThread(“Customer Thread-D”);
+	c1.start();
+	c2.start();
+	c3.start();
+	c4.start();
+}}
+class CustomerThread extends Thread
+{
+static Integer custId=0;
+private static ThreadLocal tl=new ThreadLocal()
+{
+	protected Integer initialValue()
+	{
+		return ++custId;
+}
+};
+CustomerThread(String name)
+{
+	super(name);
+}
+public void run()
+{
+	SOP(Thread.currentThread().getName()+” executing with Customer id:  ”+ tl.get());
+}
+} 
+In the above program for every CustomerThread, a separate customer ID will be maintained by ThreadLocal object. 
+
+
+ThreadLocal  w.r.t. Inheritance
+ParentThread thread local variable by default not available to the child thread.
+If we want to make parent thread thread local variable value available to the child thread then we should go for InheritableThreadLocal class.
+By default child thread value is exactly same as parent thread’s value. 
+	But we can provide customized value for child thread by overriding childValue() method.
+
+class  Test
+{
+Psvm()
+{
+	ParentThread pt=new ParentThread();
+pt.start();
+}
+}
+class ParentThread extends Thread
+{
+static ThreadLocal tl=new ThreadLocal();
+public void run()
+{
+	tl.set(“PP”);
+	SOP(“Parent value: ”+ tl.get());//PP
+	ChildThread ct=new Childthread();
+	ct.start();
+}
+} 
+class ChildThread extends Thread
+{
+public void run()
+{
+SOP(“Child value: ”+ ParentThread.tl.get());//null
+}
+}
+
+
+
+If we want to make parent thread thread local variable value available to the child thread then we should go for InheritableThreadLocal class.
+class  Test
+{
+Psvm()
+{
+	ParentThread pt=new ParentThread();
+pt.start();
+}
+}
+class ParentThread extends Thread
+{
+Public static  InheritableThreadLocal tl=new InheritableThreadLocal();
+public void run()
+{
+	tl.set(“PP”);
+	SOP(“Parent value: ”+ tl.get());
+	ChildThread ct=new Childthread();//PP
+	ct.start();
+}
+} 
+class ChildThread extends Thread
+{
+public void run()
+{
+SOP(“Child value: ”+ ParentThread.tl.get());//PP
+}
+}
+
+
+By default child thread value is exactly same as parent thread’s value. 
+But we can provide customized value for child thread by overriding childValue() method.
+class  Test
+{
+Psvm()
+{
+	ParentThread pt=new ParentThread();
+	pt.start();
+}
+}
+class ParentThread extends Thread
+{
+Public static  InheritableThreadLocal tl=new InheritableThreadLocal()
+{
+	public Object childValue(Object p)
+	{
+		return “CC”;
+}
+};
+public void run()
+{
+	tl.set(“PP”);
+	SOP(“Parent value: ”+ tl.get());
+	ChildThread ct=new Childthread();//PP
+	ct.start();
+}
+} 
+class ChildThread extends Thread
+{
+public void run()
+{
+SOP(“Child value: ”+ ParentThread.tl.get());//CC
+}
+}
+
+
+Constructor
+InheritableThreadLocal tl=new  InheritableThreadLocal();
+
+Methods
+InheritableThreadLocal is child class of ThreadLoal. And hence all methods present in ThreadLocal by default available to inheritable thread local.
+In addition to these method it contains only one method, public Object childValue(Object parentValue)
+
+

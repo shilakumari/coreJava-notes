@@ -1,0 +1,145 @@
+Parameter type/type parameter/type variables vs type argument
+Multiple Parameter Type
+
+UnBounded Types
+Bounded Types using extends
+
+Multiple Parameter Type
+Based on our requirement we can declare any number of type parameters 
+	& all these type parameter should be separated with ,.
+	Class A<A,B,C> {}
+	
+UnBounded Types
+As the type parameter, we can pass any type and there are no restrictions. And hence it is Unbounded type. 
+  Class A<E,U,V> {}
+
+Bounded Types
+We can bound the type parameter for a particular range using extends keyword. Such types are called bounded types.
+  Class A<T extends Number & Runnable & Comparable > {}
+
+Syntax for bounded type:
+Class Test<T extends X>
+Here X can be either class or interface. If X is a class then as the type parameter we can pass either X type or its child classes.
+If X is an interface then as the type parameter we can pass either X type or its implementation classes.
+Here the Type parameter T, we can take any valid identifier but convention is to use T.
+
+Example       
+Class Test<T extends Number>
+{
+public void m1()
+{
+T a,b; 
+System.out.println(a+b);
+System.out.println(a*b);
+System.out.println(a/b);
+}
+}
+
+
+
+Rules for 
+1)
+We can define bounded types only by using extends keyword and we cannt use implements and super keywords. 
+But we can replace implements keyword purpose with extends keyword.
+Class A<T extends Number> {}
+Class A<T extends Runnable> {}
+Class A<T implements Runnable> {}//invalid
+Class A<T super String> {}//invalid
+2)
+Class A<T extends Runnable & Number > {} //invalid, Interface must be after class, if class exist
+Class A<T extends Runnable & Comparable> {}
+3)
+Class A<T extends Number & Thread> {} //invalid, cannt extends more than 1 class
+Class A<T extends Number & Runnable & Comparable > {}
+
+
+
+
+Generic class & generic method
+We can declare the type parameter , either at class level or at method level.
+     Declaring type parameter at class level, 
+        class Test<T>{}
+        We can use T within this class, based on our requirement.
+     Declaring type parameter at method level (we have to declare type parameter, just before return type).
+        class Test<T>{public <T> void m1(T obj){}}
+        We can use T within this method, based on our requirement.
+     
+  Bounded type at method level
+        We can define bounded type, even at method level also. 
+
+
+Generic class & generic method
+      class Test<T>{
+            //we can use 'T' within that class based on our requirement
+      }
+      class Test{
+            public <T>void m1(T ob){
+            //We can use 'T' anywhere within this method based on our requirement
+            }
+      }
+ 
+We can declare the type parameter , either at class level or at method level.
+Declaring type parameter at class level, 
+      class Test<T>{}
+      We can use T within this class, based on our requirement.
+Declaring type parameter at method level (we have to declare type parameter, just before return type).
+      class Test<T>{
+            public <T> void m1(T obj){
+            }
+      }
+      We can use T within this method, based on our requirement.
+
+Bounded type at method level
+We can define bounded type, even at method level also. 
+<T> void m1()
+<T extends Number>
+<T extends Runnable>
+<T extends Runnable & Number>
+<T extends Comparable & Runnable>
+<T extends Number & Comparable & Runnable>
+<T extends Runnable & Number>//Invalid First we have to take class and then interface
+<T extends Number & Thread>//Invalid We can't extends more than one class       
+A type variable with multiple bounds is a subtype of all the types listed in the bound. 
+
+In addition to limiting the types you can use to instantiate a generic type, 
+	bounded type parameters allow you to invoke methods defined in the bounds:
+public class NaturalNumber<T extends Integer> {
+    private T t;
+    public NaturalNumber(T t)  { this.t = t; }
+    public boolean isEven() {
+        return t.intValue() % 2 == 0;
+    }
+    // ...
+}
+The isEven method invokes the intValue method defined in the Integer class through t.
+
+
+
+
+
+
+Generic Methods and Bounded Type Parameters
+Bounded type parameters are key to the implementation of generic algorithms. 
+Consider the following method that counts the number of elements in an array T[] that are greater than a specified element elem.
+public static <T> int countGreaterThan(T[] anArray, T elem) {
+    int count = 0;
+    for (T e : anArray)
+        if (e > elem)  // compiler error
+            ++count;
+    return count;
+}
+The implementation of the method is straightforward, 
+	but it does not compile because the greater than operator (>) applies only to primitive types such as short, int, double, long, float, byte, and char. 
+	You cannot use the > operator to compare objects. 
+	To fix the problem, use a type parameter bounded by the Comparable<T> interface:
+public interface Comparable<T> {
+    public int compareTo(T o);
+}
+The resulting code will be:
+public static <T extends Comparable<T>> int countGreaterThan(T[] anArray, T elem) {
+    int count = 0;
+    for (T e : anArray)
+        if (e.compareTo(elem) > 0)
+            ++count;
+    return count;
+}

@@ -1,0 +1,39 @@
+Assert as a keyword & identifier
+Assert keyword introduced in java 1.4v, onwards we cann’t use assert as identifier since 1.4v. Otherwise we will get CTE.
+
+int x=10;
+int if=20;//CTE
+int assert =10;//CTE,for Java 1.4v onwards
+
+Notes
+If we are using assert as identifier & if we are trying to compile according to old version(Java 1.3v or lower), 
+	then code compiles fine but with warnings.
+We can compile a java program, according to a particular version by using –source option.
+Javac –source 1.3 Test.java  //compile fine but with warning
+Java Test
+
+
+Class One
+{
+PSVM()
+{
+int assert=10;
+SOP(assert);// using assert as a identifier
+}
+}
+
+Class Two
+{
+PSVM()
+{
+int x=10;
+assert(x>10);//using assert as a keyword
+}
+}
+
+Javac  -source 1.3 One.java //Compiles fine but with warning
+Javac  -source 1.4 One.java//CTE
+Javac  -source 1.3 Two.java//CTE
+Javac  -source 1.4 Two.java// Compiles fine without warning
+
+

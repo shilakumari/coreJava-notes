@@ -1,0 +1,83 @@
+Array List
+	Underlying data structure for ArrayList is : re-sizable array Or grow-able array
+	Duplicates are allowed.
+	Insertion order is preserved.
+	Heterogeneous object
+		Everywhere heterogeneous objects are allowed except TreeSet and TreeMap 
+		because in these two collection we need to store objects in some order and 
+		for that we need to compare object and for that those should be of same type.
+	Null insertion is possible. 
+
+	Implements serializable & cloneable interface
+	Implements random access interface
+	
+	//default initial capacity=10;
+	New capacity=(current capacity*3/2)+1=16//why +1, why this formula
+	
+
+Constructors
+	ArrayList l=new ArrayList();//default initial capacity=10;
+		New capacity=(current capacity*3/2)+1=16//why +1, why this formula
+	ArrayList l=new ArrayList(int initialCapacity);
+		Improve performance
+	ArrayList l=new ArrayList(Collection c);
+
+import java.util.*;
+class Test{
+	public static void main(String [] args)
+	{
+		ArrayList l=new ArrayList();
+		l.add("A");
+		l.add(10);
+		l.add("A");
+		l.add(null);
+		System.out.println(l);
+		l.remove(2);
+		System.out.println(l);
+		l.add(2,"M");
+		l.add("N");
+		System.out.println(l);
+	}
+}
+After Compilation: Because we are not using Generic Collection.
+Note: C:\Users\Java\Documents\Test.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Output:
+[A, 10, A, null]
+[A, 10, null]
+[A, 10, M, null, N]
+
+
+
+
+ArrayList and Vector implements RandomAccess interface.
+So that any random element, we can access with the same speed.
+For frequent retrieval operation ArrayList and Vector are recommended to use.
+RandomAccess is a marker interface present in java.util package. It doesn't contain any method.
+
+ArrayList
+ArrayList l1 = new ArrayList();
+LinkedList l2 = new LinkedList();
+System.out.println(l1 instanceOf Serializable);//true
+System.out.println(l2 instanceOf Clonable);//true
+System.out.println(l1 instanceOf RandomAccess);//true
+System.out.println(l2 instanceOf RandomAccess);//false
+
+
+ArrayList is the best choice if our frequent operation is 
+	retrieval operation(Because ArrayList implements RandomAccess interfaces)
+
+ArrayList is the worst choice if our frequent operation is insertion 
+	or deletion in the middle(Because several shift operation are require)
+
+
+How to get synchronized version of ArrayList object?
+By using Collections classes method:
+public static List  synchronizedList(List l)
+
+AL l1=new AL();
+List l=Collections.synchronizedList(l1);
+
+Similarly we can get Synchronized version of Set, Map objects by using the following method of Collections class:
+Public static Set synchronizedSet(Set s1);
+Public static Map synchronizedMap(Map m1);

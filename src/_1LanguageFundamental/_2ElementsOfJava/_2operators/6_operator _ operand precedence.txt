@@ -1,0 +1,80 @@
+In any programming language, usually highest precedence goes to unary operator and then binary operator and last ternary operator.
+	Unary operator
+		++
+		--
+		
+	Binary operator
+		==, !=
+		<, >
+		>=, <=
+		||
+		+, -, *, /
+
+	Ternary operator
+		?if true:if false
+
+In any programming language, usually least precedence goes to assignment operator.
+a=b+c*d/2+3;
+
+Operator precedence Chart
+Unary operators
+[]	x++	x—
+++x	--x	~	!
+new<type>
+
+Arithmetic operators
+* 	/	%
++	-
+
+Shift operators
+>>	>>>	<<
+
+Comparison operators
+<	<=	>	>=	instanceof
+
+Equality operator
+==	!=
+
+Bitwise operators
+&
+^
+|
+
+Short circuit operators
+&&
+||
+
+Conditional operator
+?:
+
+Assignment operators
+=	+=	-=	*=………
+
+
+Evaluation order of java operands
+class Test{
+PSVM(){
+	SOP( m1(1)+m1(2)*m1(3)/m1(4)+m1(5)*m1(6) );
+}
+static int m1(int i){
+	SOP(i);
+	return i;
+}
+}
+Output:
+1
+2
+3
+4
+5
+6
+32
+
+In Java, we have only operator precedence but there is no precedence for operands. 
+Before applying any operator, all operands will be evaluated form left to right.
+1+2*3/4+5*6
+1+6/4+5*6
+1+1+5*6
+1+1+30
+2+30
+32

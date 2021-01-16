@@ -1,0 +1,193 @@
+Common Exceptions
+
+Exception
+	RuntimeException
+		ArithmeticException
+		NullPointerException
+		ClassCastException
+		IndexOutOfBoundException
+			ArrayIndexOutOfBoundsException
+			StringIndexOutOfBoundsException
+		IllegalArgumentException
+			NumberFormatException
+	IOException
+		EOFE
+		FileNotFoudException
+		InterruptedIOException
+	ServletException
+	RemoteException
+.
+.
+.
+Error
+	VMError
+		StackOverflowError
+		OutOfMemoryError
+	AssertionError
+	ExceptionInInitializerError
+	LinkageError
+		VerifiyError
+
+NoClassDefFoundError
+IllegalStateException
+NegativeArraySizeException
+
+ArrayIndexOutOfBoundsException
+It is the child class of RuntimeException & hence it is unchecked.
+Raised automatically by JVM whenever we are trying to access array element with out of range index.
+int [] x=new int[5];
+SOP(a[4]); //0
+SOP(a[10]); //RE:ArrayIndexOutOfBoundsException
+SOP(a[]);//RE:ArrayIndexOutOfBoundsException
+a[-6]=60; //RE, ArrayIndexOutOfBoundsException
+x[2.8]=90;//CTE,
+
+StringIndexOutOfBoundsException
+StringBuffer sb1=new StringBuffer("Abhi");
+System.out.println(sb1.charAt(30));//RE, StringIndexOutOfBoundsException
+
+NegativeArraySizeException
+	 Int [] x=new int[-5]; 
+
+
+NullPointerException
+It is the child class of RuntimeException & hence it is unchecked. 
+Raised automatically by JVM, whenever we are trying to perform any operation on null.
+String s=null;
+SOP(s.length(););//RE, NullPointerException
+NullPointerException thrown when an application attempts to use null where an object is required:
+1)Calling the instance method of a null object
+2)Accessing or modifying the isntance field of a null object
+3)Taking the length of null as if it were an aaray
+4)Access or modifying the slots of null as if it were an array
+5)Throwing null as if it were a Throwable value.
+6)  Integer I=null;
+	int  i=I;//null.intValue(), RTE, NullPointerException
+	
+
+
+int [][]x=new int[2][];
+SOP(x);//[[I@23a23
+SOP(x[0]);//null
+SOP(x[0][0]);//RE, Exception in thread "main"java.lang.NullPointerException
+
+ClassCastException
+It is the child class of RuntimeException & hence it is unchecked. 
+Raised automatically by JVM, whenever we are trying to type cast parent object to child type.
+
+String s=new String(“Abhi”);
+Object o=(Object)s;
+
+Object o=new Object();
+String s=(String)o;//RE, ClassCastException
+
+Object o=new Stirng(“Abhi”);
+String s=(String)o;//valid
+
+
+
+NoClassDefFoundError
+It is the child class of Error & hence it is unchecked.
+Raised automatically by JVM, whenever JVM unable to find required class file.
+
+Java  Test 
+If Test.class file is not available then we will get RE, saying, NoClassDefFoundError:Test
+
+
+
+
+IllegalArgumentException
+It is child class of RuntimeException & hence it is unchecked exception.
+It is raised explicitly either by programmer or by API developer to indicate that a method has been invoked with illegal argument.
+
+Thread t=new Thread();
+t.setPriority(7);
+t.setPriority(17);//RE,IllegalArgumentException
+
+
+NumberFormatException
+It is the direct child class of IllegalArgumentException, which is the child class of RuntimeException & hence it is unchecked exception.
+Raised explicitly either by programmer or by API developer, to indicate that we are trying to convert String to number 
+& the string is not properly formatted.
+
+int i=Integer.parseInt(“10”);
+int i=Integer.parseInt(“TEN”);//RE, NumberFormatException
+Integer i=new Integer("ten");//RE, NumberFormatException
+//Long l2=new Long("10L");//RTE, saying NumberFormatException.
+
+IllegalStateException
+It is the child class of RuntimeEception, hence it is unchecked exception.
+Raised explicitly either by programmer or by API developer, to indicate that a method has been invoked at wrong time.
+Thread t=new Thread();
+t.start();
+.
+.
+.
+t.start();//RE,IllegalThreadStateException
+
+
+AssertionError
+It is the child class of Error, hence it is unchecked exception.
+Raised explicitly by the programmer or by API developer to indicate that assert statement fails.
+int x=6;
+assert(x>10);//RE, AssertionError
+If x is not grater than 10 then we will get RE, saying AssertionError
+
+StackOverflowError
+It is the child class of Error & hence it is unchecked.
+Raised automatically by JVM, whenever we are trying to perform recursive method call.
+static int i;
+	public static void main(String[] args) throws IOException {
+		System.out.println("1");
+		m1();
+		System.out.println("2");
+	}
+
+	static void m1() {
+		System.out.println("inside m1() "+ i);
+		m2();
+		i++;
+	}
+
+	static void m2() {
+		System.out.println("inside m2() "+i);
+		m1();
+		i++;
+	}
+Output:
+RE, StackOverflowError
+
+OutOfMemoryError	
+	int[] x=new int[2147483647];//No CTE, but may be RE, Exception in thread "main" java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	
+	String str="Hellooooooooooooooooooooooo";
+		for(int i=1;i<=4;i++)
+		{			
+			str=str+str+str+str;
+			System.out.println(str);
+		}
+
+ExceptionInInitializerError
+It is the child class of Error & hence it is unchecked.
+Raised automatically by JVM, whenever any exception occurs while executing static variable assignments & static blocks.
+Class Test
+{
+	static int x=10/0;//RE, ExceptionInInitializerError caused by java.lang.ArithmeticException / by zero
+        PSVM()  	  
+       {
+       }
+}
+
+Class Test
+{
+	static
+	{
+		String s=null;
+		SOP(s.length());//RE,ExceptionInInitializerError caused by java.lang.NullPointerException
+              }
+        PSVM()  	  
+       {
+	
+       }
+
+}

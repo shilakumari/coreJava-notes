@@ -1,0 +1,73 @@
+ReentrantLock
+It is the implementation class of Lock interface & it is the direct child class of Object class.
+
+ReentrantLock l=new ReentrantLock();
+
+l.lock();//hold count=1, lock acquired
+l.lock();//hold count=2
+l.lock();//hold count=3
+
+l.unlock();//hold count=2
+l.unlock();//hold count=1
+l.unlock();//hold count=0 , now lock released
+
+Reentrant means a thread can acquire same lock multiple times without any issue.
+Internally reentrantlock  increments threads personal count whenever we call lock method and decrement count value
+	 whenever thread calls unlock method & lock will be released whenever count reaches zero.
+
+Constructors
+ReentrantLock l=new ReentrantLock();
+	It creates an instance of ReentrantLock.
+
+ReentrantLock l=new ReentrantLock(boolean fairness);
+	It creates re-entrant lock with the given fairness policy. 
+
+Not unbiased- not related to fair & lovely.
+If the fairness is true then longest waiting thread can acquire the lock if it is available that is it follows FCFS policy. 
+	If fairness is false then which waiting thread will get the chance we cann’t expect.
+The default value for fairness is false.
+
+
+Important methods of ReentrantLock
+⦁	void lock()
+⦁	boolean tryLock()
+⦁	boolean tryLock(long time, TimeUnit unit)
+⦁	void lockInterruptibly()
+⦁	void unlock()
+
+⦁	int getHoldCount()
+		It returns number of holds on this lock by current thread.
+⦁	boolean isHeldByCurrentThread()
+		It returns true if and only if lock is hold by current thread.
+⦁	int getQueueLength()
+		It returns number of threads waiting for the lock.
+⦁	Collection getQueuedThreads()
+		It returns a collection of threads which are waiting to get the lock.
+⦁	boolean hasQueuedThreads()
+		It returns true if any thread waiting to get the lock.
+⦁	boolean isLocked()
+		It returns true if the lock is acquired by some thread.
+⦁	boolean isFair()
+		It returns true if fairness policy is set with true value.
+⦁	Thread getOwner()
+		It returns thread which acquires the lock.
+
+Example:ReentrantLockDemo.java (m1())
+
+Without Synchronization
+Example:ReentrantLockDemo.java (m2())
+Example:ReentrantLockDemo.java (m3())
+
+With Synchronization
+Example:ReentrantLockDemo.java (m4())
+
+Example:ReentrantLockDemo.java (m5())
+If we comment line 1 & line 2 then threads will be executed simultaneously & we will get irregular output. 
+If we are not commenting lines 1 & 2 then the threads will be executed one by one. 
+And we will get regular output.
+
+Demo program for tryLock() method
+Example:ReentrantLockDemo.java (m6())
+
+Demo program for tryLock(  ,TimeUnit ) method
+Example:ReentrantLockDemo.java (m7())

@@ -1,0 +1,107 @@
+Advanced Locking
+	Reentrant Lock(java.util.concurrent.locks package)
+		trylock()
+		lockInterruptibly()
+		User Interface Application Example
+		Q&A
+		Reentrant Read Write Lock $ Database Implementation
+		Q&A
+		Product Review Service Problem
+		
+		
+Reentrant Lock
+	It works just like the synchronized keyword applied on an object
+	But it requires explicit locking & unlocking
+		But if forget to write unlocking or if any excepton occur in critical section, may create bugs and deadlock.
+		ANd so we always do unlocking in finally block.
+		reentrantLock.lock();
+		//Critical section code
+		reentrantLock.unLock();
+	For this complexity we are rewarded with more:
+		Control over the lock
+		More lock operations
+		Query methods for testing
+			getQueuedThreads()-returns a list of threads waiting to acquire a lock.
+			getOwner()-returns the thread that currently owns the lock
+			isheldByCurrentThread()-Queries if the lock is held by the current thread
+			isLocked()-Queries if the lock is held by the any thread
+			Every production code needs to be throughly tested		
+		Control over lock's fairness
+			By default the Reentrant lock & synchronized keyword do not guarantee any fairness.
+				Fairness
+					ReentrantLock(true)
+					May reduce the throughput of the application
+		reentrantLock.lockInterruptibly()
+			It can be interrupt when waiting for the lock.
+			Waking up threads to do clean and close the application
+			Watchdog for deadlock detection & recovery
+		reentrantLock.tryLock()-conditional locking
+		reentrantLock.tryLock(long timeout,TimeUnit unit)
+			return true & acquire a lock, if available
+			return false & does not get suspended , if lock not available
+			Under no circumstances does the trylock()method block.
+			Regardless of the state of the lock, it always returns immediately
+			Realtime applications where suspending a thread on a lock() method is unacceptable
+				Example:
+					Video/Image processing
+					High Speed/Low latency trading systems
+					User interface applications
+			Using tryLock()
+				We avoid blocking the real time thread
+				Kept application responsive
+				Performed operations atomically??????????????		
+		ReentrantLockUserInterfaceApplication.java
+				
+				
+				
+				
+				
+ReentrantReadWriteLock $ Database Implementation
+ReentrantReadWriteLock
+	Read lock
+	Write lock
+ReentrantReadWriteLock-Why?
+	Race condition require
+		Multiple thread sharing a resource
+		At least one thread modifying the resource
+	Solution- COmplete mutual exclusion
+		Regardless Of operation (read/write/both)
+		Lock & allow only one thread to critical section
+	Use case:Multiple reader thread but single writer thread
+		Readr1->Cache<-Wrtiter
+		Readr2->Cache<-Wrtiter
+		Readr3->Cache<-Wrtiter
+		Readr4->Cache<-Wrtiter	
+		We do not need to protect reader from another reader of a shared resoruce
+		SYnchronized & eentrantLock do not allow multiple reader to access a shared resource concurrently.
+			In gereral case,Read operation are fast & if we keep the critical sections short, 
+				the chances of contention over a lock is minimal.
+			When read operations are predominant or when read operationsare not as fast like
+				read from many variables
+				read from a complex data structure
+				then mutual exclusion of reading threads negatively impacts performance
+				
+ReentrantReadWriteLock-How to use
+ReentrantReadWriteLock rwLock=new ReentrantReadWriteLock();
+Lock readLock=rwLock.getReadLock();
+Lock writeLock=rwLock.getWriteLock();
+Multiple thread can acquire the read lock simultaneously.
+Only a single thread is allowed to lock a write lock.
+Mutual exclusion b/w readers & writers.
+	If a write lock is acquired, no thread can acquire a read lock.
+	If atleast one thread holds a read lock, no thread can acquire a write lock.
+Use case: Inventory database 
+	ReentrantReadWriteLockAndDatabaseImplementation.java
+ReentrantReadWriteLock is not always better than a conventional lock
+	Use right tool for the job
+	Measure & validate assumptions
+ProductReviewsService.java
+Summary
+	Using regular binary locks with read intensive workloads , prevents concurrent read from shared resources.
+	ReentrantReadWriteLock
+		ReadLock
+		WriteLock
+		Allows multiple readers , read shared resource concurrently
+	Read intensive uses cse where we increased the performance & finished 3X faster.
+	ReentrantReadWriteLock is not always better than a conventional lock
+	

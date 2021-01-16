@@ -1,0 +1,177 @@
+IS-A relationship/ Inheritance
+By using "extends" keyword , we can implement IS- A relationship
+Dog Is-A Animal.
+
+Advantage
+Code Re-usability
+Reduce code redundancy
+
+Example: Amithabh’s fame has Abhishek bachan
+
+Class P
+{
+Public void m1()
+{
+SOP(“Parent”);
+}
+}
+
+Class C extends P 
+{ 
+Public void m2()
+{
+SOP(“Child”);
+}
+}
+
+Class Test
+{ 
+PSVmain(String []args)
+{
+C c1=new C();
+C1.m1();
+C1.m2();
+
+P p1=new P();
+P1.m1();
+P1.m2();//CTE, cannot find symbol
+
+P p2=new C();
+P2.m1();
+P2.m2();//CTE, cannot find symbol
+
+C c2=new P();//CTE, Incompatible type
+}
+}
+
+Conclusions
+Whatever methods(non-private) parent has by default available to the child. And hence on child reference ,
+	 we can call both parent and child class method.
+Whatever method child has, by default is not available to the parent. And hence on the parent reference, we can not call child specific method.
+
+Parent reference can be used to hold child object. But using that reference, we can not call child specific methods. 
+But we can call the methods present in parent class.
+Parent reference can be used to hold child object but child reference can not be used to hold parent object.
+
+Example: Loan class can be parent class for PersonalLoan, HomeLoan, VehicleLoan
+
+Notes: 
+The most common methods, which are applicable for any type of child, we have to define in parent class. 
+And the specific methods which are applicable, for a particular child we have to define in child class.
+The total Java API is implemented based on inheritance concept.
+Object Class
+	The most common methods which are applicable for any Java object are defined in Object class. 
+	And hence every class in Java is the child class of the object, either directly or indirectly. 
+	So that Object class methods, by default available to every Java class without rewriting in Java class. 
+	Due to this,  Object class act as root for all Java classes.
+Throwable  class defines the most common methods which are required for every exception and error classes, 
+hence this class act as root for Java exception hierarchy.
+
+Object
+	String 
+	StringBuffer
+	.
+	.
+	Throwable
+		Error
+		Exception
+			RuntimeException
+				AE
+				AIOBE
+			IOException
+	.
+	.
+	.
+
+
+Inheritance type
+	Single 
+	Hierarchical
+	Multi-level
+	Multiple
+		Strictly speaking not supported w.r.t. class
+		But w.r.t  interface 
+	Cyclic
+		Not supported in java
+	Hybrid
+
+
+Multiple Inheritance
+Java does not provide support multiple inheritance w.r.t.classes. (If our class does not extends any other class then 
+only our class is direct child class of Object class.)
+
+Why Java does not provide support multiple inheritance w.r.t.classes?
+There may be a chance of ambiguity problem, when parent class have same method and called on child object.
+
+Java provides support for multiple inheritance w.r.t. interface. Because there will not be ambiguity problem for any class
+(because single implementation for single class).
+Strictly speaking , through interfaces we does not get any inheritance(or we inherit only name not functionality).
+
+Cyclic inheritance 
+Cyclic inheritance is not allowed in Java and of course it is not required.
+class  A extends A{}
+class  A extends B{} and class  B extends A{}
+
+class Test
+{
+	public static void main(String [] args) throws Exception
+	{
+		D d1=new D();
+		d1.m1();
+		d1.m2();
+		d1.m3();
+
+		C c1=new C();
+		c1.m1();
+		c1.m2();
+		//c1.m3();
+
+		P p1=new P();
+		p1.m1();
+		//p1.m2();
+		//p1.m3();
+
+		C c2=new D();
+		c2.m1();
+		c2.m2();
+		//c2.m3();
+
+
+		P p2=new C();
+		p2.m1();
+		//p2.m2();
+		//p2.m3();
+
+		P p3=new D();
+		p3.m1();
+		//p3.m2();
+		//p3.m3();
+
+		//D d2=new C();
+		//D d3=new P();
+		//C c3=new P();
+	}
+}
+
+class P
+{
+	public void m1()
+	{
+		System.out.println("Parent class");
+	}
+}
+
+class C extends P
+{
+	public void m2()
+	{
+		System.out.println("Child class");
+	}
+}
+class D extends C
+{
+	public void m3()
+		{
+			System.out.println("Grand Child class\n");
+	}
+}

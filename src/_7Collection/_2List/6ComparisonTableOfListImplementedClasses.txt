@@ -1,0 +1,30 @@
+Difference b/w ArrayList & LinkedList
+ArrayList																LinkedList
+1. It is the best choice if our frequent operation is retrieval.        1. It is the best choice if our frequent operation is insertion and deletion.
+2. It is the worst choice if our frequent operation is insertion		2. It is the worst choice if our frequent operation is retrieval.
+   or deletion.
+3. Underlying data structure for arrayList is re-sizable or             3. Underlying data structure for LinkedList is double linked list.
+   grow-able Array. 
+4. ArrayList implements RandomAccess interface.                         4. LinkedList does not implements RandomAccess interface.
+
+
+
+Difference b/w ArrayList & Vector
+ArrayList															Vector
+1. Every method is non-synchronized									1. Most methods are synchronized
+2. Not Thread-safe:													2. thread-safe:
+   At a time multiple threads are allowed to operate 				   At a time only one thread is allow to operate on Vector object.
+   on ArrayList object.											
+3. Performance is relatively high:									3. Performance is low:
+   Thread are not required to wait to operate on ArrayList object	   Thread are required to wait to operate on ArrayList object
+4. Introduced in 1.2v. It is non-legacy.							4. Introduced in 1.0v, it is legacy class.
+	
+
+
+Difference b/w List & Set
+List										Set
+1. Duplicate allowed.						1. Duplicate not allowed
+2. Insertion Order preserved.				2. Insertion Order not preserved.
+
+
+	

@@ -1,0 +1,5 @@
+Random Number
+	java.util.Random class
+	java.lang.Math.random() method 
+	java.util.concurrent.ThreadLocalRandom class(since Java 1.7)
+

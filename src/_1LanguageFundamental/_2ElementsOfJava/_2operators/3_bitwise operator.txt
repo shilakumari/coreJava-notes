@@ -1,0 +1,112 @@
+Bitwise operators(&,|,^)
+
+&ANDreturns true iff both arguments are true.
+|ORreturns true iff at-least one argument is true
+^XORreturns true iff both arguments are different.
+
+SOP(true & false);//false
+SOP(true | false);//true
+SOP(true ^ false);//true
+
+
+SOP(4 & 5);//4
+100
+101
+-----
+100
+
+SOP(4 | 5);//5
+100
+101
+-----
+101
+
+SOP(4 ^ 5);//1
+100
+101
+-----
+001
+We can apply these operators for integral types also.
+
+Bitwise complement operator(~,tilde)
+We can apply this operator only for integral types but not for boolean type. If we are trying to apply for boolean type then we will get CTE.
+SOP(~ true);//CTE, operator ~ cannot be applied to boolean
+
+SOP(~ 4);//-5, not 3
+
+The most significant bit act as sign bit, 
+0-for +ve
+1-for –ve
+
+
+  40 000000…0100
+~41 111111…1011
+1’s complement of ~ 41 000000…0100
+2’s complement of ~ 41 000000…0101
+Positive number will be represented directly in memory where as negative number will be represented indirectly in memory in 2’s complement form.
+
+Boolean complement operator(!, negation)
+We can apply this operator only for boolean type not for integral type.
+SOP(!4);//CTE, operator ! cannot be applied to int
+SOP(!false);//true
+
+&
+|
+^ 
+are applicable for both boolean & integral type.
+
+~  applicable for only integral type not for boolean type.
+
+! applicable only boolean type but not for integral type.
+
+
+Short-circuit operators (&&, ||)
+These are exactly same as bitwise operators(&, |) except the following differences:
+
+& , |			
+Relatively performance is high
+Applicable for both boolean & integral types.
+Both arguments evaluated always
+
+&&, ||
+Relatively performance is low
+Applicable for boolean type only but not for integral types
+Both arguments evaluated optional
+x&&y, y will be evaluated iff x is true ie. If x is false then y will not be evaluated.
+X||y, y will be evaluated iff x is false ie. If x is true then y will not be evaluated.
+
+
+int x=10,y=15;
+if(++x<10 & ++y>15)
+{
+x++;
+}
+Else
+{
+y++;
+}
+SOP(x+”…”+y);
+
+	x	y
+&	11	17
+&&	11	16
+|	12	16
+||	12	16
+
+
+int x=10;
+if(++x<10 && (x/0>10))
+{
+	SOP(“Hello”)
+}
+Else
+{
+	SOP(“hiii”);
+}
+Output:
+1)CTE
+2)RE
+3)Hello
+4)Hi, Correct answer
+
+If we replace && with & then we will get RE saying, AE / by zero.

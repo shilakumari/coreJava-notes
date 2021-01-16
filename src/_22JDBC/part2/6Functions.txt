@@ -1,0 +1,74 @@
+Functions
+Functions are exactly same as procedures except that function has return statement directly. 
+Procedure can also returns values indirectly in the form of OUT parameters. 
+Usually we can use procedure to define business logic and we can use functions to perform some calculations like 
+	getAverage(), 
+	getMax() etc.. 
+Syntax for functions:
+	create or replace function getAvg(id1 IN number,id2 IN number) return number  
+	 as   
+	 sal1 number;   
+	 sal2 number;   
+	 BEGIN   
+	   select esal into sal1 from employees where eno=id1;   
+	   select esal into sal2 from employees where eno=id2;   
+	   return (sal1+sal2)/2;   
+	 END;   
+	 /   
+Function call can return some value.Hence the syntax of function call is  
+CS cst = con.prepareCall("{? = call getAvg(?,?)}"); 
+return value of function call should be register as OUT parameter. 
+
+Stored Procedures App6: JDBC Program to call Function which returns average salary of given two employees 
+Stored Procedure
+	create or replace function getAvg(id1 IN number,id2 IN number)return number   
+	 as   
+	 sal1 number;   
+	 sal2 number;   
+	 BEGIN   
+	   select esal into sal1 from employees where eno=id1;   
+	   select esal into sal2 from employees where eno=id2;   
+	   return (sal1+sal2)/2;   
+	 END;   
+	 /    
+	Example: StoredProceduresDemo6.java 
+
+Stored Procedures App7: JDBC Program to call function returns all employees information based on employee numbers 
+Stored Procedure 
+	 create or replace function getAllEmpInfo4(no1 IN number,no2 IN number) return SYS_REF CURSOR as   
+	 emps SYS_REFCURSOR;   
+	 BEGIN   
+	    open emps for    
+	    select * from employees where eno>=no1 and eno<=no2;   
+	    return emps;   
+	 END;   
+	 /  
+
+	Example: StoredProceduresDemo7.java 
+
+Stored Procedures App8: JDBC Program to call function to Demonstrate SQL%ROWCOUNT implicit cursor 
+Stored Procedure 
+	create or replace function getDeletedEMPInfo(no1 IN number,count OUT number) return SYS_REFCURSOR as   
+	emps SYS_REFCURSOR;   
+	BEGIN   
+		open emps for   
+	    select * from employees where eno=no1;   
+	    delete from employees where eno=no1;   
+	    count :=SQL%ROWCOUNT;   
+	    return emps;   
+	 END;   
+	 /
+
+	Example: StoredProceduresDemo8.java
+
+
+Statement vs PreparedStatement vs CallableStatement: 
+	1. We can use normal Statement to execute multiple queries.  
+		st.executeQuery(query1)  
+		st.executeQuery(query2)  
+		st.executeUpdate(query2) 
+		i.e if we want to work with multiple queries then we should go for Statement object. 
+	2. If we want to work with only one query,but should be executed multiple times then we should go for PreparedStatement. 
+	3. If we want to work with stored procedures and functions then we should go for CallableStatement. 
+
+ 

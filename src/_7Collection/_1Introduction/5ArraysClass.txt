@@ -1,0 +1,131 @@
+Sort Notes
+sort()
+binarySearch()
+asList()-view only
+
+Arrays
+Arrays class is an utility class to define several utility methods for array objects.
+
+Sorting elements of array
+public static void sort(primitive[] p)
+	To sort according to natural sorting order
+public static void sort(Object[] o)
+	To sort according to natural sorting order
+public static void sort(Object[] o, Comparator c)
+	To sort according to customized sorting order
+
+
+Example 1
+	
+		int[] a = { 10, 5, 20, 11, 6 };
+		System.out.println("Primitive array before sorting: ");
+		for (int a1 : a) {
+			System.out.println(a1);
+		}
+		Arrays.sort(a);
+		System.out.println("Primitive array after sorting: ");
+		for (int a1 : a) {
+			System.out.println(a1);
+		}
+		
+		String[] s = { "A", "Z", "B" };
+		System.out.println("Object array before sorting: ");
+		for (String a2 : s) {
+			System.out.println(a2);
+		}
+		Arrays.sort(s);
+		System.out.println("Object array after sorting: ");
+		for (String a1 : s) {
+			System.out.println(a1);
+		}
+		Arrays.sort(s, new MyArrayComparator());
+		System.out.println("Object array after sorting by comparator: ");
+		for (String a1 : s) {
+			System.out.println(a1);
+		}
+
+class MyArrayComparator implements Comparator {
+	public int compare(Object o1, Object o2) {
+		String s1 = o1.toString();
+		String s2 = o2.toString();
+		return s2.compareTo(s1);
+	}
+}
+
+Note:
+We can sort primitive array only based on default natural sorting order.
+Where We can sort object array either based on default natural sorting order or based on customized sorting order.
+
+
+
+Searching  Elements of array
+Arrays class defines the following binary search methods:
+public static int binarySearch(primitive[] p, primitive target)
+public static int binarySearch(Object[] p, Object target)
+public static int binarySearch(Object [] p, Object target, Comparator c)
+
+All rules of Arrays class binarySearch() method is exactly same as Collections class’ binarySearch() methods.
+Example
+	
+		int[] a = { 10, 5, 20, 11, 6 };
+		Arrays.sort(a);
+		System.out.println(Arrays.binarySearch(a, 6));
+		System.out.println(Arrays.binarySearch(a, 14));
+
+		String[] s = { "A", "Z", "B" };
+		Arrays.sort(s);
+		System.out.println(Arrays.binarySearch(s, "Z"));
+		System.out.println(Arrays.binarySearch(s, "S"));
+
+		Arrays.sort(s, new MyArrayComparator());
+		System.out.println(Arrays.binarySearch(s, "Z", new MyArrayComparator()));
+		System.out.println(Arrays.binarySearch(s, "S", new MyArrayComparator()));
+		System.out.println(Arrays.binarySearch(s, "N"));
+	
+class MyArrayComparator implements Comparator {
+	public int compare(Object o1, Object o2) {
+		String s1 = o1.toString();
+		String s2 = o2.toString();
+		return s2.compareTo(s1);
+	}
+}
+
+
+Conversion of array as list
+Object[] a = c.toArray();
+
+public static List asList(Object[] arr)
+	Strictly speaking this method won’t create the independent list object. 
+	For the existing array we are getting  List view.
+	
+	String[] s = {"A", "Z", "S"};
+	List l = Arrays.asList(s);
+
+By using array reference if we perform any change, automatically that change will be reflect to the list.
+Similarly by using list reference if we perform any change, automatically that change will be reflect to the array.
+String[] s = {"A", "Z", "B"};
+List l = Arrays.asList(s);
+s[0] = "K";
+Sopln(l);//[k, z, B]
+
+
+By using list reference we cann’t perform any operation which change the size otherwise we will get RTE saying UnsupportedOperationException.
+l.add("M");//RE: UnsupportedOperationException
+l.remove(l);//RE: UnsupportedOperationException
+l.set(1, "N");
+
+By using list reference we are not allowed to replace with heterogeneous object otherwise we will get RTE saying ArrayStoreException.
+	l.set(1, new Integer(10));//RE:ArrayStoreException
+
+		String[] s = {"A", "Z", "B"};
+		List l = Arrays.asList(s);
+		System.out.println(l);
+		s[0]="K";
+		System.out.println(l);
+		l.set(1, "l");
+		for(String s1:s)
+			System.out.println(s1);
+		//l.add("durga");//UsOE
+		//l.remove(2);//UsOE
+		//l.set(1, new Integer(10));//ArrayStoreException
+	

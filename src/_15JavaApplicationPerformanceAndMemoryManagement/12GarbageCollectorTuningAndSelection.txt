@@ -1,0 +1,55 @@
+ 	Monitoring Garbage Collections
+	Turning off automated heap allocation sizing
+	Turning garbage collection-old & young allocation
+	Turning garbage collection-surviour space allocation
+	Turning garbage collection-generations needed to become old
+	Selecting a garbage collector
+	The GI garbage collector
+	Turning the GI garbage collector
+	String de-duplication
+	
+Monitoring Garbage Collections
+	-verbose:gc
+	package _15JavaApplicationPerformanceAndMemoryManagement._9SoftLeaks.Main.java
+	-Xms20m -verbose:gc
+
+Turning off automated heap allocation sizing
+	-XX:-UseAdaptiveSizePolicy (Eden, s0,s1 resizing at runtime)
+	jinfo -flag UseAdaptiveSizePolicy pid(jps)
+ 
+Turning garbage collection-old & young allocation
+	-XX:NewRatio=n(old/young generation, minum value is 1)
+	-XX:SurvivorRatio=(eden/s0ors1 )
+	
+Turning garbage collection-generations needed to become old
+	-XX:MaxTenuringThreshold=n(max 15, 16 is treated as infinity)	
+	
+	
+	
+Selecting a garbage collector
+Type of Collector
+	Serial
+		Uses single thread to perform all of the garbage collection work, 
+		-XX:+UseSerialGC
+		better to use for background application
+	Parllel
+		Better performace than Serial GC
+		-XX:+UseParallelGC
+	Mostly Concucrrent
+		Pause the application for marking only but not during sweeping
+		-XX:+UseConcMarkSweepGC
+		-XX:+UseG1GC
+
+The G1garbage collector(Garbage first collector
+	Normally G1 is beeter than ConcMarkSweepGC
+	Heap devided into regions
+
+Turning the GI garbage collector
+	-XX:ConcGCThreads=n
+	-XX:InitiatingHeapOccupancyPercent=n
+
+
+
+String de-duplication(Since Java 8.20)
+	-XX:UseStringDeDuplication(Only available if using GI )
+	

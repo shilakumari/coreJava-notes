@@ -1,0 +1,24 @@
+@RestControllerAdvice
+public class GlobalExceptionHandler {}
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class BaseException extends RuntimeException { 
+	private static final long serialVersionUID = -432687463482014934L;
+	protected Token token;
+	protected String errorCode;
+	protected String errorMessage;
+}
+public class NoApplicationExistsException extends BaseException {
+	private static final long serialVersionUID = 6350355486849559775L;
+	public NoApplicationExistsException(Token token, String errorCode, String errorMessage) {
+		super(token, errorCode, errorMessage);
+	}
+}
+public class NoSessionFactoryException extends BaseException {
+	private static final long serialVersionUID = 7140997963787159131L;
+	public NoSessionFactoryException(String errorCode, String errorMessage) {
+		super(null, errorCode, errorMessage);
+	}
+}

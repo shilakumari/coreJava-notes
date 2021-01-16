@@ -1,0 +1,18 @@
+Analysing A Heap Dump
+	Generating a heap dump
+	Viewing a heap dump
+	
+Generating a heap dump
+	Heap dump is the record of Heap size over time.
+	1)Using JVisualVM
+			Heap Dump button
+	2)Using command line
+		-XX:+HeapDumpOnOutOfMemoryError
+		-XX:HeapDumpPath=E:\workspace
+		java -Xmx50m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=E:\workspace\heapDump _15JavaApplicationPerformanceAndMemoryManagement._9SoftLeaks.CustomerHarness
+	3)Using Eclipse MAT 
+	
+Viewing a heap dump
+	Eclipse Memory Analyzer(MAT)
+	Download ZIP from https://www.eclipse.org/mat/
+	

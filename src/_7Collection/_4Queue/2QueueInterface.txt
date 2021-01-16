@@ -1,0 +1,38 @@
+Queue(since 1.5v)
+It is child interface of Collection interface.
+If we want to represent a group of individual objects prior to processing(FIFO) then we should go for Queue.
+Ex: Before sending a mail all mail id’s have to store somewhere and 
+	in which order we saved in the same order mail’s should be delivered(FIFO). 
+	For this requirement Queue concept is the best choice.
+
+Queue(I,1.5v)
+	Deque(I)
+		ArrayDeque
+		LinkedList
+	Priority Queue(1.5v)
+	BlockingQueue(1.5v)
+		LinkedBlockingQueue(1.5v)
+		PriorityBlockingQueue(1.5v)
+
+Usually Queue follow FIFO order but based on our requirement we may implement our own priority order also(PriorityQueue).
+From 1.5v onwards LinkedList class also implements Queue interface. 
+	LinkedList implementation of Queue always follows FIFO order.//??
+
+
+Interfaces Collection, List, Set, Queue, SortedSet, NavigableSet etc. meant for representing a group of individual objects. 
+	If we want to represent a group of objects as key value pairs then we should go for Map interface.
+Roll no-name
+Ip address-domain name
+
+
+Methods of Queue
+boolean Offer(Object o) 
+	It add an object into the queue.
+Object poll() 
+	It remove & returns head element of the queue. If queue is empty it returns Null
+Object remove()
+	It remove & returns head element of the queue.If queue is empty it returns NoSuchElementException
+Object peek()  
+ 	It returns head element of the queue. If queue is empty it returns Null
+Object element() 
+	It returns head element of the queue. If queue is empty it returns NoSuchElementException

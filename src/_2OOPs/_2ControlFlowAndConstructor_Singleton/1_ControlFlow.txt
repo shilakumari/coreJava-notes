@@ -1,0 +1,7 @@
+Control flow
+	Static
+		One time activity
+		It occur at the time of class-loading
+	Non-static
+		It occur each time when object created
+

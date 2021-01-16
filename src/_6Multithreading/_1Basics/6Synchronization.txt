@@ -1,0 +1,637 @@
+Synchronization
+Threads communicate primarily by sharing access to fields and the objects reference fields refer to. 
+This form of communication is extremely efficient, but makes two kinds of errors possible: 
+	thread interference and 
+	memory consistency errors. 
+The tool needed to prevent these errors is synchronization.
+
+However, synchronization can introduce thread contention, 
+	which occurs when two or more threads try to access the same resource simultaneously 
+	and cause the Java runtime to execute one or more threads more slowly, or even suspend their execution. 
+	Starvation and live-lock are forms of thread contention. 
+	See the section Liveness for more information.
+
+This section covers the following topics:
+	Thread Interference describes how errors are introduced when multiple threads access shared data.
+	Memory Consistency Errors describes errors that result from inconsistent views of shared memory.
+	Synchronized Methods describes a simple idiom that can effectively prevent thread interference and memory consistency errors.
+	Implicit Locks and Synchronization describes a more general synchronization idiom, and 
+		describes how synchronization is based on implicit locks.
+	Atomic Access talks about the general idea of operations that can't be interfered with by other threads.
+
+
+Thread Interference
+class Counter 
+{
+    private int c = 0;
+    public void increment() {
+        c++;
+    }
+    public void decrement() {
+        c--;
+    }
+    public int value() {
+        return c;
+    }
+}
+Counter is designed so that each invocation of increment will add 1 to c, 
+	and each invocation of decrement will subtract 1 from c. 
+	However, if a Counter object is referenced from multiple threads, 
+	interference between threads may prevent this from happening as expected.
+Interference happens when two operations, running in different threads, but acting on the same data, interleave. 
+	This means that the two operations consist of multiple steps, and the sequences of steps overlap.
+It might not seem possible for operations on instances of Counter to interleave, 
+	since both operations on c are single, simple statements. 
+	However, even simple statements can translate to multiple steps by the virtual machine. 
+	We won't examine the specific steps the virtual machine takes — 
+	it is enough to know that the single expression c++ can be decomposed into three steps:
+	⦁	Retrieve the current value of c.
+	⦁	Increment the retrieved value by 1.
+	⦁	Store the incremented value back in c.
+The expression c-- can be decomposed the same way, except that the second step decrements instead of increments.
+
+Suppose Thread A invokes increment at about the same time Thread B invokes decrement. 
+If the initial value of c is 0, their interleaved actions might follow this sequence:
+⦁	Thread A: Retrieve c.
+⦁	Thread B: Retrieve c.
+⦁	Thread A: Increment retrieved value; result is 1.
+⦁	Thread B: Decrement retrieved value; result is -1.
+⦁	Thread A: Store result in c; c is now 1.
+⦁	Thread B: Store result in c; c is now -1.
+Thread A's result is lost, overwritten by Thread B. 
+This particular interleaving is only one possibility. 
+Under different circumstances it might be Thread B's result that gets lost, or 
+there could be no error at all. 
+Because they are unpredictable, thread interference bugs can be difficult to detect and fix.
+
+Memory Consistency Errors
+Memory consistency errors occur when different threads have inconsistent views of what should be the same data. 
+The causes of memory consistency errors are complex and beyond the scope of this tutorial. 
+Fortunately, the programmer does not need a detailed understanding of these causes. 
+All that is needed is a strategy for avoiding them.
+
+The key to avoiding memory consistency errors is understanding the happens-before relationship. 
+This relationship is simply a guarantee that memory writes by one specific statement are visible to another specific statement. 
+To see this, consider the following example. Suppose a simple int field is defined and initialized:
+int counter = 0;
+The counter field is shared between two threads, A and B. Suppose thread A increments counter:
+counter++;
+Then, shortly afterwards, thread B prints out counter:
+System.out.println(counter);
+
+If the two statements had been executed in the same thread, it would be safe to assume that the value printed out would be "1". 
+	But if the two statements are executed in separate threads, 
+	the value printed out might well be "0", because there's no guarantee that thread A's change to counter will be visible to thread B — 
+	unless the programmer has established a happens-before relationship between these two statements.
+	
+There are several actions that create happens-before relationships. One of them is synchronization, as we will see in the following sections.
+We've already seen two actions that create happens-before relationships.
+⦁	When a statement invokes Thread.start, every statement that has a happens-before relationship with that statement 
+	also has a happens-before relationship with every statement executed by the new thread. 
+	The effects of the code that led up to the creation of the new thread are visible to the new thread.
+⦁	When a thread terminates and causes a Thread.join in another thread to return, 
+	then all the statements executed by the terminated thread have a happens-before relationship 
+	with all the statements following the successful join. The effects of the code in the thread are now visible to the 
+	thread that performed the join.
+For a list of actions that create happens-before relationships, refer to the Summary page of the java.util.concurrent package..
+https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html#MemoryVisibility//????????????????
+
+
+
+Synchronization
+Example:
+⦁	If multiple dogs operating simultaneously on same Biryani object, then there may be chance of Biryani inconsistency problem.
+⦁	Ticket available 4- simultaneously 2 request for 3-3 seats.
+⦁	Joint account transaction balance inconsistency problem
+
+Synchronized is a modifier applicable only for 
+	methods and 
+	blocks 
+	but not for classes and variables.
+If multiple threads are trying to operate simultaneously on the same object, then there may be a chance of data inconsistency problem.
+To overcome this problem, we should go for synchronized keyword.
+
+If a method or block declared as synchronized then 
+	at a time only one thread is allowed to execute that method or block 
+	on the given object. 
+	So that data inconsistency problem will be resolved.
+
+The main advantage of synchronized keyword is, we can resolve data inconsistency problems. 
+But main disadvantage of synchronized keyword is , it increases waiting time of threads and creates performance problems. 
+Hence if there is no specific requirement, then it is not recommended to use synchronized keyword.
+
+Internally synchronization concept is implemented by using lock. 
+Every object in java has a unique lock. 
+Whenever we are using synchronized keyword, then only lock concept will come into the picture.
+
+If a thread wants to execute synchronized method on the given object, first it has to get lock of that object. 
+Once thread got the lock then it is allowed to execute any synchronized method on that object.
+Once method execution completes, automatically thread releases the lock. 
+So acquiring and releasing lock, internally takes care by JVM and programmer not responsible for this activity.
+
+While a thread executing synchronized method on the given object, 
+	the remaining threads are not allowed to execute any synchronized method simultaneously on the same object. 
+	But remaining threads are allowed to execute non synchronized methods simultaneously.
+
+
+
+Object Area
+⦁	Synchronized Area
+		This area can be accessed by any no. of threads simultaneously without causing inconsistency.
+		Because it is accessed by only one thread at a time.
+⦁	Non-synchronized area
+		This area can be accessed by only one thread at a time saftely.
+		
+		
+class X{
+	synchronized m1(){}
+	synchronized m2(){}
+				 m3(){}
+}
+If t1 calls first m1() and so has  lock of obj1(object of x).
+Then thread t2 can not call m1() or m2() at same time.BUt it can call m3().
+
+class X
+{
+	synchronized area
+	{
+	
+	}
+	non-synchronized area
+	{
+		
+	}
+
+}
+
+class ReservationSystem
+{
+
+}
+
+Example
+class Display
+{
+	public void wish(String name)
+	{
+		for(int i=0;i<5;i++)
+		{
+			System.out.print("Good Morning ");
+			try
+			{
+				Thread.sleep(100 );
+			}
+			catch(InterruptedException e)
+			{
+			}
+			System.out.println(name);
+		}
+	}
+}
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+	      Display d=new Display();
+		  d.wish("Dhoni");
+	}
+}
+Output:
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+
+Example2
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"Dhoni");
+		t1.start();
+		System.out.println("End of main");
+	}
+}
+class MyThread extends Thread
+{
+	Display d;
+	String name;
+	MyThread(Display d, String name)
+	{
+		this.d=d;
+		this.name=name;
+	}
+	public void run()
+	{
+		d.wish(name);
+	}
+}
+output:
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+
+Example3
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"Dhoni");
+		MyThread t2=new MyThread(d,"Kohli");
+		t1.start();
+		t2.start();
+	}
+}
+output:
+Good Morning Good Morning Dhoni
+Good Morning Kohli
+Good Morning Dhoni
+Good Morning Kohli
+Good Morning Dhoni
+Kohli
+Good Morning Good Morning Kohli
+Good Morning Dhoni
+Good Morning Kohli
+Dhoni
+
+If we declare wish method as synchronized, then at a time only one thrad is allowed to execute wish method on the given Display object. 
+Hence we get regular output.
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Kohli
+Good Morning Kohli
+Good Morning Kohli
+Good Morning Kohli
+Good Morning Kohli
+
+
+Case study
+Even though wish method is synchronized, we will get irregular output because threads are operating on different objects.
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Display d1=new Display();
+		Display d2=new Display();
+		MyThread t1=new MyThread(d1,"Dhoni");
+		MyThread t2=new MyThread(d2,"Sachin");
+		t1.start();
+		t2.start();
+	}
+}
+Output:
+Good Morning Good Morning Dhoni
+Good Morning Sachin
+Good Morning Dhoni
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Sachin
+Good Morning Dhoni
+Sachin
+
+
+Conclusion
+If multiple threads are operating on same java object, then synchronization is required. 
+If multiple threads are operating on multiple java objects, then synchronization is not required. 
+
+Example
+If husband and wife both operating on same joint account then synchronization is required but 
+If husband and wife both operating on different accounts then synchronization is not required.
+
+
+
+
+
+
+
+Static synchronization
+class Display
+{
+static synchronized public void wish(String name)
+	{
+		for(inti=0;i<10;i++)
+		{
+			System.out.print("Good Morning ");
+			try
+			{
+				Thread.sleep(1000);
+			}
+			catch(InterruptedException e)
+			{
+			}
+			System.out.println(name);
+		}
+	}
+}
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Display d1=new Display();
+		Display d2=new Display();
+		MyThread t1=new MyThread(d1,"Dhoni");
+		MyThread t2=new MyThread(d2,"Sachin");
+		t1.start();
+		t2.start();
+	}
+}
+
+Output:
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Sachin
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+Good Morning Dhoni
+
+Every class in java has a unique lock, which is nothing but class level lock.
+If a thread wants to execute, a static synchronized method, then thread required class level lock.
+Once thread got class level lock, then it is allowed to execute any static synchronized method of that class. 
+Once method execution completes, automatically thread releases the lock.
+
+
+While a thread executing static synchronized method, the remaining threads are not allowed to execute any static synchronized method of that class simultaneously.
+But remaining threads are allowed to execute the following methods simultaneously:
+1)normal static methods
+2)synchronized instance methods
+3)normal instance methods
+
+
+class Display
+{
+	public void wishN()
+	{
+		for(int i=65;i<75;i++)
+		{
+			System.out.print(i+"\t");
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+			}
+		}
+	}
+	public void wishC()
+	{
+		for(inti=65;i<75;i++)
+		{
+			System.out.print((char)i+"\t");
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+			}
+		}
+	}
+}
+class Test
+{
+	public static void main(String args[])throws InterruptedException
+	{
+		Display d=new Display();
+		MyThread1 t1=new MyThread1(d);
+		MyThread2 t2=new MyThread2(d);
+		t1.start();
+		t2.start();
+	}
+}
+class MyThread1 extends Thread
+{
+	Display d;
+	MyThread1(Display d)
+	{
+		this.d=d;
+	}
+	public void run()
+	{
+		d.wishN);
+	}
+}
+class MyThread2 extends Thread
+{
+	Display d;
+	MyThread2(Display d)
+	{
+		this.d=d;
+	}
+	public void run()
+	{
+		d.wishc();
+	}
+}
+Output:
+If both methods are non- synchronized:
+A       0       B       1       C       2       D       3       4       E	
+5       F       G       6       H       7       I       8       J       9
+
+If both methods are synchronized:
+0       1       2       3       4       5       6       7       8       9
+A       B       C       D       E       F       G       H       I       J
+		Or
+A       B       C       D       E       F       G       H       I       J
+0       1       2       3       4       5       6       7       8       9
+
+
+
+
+
+
+Synchronized block
+Example:
+Due to bomb blast in dilsad nagar, hadarabad ; in newyork city all flights  cancelled	
+Example:
+From Delhi to lucknow only 1 vehicle is allowed to travel and on narrow bridge also
+
+
+If very few lines of code required synchronization then it is not recommended to declare entire method as synchronized. 
+We have to enclosed those few lines of the code by using synchronized block.
+
+The main advantage of synchronized block over synchronized method is , 
+it reduces waiting time of threads and improves performance of the system.
+
+
+We can declare synchronized block as follows:
+⦁	To get lock of current object
+synchronized(this)
+{
+.
+.
+.
+.
+}
+If a thread get lock of current object  then only it is allowed to execute this area.
+
+⦁	To get lock of particular object b
+synchronized(b)
+{
+.
+.
+.
+.
+}
+If a thread get lock of particular object b then only it is allowed to execute this area.
+
+⦁	To get class level lock
+synchronized(Display.class)
+{
+.
+.
+.
+.
+}
+If a thread get class level lock of Display class, then only it is allowed to execute this area.
+
+class Display
+{
+ public void wish(String name)
+ {
+	 ;;;;;;;;;;;;;;;	 //1 lakh line of code
+ 		for(int i=0;i<10;i++)
+ 		{
+ 			System.out.print("Good morning");
+ 			try{	Thread.sleep(2000);		}
+ 			catch(InterruptedException e) 	{	}
+ 			System.out.println(name);
+ 		}
+ 		;;;;;;;;;;;;;;;;;;;;;//1 lakh line of code
+	}}
+class Test
+{
+	public static void main(String args[])
+	{
+		Display d=new Display();
+		MyThread t1=new MyThread(d,"Dhoni");
+		MyThread t2=new MyThread(d,"Sachin");
+              t1.start();
+              t2.start();
+	}}
+
+Output: Irregular output
+Good morningGood morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Sachin
+
+
+If we make wish() method synchronized then we will get regular output.
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+
+If we make synchronized(this) block  then also we will get regular output
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+
+
+If we modify class Test as following,
+class Test
+{
+	public static void main(String args[])
+	{
+		Display d1=new Display();
+		Display d2=new Display();
+MyThread t1=new MyThread(d1,"Dhoni");
+		MyThread t2=new MyThread(d2,"Sachin");
+t1.start();
+t2.start();
+	}
+}
+Then we will get irregular output:
+Good morningGood morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Good morningDhoni
+Good morningSachin
+Dhoni
+
+If we modify Display as following,
+class Display
+{
+ public  void wish(String name)
+ {
+	 ;;;;;;;;;;;;;;;	 //1 lakh line of code
+ 		synchronized(Display.class){
+ 		for(int i=0;i<5;i++)
+ 		{
+ 			System.out.print("Good morning");
+ 			try
+ 			{
+ 				Thread.sleep(2000);
+ 			}
+ 			catch(InterruptedException e)
+ 			{
+ 			}
+ 			System.out.println(name);
+ 		}}
+ 		;;;;;;;;;;;;;;;;;;;;;//1 lakh line of code
+	}
+}
+
+Then we will get regular output:
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningDhoni
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+Good morningSachin
+
+
+
+

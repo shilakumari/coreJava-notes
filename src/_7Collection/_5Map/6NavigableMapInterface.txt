@@ -1,0 +1,54 @@
+Navigable Map
+It is the child interface of SortedMap.
+It defines several utility methods for navigation purpose.
+
+Map(1.2v)
+	SortedMap(1.2v)
+		NavigableMap(1.6v)
+			Tree Map(1.2v)
+
+1.6 v Enhancements in Collection Framework
+Queue (I)
+NavigableSet (I)
+NavigableMap (I)
+
+
+NavigableMap (since 1.6v)
+It is the child interface of SortedMap.
+It defines several methods for navigation purposes.
+lowerKey(e)  :<
+	returns highest element which is <e
+floorKey()  :<=
+	returns highest element which is <=e
+higherKey()  :>
+	returns lowest element which is >e
+ceilingKey()  :>=
+	returns lowest element which is >=e
+
+pollFirstEntry()
+	remove & returns first element
+pollLastEntry()
+	remove & returns last element
+descendingMap()
+	it returns NavigableMap in reverse order.
+
+Example:
+		TreeMap t = new TreeMap();
+		t.put("b", "banana");
+		t.put("c", "cat");
+		t.put("d", "dog");
+		t.put("a", "apple");
+		t.put("e", "eye");
+		t.put("f", "flag");
+		t.put("g", "go");
+		t.put("h", "happy");
+		t.put("i", "ice-cream");
+		t.put("j", "joy");
+		System.out.println(t.ceilingKey("c"));//c
+		System.out.println(t.floorKey("e"));//e
+		System.out.println(t.higherKey("e"));//f
+		System.out.println(t.lowerKey("e"));//d
+		System.out.println(t.pollFirstEntry());//a=apple
+		System.out.println(t.pollLastEntry());//j=joy
+		System.out.println(t.descendingMap());//{i=ice-cream, h=happy, g=go, f=flag, e=eye, d=dog, c=cat, b=banana}
+		System.out.println(t);//{b=banana, c=cat, d=dog, e=eye, f=flag, g=go, h=happy, i=ice-cream}

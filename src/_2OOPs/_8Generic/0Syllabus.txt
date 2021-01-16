@@ -1,0 +1,101 @@
+Introduction
+	Objective of generics
+		to provide Type safety and 
+		to resolve type casting problem.  
+		Code Reuse: We can write a method/class/interface once and use for any type we want.
+		Implementing generic algorithms: By using generics, we can implement algorithms that work on different types of objects 
+			and at the same they are type safe too.Bounded type parameters are key to the implementation of generic algorithms. 
+	Parameter type/type parameter/type variables vs type argument
+	Raw Types
+	
+	Parameter type
+		Unbounded type
+		Bounded Types 
+			Only extends, not implements or super keyword
+			Class A<T extends Runnable & Comparable> {}
+			<T extends Runnable & Number>//Invalid First we have to take class and then interface
+			<T extends Number & Thread>//Invalid We can't extends more than one class       
+			A type variable with multiple bounds is a subtype of all the types listed in the bound. 
+			Bounded type parameters allow you to invoke methods defined in the bounds:
+				public class NaturalNumber<T extends Integer> {
+    				private T t;
+    				public NaturalNumber(T t)  { this.t = t; }
+    				public boolean isEven() {
+        			return t.intValue() % 2 == 0;}
+				The isEven method invokes the intValue method defined in the Integer class through t.
+			Generic Methods and Bounded Type Parameters
+				Bounded type parameters are key to the implementation of generic algorithms. 
+				public static <T extends Comparable<T>> int countGreaterThan(T[] anArray, T elem) {
+			We can define bounded type, even at method level also.
+			Polymorphism concept is applicable only for the base type but not for the parameter type.
+			
+Generic Classes or template classes
+Generic Methods 
+Note: Given two concrete types A and B (for example, Number and Integer), MyClass<A> has no relationship to MyClass<B>, 
+	regardless of whether or not A and B are related. 
+	The common parent of MyClass<A> and MyClass<B> is Object.
+interface PayloadList<E,V> extends List<E> {
+  void setPayload(int index, V val);}
+The following parameterizations of PayloadList are subtypes of List<String>:
+PayloadList<String,String>
+PayloadList<String,Integer>
+PayloadList<String,Exception>
+
+Type Inference and Generic Methods
+Generic Methods introduced you to type inference, 
+which enables you to invoke a generic method as you would an ordinary method, 
+without specifying a type between angle brackets. 
+  BoxDemo.<Integer>addBox(Integer.valueOf(10), listOfIntegerBoxes);
+    BoxDemo.addBox(Integer.valueOf(20), listOfIntegerBoxes);
+Type Inference and Instantiation of Generic Classes
+	You can replace the type arguments required to invoke the constructor of a generic class 
+	with an empty set of type parameters (<>) as long as the compiler can infer the type arguments from the context. 
+	This pair of angle brackets is informally called the diamond.
+Type Inference and Generic Constructors of Generic and Non-Generic Classes
+	class MyClass<X> {
+  <T> MyClass(T t) {
+    // ... }}
+	new MyClass<Integer>("")
+
+
+
+Wild card character(?)
+	?, extends, super
+	
+Communication with the non-Generic code
+Conclusions
+
+
+Excerrcising-Subclassing
+Raw-Type
+Multiple Type Parameter
+Sub-Typing
+Type erasure
+
+
+
+https://docs.oracle.com/javase/tutorial/extra/generics/index.html
+
+
+
+
+
+
+
+
+Introduction
+Generic
+	Mchanishm to provide type checking at compile time
+Generic Types
+	Generic classes & interfaces
+Subclassing
+Colletion with generics
+Raw Types
+Multiple Type Parameters
+Sub Typing
+Generic Methods
+Bounded type parameters
+Wildcard: Upper Bounded & Lower Bounded
+Restriction on Wildcards
+Bahaviour in generic 7 non-generic area
+Type Erasure

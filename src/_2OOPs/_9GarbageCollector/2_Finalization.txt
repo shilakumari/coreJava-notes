@@ -1,0 +1,179 @@
+Finalization:
+	Just before destroying an object GC calls finalize() to perform cleanup activities. 
+	Once finalize() completes automatically GC destroys that object.
+
+	finalize() present in Object class with the following prototype.
+		protected void finalize() throws Throwable
+	Based on our requirement we can override finalize() method in our class to define our own cleanup activities.
+
+
+Case 1:
+Just before destroying an object GC always calls finalize() on that object, then the corresponding class finalize() will be executed. 
+Example:
+	If String object eligible for GC, then String class finalize() will be executed, but not Test class finalize() method.
+	class Test{
+		public static void main(String[] args){
+			String s = new String("Ram);
+			s = null;
+			System.gc();
+			System.out.println("End of main");
+		}
+		public void finalize(){
+			System.out.println("finalize method called");
+		}
+	}
+	output:
+		End of main
+
+In the above String object are eligible for GC and hence String class finalize() got executed, 
+	which has empty implementation. Hence in this case output is "End of main".
+
+If we replace String object with Test object, then Test object eligible for GC and hence Test class finalize() method will be execute. 
+	In this case output is
+		End of main
+		finalize method called
+		(or)
+		finalize method called
+		End of main
+
+Case 2:
+	Based on our requirement we can call finalize() method explicitly, 
+	then it will be executed just like a normal method call and object won't be destroyed. 
+		But before destroying an object GC always calls finalize() method.
+Example:
+class Test{
+public static void main(String[] args){
+Test t = new Test();
+t.finalize();
+t.finalize();
+t.null;
+System.gc();
+System.out.println("End of main()");
+}
+public void finalized(){
+System.out.println("finalize() called");
+}
+}
+output:
+	finalize() called
+	finalize() called
+	finalize() called
+	End of main()
+In the above example finalize() got executed 3 times, in that 2 times explicitly by the programmer and  time by the GC.
+Note:
+	Before destroying Servlet Object, Web Container Always calls destroy() to perform cleanup activities. 
+	But based on our requirement we can call destroy() from init() and service() methods explicitly, 
+		then it will be executed just like normal method call and servlet object won't be destroyed.
+
+Case 3:
+If the programmer calls finalize() explicitly and while executing that finalize() if any execution occurs 
+    and which is uncaught(that is there is no catch block), 
+    then the program will be terminated abnormally by raising that exception.
+If the GC calls finalize() method and while executing that finalize() method, 
+	if any exception raised which is uncaught then JVM ignores that exception 
+	and rest of the program will be executed normally.
+	class Test{
+		public static void main(String[] args){
+			Test t = new Test();
+			//t.finalize();//line 1
+			t = null;
+			System.gc();
+			System.out.println("End of main()");
+		}
+		public void finalize(){
+			System.out.println("finalize() called");
+			System.out.println(10/0);
+		}
+	}
+	output:
+		finalize() method
+		End of main()
+
+If we are not commenting line 1 then programmer calls finalize() method and while executing that finalize() method 
+	ArithmeticException raised which is uncaught.
+Hence the program will be terminated abnormally by raising ArithmeticException. In this the output is
+	finalize() called
+	Exception in thread "main" java.lang.ArithmeticException:/by zero
+
+If we comment line 1 then GC calls finalize() method and while executing that finalize() method 
+	ArithmeticException raised which is uncaught. 
+	JVM ignores that exception and rest of the program will be executed normally.
+
+Q) Which of the following is true?
+	JVM ignores every exception which are raised while executing finalize() method.//false
+	JVM ignores only uncaught exceptions which are raised while executing finalize() method.//true
+
+Case 4:
+	On any object GC calls finalize() only once, even though that object eligible for GC multiple times.
+Example:
+	public class FinalizeMethodDemo {
+		static FinalizeMethodDemo s;
+		public static void main(String[] args) throws InterruptedException {
+			FinalizeMethodDemo f = new FinalizeMethodDemo();
+			System.out.println(f.hashCode());
+			f = null;
+			System.gc();
+			Thread.sleep(2000);
+
+			System.out.println(s.hashCode());
+			s = null;
+			System.gc();
+			Thread.sleep(2000);
+			System.out.println("End of main()");
+		}
+		public void finalize() {
+			System.out.println("finalize() called");
+			s = this;
+		}
+	}
+	output:
+		30090737
+		finalize() called
+		30090737
+		End of main
+	In the above example even though object eligible for GC two times, but GC calls finalize() only once.
+
+Case 5:
+We can't except exact behavior of the GC. It is JVM vendor dependent. It is varied from JVM to JVM. 
+Hence for the following questions we can't answer exactly.
+	1. Exactly at what time JVM runs GC?
+	2. In which order GC identifies eligible objects?
+	3. In which order GC destroys the objects?
+	4. Whether GC destroys all eligible objects or not?
+	5. What is the algorithm followed by GC. Etc...
+
+Note:
+Usually whenever the program runs with low memory JVM will run GC. But we can not except exectly at what time.
+
+Most of the GC follows Mark and Sweep algorithm. But it doesn't means every GC follows the same algorithm.
+Example:
+	class Test{
+		static int count=0;
+		public static void main(String[] args){
+			for(int i=0; i<10; i++){
+				Test t = new Test();
+				t=null;
+			}
+		}
+		public void finalize(){
+			count++;
+			System.out.println("finalize() called: "+count):
+		}
+	}
+In the above program if we keep on increasing i value at certain point memory problem will be raised and JVM runs automatically GC.
+
+
+Case 6:	Memory leaks
+	The Objects which are not using in our program and which are not eligible for GC, such type of useless objects are called Memory leaks.
+	
+	In our program if memory leaks present then at certain point out program fails by raising RE: OutOfMemoryError.
+	To overcome this problem if an object is no longer required, then it is highly recommended to make that object eligible for GC.
+	In our program if memory leaks present, then it is purely programmer's mistake.
+
+	The following are various memory management tools to identify memory leaks in our application.	
+		HP-J-METER
+		HP-OVO
+		J-PROBE
+		HP-PATROL
+		IBM-TIVOLI
+

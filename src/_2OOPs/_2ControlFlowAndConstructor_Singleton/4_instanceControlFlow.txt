@@ -1,0 +1,162 @@
+Instance control flow
+Whenever we are executing a java class, first static control flow will be executed. 
+In static control, if we are creating an object the following sequence of events will be executed, 
+	as the part of instance control flow:
+Identification of instance members from top to bottom(3 to 8)
+Execution of instance variable assignments & instance blocks from top to bottom(9 to 14)
+Execution of constructor(15 )
+
+Example 1
+Object creation is one of the most costly operation. 
+If there is no specific requirement, then it is not recommended to create object.
+class Test
+{
+	int i=10;//3(i=0,RIWO),9(i=10,  R&W)
+	{//4
+		m1();//10
+		System.out.println("1st instance block");//12
+	}
+	Test()//5
+	{
+		System.out.println("constructor");//15
+	}
+	public static void main(String [] args)//1
+	{
+		Test t=new Test(); //2
+		System.out.println("main()");//16
+	}
+	public void m1()//6
+	{
+		System.out.println(j);//11
+	}
+	{//7
+		System.out.println("2nd Instance block");//13
+	}
+	int j=20;// 8(i=0,RIWO),14(i=10,  R&W)
+
+}
+Output:
+0
+1st instance block
+2nd Instance block
+constructor
+main()
+
+If we comment line 2,then  the output :
+Main()
+
+
+Example 2
+Static control flow is one time activity , which will be performed, at the time of class-loading.
+But instance control flow is not one time activity and it will be performed, for every object creation.
+
+class Test
+{
+	int i=10;
+	{
+		m1();
+		System.out.println("ist instance block");
+
+	}
+	Test()
+	{
+		System.out.println("constructor");
+	}
+	public static void main(String [] args)
+	{
+		Test t=new Test();
+		System.out.println("main()");
+		Test t1=new Test();
+	}
+	public void m1()
+	{
+		System.out.println(j);
+	}
+	{
+		System.out.println("2nd Instance block");
+	}
+	int j=20;
+}
+Output:
+0
+ist instance block
+2nd Instance block
+Constructor
+
+main()
+
+0
+ist instance block
+2nd Instance block
+Constructor
+
+
+
+Instance control flow in parent to child relationship 
+Whenever we are creating child class, the following sequence of events will be perform automatically as the part of instance control flow:
+	Identification of instance members from parent to child(4 to 14)
+	Execution of instance variable assignments & instance blocks only in parent class(15 to 19)
+	Execution of parent contructor(20)
+	Execution of instance variable assignments & instance blocks only in child class(21 to 26)
+	Execution of child constructor(27)
+
+class P
+{
+	int i=10;//4,15
+	{//5
+		m1();//16
+		System.out.println("Parent instance block");//18
+	}
+	P()//6,20
+	{
+		System.out.println("Parent constructor");
+	}
+	public static void main(String [] args)//1
+	{
+		P p=new P();
+		System.out.println("Parent main()");
+	}
+	public void m1()//7
+	{
+		System.out.println(j);//17
+	}
+	int j=20;//8,19
+}
+class Test extends P
+{
+	int i=10;//9,21
+	{//10
+		m2();//22
+		System.out.println("Child instance block");//24
+
+	}
+	Test()//11
+	{
+		System.out.println("Child constructor");//27
+	}
+	public void m2()/12
+	public static void main(String [] args)//2
+	{
+		Test t=new Test();//3
+		System.out.println("Child main()");//28
+	}
+	{
+		System.out.println(j);//23
+	}
+	{//13
+		System.out.println("Child 2nd Instance block");//25
+	}
+	int j=20;//14,26
+}
+Output(java Test):
+0
+Parent instance block
+Parent constructor
+0
+Child main()
+Child instance block
+Child 2nd Instance block
+Child constructor
+
+Because we are executing child class , only child class main() method will be executed, not parent class main() method.
+

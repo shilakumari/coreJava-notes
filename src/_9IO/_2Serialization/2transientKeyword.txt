@@ -1,0 +1,67 @@
+transient keyword:
+transient is a modifier applicable only for variables.
+At the time of serialization if we don't want to save the value of a particular variable to meet 
+	some constraints(like For sensitive or secure data.To meet security constraint)
+	then we should go for transient keyword.
+At the time of serialization JVM ignores original value of transient variables and save default value to the file.
+	Hence transient means not to Serialize.
+
+
+static vs transient:
+Static variables are not part of object state and hence they won't participate in serialization.
+Due to this declaring a static variable as transient there is no use or impact.
+
+
+final vs transient:
+final variables will be participated in serialization directly by their values.
+Due to this declaring a final variable as transient there is no use or impact.
+At compile time, every final variable will be replaced by value.
+At runtime, final variable will not be in variable form.
+
+
+summary:
+Declaration														output
+int i=10; int j=20;												10...20
+transient int i=10; int j=20;									0...20
+transient static int i=10; transient int j=20;					10...0
+transient int i=10; transient final int j=20;					0...20
+transient static int i=10;	transient final int j=20;			10...20
+
+
+Note:
+We can serialize any number of objects to the file, But in which order we serialized in the same order only we have to de-serialize. 
+That is in serialization the order of objects is important.
+	Dog d1 = new Dog();
+	Cat c1 = new Cat();
+	Rat r1 = new Rat();
+
+	FOS fos = new FOS("abc.ser");
+	OOS oos = new OOS(fos);
+	oos.writeObject(d1);
+	oos.writeObject(c1);
+	oos.writeObject(r1);
+
+	FIS fis = new FIS("abc.ser");
+	OIS ois = new OIS(fis);
+	Dog d2 = (Dog)ois.readObject();
+	Cat c2 = (Cat)ois.readObject();
+	Rat r2 = (Rat)ois.readObject();
+
+
+If we don't know order of objects in serialization:
+	FIS fis = new FIS("abc.ser");	
+	OIS ois = new OIS(fis);
+	Object o = ois.readObject();
+	if(o instanceof Dog){
+		Dog d2 = (Dog)o;
+		//Perform Dog specific functionality
+	}else if(o instanceof Cat){
+		Cat c2 = (Cat)o;
+		//Perform Cat specific functionality
+	}
+	else if(o instanceof Rat){
+		Rat r2 = (Rat)o;
+		//Perform Rat specific functionality
+	}
+	
+

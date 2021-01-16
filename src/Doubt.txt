@@ -1,0 +1,46 @@
+How byte store min value -128.
+Java bean vs POJO vs model vs entity
+
+System.out.println(Float.NaN);
+		//System.out.println(Float.intBitsToFloat(0));
+		
+create our own intArray
+Access modifier of default constructor is always same like access modifier of class. This rule is applicable only for public and default.
+2: Without existing outer class object, there is no chance of existing inner class object.
+
+
+To  call a wait(), notify() , notifyAll() methods on any object, thread should be owner of that object.//Why????
+If thread calls notify() method on any object, it releases the lock of that object but may not immediately. ??????????
+
+
+
+Producer-consumer problem
+//In The CR, it is given in details.
+
+If we are trying to declare inside a method then we will get CTE, saying error: enum types must not be local.
+Why enum cannot be instantiated?
+
+
+Therfore underline data structure is not there for array. 
+Diff b/w library/framework/API
+
+
+
+Remove() on  method & on iterator &  on collection
+
+
+https://stackoverflow.com/questions/15202997/what-is-the-difference-between-canonical-name-simple-name-and-class-name-in-jav
+
+
+jdbc project: cope database frpm mysql to oracle
+
+
+
+
+
+
+Doubt: 7FunctionFunctionalInterface.txt at 82 line.
+9Suppliers.txt at line 20
+Left: 7.pdf & 8.pdf(in java8 version)
+
+

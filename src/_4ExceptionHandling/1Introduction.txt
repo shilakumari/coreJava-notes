@@ -1,0 +1,81 @@
+Introduction
+An unexpected, unwanted event 
+occurs at runtime 
+that disrupts the normal flow of the program 
+is called exception.
+
+Example: 
+	FileNotFoundException
+	PowerGoneException
+	SleepingException
+	TyrePuncheredException
+	SomethingGoneWrongException
+
+2.00am alarm snoozing
+5:30am waking up
+6:00am ready to go 
+7:00am inside class, SleepingException
+
+6:30 TyrePuncherException, no repair shop
+7:00
+9:00
+
+Read data from remote file locating at London- FileNotFoundException
+
+Something goes wrong is very is common. If everything goes according to our expectation, 
+I am sure I won™t be here , you won™t be here.  
+Hence if something goes wrong, we missed something, we should not loose hope and we have to continue normally. 
+We have to handle the situation. 
+
+Example: You are preparing report for tomorrow submission and power goes. 
+Exception handling is here power back-up for 5 minutes.
+
+Open database connection
+Read Data-SQLException
+Close database connection
+
+Open database connection
+Read Data-SQLException
+Close database connection
+.
+.
+.
+Open database connection
+Read Data-SQLException
+Close database connection
+Not n database connection is wasted due to not closed.
+
+
+
+6:45 TyrePunchuredException
+Options: 
+	Leave bike there and come to class
+	Bring back bike to room, miss the class
+	Leave your bike to nearby friend™s place and come to class by auto.
+
+
+Problem by Exception:
+	Abnormal termination of program
+
+
+Main objective of exception handling
+	Main objective of exception handling is 'graceful termination of the program'.
+	It is highly recommended to handle the exception.
+	Having alternative way to continue our program is the concept of exception handling.
+		Exception handling does not mean, repairing an exception. 
+		We have to provide alternative way  to continue rest of the program normally, is the concept of exception handling.
+
+For example:
+	Try{
+             Read data from remote file locating at London
+	}Catch(FileNotFoundExceptiion e){
+            Use local file and continue rest of program normally
+	}
+
+
+Exception Handling vs Traditional Error Handling Mechanism
+1)Separating error handling code from regular code
+2)Propagating error up the call stack
+3)Grouping & differentiating error types
+
+ 

@@ -1,0 +1,34 @@
+Virtual Machine
+Type of Virtual Machines
+1. Hard ware based VM
+2. Application based VM
+
+Basic architecture of JVM
+Class Loader SubSystem
+1. Loading
+2. Linking
+3. Initialization
+
+Types of class Loaders
+1. Bootstrap class loader
+2. Extension class loader
+3. Application class loader
+
+How class loader works
+What is the need of class Loader
+Psuedo code for customized class loader
+
+Various memory areas of JVM
+1. Method area
+2. Heap area
+3. Stack area
+4. PC Registers
+5. Native method stacks
+Program to display heap memory statistics
+How to set Maximum and Minimum heap size?
+
+Execution Engine
+1. Interpreter
+2. JIT Compilers
+Java Native Interface(JNI)
+Complete Architecture Diagram of JVM class File Structure

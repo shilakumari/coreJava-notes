@@ -1,0 +1,31 @@
+Random Number
+	java.util.Random class
+	java.lang.Math.random() method 
+	java.util.concurrent.ThreadLocalRandom class(since Java 1.7)
+
+
+Translating and Scaling Random Numbers
+Suppose you are writing a game program that simulates rolling dice, and so need a random integer in the range 1 to 6. 
+	"nextInt" can give you one in the range 0 to 5, and you can translate this to the range you need:
+   	int roll = generator.nextInt(6) + 1;
+In drawing a pattern made up of random lines, you want to pick a random angle between 0 and 360 degrees at which to draw a line. 
+	The angle can be any real number. The "nextDouble" message will give you a random real number, 
+	but between 0 and 1. You can use scaling to turn this into a real number between 0 and 360:
+  	 double angle = generator.nextDouble() * 360.0;
+Suppose the same pattern-drawing program also needs to pick random lengths for the lines, 
+	but that the lines should never be shorter than 10 units, nor longer than 50. 
+	Line lengths can be any real number between these limits. 
+	Thus you need random lengths from a 40-unit range starting at 10. 
+	You can use scaling and translation together to generate these numbers from "nextDouble":
+   	double length = generator.nextDouble() * 40.0 + 10.0;
+	//rand.nextInt((max - min) + 1) + min;
+
+1 to 50
+	double random1 = Math.random() * 49 + 1;
+	int random2 = (int) (Math.random() * 50 + 1);
+
+
+//https://docs.oracle.com/javacomponents/
+//How to create our own random number.
+// Random class: setSeed() concept 
+

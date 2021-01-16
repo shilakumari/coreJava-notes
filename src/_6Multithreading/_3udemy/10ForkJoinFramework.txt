@@ -1,0 +1,69 @@
+Fork Join Framework 
+	Introduction
+	RecursiveAction
+	RecursiveTask<T>
+	Maximum finding-The algorithm
+	For Join Mere Sort
+	
+Introduction
+	Concrete implementation for parallel Execution
+	
+This framework helps to make an algorithm parallel.
+We do not have to bother about low level synchronizations or locks.
+Divide & Conquer Algorithms
+	A larger task->It can be diveided into smaller ones+the subsolutions can be combined
+	Here subtasks have to be independent in order to be executed in parallel.
+So the main concept->
+	Fork-Join framework breaks the tasks into smaller subtasks until these subtasks are enough to solve without further brakups.
+For example:Parallel Merge Sort, Parallel Maximum Finding
+
+RecusiveTask<T> 
+	It ill return a T type.
+	All the task we want to execute in paralllel is a subclass of this class.
+	We have to override the compute method that will return the solution of the subproblem.
+
+RecursiveAction
+	It is a task , but without any return value.
+	
+ForJoinPool
+	Basically it is a thread pool for executing fork-join tasks.
+	Work-stealing : a taks is not equivalent to a thread!!!.
+		Tasks are lightweight thread
+			so fork join will be efficient even when there are a huge number of tasks.
+	So ForkJoinPool creates a fix number of threads->Usually the number of CPU cores.
+	These threads are executing the tasks but if a thread has no tasks : it can steal a task from more busy threads
+		Tasks are distributed to all threads in the thread pool!!!.
+		
+Fork
+	Split the given task into smaller subtasks that can be executed in a parallel manner.
+Join
+	The splitted tasks are being exected and after all of them are finished they are merged into one result.
+	
+	
+	
+	
+	
+	
+	
+RecursiveAction/RecursiveTask
+fork()
+	asynchronously execute the given task in the pool
+		We can call this on RecursiveAction or RecursiveTask<T>
+join()
+	returns the result of the computation when it is done.
+invoke()
+	execute the given taks +return the result upon completion
+	
+Example:
+RecursiveActionDemo.java
+RecursiveActionDemo2.java
+	
+	
+	
+	
+Maximum finding-The algorithm
+	MaximumFindingDemo.java
+	
+	
+Fork-Join Merge Sort
+	

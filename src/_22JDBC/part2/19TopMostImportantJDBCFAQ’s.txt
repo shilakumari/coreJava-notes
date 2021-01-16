@@ -1,0 +1,174 @@
+Top Most Important JDBC FAQ’s 
+
+Q1. What is Driver and how many types of drivers are there in JDBC?  
+	The Main Purpose of JDBC Driver is to convert Java (JDBC) calls into Database specific calls and 
+		Database specific calls into Java calls. i.e. It acts as a Translator. 
+	There are 4 Types of JDBC Drivers are available 
+		1. Type-1 Driver (JDBC-ODBC Bridge Driver OR Bridge Driver) 
+		2. Type-2 Driver (Native API-Partly Java Driver OR Native Driver) 
+		3. Type-3 Driver (All Java Net Protocol Driver OR Network Protocol Driver OR Middleware Driver) 
+		4. Type-4 Driver (All Java Native Protocol Driver OR Pure Java Driver OR Thin Driver) 
+ 
+Q2. Explain Differences between  executeQuery(), executeUpdate() and execute() methods? 
+	We can use execute Methods to execute SQL Queries. There are 4 execute Methods in JDBC. 
+		1. executeQuery():    
+			can be used for Select Queries 
+		2. executeUpdate():     
+			Can be used for Non-Select Queries (Insert|Delete|Update) 
+		3. execute()      
+			Can be used for both Select and Non-Select Queries     
+			It can also be used to call Stored Procedures. 
+		4. executeBatch()     
+			Can be used to execute Batch Updates 
+	executeQuery() vs executeUpdate() vs execute(): 
+		1. If we know the Type of Query at the beginning and it is always Select Query then we should use executeQuery() Method. 
+		2. If we know the Type of Query at the beginning and it is always Non-Select Query then we should use executeUpdate() Method. 
+		3. If we don't know the Type of SQL Query at the beginning and it is available dynamically at Runtime 
+			(may be from Properties File OR from Command Prompt etc) then we should go for execute() Method. 
+			
+Q3. What is Statement and How many Types of Statements are available? 
+	To send SQL Query to the Database and to bring Results from Database some Vehicle must be required. 
+	This Vehicle is nothing but Statement Object. 
+	Hence, by using Statement Object we can send our SQL Query to the Database and we can get Results from Database. 
+	There are 3 Types of Statements			
+		Statement (I) 
+			PreparedStatement (I) 
+				CallableStatement (I) 				
+	1. Statement:  
+		If we want to execute multiple Queries then we can use Statement Object. 
+		Every time Query will be compiled and executed. 
+		Hence relatively performance is low. 
+	2. PreparedStatement: 
+		If we want to execute same Query multiple times then we should go for PreparedStatement. 
+		Here Query will be compiled only once even though we executed multiple times. 
+		Hence relatively performance is high. 
+		PreparedStatement is always associated with precompiled SQL Queries. 
+	3. CallableStatement: 
+		We can use CallableStatement to call Stored Procedures and Functions from the Database		
+			
+Q4. Explain differences between Statement and PreparedStatement? 
+	Differences Between Statement And PreparedStatement 
+	Statement 			PreparedStatement 
+	1) At the time of creating Statement Object,  
+		we are not required to provide any Query. 
+			Statement st = con.createStatement(); 
+		Hence Statement Object is not associated with any Query and we can use for multiple Queries.   
+ 	1) At the time of creating PreparedStatement, 
+ 		we have to provide SQL Query compulsory and will send to the Database and will be compiled. 
+ 			PS pst = con.prepareStatement(query); 
+ 		Hence PS is associated with only one Query. 
+	2) Whenever we are using execute Method,  every time Query will be compiled and executed. 
+	2) Whenever we are using execute Method,  Query won't be compiled just will be executed. 
+	3) Statement Object can work only for Static Queries. 
+	3) PS Object can work for both Static and  Dynamic Queries. 
+	4) Relatively Performance is Low. 
+	4) Relatively Performance is High. 
+	5) Best choice if we want to work with multiple Queries. 
+	5) Best choice if we want to work with only one Query but required to execute multiple times. 
+	6) There may be a chance of SQL Injection  Attack. 
+	6) There is no chance of SQL Injection  Attack. 
+	7) Inserting Date and Large Objects (CLOB and BLOB) is difficult. 
+	7) Inserting Date and Large Objects (CLOB and BLOB) is easy. 
+ 
+Q5. Explain Steps to develop JDBC Application? 
+	1. Load and Register Driver  
+	2. Establish Connection b/w Java Application and Database  
+	3. Create Statement Object  
+	4. Send and Execute SQL Query  
+	5. Process Results from ResultSet  6. Close Connection  
+ 
+Q6. Explain main Important components of JDBC? 
+	The Main Important Components of JDBC are: 
+    	1. Driver    
+    	2. DriverManager    
+    	3. Connection    
+    	4. Statement    
+    	5. ResultSet
+	1.Driver(Translator): 
+		To convert Java Specific calls into Database specific calls and Database specific calls into Java calls. 
+	2. DriverManager: 
+		DriverManager is a Java class present in java.sql Package. 
+		It is responsible to manage all Database Drivers available in our System. 
+		DriverManager is responsible to register and unregister Database Drivers. 
+		DriverManager.registerDriver(driver); DriverManager.unregisterDriver(driver); 
+		DriverManager is responsible to establish Connection to the Database with the help of Driver Software. 
+		Connection con=DriverManager.getConnection(jdbcurl,username,pwd);  
+	3. Connection (Road): 
+		By using Connection, Java Application can communicate with Database.  
+	4. Statement (Vehicle): 
+		By using Statement Object we can send our SQL Query to the Database and we can get Results from Database. 
+		To send SQL Query to the Database and to bring Results from Database some Vehicle must be required. 
+		This Vehicle is nothing but Statement Object. 
+		Hence, by using Statement Object we can send our SQL Query to the Database and we can get Results from Database. 
+		There are 3 types of Statements 
+			1.Statement 
+			2.PreparedStatement 
+			3.CallableStatement 
+	5. ResultSet: 
+	Whenever we are executing Select Query, Database engine will provide Result in the form of ResultSet. 
+	Hence ResultSet holds Results of SQL Query. By using ResultSet we can access the Results. 
+
+Q7. Explain JDBC Architecture? 
+	Java Application 
+		JDBC API 
+			DriverManager 
+				Driver For Oracle 
+					Oracle  Database 
+ 				Driver For MySql 
+ 					MySql  Database 
+				Driver For Sybase 
+					Sybase  Database  
+	JDBC API provides DriverManager to our Java Application. 
+		Java Application can communicate with any Database with the help of DriverManager and Database specific Driver. 
+	DriverManager:  
+		It is the Key Component in JDBC Architecture.
+		DriverManager is a Java Class present in java.sql Package. 
+		It is responsible to manage all Database Drivers available in our System. 
+		DriverManager is responsible to register and unregister Database Drivers. 
+		DriverManager.registerDriver(Driver); 
+		DriverManager.unregisterDriver(Driver); 
+	DriverManager is responsible to establish Connection to the Database with the help of Driver Software. 
+		Connection con = DriverManager.getConnection (jdbcurl, username, pwd); 
+	Database Driver: 
+		It is the very Important Component of JDBC Architecture. 
+		Without Driver Software we cannot Touch Database. 
+		It acts as Bridge between Java Application and Database. 
+		It is responsible to convert Java calls into Database specific calls and Database specific calls into Java Calls. 
+	
+Q8. Explain about BLOB and CLOB? 
+	Sometimes as the Part of programming Requirement, we have to Insert and Retrieve Large Files like 
+		Images, Video Files, Audio Files, Resume etc wrt Database. 
+	Eg: Upload Image in Matrimonial Web Sites Upload Resume in Job related Web Sites 
+	To Store and Retrieve Large Information we should go for Large Objects (LOBs). 
+	There are 2 Types of Large Objects. 
+	1. Binary Large Object (BLOB) 
+	2. Character Large Object (CLOB) 
+	1. Binary Large Object (BLOB): 
+		A BLOB is a Collection of Binary Data stored as a Single Entity in the Database. 
+		BLOB Type Objects can be Images, Video Files, Audio Files etc.. 
+		BLOB Data Type can store Maximum of "4GB" Binary Data. 
+	2. Character Large Objects (CLOB): 
+		A CLOB is a Collection of Character Data stored as a Single Entity in the Database. 
+		CLOB can be used to Store Large Text Documents (May Plain Text OR XML Documents) 
+		CLOB Type can store Maximum of 4 GB Data. 
+		Eg: hydhistory.txt 
+
+Q9. Explain about Batch Updates? 
+	When we Submit Multiple SQL Queries to the Database one by one then lot of time will be wasted in Request and Response. 
+	For Example our Requirement is to execute 1000 Queries. 
+	If we are trying to submit 1000 Queries to the Database one by one then we need to communicate with the Database 1000 times. 
+	It increases Network Traffic between Java Application and Database and even creates Performance Problems also. 
+	To overcome these Problems, we should go for Batch Updates. 
+	We can Group all related SQL Queries into a Single Batch and we can send that Batch at a time to the Database. 
+	Sample Code: 
+	st.addBatch(sqlQuery-1); 
+	st.addBatch(sqlQuery-2); 
+	st.addBatch(sqlQuery-3); 
+	st.addBatch(sqlQuery-4); 
+	st.addBatch(sqlQuery-5); 
+	st.addBatch(sqlQuery-6); 
+	... 
+	st.addBatch(sqlQuery-1000); 
+	st.executeBatch();
+
+	

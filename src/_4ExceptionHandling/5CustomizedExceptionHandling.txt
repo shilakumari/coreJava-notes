@@ -1,0 +1,119 @@
+Customized Exception Handling by try-catch
+try{
+	Risky code
+}Catch(){
+	Handling code
+}
+
+Without try-catch (AbnormalTermination)
+class Test
+{
+public static void main(String args[])
+{
+	System.out.println("statement1");
+	System.out.println(10/0);
+	System.out.println("statement3");
+}}
+Output: (AbnormalTermination)
+statement1
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Test.main(Test.java:6)
+
+With try-catch (NormalTermination)
+class Test
+{
+public static void main(String args[])
+{	System.out.println("statement1");
+	try
+	{
+		System.out.println(10/0);
+	}
+	catch(ArithmeticException e)
+	{
+		System.out.println(e);
+	}
+	System.out.println("statement3");
+}}
+Output: (NormalTermination)
+statement1
+java.lang.ArithmeticException: / by zero
+statement3
+
+It is highly recommended to handle exception. 
+The code which may rise an exception is called risky code & we have to define that code inside  try block and 
+corresponding handling code we have to define inside catch block.
+
+
+
+Control flow in try catch
+	try{
+		statement1
+		statement2
+		statement3
+	}catch(ArithmeticException e){
+		Statement4
+	}
+	Statement5
+
+Case 1: If there is no exception:
+1,2,3,5, Normal Termination
+
+Case 2: If an exception rised at statement 2 & corresponding catch block matched:
+1,4,5, Normal Termination
+
+Case 3: If an exception rised at statement 2 & corresponding catch block not matched:
+1, Abnormal Termination
+
+Case 4: If an exception rised at statement 4 or 5 & corresponding catch block matched or not :
+Abnormal Termination
+1,Abnormal Termination or
+1,2,Abnormal Termination or 
+1,2,3,Abnormal Termination
+
+Within the try block if anywhere an exception rised then rest of the try block won’t be executed even-though, we handled that exception. 
+Hence within the try block we have to take only risky code & length of try block should be as less as possible.
+
+In addition to try block, there may be chance of rising an exception inside catch & finally blocks also.
+If any statement which is not part of try block & rises an exception then it is always abnormal termination.
+
+
+Try with multiple catch blocks:
+Example: answer should be based on question (except in case of academic exam), 
+What is ur name? What is ur qualification? My name is Ram. My name is Ram…
+
+The way of handling an exception is varied from exception to exception. 
+Hence for different exception type, it is highly recommended to take separate catch block. 
+That is try with multiple catch block is always possible & recommended to use.
+
+If try with multiple catch block present then the order of catch block is very important. 
+We have to take child first & then parent. Otherwise we will get CTE, saying ExceptionXXX has already been caught.
+
+Try{Risky Code} 
+Catch(Exception e){}  
+Catch(ArithmeticException e){}//invalid,CTE,  java.lang.ArithmeticException has already been caught
+
+Try{Risky Code} 
+Catch(ArithmeticException e){}
+Catch(Exception e){}
+
+We cannot declare two catch block from the same exception . Otherwise we will get CTE.
+class Test
+{
+public static void main(String args[])
+{
+	try
+	{
+		System.out.println(10/0);
+	}
+	catch(ArithmeticException e)
+	{
+		e.printStackTrace();
+	}
+	catch(ArithmeticException e)
+	{
+		e.printStackTrace();
+	}
+}}
+Output:
+CTE, error: exception ArithmeticException has already been caught
+	

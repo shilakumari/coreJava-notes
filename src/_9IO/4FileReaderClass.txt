@@ -1,0 +1,81 @@
+FileReader
+We can use FileReader to read character data(text data) from the file.
+It is very low level reader.
+
+Constructors
+	FileReader fr=new FileReader(String name);
+	FileReader fr=new FileReader(File f);
+
+
+
+
+Methods
+	int read()
+	int read(char[] ch)
+	void close()
+
+int read()
+It attempts to read next character from the file & return its Unicode value.
+If there is no next character then we will get -1.
+As this method return Unicode value, compulsory at the time of printing we should perform  type-casting.
+
+FileReader fr=new FileReader(“abc.txt”);
+int i=fr.read();
+while(i!=-1)
+{
+	SOP((char)i);
+	i=fr.read();
+}
+
+import  java.io.*;
+class FileReaderDemo
+{
+public static void main(String[] args)throws IOException
+{
+FileReader fr=new FileReader("abc.txt");
+int i=fr.read();
+System.out.print((char)fr.read());
+System.out.print((char)fr.read());
+System.out.print((char)fr.read());
+System.out.print((char)fr.read());
+while(i!=-1)
+{
+	//System.out.print(i);//Printd Unicode value
+	System.out.print((char)i);
+	i=fr.read();
+}
+fr.close();
+}
+}
+
+2) int read(char[] ch)
+It attempts to read enough characters from the file into char[] & resume the number of characters copied from the file into char[].
+	
+
+		File f = new File("abc.txt");
+		char[] ch = new char[(int) f.length()];// casting is required here
+												// otherwise CTE
+
+		FileReader fr = null;
+		try {
+			fr = new FileReader("abc.txt");
+			fr.read(ch);
+			for (char ch1 : ch) {
+				System.out.print(ch1);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	
+
+Need of next level reader
+By using FileReader we can read character by character but not line by line and that is not convenient for the programmer.
+	BufferedReader
+	

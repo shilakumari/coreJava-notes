@@ -1,0 +1,102 @@
+Categorization of primitive data types
+Boolean-boolean
+Numeric
+	Unsigned-char
+	Signed
+		Integer
+			byte
+			short
+			int 
+			long
+		Floating-point
+			float
+			double
+
+
+Java is a strongly typed language.
+	We must declare and define its type before we can assign a value to it or even we can use it in SOP().
+
+A literal is a fixed value that doesn't need further calculations in order for it to be assigned to any varaible.
+
+Page 98-COnverting integer , decimal to binary
+
+
+Underscore in literals(Java 7)
+		Rules-99.......
+
+int i=Integer.parseInt("12_34");//No CTE, RTE
+
+ twist-100
+
+ Internally Java soters char data as an un-signed interger value (positive integer).
+
+
+ char ch1='z';
+ char ch1=122;// a number in base 10, prints z
+ char ch1='\u0122';//a number in base 16, prints special character 
+
+ char ch1=-123;//CTE
+ char ch1=(char)-123;//No CTE
+
+ Casting is forcefully conversion of one data type to another data type.
+
+
+
+ For identifier, we can use currency sign-$,pound etc.
+
+
+ The literal value for all types of object reference variable is null.
+ When method accept reference variable as a method parameter .
+ Method may change state of reference variable or assign new object to reference variable. In the latter case, changes are not reflected back in the calling method.
+
+ 
+ 
+Operators
+
+long l=123l;
+int i= l;//CTE
+int i=(int) l;// NO CTE
+
+int a=5,b=10,c=30;
+a=b=c;
+
+We can use increment & decrement operators with variables but not with literal values. If we do, the code won't compile.
+
+char ch='A';
+SOP(ch+ch);//130
+
+
+
+Operator			 	Data type
+Arithmetic Operator		All primitive except boolean
+++,--					All primitive except boolean and literals also
+<,<=,>,>=				All primitive except boolean
+==,!=					All primitive including boolean
+&&,||,!
+
+
+ byte b1=10;
+    byte b2=10;
+    //short sh=b1+b2;//CTE
+    short sh2=(short)(b1+b2);//CTE
+    
+    final byte b3=10;
+    final byte b4=10;
+    short sh3=b3+b4;//CTE
+    short sh4=(short)(b1+b2);//CTE
+    
+    
+    twist 2.4
+    
+  Operator precedence table
+  
+
+
+
+	
+ 
+ 
+ 
+ 
+ 
+ 

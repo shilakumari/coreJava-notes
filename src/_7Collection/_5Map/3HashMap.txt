@@ -1,0 +1,49 @@
+HashMap
+Underling DS is HashTable.
+Insertion order is not preserved. And it is based on hashCode of keys.
+Duplicate keys are not allowed but duplicate values are allowed.
+Heterogeneous object are allowed for both  keys & values.
+Null allowed for key but only once
+Null allowed for value, any number of times.
+
+It implements Serializable & Cloneable interface but not RandomAccess.
+It is best choice, if our frequent operation is search operation.
+
+
+Constructors of HashMap
+HashMap  h=new HashMap();
+	Default initial capacity:16
+	Default Fill radio = load factor=0.75
+HashSet h=new HashSet(int initialcapacity);
+HashSet h=new HashSet(int initialcapacity, float loadfactor);
+	Fill radio=load factor
+HashSet h=new HashSet(Collection c)
+
+Example:MapInterfaceDemo.java
+		Map map = new HashMap();
+		map.put("Amit", 100);
+		map.put("Vijay", 101);
+		map.put("Rahul", 102);
+		System.out.println(map);//{Amit=100, Vijay=101, Rahul=102}
+		System.out.println(map.put("shaurabh", 103));//null
+
+		Set s = map.keySet();
+		System.out.println(s);//[Rahul, Vijay, shaurabh, Amit]
+		Collection c = map.values();
+		System.out.println(c);//[102, 101, 103, 100]
+		Set s2 = map.entrySet();
+		System.out.println(s2);//[Rahul=102, Vijay=101, shaurabh=103, Amit=100]
+
+		Iterator itr = s2.iterator();
+		while (itr.hasNext()) {
+			Map.Entry entry = (Map.Entry) itr.next();
+			System.out.println(entry.getKey() + " " + entry.getValue());
+			if ((entry.getKey()).equals("Vijay")) {
+				entry.setValue(104);
+			}
+		}
+		System.out.println(map);//{Rahul=102, Vijay=104, shaurabh=103, Amit=100}
+	
+How to get synchronized version of HashMap object?
+	HashMap   hashMap = new HashMap();
+	Map sunchronizedHashMap=Collections.getSynchronizedMap(hashMap);

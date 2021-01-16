@@ -1,0 +1,77 @@
+Usage of FileWriter & FileReader is not recommended because
+While writing data by using FileWriter, we have to insert line separator manually, which is varied from system to system. 
+	It is not convenient to the programmer.
+While reading data by using FileReader, we have to read data character by character which is not convenient to the programmer.
+	(like in case of searching mobile number in list of numbers).
+
+BufferedWriter & BufferedReeader
+
+
+BufferedWriter
+We can use BufferedWriter to write text(character) data to the file.
+
+Constructors
+	BufferedWriter bw=new BufferedWriter(Writer w);
+	BufferedWriter bw=new BufferedWriter(Writer w, int buffersize);
+Note: BufferedWriter cann’t  communicate directly with the file. It can communicate via some Writer object only.
+
+Which of the following are valid?
+BufferedWriter bw=new BufferedWriter(“abc.txt”);//invalid
+BufferedWriter bw=new BufferedWriter(new File(“abc.txt”));//invalid
+BufferedWriter bw=new BufferedWriter(new FileWriter(“abc.txt”));//valid
+BufferedWriter bw=new BufferedWriter(new BufferedWriter(new FileWriter(“abc.txt”)));//valid
+
+
+Method of BufferedWriter
+1)write(int ch)
+2)write(char[] ch)
+3)write(String s)
+4)flush()
+5)close()
+6)newline()//Extra available method
+
+
+
+
+import  java.io.*;
+class Test
+{
+public static void main(String[] args)throws IOException
+{
+FileWriter fw=new FileWriter("abc.txt");
+
+BufferedWriter bw=new BufferedWriter(fw);
+
+bw.write(100);
+bw.newLine();
+char[] ch1={'a','b','c','d'};
+bw.write(ch1);
+bw.newLine();
+bw.write("Abhi");
+bw.newLine();
+bw.write("SoftwareSolutions");
+bw.flush();
+bw.close();
+
+}
+}
+/*
+d
+abcd
+Abhi
+SoftwareSolutions
+*/
+
+Note:
+Whenever we are closing BufferedWriter, automatically underlying FileWriter will be closed & we are not required to close explicitly.
+
+Recommended
+bw.close();
+
+Not recommended
+fw.close();
+
+Not recommended
+bw.close();
+fw.close();
+

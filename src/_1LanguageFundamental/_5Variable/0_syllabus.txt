@@ -1,0 +1,14 @@
+Variable
+	Variable is name of memory allocation.
+	
+Types of Variables
+	Division 1: Based on type of value represented by a variable
+		Primitive Variable: int x=10;
+		Reference Variable:Student s=new Student();
+	Division 2: Based on position of declaration & behavior of variable
+		Instance variable /object level variable/Non-static variable /attribute  / fields
+			(Stored in heap memory.)
+		Static variable /class level variables                       / attribute  / fields 
+			(stored in method area.)
+		Local variable/ temporary variable /stack variable/automatic variable/thread safe variable/parameter
+			(stored in stack area.)

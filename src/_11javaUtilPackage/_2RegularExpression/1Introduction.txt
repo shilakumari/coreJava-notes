@@ -1,0 +1,73 @@
+Regular Expression
+If we want to represent a group of strings, according to a particular pattern then we should go for regular expression.
+Example: 
+	For form validation
+	We can write a regular expression to represent all mobile numbers.
+	We can write a regular expression, to represents all mail ids.
+
+
+Way to become best s/w Engineer:
+	Ctrl+C
+	Ctrl+V
+	Ctrl+F(pattern matching application)
+		Ctrl-F is the shortcut in your browser or operating system that allows you to find words or phrases quickly.
+
+Lexical Analysis (or tokenizer or scanner)- used regular expression
+	Syntax Analysis (parsing)
+	Semantic Analysis 
+
+
+The main important application areas of regular expressions are:
+	To develop validation frameworks
+	To develop pattern matching applications(ctrl+F in windows, grep in UNIX)
+	To develop translators like assemblers, compilers, interpreters etc.
+	To develop digital circuits (For every regular expresseion, we can create Finite automata)
+	To develop communication protocols like TCP/IP, UDP
+
+Example1: Search “ab” in “abbabbba”
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class MyPattern {
+	public static void main(String[] args) {
+		int count = 0;
+		Pattern p = Pattern.compile("ab");
+		Matcher m = p.matcher("abbabbba");
+		while (m.find()) {
+			count++;
+			System.out.println("Start index:" + m.start() + " End index:" + m.end() + " Matched Pattern:" + m.group());
+		}
+		System.out.println("The total number of occurances: " + count);
+	}
+}
+
+Output:
+The start index is: 0  2 ab
+The start index is: 3  5 ab
+The total number of occurances:2
+
+
+Pattern(1.4v)
+	A pattern object is a compiler version of regular expression. That is, it is a java equivalent object of pattern.
+	We can create a pattern object by using compile() method of Pattern class.
+	Public static Pattern compile(String re)
+	Example:
+		Pattern p=Pattern.compile("ab");
+
+
+Matcher(1.4v)
+	We can use Matcher object to check the given pattern in the target string.
+	We can create a Matcher object by using matcher() method of pattern class.
+	Public Matcher matcher(String target)
+	Example:
+		Matcher m=p.matcher(“abbabbba”);
+
+
+Important methods of Matcher class
+Boolean find()-it attempts to find next match and returns true if it is available
+Int start()- it returns start index of the match
+Int end()-it returns end+1 index of the match
+String group()- it returns the matched pattern
+
+Note: 
+Pattern and Matcher classes present in java.util.regex package.
+It introduced in java 1.4v.

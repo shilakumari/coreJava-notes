@@ -1,0 +1,62 @@
+Multithreading
+	
+What is the motivation behind Multithreading?
+1)By default programming languages like Java are sequential.
+  Time consuming operations may freeze the application & the users may not know whats's happpening.
+2)To separate multiple tasks
+	Like one thread uses download operation & with another thread user can do whatever he wants. 	 
+	Like during coping huge file, user can use computer for some other purpose.
+	
+
+Multithreading
+Multithreading is the ability of the CPU to execute multiple processes or threads concurrently.
+Both processes & threads are independent sequences of execution.
+Process:
+	A process is an instance of program execution.
+	When we open a software or a web browser: theese are distinct processes
+	The OS assigns distinct registers, program counter, stack memory & heap memory to every single process.
+	In Java, we can create processes with the help of ProcessBuilder class.	?????????
+Thread
+	A thread is a light weight process.
+	It is unit of execution within a given process(A process may have several threads).
+	Each thread in a process shares the memory & resources & 
+		this is why programmers have to deal with concurrent programming & multithreading.
+	
+Multithreading is all about dealing with threads but not processes.
+
+
+Multithreading & time-slicing algorithm
+	Processing time for a single core CPU is shared among processes & threads. This is called Time-Slicing.
+
+In parallel computing, we dont use time-slicing.
+
+Benefits of Multithreading
+1)We can achieve better CPU utilization.
+	By default every Java program is single threaded. 
+	There may be several processor cores which we do not utilize without using multiple thread.
+2)We can design more responsive applications: We can do several operations concurrently
+3)Overall we can improve performance 
+	Performance improvement has something to do with multiple cores & parallel computing, so we will discuss it later.
+	
+
+Disadvantages of Multithreading
+1)There ae some cost involved in multithreading
+	Multithreading is not always better.
+2)Threads manipulate data located on the same memory area because they belong to the same process 
+	& we have to deal with this fact(synchronization)
+3)It is not easy to design multithread applications(easy to make bugs & hard to detect bugs)
+  With modern framework(fork-join) it is getting better.
+4)Expensive operation
+	Switching between threads is expensive.
+	CPU has to save local data, application pointer etc. of the current thread & 
+		has to load the data of other thread as well.
+	Running time -->K*(1/No of threads)
+	Rule of thumb: For small problems it is unnececessary to use multithreading
+	 
+Thread life cycle in Java
+Thread States
+	1)NEW: when we instantiate a thread (until start())
+	2)Runnable: after start()
+	3)WAITING:wait(),sleep()
+	4)DEAD
+	

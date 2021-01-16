@@ -1,0 +1,14 @@
+File I/O Concept in Java
+In 1995, database concept was not much popular. If we want to store data, then default storing mechanism was file I/O. But now-a-days default storage mechanism is database concept. It was in SCJP_1.0v but removed from SCJP_1.2v.
+If we want to store very small amount of data  then best suitable data storage mechanism is file I/O. So file I/O re-introduced in SCJP_1.5v.
+If we want to store very large amount of data then only we should use database (purchase license for it, install it)
+Now we can accept 2-3 question form file I/O in SCJP.
+
+File I/O Syllabus
+FIle
+FileWriter
+FileReader
+BufferedWriter
+BufferedReader
+PrintWriter
+

@@ -1,0 +1,67 @@
+Merge Sort
+Merge Sort is a divide & conquer algorithm that was invented by John Von Neumann in 1945.
+Comparison based algorithm woth running time complexity  O(nlogn)
+It is stable sorting algorithm
+It is not in-place algorithm
+Although heapsort hase the same time bounds as merge sort, 
+	heapsort requires only O(1) auxiliary space instead of merge sort's O(n).
+Efficient quicksort implementations generally outperforms mergesort.
+As for as Java is concerned it uses merge sort for sorting referenced types 
+	& uses Quick sort for sorting integers, charachters & so on.
+Merge sort is often the best choice for sorting a linked list: 
+	In this situation it is relatively easy to implement a merge sort 
+		in such a way that it requires only O(1) extra space.
+		
+Quicksort vs Merge Sort
+					Merge Sort		Quick Sort
+In-place			No				Yes
+Stable				Yes				No
+Time Complexity		O(nlogn)		Normally better but Quardatic Sometimes
+
+Merge Sort Algorithm
+1)Divide the array into two subarrays recursively
+2)sort these subarrays recursively with mergesort again
+3)If there is only a single item left in the subarray, we consider it to be sorted by definition
+4)Merge the subarrays to get the final sorted array.
+
+Pseudo Code
+mergeSort(low,high)
+{
+	if(low>=high) 
+		return;
+	middle=(low+high)/2
+	mergeSort(low,middle)
+	mergeSort(middle+!,high)
+
+	merge(low,middle, high)
+}
+merge(low,middle, high)
+{
+	for i=low to high
+		tempArray[i]=num[i]
+	i=low;
+	j=middle+1;
+	k=low;
+	
+	while(i<=middle && j<=high){
+		if(tempArray[i]<=tempArray[j]){
+			num[k]=tempArray[i];
+			i++;
+		}else{
+			num[k]=tempArray[j];
+			j++;
+		}
+		k++;
+	}
+	
+	while(i<=middle){
+		num[k]=tempArray[i];
+		i++;
+		k++;
+	}
+	while(j<=high){
+		num[k]=tempArray[j];
+		j++;
+		k++;
+	}
+}

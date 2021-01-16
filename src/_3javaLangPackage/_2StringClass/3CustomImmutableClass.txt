@@ -1,0 +1,62 @@
+How to create a immutable class
+
+String s1=new String(“rahul”);
+String s2=s1.toUpperCase();
+String s3=s1.toLowerCase();
+Once we creates an object, we cannot perform any changes in that object. 
+If we are trying to perform any changes and
+	if there is a change in the content then with those changes a new object will be created.
+	if there is no change in the content then existing object will be reused. 
+	This behavior is nothing but immutability.
+
+We can create our own immutable class.
+final public class Test{
+	private int i;
+	Test(int i){
+		this.i=i;
+	}
+	//getter
+	//no setter
+	Public Test modify(int i){
+		if(i==this.i){
+			return this;
+		}
+		else{
+			return new Test(i);
+		}
+	}	
+}
+Test t1=new Test(10);
+Test t2=t1.modify(100);
+Test t3=t1.modify(10);
+SOP(t1==t2);//false
+SOP(t1==t3);//true
+
+
+Final vs immutability
+final StringBuffer sb=new StringBuffer(“rahul”);
+sb.append(“software”);//valid. Rahulsoftware
+Sb=new StringBuffer(“solutions”);//CTE, cannot assign a value to final variable sb
+
+Final applicable for variables but not for objects. 
+	Where as immutability applicable for objects but not for variables.
+	
+By declaring a reference variable as final, we won’t get any immutability nature. 
+	Even though reference variable is the final, we can perform any type of change in the corresponding object. 
+	But we cannot perform reassignment for that variable.
+Hence final & immutable both are different concepts.
+
+Which of the following are meaningful?
+Final variable//valid
+Immutable variable//invalid
+Final object//invalid
+Immutable object//valid
+
+Summary
+Immutable class
+	final class
+	private fields
+	getter presents
+	no setter
+Final applicable for variables but not for objects. 
+	Where as immutability applicable for objects but not for variables.

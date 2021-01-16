@@ -1,0 +1,279 @@
+4)Literals
+A constant value which can be assigned to the variable is called literal.
+1)Integral literal : For integral data type(byte, short, int, long)
+	a)int  literals
+		Decimal literals
+		Octal literals
+		Hexadecimal literals
+		Binary literals
+	b)long literals
+		Decimal literals with suffix l/L
+		Octal literals with suffix l/L
+		Hexadecimal literals with suffix l/L
+		Binary literals with suffix l/L
+2)Floating point literals
+	a)float literals
+		suffix f/F
+		Exponential form/scientific notation
+	b)double literals
+		with or without suffix d/D
+		Exponential form/scientific notation
+3)Boolean Literals
+	true
+	false
+4)	char Literals
+	a)Within single quotes i.e. 'a'.
+	b)As integral literal which represents unicode value of the character  (0 to 65535)
+		Decimal literals
+		Octal literals
+		Hexadecimal literals
+		Binary literals
+	c)In Unicode representation i.e. '\uxxxx'
+		char ch = 'A';
+		System.out.println(ch);//A
+		ch = 65;
+		System.out.println(ch);//A
+		ch = '\u0041';
+		System.out.println(ch);//A
+	d)8 escape characters
+5) String literals:  "Java".
+6) Null literal : null keyword
+
+
+1.7V enhancement w.r.t. literals
+Binary Literals
+	Uses of underscore symbol in numeric literals(Only at compile time, not at runtime)
+	int  x=10;
+	Here, int is data type or keyword, X is name of variable or identifier and 10 is a constant value or literal.
+
+Integral literals
+	For integral data type(byte, short, int, long), we can specify literal value in the following ways:
+	Decimal literals(base 10)
+		int x=10;
+		9+1=10
+	Octal literals (base=8)
+		int x=010;
+		0-7
+		7+1=10
+		7+2=11
+		7+3=12
+	Hexadecimal literals (base=16)
+		int x=0x10;
+	binary literals(base 2)
+		int b=0b10;//2
+		
+	0-9
+	A to f
+	For extra digit(a to f), we can use both lower & upper case characters. This is one of very few areas where Java is not case- sensitive.
+	The literal value should be prefixed with 0x or 0X for hexadecimal.
+	
+	
+These 4 ways are only possible ways to specify literal value for integral data types.
+	int  x=10;//decimal literal
+	int  x=0781;//CTE, integer number too large
+	int  x=0777;//511
+	int  x=0XFace;//64206
+	int  x=0XBeef;//48879
+	int  x=0XBeer;//CTE
+
+	int x1=10;//10
+	int x2=010;//8
+	int x3=0X10;//16
+	int x4=0b10;//2
+JVM always print by default decimal value.
+
+
+By default every integral literal is of  int type. But can specify explicitly as long type by suffixed with l or L.
+int x=10;
+long l=10L;
+int x=10L;//CTE, 
+long l=10; //valid
+
+
+
+byte b=10;
+byte b=127;
+byte b=128;//CTE
+
+short s=10;
+short s=32767;
+short s=32768;//CTE
+
+There is no direct way to specify byte & short literals explicitly, but indirectly we can specify. 
+Whenever we are assigning integral literal to the byte variable, and if the value within the range of byte then , 
+compiler treats it automatically as byte literal. Similarly short literal also.
+
+
+Floating point literals
+1)float literals
+2)double literals
+
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+
+float f=123.6; //CTE
+float f=123.6f;
+float f=123.6F;
+
+double d=123.456;
+double d=123.456f;
+float d=123.456f;
+double d=123.456F;
+
+By default, every floating- point literal is of double type and hence we cannot assign, directly to the float variable.
+But we can specify floating point literal as float type by suffixed with f or F. 
+
+We can specify floating point literal as double type by suffix with d or D. Of course this convention is not required.
+double d=123.456;
+double d=123.456d;
+double d=123.456D;
+
+float f=123.456d;//CTE
+
+double d=10;
+SOP(d);//10.0
+
+We can specify floating point literals only in decimal form  and we cannot specify in octal & hexadecimal forms.
+		double d = 123.456;
+
+		// double d2=0x123.456;//CTE,error: malformed floating point literal
+		// double d=0XFace.0;//CTE
+		double d8 = 0XFace;// valid,64206.0
+
+		// double d6 = 0786;// CTE
+		double d3 = 0123;// 83.0, valid
+		double d4 = 0786.0;// valid, 786.0
+		double d2 = 0123.456;// 123.456,Valid
+
+	
+We can assign integral directly to floating point variable & that integral literal can be specified either in decimal, octal , 
+binary or in hexadecimal form.
+
+We cannot assign floating point literals to integral types.
+double d=10;
+int x=10.0;//CTE
+
+Exponential form/scientific notation
+double d=1.2e3;//1.2*10^3,1200.0
+
+float f=12e3;
+SOP(f);// CTE
+
+float f=12e3F;
+float f=12e3f;
+We can specify floating point literal even in exponential form(scientific notation).
+
+Boolean literals
+The only allowed values for boolean data types are true or false.
+boolean b=true;
+boolean b=false;
+boolean b=0;//CTE
+boolean b=True;//CTE
+boolean b="true";//CTE
+
+int x=0;
+if(x)//CTE
+{SOP("hello world");
+}else
+{SOP("CTE");
+}
+
+while(1)//CTE
+{SOP("hello");
+}
+
+char literals
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+We can specify char literal as single character within single quotes.
+char ch = 'a';
+char ch=a;//CTE
+char ch="a";//CTE
+
+char ch=97; SOP(ch);//a
+
+We can specify char literal as integral literal which represents unicode value of the character. 
+And that integral literal can be specified either in decimal or octal or in hexadecimal form but allowed range is 0 to 65535.
+char ch=0xFace;
+char ch=0777;
+char ch=65535;
+char ch=65536;//CTE
+char ch=197;//+
+char ch=1970;//?
+char ch=1971;//?
+char ch=19710;//?
+Here ? is coming due to 2 reason:
+	Either corresponding to that number there is no specific symbol 
+	Or corresponding to that symbol, not supported printable format
+We can represent char literal in Unicode representation which is nothing but '\uxxxx' where xxxx is 4 digit hexadecimal digit.
+char ch='\uxxxx';
+char ch='\u0061'; //a
+char ch='\u0062';//b
+Every escape character is char literal only.
+char ch='\n';
+char ch='\t';
+char ch='\m';//CTE
+escape character(8)
+\n: new line
+\t : horizontal line
+\r : carriage return
+\b : back space
+\f : form feed
+\' : single quotes
+\" : double quotes
+\\ : back slash
+System.out.println("hello\rAB");//ABllo
+System.out.println("hello\bye");//hellye
+System.out.println("hello\fye");//helloâ™€ye
+Which of the following are valid:
+charch=65536;//CTE
+charch=0XBeer;//CTE
+charch=\uface;//CTE
+Char ch='\ubeef';
+Char ch='\m';//CTE
+Char m='\iface';//CTE
+
+String literal
+Any sequence of character in double quotes is treated as String literal.
+String s="a";
+
+1.7V enhancement w.r.t. literals
+	Binary Literals
+	Uses of underscore symbol in numeric literals
+Binary Literals
+For integral data type until 1.6v we can specify literal value in the following ways:
+1: Decimal form
+2: Octal form
+3: Hexadecimal form
+But form 1.7v onwards, we can specify literal value even in binary form. Allowed digits are 0 and 1.
+The literal value should be prefixed with 0b or 0B.
+int x=0b1111;//15
+int x=0B1111;//15
+
+Uses of underscore symbol in numeric literals
+Form 1.7 version onwards we can use underscore symbols b/w digits of numeric literals.
+The main advantage of this approach is the readability of the code will be improved.
+double d=123456.789; or
+double d=1_23_456.7_8_9;
+double d=123_456.7_8_9;
+At the time of compilation, these underscore symbols will be removed automatically. 
+Hence after compilation the above line will become 
+double d=123456789;
+We can use more than 1 underscore symbol also b/w digits.
+double d=1__23_4_5__6.7_8_9;
+double d=1___2__3_4_5_6.7_8_9;
+
+We can use underscore symbol only b/w digits. If we are  using anywhere else, we will get CTE.
+double d=_1__23_456.7_8_9;//CTE
+double d=1_23_456_.7_8_9;//CTE
+double d=1_23_456.7_8_9_;//CTE
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+
+8 byte long value we can assign to 4 byte float variable because both are following different memory representation internally.
+float f=10L;
+SOP(f);//10.0
+

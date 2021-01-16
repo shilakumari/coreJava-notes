@@ -1,0 +1,61 @@
+Introduction
+
+Ananlogy
+Lets suppose, I hav a kid in USA. Kid requested me to give a big ballon because his friend has one. At kid level our affection with kids very strong but not at young level(when we asked to our father , please give me Catrina Cafe).
+I given promise
+I goes to a mall or ship. 
+Can ugive me bigeest balllon on ur shop. I did not even asked for price.
+DTDC-Courier shop- What do u required? Please send this ballon to banglore. First he see me from top to bottom. Sir not possible.So I told him, as per as courierrules:
+Money
+Gold
+Illegal 
+Thing we cannot send.
+So he told me we send out thing vis airoplane. Niddle pressed problem
+It is not in transport supported form.
+Now I gone one step down from ordering to requested form.
+Can u guide me how can I send this to banglore.
+He checked for small opener. He said we can send it to banglore after removing air.
+We will fillup air in banglore.
+
+Serialization:
+The process of writing state of an object to a file is called Serialization. 
+But strictly speaking it is the process of converting an object from java supported form to either file supported form or network supported form.
+By using FileOutputStream and ObjectOutputStream classes we can achieve Serialization.
+oos.writeObject(obj); -->FOS--> abc.ser
+
+
+De-serialization:
+The process of reading state of an object from a file is called De-serialization.
+But strictly speaking it is the process of converting an object from either file or network supported form into java supported form.
+By using FileInputStream and ObjectInputStream classes we can Achieve.
+abc.ser -->FIS--> ois.readObject(obj);
+
+Example:
+import java.io.*;
+class Dog implements Serializable{
+	int i = 10;
+	int j = 20;
+}
+class SerializeDemo{
+	public static void main(String args[]) throws Exception{
+		Dog d1 = new Dog();
+		FileOutputStream fos = new FileOutputStream("abc.ser");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(d1);
+
+		FileInputStream fis = new FileInputStream("abc.ser");
+		ObjectOutputStream ois = new ObjectOutputStream(fis);
+		Dog d2 = (Dog)ois.readObject();
+		System.out.println(d2.i+"..........d2.j"+);//10..........20
+	}
+}
+(d1)i=10; j=20; --Serialization--> i=10; j=20;
+(d2)i=10; j=20; <--De-serialization-- i=10; j=20;
+
+
+we can serialize only serializable objects.
+An object is said to be serializable if and only if corresponding class implements serializable interface.
+Serializable interface present in java.io package and it doesn't contain any methods. it is a marker interface.
+If we are trying to serialize non serializable object then we will get runtime exception saying NotSerializableException.
+
+

@@ -1,0 +1,12 @@
+Garbage Collection
+	Introduction
+
+The ways to make an object eligible for GC
+	Nullifying the reference variable
+	Re-assigning the reference variable
+	Objects created inside a method
+	Island of isolation
+The ways for requesting JVM to run GC
+	By using system class
+	By using runtime class
+Finalization

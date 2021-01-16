@@ -1,0 +1,171 @@
+Boxing
+	Converting primitive data-type to wrapper object is called boxing.
+	Integer obj = new Integer (2526);
+	Integer obj = Integer.valueof(2526);
+	valueOf(): primitive or string to wrapper object
+	
+Un-boxing
+	Converting an wrapper object into corresponding primitive data-type is known as un-boxing.
+	Integer obj = new Integer("2526");
+    int i = obj.intValue();
+    xxxValue(): wrapper to primitive
+	
+
+Autoboxing
+Automatic conversion of primitive to wrapper object by compiler is called auto-boxing.
+Integer I=10;//compiler converts int to Integer automatically by auto-boxing.
+After compilation the above line will become 
+	Integer I =Integer.valueOf(10);
+That is internally auto-boxing concept is implemented by using valueOf() methods.
+
+Auto-unboxing
+Automatic conversion of wrapper object to primitive by compiler is called auto-unboxing.
+Integer I =new Integer(10);
+int i=I;//compiler converts Integer to int automatically by auto-unboxing
+	After compilation the above line will become 
+	int i=I.intValue();
+That is internally auto-unboxing concept is implemented by using xxxValue() methods.
+
+Primitive value-->autoboxing (valueOf())-->wrapper object
+wrapper object--> auto-unboxing (xxxValue())-->Primitive value
+
+class  Test{
+	static  Integer I=10;//AB->autboxing
+    PSVM(){
+		int  i=I;//AUB
+		m1(i);
+	}
+	public static void m1(Integer k)//AB
+	s{
+		int m=k;//AUB
+		SOP(10);
+	}
+}
+Javac –source 1.4 Test.java	//4errors
+
+
+Just because of autoboxing & auto-unboxing we can use primitive & wrapper objects interchangeably from 1.5v onwards.
+
+class  Test{
+	static  Integer I=0;
+    PSVM(){
+		int  i=I;
+		SOP(i);//0
+	}
+}
+class  Test{
+	static  Integer I;//null
+    PSVM(){
+		int  i=I;//null.intValue(), RTE, NullPointerException
+		SOP(i);//
+	}
+}
+
+
+
+Integer X=10;
+Integer Y=X;
+X++;
+SOP(X);//11
+SOP(Y);//10
+SOP(X==Y);//false
+All wrapper class objects are immutable that is once we create wrapper class object 
+	we cann’t perform any changes in that object. 
+	If we are trying to perform any changes, with those changes a new object will be created.
+
+Integer X=new Integer(10);
+Integer Y=new Integer(10);
+SOP(X==Y);//false
+
+Integer X=new Integer(10);
+Integer Y=10;
+SOP(X==Y);//false
+
+Integer X=10;
+Integer Y=10;
+SOP(X==Y);//true
+
+Integer X=100;
+Integer Y=100;
+SOP(X==Y);//true
+
+Integer X=1000;
+Integer Y=1000;
+SOP(X==Y);//false
+
+Internally to provide support for autoboxing, a buffer of wrapper objects will be created at the time of wrapper class loading. 
+By autoboxing if an object is required to create, first JVM will check whether this object already present in the buffer or not. 
+If it is already present in the buffer then existing buffer object will be used. 
+If it is not already available in the buffer then JVM will create a new object.
+class  Integer
+{
+	static
+	{
+	-128|-127|……. |127
+}
+}
+
+But buffer concept is available only in the following range:
+Byte: always
+Short: -128 to 127
+Integer: -128 to 127
+Long: -128 to 127
+Character: 0 to 127
+Boolean: always
+Accept this range, in all remaining cases a new object will be created.
+
+Analogy:
+1 peg / day : very healthy
+1 bottle/day: shortcut to heaven
+
+class Integer
+{
+	static
+	{
+ 		-1 carore to +1 carore
+	}
+}
+So buffer created for most commonly used range -128 to 127.
+
+For float & double there is not possible to create buffer because b/w two float/double number there may exists infinite number.
+
+Integer X=127;
+Integer Y=127;
+SOP(X==Y);//true
+
+Integer X=128;
+Integer Y=128;
+SOP(X==Y);//false
+
+Boolean X=false;
+Boolean Y=false;
+SOP(X==Y);//true
+
+Double X=10.0;
+Double Y=10.0;
+SOP(X==Y);//false
+
+
+Internally auto-boxing concept is implemented by using valueOf() method 
+	hence buffer concept is applicable for valueOf() methods also.
+Integer X=new Integer(10);
+Integer Y=new Integer(10);
+SOP(X==Y);//false
+
+Integer X=10;
+Integer Y=10;
+SOP(X==Y);//true
+
+Integer X=Integer.valueOf(10);
+Integer X=Integer.valueOf(10);
+SOP(X==Y);//true
+
+Integer X=10;
+Integer X=Integer.valueOf(10);
+SOP(X==Y);//true
+
+Summary
+All wrapper class objects are immutable
+
+Internally auto-boxing concept is implemented by using valueOf() method 
+	hence buffer concept is applicable for valueOf() methods also.

@@ -1,0 +1,105 @@
+String class constructor
+1)
+String s=new String();//creates an empty string object of zero length 
+String s=””;// creates an empty string object of zero length
+String s=null;// no string object
+
+2)
+String s=new String(String literals);
+//creates an string object on heap for the given string literal 
+String s=”Hello”;
+
+3)
+String s=new String(StringBuffer sb);
+//creates an equivalent string object for the given StringBufferon  
+
+String s4=new String(null);//CTE,The constructor String(String) is ambiguous
+
+4)
+String s=new String(char[] ch);
+//creates an equivalent String object for the given char array
+Ex: char[] ch={‘a’,’b’,’c’,’d’};
+String s=new String(ch);
+SOP(s);//abcd
+
+5)
+String s=new String(byte[] b);
+//creates an equivalent String object for the given byte array
+Ex: byte[] b={100,101,102,103};
+String s=new String(b);
+SOP(s);//defg
+		
+		
+Important methods of String class 
+public String concat(String s)
+The overloaded + and += operators also meant for concatenation purpose only.
+String s=”rahul”;
+s=s.concat(“software”);
+//s=s+”software”;
+//s+=”software”;
+SOP(s);//rahulsoftware
+
+Public boolean equals(Object o)
+//To perform content comparison where case is important.
+This is overriding version of Object class equals() method
+String s=”JAVA”;
+SOP(s.equals(“java”));//false
+
+Public Boolean equalsIgnoreCase(String s)
+//To perform content comparison where case is not important like email-id.
+String s=”JAVA”;
+SOP(s.equals(“java”));//false
+SOP(s.equalsIgnoreCase(“java”));//true
+In general we can use equalsIgnoreCase() method to validate usernames where case is not important.
+Where as we can use equals() method to validate password where case is important.
+
+public char charAt(int index)
+// It returns the character, locating at specified index
+     String s=”rahul”;
+	SOP(s.charAt(3));//u
+	SOP(s.charAt(30));//RE, StringIndexOutOfBoundsException
+
+public String substring(int begin)
+//return substring from begin index to end of the String
+String s=”abcdefg”;
+
+Somewhere u have seen:
+Abcdefg=”A boy can do everything for a girl". Olden age it may be possible but not now a days.
+A girl can forgot everything for a boy and money.
+
+
+Public String substring(int begin, int end)
+//return substring from begin index to end-1 of the String
+String s=”abcdefg”;
+SOP(s.substring(3));//defg
+SOP(s.substring(3,6));//def
+
+
+Public int length()
+//return number of characters presents in the string
+String s=”rahul”;
+SOP(s.length);//CTE, cannot finad symbol , Symbol:variable length, Location:vlass j.l.String
+SOP(s.length());//5
+Note:
+Length variable application for arrays but not for String objects 
+	whereas length() method applicable for String objects but not for arrays.
+
+
+Public String replace(char oldCh, char newCh)
+String s=”ababa”;
+SOP(s.replace(‘a’,’b’));//bbbbb
+
+Public String toLowerCase()
+Public String toUpperCase()
+
+Public String trim()
+//to remove blank spaces present at beginning & end of the string but not middle blank spaces.
+
+Public int indexOf(char ch)
+//returns index of first occurrence of specified character
+Public int lastIndexOf(char ch)
+String s=”ababb”;
+SOP(s.indexOf(‘b’));//1
+SOP(s.lastIndexOf(‘b’));//4
+
+String[] str = s.trim().split("[ \t!,?._'@]+");

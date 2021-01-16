@@ -1,0 +1,41 @@
+Various memory areas present inside JVM
+Whenever JVM loads and runs a Java program, it needs memory to store several things like bytecode, objects, variable etc.
+	Method Area
+	Heap Area
+	Stack Area
+	PC register
+	Native Method Stack
+
+Method Area
+	For every JVM one method area will be available.
+	Method area will be created at the time of JVM startup.
+	Inside method area class level binary data including static variable will be stored.
+	Constant pool of a class will be stored inside method area.
+	Method area can be accessed by multiple thread simultaneously.
+	So method area data is not thread safe.
+	Method area need not be contiguous memory.
+
+Heap Area
+	For every JVM one heap area will be available.
+	Heap area will be created at the time of JVM startup.
+	Objects and corresponding instance variable stored in heap area.
+	Every array in Java is object only, hence arrays also stored in the heap area.
+	Heap area can be accessed by multiple thread simultaneously.
+	So heap area data is not thread safe.
+	Heap area need not be contiguous memory.
+
+Program to display heap memory statistics
+	A Java application can communicate with JVM by using runtime object.
+	Runtime class present in java.lang package and it is a singleton class. 
+	We can crate Runtime object as follows:
+		Runtime r=Runtime.getRuntime();
+		SOP(r.maxMamory());// it return no of bytes of max memory, allocated to the heap
+		SOP(r.initialMamory());// it return no of bytes of total memory, allocated to the heap
+		SOP(r.freeMamory());// it return no of bytes of free memory, present in the heap
+
+	Heap memory is finite memory. But based on our requirement, we can set maximum and minum heap size.
+	We can use the following flags with java commands:
+		Java –Xmx512m MyTest
+		Java –Xms64m MyTest
+		Java –Xmx512m –Xms64m MyTest
+

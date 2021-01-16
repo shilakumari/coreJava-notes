@@ -1,0 +1,201 @@
+Inter-thread communication
+	Semaphore-Scalable Produce Consumer Implementation
+	Semaphores-Barrier
+	Condition variables- All purpose, Inter-thread communication
+	Object as condition variables-wait(), notify(), notifyAll()
+	Condition Variables 
+	
+	
+	
+Semaphore-Scalable Produce Consumer Implementation
+Semaphore Introduction
+Binary Semaphores
+Semaphores vs Locks
+Producer Consumer Using Semaphores
+
+Semaphore Introduction
+	Can be used to restrict the number of users to a particular resource or a group of a resources
+	Unlike the locks that allows only one user per resource
+	The semaphore can restrict any given number of users to a resource
+	Example : Parking lot of 8 car capacity
+	How to use:
+		Semaphore semaphore=new Semaphore(NUMBER_OF_PERMITS);
+		semaphore.acquire();//NUMBER_OF_PERMITS-1 now available
+		useResource();
+		semaphore.release();//NUMBER_OF_PERMITS+1 now available
+		
+		semaphore.acquire(5);//NUMBER_OF_PERMITS-5 now available
+		useResource();
+		semaphore.release(5);//NUMBER_OF_PERMITS+5 now available
+		
+		semaphore.acquire(NUMBER_OF_PERMITS);//0 now available
+		semaphore.acquire();//thread is blocked
+	Semaphore:Difference with locks
+		semaphore does not have notion 	of owner thread.
+		Many thread can aquire a permit
+		The same thread can acquire the semaphore multiple times.
+		The binary semaphore(initialized with 1 ) is not reentrant.
+		Semaphore can be released by any thread.
+			Even can be released by a thread that has not actually acquired it.
+			(And thus two thread may enter in critical section.)
+			
+Producer Consumer Using Semaphores
+1 Producer Consumer 1 Using Semaphores
+	Semaphore full=new Semaphore(0);
+	Semaphore empty=new Semaphore(1);
+	Item item=null;
+	Producer:
+		while(true){
+			empty.acquire();
+			item=produceNewItem();
+			full.release();
+		}
+	Consumer
+		while(true){
+			full.acquire();
+			consumeNewItem(item);
+			empty.release();
+		}
+Multiple Producer Consumer Multiple Using Semaphores
+	Semaphore full=new Semaphore(0);
+	Semaphore empty=new Semaphore(CAPACITY);
+	//Item item=null;
+	Queue queue=new ArrayDeque();
+	Lock lock=new ReentrantLock();
+	Producer:
+		while(true){
+			Item item=produceNewItem();
+			empty.acquire();
+			lock.lock();
+			queue.offer(item);
+			lock.unLock();
+			full.release();
+		}
+	Consumer
+		while(true){
+			full.acquire();
+			
+			lock.lock();
+			Item item=queue.poll();
+			lock.unLock();
+			
+			consumeNewItem(item);
+			empty.release();
+		}
+BarrierClassDemo.java
+Summary
+	A new synchronization tool- Semaphore
+	Semaphore as general case for a lock-permit issuing authority
+	Can restrict the number of users per critical section/resource
+	Defference b/w Semaphore & Lock
+		Any thread can release a semaphore(No ownership)
+	Inter -thread communication for producer-consumer using semaphore.
+	
+	
+	
+	
+Condition variables- All purpose, Inter-thread communication
+Review Of inter-thread communication
+	thread.interrupt()
+	thread.join()
+	semaphore.acquire() & semaphore.release()
+Semaphore as particular case of condition variable
+	Calling an acquire() on a semaphore is equivalent to checking the condition "Is Number of Permits>0?"
+	If condition is not met , thread A goes to sleep until another thread changes the semaphore's state
+	When thread B calls the release(), thread A wakes up.
+	Thread A checks the condition "Is Number of Permits>0?":
+		If it is , Thread A continues to next instruction
+Condition variables-java.util.concurrent.locks.Condition
+	It is a generic way of inter-thread communication.
+	It allows us to use any condition we want
+	Creation:
+		Condition varibale is always associated with a lock.
+		The lock ensures atomic check & modification of the shared varibales, involved in the condition.
+		Locl lock=new ReentrantLock();
+		Condition condition=lock.newCondition();
+		condition.await();//unlock lock, wait until signalled & got lock again
+		condition.signal();
+	Inter-thread-Produced COnsumer
+		String userName=null,password=null;
+		lock.lock();
+		try{
+			while(userName=null || password=null){
+				condition.await();//unlocks lock & put threads to sleep
+			}
+		}finally{
+			lock.unlock();
+		}
+		doStuffFromDatabase();
+		
+		
+		lock.lock();
+		try{
+				userName=userTextBox.getText();
+				password=passwordTextBox.getText();		
+				condition.signal();
+				//signal the another thread but when unlock the lock only after that another thread will get lock & may continue
+		}finally{
+			lock.unlock();
+		}
+	condition.await();//unlock lock, wait until signalled & got lock again
+		long awaitNanos(long nanosTimeout);//wait no longer than nanosTimeout
+		boolean await(long time, TimeUnit unit);//wait no longer than time
+		boolean awaitUntil(Date deadline);//wake up before the deadline date
+	condition.signal()
+		wakes up a single thread, waiting on the condition variable
+		If there is more than one thread waiting on the condition variable, only one of those thread is going to waking up
+		A thread,that wakes up after getting signal, has to reacquire the lock associated with the condition varibale.
+		If no thread is waitng on the condition varibale, the signal method doesn't do anything.
+		That is an important diff in behaviour b/w semaphore & the condition variable.
+			The fact that the condition variable was signalled, is not saved anywhere 
+				& a future thread that will call the await() , will not be affected.
+	condition.signalAll()
+		Broadcast a signal to all threads currently waiting on the condition variable.
+			In that case all the waiting thread will wake up.
+		Thread that calls signalAll(), does not need to know anything about the threads that are waiting on the condition varaible 
+			or how many thread even exist.
+			That is another distinction b/w semaphore , where if we wanted to achieve a similar behaviour 
+				we would need to release the semaphores as many times as the number of threads 
+				that are currently waiting for the semaphore.
+Summary
+	
+	
+Object as condition variables-wait() throws IE, notify(), notifyAll()
+	We can use anyobject as a condition variable & a lock (using the synchronized keyword)
+	wait()-causes the current thread to wait until another thread wakes it up.
+		In the wait state, thread is not consuming any CPU.
+	notify()-wakes up a single thread waiting on that object.
+	notifyAll()-wakes up a all thread waiting on that object.
+	To call wait(), notify(), notifyAll(), we need to acquire the monitor of that object (use synchronized on that object)
+	
+Example:
+public class MySharedClass{
+	private boolean isComplete=false;
+	private void waitUntilComplete(){
+		synchronized(this){
+			while(isCOmplete==false){
+				this.wait();
+			}
+		}
+	}
+	public void complete(){
+		synchronized(this){
+			isCOmplete=true;
+			this.notify();
+		}
+	}
+}
+Object Signalling vs Condition Variables
+synchronized(object){			lock.lock();
+}								lock.unlock();
+object.wait();					condition.await();
+object.notify();				condition.signal();
+object.notifyAll();				condition.signalAll();
+
+Example:
+	MatricesGenerator.java
+	ObjectsAsConditionVariablesWaitNotifyNotifyAll.java
+		 private static final int CAPACITY = 50;
+		 How to implement back pressure to guard against OutOfMemoryException
+	Whenever using a queue to decouple multithreaded components	, apply back-pressure & limit the size of the queue.
+	

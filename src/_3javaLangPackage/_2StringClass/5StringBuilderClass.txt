@@ -1,0 +1,41 @@
+StringBuilder
+Every method present in StringBuffer is synchronized. 
+	And hence only one thread is allowed to operate on StringBuffer at a time, which may creates performance problem.
+
+To handle this requirement SUN people introduced StringBuilder in 1.5v.
+
+StringBuffer->StringBuilder
+Synchronized->removed
+
+StringBuilder is exactly same as StringBuffer except the following differences:
+1) Every methods presents in StringBuffer are synchronized.
+Every methods presents in StringBuilder are non-synchronized.
+2)At a time only one thread is allowed to operate on StringBuffer object. And hence StringBuffer objects are thread-safe.
+	At a time multiple threads are allowed to operate on StringBuilder object. And hence StringBuilder objects are not thread-safe.
+3)Thread are required to wait to operate on StringBuffer object and hence StringBuffer increases waiting time of thread 
+	& creates performance problem. And hence relatively performance is low.
+	StringBuilder relatively give better performance than StringBuffer.
+4) StringBuffer introduced in 1.0v.
+	StringBuilder introduced in 1.5v.
+
+Note:
+Except the above difference, everything is same in StringBuffer & StringBuilder including methods & constructors.
+
+
+String vs StringBuffer vs StringBuilder
+If the content is fixed & won’t change frequently then we should go for String.
+If the content is not fixed & keep on changing but thread safety required then we should go for StringBuffer.
+If the content is not fixed & keep on changing but thread safety not required then we should go for StringBuilder.
+
+
+Method Chaining
+For most of the method in String, StringBuffer & StringBuilder, return types are same type & 
+	hence after applying a method on the result, we can call another method, which forms chains of method that is called method chaining.
+	
+	sb.m1().m2().m3().m4();
+  	In method chaining method calls will be executed from left to right.
+	StringBuffer sb=new StringBuffer();			
+	sb.append("Abhi").append(" Maurya. ").append("I am a software").append("engineer.").insert(4, " Kumar ").delete(27, 35);
+	System.out.println(sb);//Abhi Kumar  Maurya. I am a engineer
+
+	

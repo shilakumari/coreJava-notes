@@ -1,0 +1,35 @@
+Syllabus
+Introduction
+	Most important topic after Collection for interview point of view.
+
+Runnable Interface And Thread Class
+The ways to define a thread
+	By extending Thread class
+	By implementing Runnable interface
+Thread Class
+	Constructor(8)
+	Methods
+		Getting and setting name of a thread
+		Thread priorities
+
+Methods to prevent thread execution- 
+	Yield, 
+	join, 
+	sleep
+	
+Synchronization
+Interthread communication
+	Wait()
+	Notify()
+	Notify A ll()
+Deadlock
+	A lock without key
+Deamon thread
+
+Multithreading inhancement
+	Lock concepts
+	Reentrant Lock
+	ThreadGroup
+	Thread Local
+	Executor Framework
+	ThreadPool

@@ -1,0 +1,39 @@
+Comparable Interface:
+This interface present in java.lang package 
+it contains only one method compareTo().
+	public int compareTo(Object obj)
+
+Example:
+obj1.compareTo(obj2)
+return -ve if obj1 has to come before obj2
+return +ve if obj1 has to come after obj2
+return 0 if obj1 and obj2 are equal.
+return NullPointerException if compare with null.
+
+String,All Wrapper Classes(Byte,Short,Integer,Long,Character,Float,Double,Boolean) implements Comparable interface.
+In case of String & Character compareTo() return unicode diff obj1-obj2
+In case of integer 	compareTo return -1,1 or 0.
+In case of Boolean compareTo return -1,1 or 0.
+
+class Test{
+public static void main(String[] args){
+System.out.println("A".compareTo("Z"));//-25
+System.out.println("Z".compareTo("B"));//24
+System.out.println("A".compareTo("A"));//0
+System.out.println("A".compareTo(null));//NullPointerException
+}
+}
+
+Example:
+ComparableInterface.java
+Employee.java
+
+If we depending on default natural sorting order then  internally JVM will call compareTo() method & will insert objects 
+	to the TreeSet. 
+Hence the objects should be Comparable.
+TreeSet t = new TreeSet();
+t.add("B");
+t.add("Z");//"Z".compareTo("B");+ve
+t.add("A");//"A".compareTo("B");-ve
+System.out.println(t);//[A, B, Z]
+

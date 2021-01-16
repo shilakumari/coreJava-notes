@@ -1,0 +1,306 @@
+Modifiers
+	(1) Class level modifiers
+	(2) Member level modifiers
+
+Class level modifiers
+Whenever we are writing our own classes, we have to provide some information about our class to the JVM. Like,
+	Whether this class can be accessible from anywhere or not?
+	Whether child class creation is possible or not?
+	Whether object creation is possible or not?  etc.
+We can specify these information by using appropriate modifiers like public, final, abstract etc.
+
+The only applicable 5 modifiers for top/outer level class are 
+	public, 
+	<default>, 
+	final, 
+	abstract and 
+	strictfp.
+The only applicable 8 modifiers for inner level class are 
+	public,
+	<default>, 
+	final, 
+	abstract, 
+	strictfp, 
+	
+	protected, 
+	private, 
+	static
+
+
+private class Test //CTE, modifier private not allowed here.
+{
+PSVM(String [] args){}
+private class A{}
+static  class A{}
+}
+
+
+
+Access specifier vs access modifiers
+In java, public,protected,<default>, private are considered as access modifiers and remaining are simple modifiers. 
+In java, there is no word like specifier.
+In other than Java language; public,protected,<default>, private are considered as access specifiers and remaining are consideres as modifiers.
+
+private class Test{}//CTE, modifier private not allowed here
+
+
+public classes
+If a class is declared as public then we can access that class from anywhere.
+
+package pack1;
+class A{
+	public void show(){}
+}
+package pack2;
+class B{
+PSVM()
+{
+	A a =new A();//CTE(2),cannot find symbol A
+	a.show();
+}}
+
+ 
+
+Package pack1;
+Class A{
+Public void show(){}
+}
+Package pack2;
+Import pack1.A;
+Class B{
+PSVM()
+{
+A a =new A();//CTE(3),cannot find symbol & pack1.A is not public in pack1:cannot be accessed from outside the package.
+a.show();
+}}
+Default access is also known as package level access.
+
+
+Final modifier
+Final is a modifier applicable for classes, methods & variables.
+
+Final method
+At signal some toy or some decorative thing -200 to 20 rs.
+Class P
+{
+Public void property()
+{
+SOP(“cash+land+gold”);
+}
+Final Public void marry()
+{
+SOP(“Subhlakshmi”);
+}
+}
+Class C extends P
+{
+Public void marry()
+{
+SOP(“Isha|Aish|Deepika”);
+}
+}
+Output: CTE,  marry() in C cannot override marry() in P; overridden method is final.
+If parents class method marry() is declared as final, then we cann’t override that method in the child class. 
+Because its implementation is final.  
+
+
+Final class
+If a class declared as final, we cannot extends functionality of that class, 
+	that is, we can not create child class for that class. 
+That is, inheritance is not possible for final class.
+
+Final class P{}
+Class C extends P{}//CTE: cannot inherit from final P
+
+Every methods present inside a final class, is always final by default. 
+But every variable present inside a final class, need not be always final by default.
+final class P{
+Static int x=10;
+Psvm(){
+X=7777;
+SOP(x);
+}
+} 
+
+Advantage of final keyword: 
+We Achieve Security
+We can provide unique implementation
+
+Disadvantage
+The most dangerous keyword in java. By using it, we loss many OOPs features like,
+inheritance(because of final classes), 
+polymorphism(because of final methods).
+Hence if there is no specific requirement then it is not recommended to use final keyword.
+
+In Java API:
+public final class Math
+public final class String
+public final class StringBuffer
+public final class StringBuilder
+
+
+Abstract modifier
+Abstract is the modifier applicable for classes & methods but not for variables.
+
+Abstract method
+The method which has declaration but not implementation.
+
+Even we don’t know about implementation, still we can declare a method with abstract modifier. 
+That is for abstract method only declaration is available but not implementation.
+Hence abstract method declaration should ends with semicolon.
+Example:
+Public abstract void m1();//valid
+Public abstract void m1(){}//invalid
+
+Child class is responsible to provide implementation for parent class abstract method.
+By declaring the abstract method in the parent class we can provide guidelines to the child classes 
+	such that which method compulsory, child has to implement.
+
+
+90 % of time, rich people have low level feeling about poor person.
+90 % of time, intelligent people have low level feeling about less intelligent person.
+90 % of time, some people have low level feeling about Subhlakshmi than Sweta.
+
+Abstract method person is also like poor person and final method is like rich method which has implementation. 
+	So both are like enemies.
+Native methods feels himself like foreigner.
+Synchronized method feels himself intelligent.
+Static  method feels himself special.
+Private method feels himself special.
+Strictfp method feels himself special.
+
+Abstract method never talk about implementation. If any modifier talks about implementation then it forms illegal combination with abstract modifier.
+The following are various illegal combination of modifiers for methods w.r.t. abstract:
+Abstract final
+Abstract native
+Abstract synchronized
+Abstract static
+Abstract private
+Abstract strictfp
+
+abstract class A{	
+	abstract static void show();
+} //CTE, error: illegal combination of modifiers: abstract and static
+
+
+
+Abstract class
+-object creation
++can contain abstract methods
+
+Class which cann’t be instantiated and has partial implementation.
+For any java class, if we are not allowed to create an object (because of partial implementation), 
+such type of class we have to declare with abstract modifier. 
+That is for abstract classes instantiation is not possible.
+
+Abstract class Test
+{
+Psvm(String [] args)
+{
+Test t=new Test();//CTE, Test is abstract:cannot be instantiated
+}
+}
+
+Abstract class vs abstract method
+If a class contains atleast one abstract method, then compulsory we should declare class as abstract, otherwise we will get CTE.
+Reason:
+If a class contains atleast one abstract method then implementation is not complete and 
+hence it is not recomended to create object. 
+To restrict object instantiation, compulsory we should declare class as abstract.
+Class vehicle
+{
+Public int getNumberOfVehicle();
+}
+Class Test
+{
+PSVM()
+{
+New Vehicle().getNumberOfVehicle();
+}
+}
+
+Eventhough class does not contain any abstract method, still we can declare class as abstract, 
+if we don’t want instantiation that is abstract class can contain 0 or more number of abstract methods.
+Example 1:  
+HttpServlet class is an abstract class but it does not contain any abstract method & 
+it has doGet() and doPost() method are to provide error information to the client , not to provide meaningful service to the client. 
+Hence it is meaningless to call these methods.
+Example 2:  
+Every adapter class is recommended to declare as abstract but it does not contain any abstract method.
+
+Class P{ public void m1(); }
+CTE, missing  method body or declare abstract
+
+Class P{ public abstract void m1(){} }
+CTE, abstract  methods cannot have a body
+
+Class P{ public abstract void m1(); }
+CTE, P is not abstract and does not override abstract method m1() in P.
+
+
+abstract Class P{ 
+public abstract void m1(); 
+public abstract void m2(); 
+}
+Class C extends P
+{
+public void m1(){}; 
+}
+CTE, C is not abstract and does not override abstract method m2() in P.
+
+If we are extending abstract class, then for each and every abstract method of parent class,
+ we should provide implementation, otherwise we have to declare child class as abstract.
+In this case next level child class is responsible to provide implementation.
+
+
+Final vs abstract
+Abstact methods compulsory we should override in child classes to provide implementation. 
+Whereas we cannot override final methods. Hence final-abstract combination is illegal combination for methods.
+
+For final classes we cannot create child classs, where as for abstract classes we should create child class to provide implementation. 
+Hence final-abstract combination is illegal for classes also.
+
+Inside abstract class, there can be final method.
+Inside final class, there cannot be abstract method.
+
+Uses of abstract modifier is highly recommended because it promotes several OOP feature like inheritance & polymorphism.
+Uses of final modifier is highly not recommended to use because it supress several OOP feature.
+
+
+Strictfp-strict floating point (since 1.2V)
+We can use strictfp for classes and methods but not for variables.
+Usually the result of floating point arithmetic is varied from platform to platform. 
+If we want platform independent results for floating point arithmetic then we should go for strictfp modifier.
+SOP(10.0/3);
+In simple arithmetic-3.3333333333333333333333333333333 infinit times
+In 16 bit system- 3.333333 (5 or 6 places after decimal)
+In 32 bit system- 3.33333333333333 (14 or 15 places after decimal)
+
+Strictfp method
+If a method declared as strictfp, all floating point calculation in that method has to follow IEEE-754 standard. 
+	So that we will get platform independent results.
+
+
+Strictfp class
+Class Test
+{
+m1(){}
+m2(){}
+m3(){}
+.
+.
+.
+mn(){};
+
+mx();
+my();
+mz();
+}
+If class is declared as strictfp, then every floating point calculation present inside concrete method has to follow IEEE754 standard, 
+so that we will get platform independent result.
+
+Strictfp always talks about implementation where as abstract modifier never talks about implementation. 
+Hence abstract-strictfp combination is illegal for methods.
+We can declare abstract-strictfp combination for class but not for method.
+Abstract strictfp class Test{}//valid
+Abstract strictfp void m1();//CTE, illegal combination of modifier abstract and strictfp

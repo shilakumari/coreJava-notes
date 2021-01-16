@@ -1,0 +1,97 @@
+Performance Optimization
+	Introduction to performance & Optimizing for latency
+		Performance Criteria/definition
+		Latency
+		Performance in Multithreaded applications
+	Optimizing for latency 2-Image Processing
+	Optimizing for throughput part 1
+		Throuput definition
+		Thread Pooling
+		2 approaches to throughput improvement
+	Optimizing for throughput part 2- HttpServer+Jmeter
+	Performance Optimization
+	
+	
+Introduction to performance & Optimizing for latency
+Performance Criteria/definition
+	Uses cases
+		High Speed Trading System
+			Latency measured in unit of time
+		Video Player
+			TO show the content to user at correct & precise frame rate with minimum jitter
+			Precision & accuracy of frame rate
+		Machine Learning
+			Throughput, Here latency & lack of  jitter not that important
+	Latency
+		The time to completion of a task, measured in time units
+	Throughput	
+		The amount of tasks completed in a given period. Measured in task /time unit.
+	Latency & throughput are completely independent. Improve one may or may not have impact on other.
+	
+	
+Latency
+Theoretical reduction of latency by N=performance improvement by a facotr of N
+N=?:How many subtasks/threads to break the original task?
+	On a general purpose computer, N= no of cores
+	#threads=#cores is optimal only if all threads are runnable and can run without interruption(no I/O blocking calls/sleep etc)
+	The assumption is nothing else is running that consumes a lot of CPU.
+	Hyperthreading-Virtual Cores vs Physical COres
+
+Does breaking original tasks & aggregating result come for free?
+	Inherent cost of paralllelization & Aggregation
+		Breaking task into multiple tasks
+		Thread creation , passing taks to threads
+		Time b/w thread.start() to thread getting scheduled
+		Time until the last thread finishes & signals
+		Time until the aggragating thread runs
+		Aggregation of the subresults into a single artifact.
+	We should not break into subtaks which are very small.	
+Can we break any task into subtasks?No
+	1)Parallelizable tasks
+	2)Unbreakable, sequential tasks
+	3)Partially Parallelizablem partially sequential
+	
+	
+Summary
+Performance can be divided in many ways depending upon the use case
+Multithreaded Application Performance Criteria
+	Latency
+	THroughput
+
+Optimizing for latency 2-Image Processing
+	Image Processing Sequential
+		ARGB-A for Alpha(transparency)
+		ImageProcessing.java
+	Performance/Latency measurement
+	Image processing-Multithreaded
+	
+Optimizing for throughput part 1
+Throuput definition
+	The amount of tasks completed in a given period. Measured in task /time unit.
+2 approaches to throughput improvement
+	1)Breaking tasks into subtaks
+		throughput<=N/T
+		latency>=T/N	
+		Inherent cost of paralllelization & Aggregation
+	2)Running tasks in Parallel
+		throughput<=N/T
+		latency=T	
+		Inherent cost of paralllelization & Aggregation is very minimum.
+Thread Pooling
+	Create thread , Start thread 
+	Also provide queue to store them
+
+
+Optimizing for throughput part 2- HttpServer+Jmeter
+	Http Server
+		ThroughputHttpServer.java
+		http://127.0.0.1:8000/search?word=talk
+	Measure throughput using Apache Jmeter
+	Performance Measurement & Analysis
+	
+ Apache Jmeter 
+ 	Java Performance Automation Tool
+ 	Do not require writing any code
+ 	Tool is out of scope for our course
+ 	
+		

@@ -1,0 +1,251 @@
+Array Declaration
+
+1D array declaration
+int[] x;// this is recommended because name is clearly separated from type
+int []x;
+int x[];
+
+int[6] x;//CTE
+At the time of declaration, we cannot specify the size otherwise we will get CTE. 
+
+2D array declaration(6 ways)
+int[][] x;// this is recommended 
+int [][]x;
+int x[][];
+int []  []x;
+int[]  x[];
+int    []x[];
+
+
+int[] a,b; //a1,b1
+int[] a[],b; //a2,b1
+int[] a[],b[]; //a2,b2
+int[]   []a,b; //a2,b2
+int[] []a,b[]; //a2,b3
+
+int[] []a,[]b; //CTE
+Int []    []a,[]b,[]c;//CTE
+If you want to specify dimension before the variable this facility is applicable only for 1st variable in a declaration.
+If we are trying to apply for next variable onwards, we will get CTE.
+
+
+Advantage of using  recommended way (int[][] x):
+1)At the time of method return type, we have to use this way
+2)At the time of declaration of multiple array variable of same dimension
+
+
+3D array declaration(10 ways)
+int[][][]  a;//Recommended way
+int     [][][]a;
+int  a[][][];
+
+int[]   [][]a;
+int[]   a[][];
+int[]    []a[];
+
+int[][]  []a;
+int[][]    a[];
+
+int  [][]a[];
+int    []a[][]
+
+
+
+Array creation
+int[]  a=new int[3];
+Every array in Java is an object only, hence we can create arrays by using new operator.
+
+SOP(a.getClass().getName());//[I
+For every array type corresponding classes are available & these classes are part of java language and not available to the programmer level.
+
+
+Array type 		corresponding class name
+int []			[I
+int [][]		[[I
+double[]		[D
+short[]			[S
+byte[]			[B
+boolean[]		[Z
+String[]		[Ljava.lang.String;
+
+
+1:At the time of array creation, compulsory we should specify the size otherwise we will get CTE.
+Int[]  x=new int[];//CTE
+int[]  x=new int[4];
+
+2: It is legal to have an array with size zero in Java.
+int[] x=new int[0];
+SOP(x.length);//0
+
+
+3: Int [] x=new int[-5];  //RE, NegativeArraySizeException
+
+4: To specify array size, allowed data types are byte, short, char, int. If we are trying to specify any other type then we will get CTE.
+
+byte short int
+char int
+
+int [] x=new int[10];
+
+int[] x=new int[�a�]; //97
+
+byte b=20;
+int[] x=new int[b];
+
+
+short s=30;
+int[] x=new int[s];
+
+int [] x=new int[10L];//CTE
+
+int[] x=new int[2147483648];//CTE
+int[] x=new int[2147483647];//No CTE, but may be RE, Exception in thread "main" java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+
+The maximum allowed array size, is 2^31-1. Which is the maximum value of int data type.
+
+
+2D array Creation	
+In java, 2D array not implemented by using matrix style. SUN people followed array of arrays approach for multidimensional array creation.
+The main advantage of this approach is memory utilization will be improved.
+
+S1 is most intelligent student.
+int [][] x=new int[2][];
+base size=2;//At the time of array creation, we have to provide array size either explicitly or implicitly
+x[0]=new int[2];
+x[1]=new int[3];
+
+int[][][] x=new int[2][][];
+x[0]=new int[3][];                                                                      
+x[0][0]=new int[1];
+x[0][1]=new int[2];
+x[0][2]=new int[3];
+x[1]=new int[2][2];
+
+Which of the following array declarations are valid?
+int[] a=new int[];//CTE, error: array dimension missing
+int[] a=new int[3];
+int[][] a=new int[][];//CTE, error: array dimension missing
+int[][] a=new int[3][];
+int[][] a=new int[][4];//CTError
+int[][] a=new int[3][4];
+
+int[][][] a=new int[3][4][5];
+int[][][] a=new int[3][4][];
+int[][][] a=new int[3][][5];//CTError
+int[][][] a=new int[][4][5];//CTError
+int[][][] a=new int[6][][];
+
+
+
+
+Array initialization
+Once we creates an array every element by default initialized with default values.
+int [] x=new int[3];
+SOP(x);//[I@43fa3
+SOP(x[0]);//0
+
+Whenever we are trying to print any reference variable, internally toString() method will be called, 
+which is implemented by default to written the String in the following form.
+className@hashCode_in_hexadecimalform
+
+int x[][]=x=new int0[2][3];
+SOP(x);//[[I@23a23
+SOP(x[0]);//[I@3121d8
+SOP(x[0][0]);//0
+
+
+int [][]x=new int[2][];
+SOP(x);//[[I@23a23
+SOP(x[0]);//null
+SOP(x[0][0]);//RE, Exception in thread "main"java.lang.NullPointerException
+If we are trying to perform any operation on null then we will get RE saying, NullPointerException.
+
+
+Int [] x=new int[6];
+x[0]=10;
+x[1]=20;
+x[2]=30;
+x[3]=40;
+x[4]=50;
+x[5]=60;
+Once we create an array, every array element by default initialized with default values.
+If we are not satisfied with default values then we can override these values with our customized values.
+
+x[6]=70; //RE, ArrayIndexOutOfBoundsException
+x[-6]=60; //RE, ArrayIndexOutOfBoundsException
+x[2.8]=90;//CTE,
+If we are trying to access array element with out of range index (either +vevalue or negative int  value) then we get RE, 
+saying  ArrayIndexOutOfBoundsException
+
+
+
+Array declaration, Creation & Initialization in a single line:
+We can declare, create amd initialize an array in a single line(shortcut representation).
+int[] x;//declaration
+x=new int[3];//creation
+x[0]=10;//initialization
+x[1]=20;//initialization
+x[2]=30;//initialization
+	or
+
+int[] x={10,20,30};  or int[] x=new int[]{10,20,30};
+char[] ch={�a�,�e�,�I�,�o�,�u�};
+String[]s={�A�,�AA�,�AAA�};
+
+We can extends this shortcut even for multidimensional array also.
+int[][] x={{1,2,3},{3,4,5}};	
+
+int[][][] x={  { {10,20,30},{40,50,60}   },{ {70,80},{90,100,110}   };
+SOP(x[0][1][2]);//60
+SOP(x[1][0][1]);//80
+SOP(x[2][0][0]);//RE,ArrayIndexOutOfBoundsException
+SOP(x[1][2][0]);//RE,ArrayIndexOutOfBoundsException
+SOP(x[1][1][1]);//100
+SOP(x[2][1][0]);//RE, AIOFBE
+
+
+int x;
+x=10;//NO CTE
+
+int[]  x={10,20,30};
+x={10,20,30};//CTE,Illegal Start of expression
+If we want to use this shortcut, compulsory we should perform all activities in a single line.
+If we are trying to divide into multiple line, then we will get CTE. 
+
+
+
+Anonymous array
+Sometimes we can declare an array without name, such type of nameless arrays are called anonymous arrays. 
+The main purpose of anonymous array is just for instant use(one time uses).
+class Test
+{
+    public static void main(String [] args)
+	{
+		sum(new int[]{1,2,3});
+	}
+	public static void sum(int[] x)
+	{	int total=0;
+		for(int i:x)
+		{
+			total=total+i;
+		}
+		System.out.println(total);
+    }
+}
+We can create anonymous array as follows:
+New int[]{10,20,30};
+New int[3]{10,20,30};//CTE
+While creating anonymous arrays, we cannot specify the size, otherwise we will get CTE.
+
+We can create multi-dimensional anonymous array also.
+new int[][]{{1,2,3},{4,5 }}
+
+Based on our requirement, we can give the name for anonymous array, then it is no longer anonymous.
+int[] x=new int[]{1,2,3,4};
+
+
+
+int[] original = { 1, 2, 3, 4, 5 };
+		System.out.println(Arrays.toString(original));
+		int[][] array = { { 1, 2 }, { 3, 4 }, { 5, 6, 7 } };
+		System.out.println(Arrays.deepToString(array));

@@ -1,0 +1,9 @@
+Assertions(since 1.4v)
+	Introduction 
+	Assert as a Identifier & Keyword
+	Type of assert statements
+		Simple Version
+		Argumented Version
+	Various possible runtime flags
+	Appropriate & inappropriate use of assertions
+	AssertionError

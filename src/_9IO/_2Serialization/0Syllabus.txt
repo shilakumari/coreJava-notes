@@ -1,0 +1,11 @@
+1) Introduction
+	Serialization
+	De-serialization
+	transient keyword
+	static vs transient
+	final vs transient
+2) Object graphs in Serialization
+3) Customized serialization
+4) Serialization with respect to inheritance
+5) Externalization
+6) serialVersionUID

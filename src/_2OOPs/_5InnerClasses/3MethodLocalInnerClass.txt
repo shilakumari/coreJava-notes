@@ -1,0 +1,226 @@
+Method local inner class
+Sometimes we can declare a class inside a method, such type of inner classes are called method local inner classes.
+Nested method concept is not allowed in Java.
+The main purpose of method local inner class is to define, method specific repeatedely functionality.
+Method local inner classes are best suitable to meet, nested method requirement.
+We can access method local inner classes, only within the method where we declared. 
+	Outside of the method, we cannot access. 
+	Because of its less scope method local inner classes are most rarely used type of inner classes.
+class Test
+{
+		public void m1()
+		{
+			class Inner
+			{
+				public void sum(int x, int y)
+				{
+						System.out.println("The sum:  "+ (x+y));
+				}
+			}
+			Inner i=new Inner();
+			i.sum(10,20);
+			;;;;;;;;;;;;;;;
+			i.sum(100,200);
+		}
+		
+		public static void main(String args[])
+		{
+			new Test().m1();
+		}
+}
+
+We can declare method local inner class, inside both instance & static method.
+If we declare inner class, inside instance method, 
+	then from that method local inner class, we can access both static & non-static members of outer class directly.
+If we declare inner class, inside static method, 
+	then from that method local inner class, we can access static members of outer class directly but not, non- static member of outer class.
+class Test
+{
+	int x=10;
+	static int y=20;
+	public void m1()
+	{
+		class Inner
+		{
+			public void m2()
+			{
+					System.out.println(x);
+					System.out.println(y);
+			}
+		}
+		Inner i=new Inner();
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+Output:
+10
+20
+
+
+
+class Test
+{
+	int x=10;
+	static int y=20;
+	static public void m1()
+	{
+		class Inner
+		{
+			public void m2()
+			{
+					System.out.println(x);//CTE
+					System.out.println(y);
+			}
+		}
+		Inner i=new Inner();
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+Output:
+CTE, non-static variable x cannot be referenced from static context
+
+
+From method local inner class, we cannot access, local variables of the method in which we declared inner class. 
+	But if the local variable declared as final or effectively  final, then we can access.
+If we declare x as final and comment line 1, then we won't get any CTE.
+class Test
+{
+    public void m1()
+	{
+		int x=10;
+		class Inner
+		{
+			public void m2()
+			{
+				x++;//line 1
+				System.out.println(x);
+			}
+		}
+		Inner i=new Inner();
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+Output:
+CTE, error: local variables referenced from an inner class must be final or effectively final
+ 
+Output, after comment line 1:
+10  
+
+
+Every final variable will be replaced by value at compile time.
+Local variable will be stored in stack memory.
+Objects will be stored in heap.
+
+From method local inner class, we cannot access non-final and non-effectively final local variable of the method in which it is declared because  
+	after completing method(here m1()), local variable will be gone. But object is there on heap. 
+	On the object if anyone called directly inner class method (here m2()) and within that method if we access that local variable, 
+	that has been gone (because local variable stored in stack memory).
+But if we declare local variable as a final or effectively final, then there is no problem of accessing that. 
+	Because final variable will be replaced by value at the compile time value.
+
+
+Consider the following code:
+class Test
+{
+	int i=10;
+	static int j=20;
+  	public void m1()
+	{
+		int k=30;
+		final int m=40;
+		class Inner
+		{
+			public void m2()
+			{	
+				System.out.println(i++);
+				System.out.println(j++);
+
+				System.out.println(k);
+				System.out.println(m);
+
+                System.out.println(k++);//CTE
+				System.out.println(m++);//CTE
+			}
+		}
+		Inner i=new Inner();
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+
+
+class Test
+{
+	int i=10;
+	static int j=20;
+   	static public void m1()
+	{
+		int k=30;
+		final int m=40;
+		class Inner
+		{
+			public void m2()
+			{
+				//System.out.println(i++);//CTE,error: non-static variable i cannot be referenced from a static context
+				System.out.println(j++);
+
+				System.out.println(k);
+				System.out.println(m);
+
+				//System.out.println(k++);//CTE,error: local variables referenced from an inner class must be final or effectively final
+				//System.out.println(m++);//CTE,error: cannot assign a value to final variable m
+			}
+		}
+		Inner i=new Inner();
+
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+
+
+We cannot declare static members inside method local inner classes.
+class Test
+{
+	int i=10;
+	static int j=20;
+   	public void m1()
+	{
+		int k=30;
+		final int m=40;
+		class MyInner
+		{
+			static public void m2()//CTE, error: Illegal static declaration in inner class MyInner
+			{
+				System.out.println("hello");
+			}
+		}
+		Inner i=new Inner();
+		i.m2();
+	}
+	public static void main(String args[])
+	{
+		new Test().m1();
+	}
+}
+The only applicable modifier for method local inner classes are strictfp, final, and abstract .
+If we are trying to apply any-other modifier  then we will get CTE.
+

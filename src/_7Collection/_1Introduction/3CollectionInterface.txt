@@ -1,0 +1,97 @@
+Collection
+	If we want to represent a group of individual objects as a single entity then we should go for Collection.
+	Collection interface defines the most common method which are applicable for any collection object. 
+	Collections are used to hold & transfer objects across network.
+	
+	Between class & interface , interface provide more information. 
+	Class is a dummy thing which implement interface. 
+	In interface total information will be there.
+	
+	In general Collection interface is considered as root interface of collection framework.
+		Although map is also considered as part of collection framework.
+	
+	Iterable(I)
+		Collection(I)
+	Collection interface extends Iterable interface. 
+		Implementing Iterable interface allows an object to be the target of the "for-each loop" statement.
+		
+	
+	There is no concrete class which implements Collection interface directly.
+	All collections are generic. And it is recommended to use generic collection.
+	
+	
+Methods of Collection interface
+Collection interface does not contain any method to retrieve objects. 
+
+boolean add(E e)
+	Ensures that this collection contains the specified element (optional operation).
+	
+boolean addAll(Collection<? extends E> c)
+	Adds all of the elements in the specified collection to this collection (optional operation).
+
+
+boolean	remove(Object o)
+	Removes a single instance of the specified element from this collection, if it is present (optional operation).
+	
+boolean	removeAll(Collection<?> c)
+	Removes all of this collection's elements that are also contained in the specified collection (optional operation).
+
+boolean	retainAll(Collection<?> c)
+	Retains only the elements in this collection that are contained in the specified collection (optional operation).
+	
+boolean contains(Object o)
+	Returns true if this collection contains the specified element.
+
+boolean containsAll(Collection<?> c)
+	Returns true if this collection contains all of the elements in the specified collection.
+
+int	size()
+	Returns the number of elements in this collection.
+boolean	isEmpty()
+	Returns true if this collection contains no elements.
+void clear()
+	Removes all of the elements from this collection (optional operation).
+
+
+Object[] toArray()
+	Returns an array containing all of the elements in this collection.
+
+<T> T[]	toArray(T[] a)
+	Returns an array containing all of the elements in this collection; 
+		the runtime type of the returned array is that of the specified array.
+	Note that toArray(new Object[0]) is identical in function to toArray().
+	
+default Stream<E>	stream()
+	Returns a sequential Stream with this collection as its source.
+default Stream<E>	parallelStream()
+	Returns a possibly parallel Stream with this collection as its source.
+default boolean	removeIf(Predicate<? super E> filter)
+	Removes all of the elements of this collection that satisfy the given predicate.
+
+
+Methos from Object class
+boolean	equals(Object o)
+	Compares the specified object with this collection for equality.
+int	hashCode()
+	Returns the hash code value for this collection.
+
+
+Methods from Interface Iterable<T>:
+Iterator<E>	iterator()
+	Returns an iterator over the elements in this collection.
+default Spliterator<E>	spliterator()
+	Creates a Spliterator over the elements in this collection.
+default void forEach(Consumer<? super T> action)
+	Performs the given action for each element of the Iterable until 
+		all elements have been processed or 
+			the action throws an exception. 
+		Unless otherwise specified by the implementing class, 
+			actions are performed in the order of iteration (if an iteration order is specified). 
+		Exceptions thrown by the action are relayed to the caller.
+	The	default implementation behaves as if:
+     		for(T t : this)
+        		action.accept(t);
+        		
+     
+ https://docs.oracle.com/javase/8/docs/api/java/util/AbstractCollection.html
+ https://docs.oracle.com/javase/8/docs/api/java/util/AbstractSet.html 	

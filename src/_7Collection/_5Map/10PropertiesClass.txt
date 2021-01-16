@@ -1,0 +1,49 @@
+Need of Properties
+In our program if any thing which changes frequently (like username, password etc.) are not recommended to hard-code in Java program 
+	because if there is any change then to reflect  that change re-compilation, re-build & re-deploy application are required. 
+	Even sometimes server start also required. Which create big business impact to client.
+We can overcome this problem by using properties file. Such type of variable things we have to configure in the properties file. 
+	From that properties file, we have to read into Java program & we can use those properties. 
+	
+Advantages:
+The main advantage of this approach is if there is a change in properties file, 
+		to reflect that change just re-deployment is enough which won’t  create any business impact to the client.
+
+We can use Java Properties object to hold properties which are coming from properties file.
+
+Properties
+In normal map like HashMap , HashTable, TreeMap etc. , key & value can be any type but in the case of Properties, key & value must be String type.
+
+Constructors
+Properties   properties=new Properties();
+
+Methods in Properties
+String(value or null)  getProperty(String name)
+String(old  value)  setProperty(String name, String value)
+Enumeration propertyNames()
+void load( InputStream is)
+	to load properties from properties file into java Properties object
+void store( OutputStream os, String comment)
+	to store properties from java Properties object into properties file. 
+
+ 
+We can use here any file extension like .properties, .txt, .xml, .xyz etc.
+
+Example:
+		Properties p = new Properties();
+		FileInputStream fis = new FileInputStream("E:\\eclipse\\projects\\coreJava\\src//_7Collection//_5Map//abc.properties");
+		p.load(fis);
+		System.out.println(p);
+		
+		String s = p.getProperty("venki");
+		System.out.println(s);
+		
+		p.setProperty("nag", "8888");
+		FileOutputStream fos = new FileOutputStream("E:\\eclipse\\projects\\coreJava\\src//_7Collection//_5Map//abc.properties");
+		p.store(fos, "Updated By Programme");
+		
+	abc.properties
+		#Updated By Programme
+		#Sat Jul 20 17:43:32 IST 2019
+		nag=8888
+		venki=denki

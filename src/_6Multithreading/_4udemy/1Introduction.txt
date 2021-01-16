@@ -1,0 +1,81 @@
+Introduction
+	Motivation- Concurrency & Parallelism
+	OS Fundamentals
+	Quiz
+	
+Motivation-Why we need threads?
+1)Responsiveness-Concurrency
+2)Performance-Parallelism
+
+Example of poor responsiveness
+	Waiting for customer support
+	Late response from a person
+	No feedback from an application
+
+Responsiveness with a Single thread
+Responsiveness with a Multithreading
+Responsiveness in User interface
+
+Concurrency ==Multitasking
+We don't need multiple core to achieve concurrency.
+We  need multiple core to achieve Parallelism.
+
+Process/Context Contain
+	Metadata(PId+Priority+.......)
+	Files
+	Data(Heap)
+	Code
+	Main Thread(Stack + Instruction Pointer)
+
+Threads Contain
+	Stack
+	Instruction Pointer
+	
+	
+	
+	
+	
+	
+OS Fundamentals
+Context Switch
+Thread Scheduling
+Thread vs Process
+
+Context Switch
+Each thread consumes resources in the CPU & Memory.
+Context Switch involves storing data for one thread & restoring data for another thread.
+If too many threads then thrashing, spending more time in management than real productive work
+Threads consume less resources than processes. Context swtiching b/w threads from the same process is cheaper.
+
+Thread Scheduling
+First Come First Serve
+	Problem- Long thread can cause starvation
+	May cause UI threadsbeing Unresponsive
+Shortest Job First
+	If continuously short job keep coming, long jobs will starve.
+Time Slices
+	Epoch 1,Epoch 2....
+	Dynamic Priority
+		Dynamic Priority=Static Priority+ Bonus
+		Bonus can be negative.
+		Static Priority is set by the developer programatically.
+		Bonus is adjusted by OS in every epoch for each thread.
+		Using dynamic priority , the OS will give preference for Interactive threads(Such as UI threads)
+		OS will give preference to threads that did not complete in the last epochs 
+			or did not get enough time to run.- Preventing Starvation
+https://developer.ibm.com/tutorials/l-completely-fair-scheduler/
+https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html
+ 
+
+Threads vs Processes
+When to prefer Multithreaded Architecture
+	Prefer if tasks share a lot of data
+	Threads are much faster to create & destroy
+	Switching b/w threads of same process is faster.
+When to prefer Multithreaded(Micorservice) Architecture
+	Security & stability are of higher importance
+	Tasks are unrelated to each other
+	
+	
+https://developer.ibm.com/tutorials/l-completely-fair-scheduler/
+https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html

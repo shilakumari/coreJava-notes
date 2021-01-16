@@ -1,0 +1,21 @@
+Dining Philosopher Problem
+	The Problem
+	Constants
+	Chopstick/Fork
+	Philosopher
+	Starting the threads
+	Running the Simulation
+	
+The Problem
+It was formulated by Dijkshtra in 1965.
+At a table:
+	5 Philosopher
+	5 Chopstick/Fork
+Philosopher can:
+	Eat
+	Think
+Philosopher can eat when they have both left & right chopsticks.
+A chopstick can be hold by one Philosopher at a given time.
+The Problem:How ot create a concurrent algorithm such that no Philosopher will starve.
+
+

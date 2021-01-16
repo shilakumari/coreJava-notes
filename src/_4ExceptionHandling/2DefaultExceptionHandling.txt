@@ -1,0 +1,106 @@
+Runtime stack mechanism
+	For every thread, runtime create a separate stack.
+Class Test{
+PSVM(){
+	doStuff();
+}
+PSV doStuff(){
+	doMoreStuff();
+}
+Psv doMoreStuff(){
+	SOP(Hello);
+}
+}
+For every thread at runtime, JVM will create a runtime stack. 
+Each & every method call performed by that thread will be stored in the corresponding stack. 
+Each entry in the stack is called, stack frame or activation record. 
+After completing every method call the corresponding entry from the stack will be removed. 
+After completing all method calls the stack will become empty & empty stack will be destroyed by the JVM, 
+just before terminating the thread.
+
+Freemake.com
+
+
+
+Default Exception Handling
+Example: On highway on bike, truck accident, 108 call working fantastically. Police and many call came.
+
+class Test
+{
+public static void main(String args[]){	doStuff();}
+public static void doStuff(){	doMoreStuff();}
+public static void doMoreStuff(){System.out.println(10/0);}
+}
+Output:RE
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Test.doMoreStuff(Test.java:14)
+        at Test.doStuff(Test.java:10)
+        at Test.main(Test.java:5)
+
+ 
+For debugging: read exception information , not only source code
+
+Inside a method if any exception occurs, the method in which it is rises, is responsible to create exception object 
+	by including the following information:
+	Name of exception
+	Description of exception 
+	Location at which exception occurs(stackTrace)
+
+After creating an exception object, method hand-over the object to the JVM. 
+
+JVM will check, whether the method contains any exception handling code or not. 
+	If the method does not contain exception handling code then 
+	JVM terminates that method abnormally and removes the corresponding entry from the stack.
+	Then JVM identifies caller-method and checks, whether caller method contains any handling code or not? 
+	If the caller method, does not contain handling code then 
+	JVM terminates that caller method also abnormally and removes the corresponding entry from the stack. 
+This process will be continued until main method and if the main method also does not contain handling code 
+	then JVM terminates main() method also abnormally and removes corresponding entry from the stack.
+Then JVM hand-overs responsibility of exception handling to default exception handler, which is the part of JVM.
+	Default exception handler prints exception information in the following format and terminates program abnormally.
+	Exception in thread threadName  name of exception:description
+	stacktrace
+
+class Test{
+public static void main(String args[])
+{
+	doStuff();
+}
+public static void doStuff()
+{
+	doMoreStuff();
+	System.out.println(10/0);
+}
+public static void doMoreStuff()
+{
+	System.out.println("doMoreStuff");
+}
+}
+Output:
+doMoreStuff
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Test.doStuff(Test.java:10)
+        at Test.main(Test.java:5)
+
+
+class Test{
+public static void main(String args[]){
+	doStuff();
+	System.out.println(10/0);
+}
+public static void doStuff(){
+	doMoreStuff();
+	System.out.println("doStuff");
+}
+public static void doMoreStuff(){
+	System.out.println("doMoreStuff");
+}
+}
+Output:
+doMoreStuff
+doStuff
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Test.main(Test.java:6)
+
+Note: In a program if at least one method terminates abnormally then the program termination is abnormal termination. 
+	  If all methods terminated normally then only program termination is called normal termination.

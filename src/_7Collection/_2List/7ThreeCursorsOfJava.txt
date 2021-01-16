@@ -1,0 +1,63 @@
+Cursors 
+To retrieve elements from the  collections 
+	Several mangoes than u would not like to eat at once.
+
+If we want to retrieve Object one by one from the Collection, then we should go for Cursors.
+
+Three cursors of java
+	Enumeration
+	Iterator
+	ListIterator
+
+Enumeration
+	Introduced in 1.0v(for legacy).
+	We can use Enumeration to get Objects one by one from the old Collection objects(Legacy Collections like Vector, Stack, HashTable).
+	We can create Enumeration Object by using elements() method of Vector class.
+		public Enumeration elements();
+Example:
+ Enumeration e = v.elements();
+
+Method of Enumeration
+Enumeration defines following two methods
+	public boolean hasMoreElements();
+	public Object nextElement();
+
+
+An object that implements the Enumeration interface generates a series of elements, one at a time. 
+Successive calls to the nextElement method return successive elements of the series.
+For example, to print all elements of a Vector<E> v:
+Enumeration<E> e = v.elements()
+for (; e.hasMoreElements() ; ){      
+       System.out.println(e.nextElement());
+}
+
+Methods are provided to enumerate through the elements of a vector.
+//???????? the keys of a hashtable, and the values in a hashtable. 
+Enumerations are also used to specify the input streams to a SequenceInputStream.
+
+NOTE: The functionality of this interface is duplicated by the Iterator interface. 
+	  In addition, Iterator adds an optional remove operation, and has shorter method names. 
+	  New implementations should consider using Iterator in preference to Enumeration.
+
+
+Demo program
+import java.util.*;
+class EnumerationDemo1{
+	public static void main(String[] args){
+		Vector v =new Vector();
+		for(int i=0; i<=10; i++){
+			v.addElement(i);
+		}
+		System.out.println(v);//[0, 1, 2, 3, 4,..., 10]
+
+		Enumeration e = v.elements();
+		while(e.hasMoreElements()){
+			Integer i = (Integer)e.nextElement();
+			if(i%2==0){
+				System.out.println(i);//[o, 2, 4, 6, 8, 10]
+			}
+			System.out.println(v);//[0, 1, 2, 3,..., 10]
+		}
+	}
+}
+

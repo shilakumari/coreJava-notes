@@ -1,0 +1,32 @@
+Syllabus
+1. Language fundamental
+3. Array
+4. FlowControl
+
+5. OOPs
+6. Declaration Access Modifiers
+7. Interface, AbstractClassLoopholes
+
+8. Enum(Incomplete)
+9. InnerClass
+10. JavaLangPackage
+11. ExceptionHandling
+12. Multi-threading
+
+13. Annotation(Incomplete)
+14. GarbageCollector
+15. Generic
+
+16. IOPackage & Serialization(Incomplete)
+
+17. RegularExpressions
+18. Collections
+19. Internationalization
+20. Assertions
+21. JVM
+
+22. IQ
+24. Class
+25. jdbc
+utilPackage
+

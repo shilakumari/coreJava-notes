@@ -1,0 +1,208 @@
+Final
+Final is the modifier, applicable for classes, methods and variables.
+If a class declared as final then we cannot extends that class that is we cannot create child class for that class. 
+	That is inheritance is not possible for final classes.
+If a method is final then we cannot override that method in the child class. 
+If a variable is declared as final, then we cannot perform re-assignment for that variable.
+
+Finally
+Finally is a block, always associated with try-catch to maintain cleanup code.
+Try{
+	Risky code
+}Catch(Exception e){
+	Handlind code
+}
+Finally{
+	Cleanup code
+}
+
+The speciality of finally block is, it will be executed always, 
+irrespective of whether exception is raised or not raised & whether handled or not handled.
+
+Finalize()
+Example: garbage collector ask last wish to anonymous object.
+Finalize is a method, always invoked by garbage collector, just before destroying an object to perform cleanup activities.
+Once finalize() method completes, immediately garbage collector destroy that  object.
+
+Finally block is responsible to perform cleanup activity related to try block 
+that is whatever resources we opened as the part of try block, should be closed inside finally block.
+
+Where as finalize() method is responsible to perform cleanup activities related to object. 
+That is whatever resources is associated with the object, will be de-allocated before destroying object by using finalize() method.
+
+
+
+
+
+Various possible combinations of try-catch-finally
+In try, catch , finally order is important.
+
+Whenever we writing try, compulsory we should write either catch or finally, 
+otherwise we will get CTE, try without catch or finally is invalid
+
+Whenever we writing catch block, compulsory try block must be required. 
+That is catch without try is invalid.
+
+Whenever we writing finally block, compulsory try block must be required. 
+That is finally without try is invalid.
+
+Inside try, catch & finally block we can declare try-catch-finally block. 
+That is, nesting of try-catch-finally is allowed.
+
+For try-catch-finally block, curly braces are mandatory.
+
+try{}
+catch(x e)//invalid
+
+try{}
+catch(x e)
+catch(y e)//invalid
+
+try{}
+catch(x e)
+catch(x e)//CTE, exception x has already been caught
+
+try{}
+catch(x e)
+finally{}//invalid
+
+try{}
+finally{} //valid
+
+try{}
+catch(x e)
+try{}
+catch(y e)//invalid
+
+try{}
+catch(x e)//invalid
+try{}
+finally{}
+
+try{}//CTE, try without catch (or) finally
+
+
+catch(x e) //CTE, catch without try
+
+finally{}// CTE, finally without try
+
+try{}
+finally{}
+catch(x e)//CTE, catch without try
+
+try{}
+SOP(“hellooo”);
+catch(x e) 
+CTE 1, try without catch or finally
+CTE 2, catch without try
+
+
+try{}
+catch(x e)//invalid
+SOP(“hii”);
+catch(y e){}//CTE, catch without try
+
+try{}
+catch(x e)
+SOP(“hii”);
+Finally{}//CTE, finally without try
+
+Try
+{
+	Try{}
+	Catch(x e){}
+}
+Catch(x e)
+{
+}//valid
+
+
+Try
+{
+	Try{}//CTE, try without catch
+}
+Catch(x e)
+{
+}
+
+
+Try
+{
+	Try{}
+	Finally{}
+}
+Catch(x e)
+{
+}//valid
+
+
+Try{}
+Catch(x e)
+{
+	Try{}
+finally{}
+}
+
+Try{}
+Catch(x e)
+{
+finally{}//CTE,finally without try
+}
+
+Try{}
+Catch(x e){}
+Finally
+{
+	Try{}
+	Catch(x e){}
+}
+
+
+Try{}
+Catch(x e){}
+Finally
+{
+Finally{}//CTE, finally without try
+}
+
+
+Try{}
+Catch(x e){}
+Finally{}
+Finally{}//CTE, finally without try
+
+
+For try, catch, finally, curly braces are mandatory.
+All following will show CTE.
+Try
+SOP(“try”);
+Catch(x e){	SOP(“catch”);}
+Finally{}
+
+Try{SOP(“try”);}
+Catch(x e)
+	SOP(“catch”);
+Finally{}
+
+Try{SOP(“try”);}
+Catch(x e){	SOP(“catch”);}
+Finally
+	SOP(“finally”);
+
+public static void main(String[] args) throws IOException{
+		System.out.println("1");
+		int b=10;
+		try
+		{
+			System.out.println(10/0);
+			int[] a=new int[5];
+			System.out.println(a[0]);
+		}			
+		finally
+		{
+			System.out.println("finally block");
+		}		
+		System.out.println("2");
+	}
+	
+	

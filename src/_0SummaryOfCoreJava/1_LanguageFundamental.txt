@@ -1,0 +1,97 @@
+OOPs
+	OOP is a methodology/paradigm to design a program using classes and objects.
+	It simplifies software development and maintenance by providing some concepts:
+		Object, Class, Inheritance, Polymorphism, Abstraction, Encapsulation
+Object
+	Contains an address & space in memory.
+	Objects can communicate without knowing the details of each other's data or code. 
+	The only necessary things is the type of message accepted and the type of response returned by the objects.
+		Example: Dog with different colour, name, breed etc
+				 Wagging the tail, barking, eating etc
+Class
+	Collection of objects is called class. It is a logical entity.
+	It is a blueprint from which we can create an individual object.
+	Class doesn't consume any space.
+	
+Advantage of OOPs over Procedure-oriented programming language(POPl)
+	1. OOPs makes development & maintenance easier.		POPl not easy to manage if code grows as project size increases.
+	2. OOPs provides data hiding.		In POPl, a global data can accessed from anywhere.
+	3. OOPs provides the ability to simulate real-world event much more effectively. 
+		provide the solution of real world problem if using the Object-Oriented Programming language.
+	IDE STS->Preferences->Instslled JREs-->Select JDK not JRE path
+
+
+Language Fundamentals
+	Elements Of Java
+	 Reserved words(53)
+		1)Keyword(50): functionality associated with it
+			Used Keyword(48):	strictfp(1.2 v), assert(1.4 v), enum(1.5 v), etc.
+			Unused Keyword(2):	goto, const
+			Reserved Literals(3): 	true, false, null
+	2)Identifiers: A name in Java program used for identification purpose, it can be Method name, Variable name etc.
+	3)Data types
+		Primitive(8)
+		Numeric data type
+			Integral type: byte, short, int, long
+			Floating type: float, double
+		Non-numeric data-type: char, boolean
+	4)Literals/Constant
+		:A constant value which can be assigned to the variable is called literal.
+		Integral literal(IL) : For integral data type(byte, short, int, long)
+			IL which represents uni-code value of the character  (0 to 65535)
+				In Unicode representation: ‘\uxxxx’
+			8 escape characters
+		int  literals
+			Decimal literals
+			Octal literals (suffix 0)
+			Hexadecimal literals (suffix 0x/0X)
+			Binary literals (suffix 0b/0B)
+		long literals
+			Decimal literals with suffix l/L
+		
+		String literals: ""
+		Null literal : null keyword
+		char Literals:''
+		Boolean Literals: true, false
+		Floating point literals (suffix f/F)
+		double literals (suffix d/D)
+		Exponential form/scientific notation: double d=1.2e3;//1.2*10^3
+	5)Operator & Separators
+	6)Type Casting
+		Implicit type casting/widening/up-casting
+		Explicit type casting/narrowing/down-casting
+	7)Java Coding Standards: Readability, Maintainability
+	8)Comment
+	9)Flow Control
+		Selection Statement: If, else, switch, ?:
+		Iterative statement: for, while, do-while, for each(since 1.5v)
+		Transfer/jump : Break, continue, return, try, catch, finally, assert (since 1.4 v)
+	10)Array
+	11)Variable
+		1: Based on type of value represented by a variable
+			 Primitive Variable: int x=10;
+			 Reference Variable: Student s=new Student();
+		2: Based on position of declaration & behavior of variable
+			 Instance /object level  /attribute/fields
+			 Static  /class level  /attribute/fields 
+			 Local / temporary /stack /automatic/ thread safe 
+		Variable    Thread safe   Life		            	 			Scope
+		Instance    No            same as object                        according to public/protected/<default>/private
+		Static 	    No            same as .class file                   according to public/protected/<default>/private
+		Local 	    Yes	          same as block execution inside block
+	
+	12)Java Features ( Java Buzzwords )
+		Simple,Secure,Strongly-typed Language(improve robustness),	Object Oriented
+		Architecture Neutral,	Compile & Interpreted,	 Distributed & Dynamic
+		Platform Independent, Robust,	Multi-threaded, Portable
+	
+	13)JVM (An interpreter)
+			JVM is platform dependent. It is responsible to run Java Program line by line. 
+		JRE(JVM + Library classes)
+			JRE provides environment to run Java application.
+		JDK(JRE + Development Tools)
+			JDK provides environment to develop & run Java application.
+	 	Java-byte-Code can run in any platform that has the JRE.
+	
+	
+	

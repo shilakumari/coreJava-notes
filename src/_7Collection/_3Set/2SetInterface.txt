@@ -1,0 +1,21 @@
+Set
+It is the child interface of collection.
+Duplicates are not allowed.
+Insertion order not preserved.
+
+Collection(I, 1.2V)
+	Set(I, 1.2V)
+ 		HashSet( 1.2v)
+			LinkedHashSet( 1.4v)
+		SortedSet(I, 1.2V)
+			NavigableSet(I, 1.6V)
+				TreeSet( 1.2V)
+								
+
+1. Set is the child interface of Collection.
+2. If we want to represent a group of individual objects as a single entity, 
+where duplicates are not allowed and insertion order is not preserved then we should go for Set.
+3. Set interface doesn't contain any new methods. 
+	So we have to use only Collection interface methods.
+
+				

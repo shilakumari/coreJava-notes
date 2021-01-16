@@ -1,0 +1,74 @@
+LinkedList
+
+
+	Underlying data structure-doubly linked list
+	Insertion order preserved
+	Duplicates are allowed
+	Heterogeneous element allowed
+	Null element insertion possible
+
+	LinkedList implements Serializable & Cloneable interfaces but not RandomAccess interface.
+	LinkedList implements  Queue & Dequeue interfaces.
+	
+	For linked list capacity concept is not applicable.
+
+Shifting is not required for insertion and deletion of element. 
+	So insertion & deletion in middle will be fast.
+Searching is slow because 1st element contains address of second and second contains address of third and so on.
+LinkedList is the best choice if our frequent operation is insertion or deletion in middle.
+LinkedList is the worst choice if our frequent operation is retrieval operation.
+
+
+
+LinkedList constructors
+	(1)LinkedList l1 = new LinkedList();
+		create an empty LinkedList Object.
+	(2)LinkedList l1 = new LinkedList(Collection c);
+		Create an equivalent LinkedList Object for the given collection.
+
+
+LinkedList demo program
+import java.util.*;
+public class LinkedListDemo{
+	public static void main(String[] args){
+		LinkedList l1 = new LinkedList();
+		l1.add("Ram");
+		l1.add(30);
+		l1.add(null);
+		l1.add("durga");
+		l1.set(0, "software");
+		l1.add(0, "venkey");
+		l1.addFirst("ccc");
+		Systm.out.println(l);//[ccc, venkey, software, 30, null]
+	}
+}
+
+ArrayList vs LinkedList
+Underlying data structure-doubly linked list
+LinkedList is the best choice if our frequent operation is insertion or deletion in middle.
+It does not implement RandomAccess interface
+For linked list capacity concept is not applicable.
+It also implements Queue interface
+
+DS
+(1)Array based
+	Stack
+	Queue
+(2)LinkedList based
+	Stack(LIFO)
+	Queue(FIFO)
+
+
+LinkedList
+Usually we can use LinkedList to implement stacks and queues and 
+to provide support for this requirement LinkedList class defines following specific methods.
+	void addFirst();
+	void addLast();
+	void addFirst(Object o)
+	void addLast(Object o)
+	Object getFirst();
+	Object getLast();
+	Object removeFirst();
+	Object removeLast();
+	
+	

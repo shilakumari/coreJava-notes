@@ -1,0 +1,207 @@
+On release of new movie,they say, to create  hype, this moive will create Bollywood record, if possible world record.
+Same as happen, on release of Java 1.5v, this version will make so simple Java with more flexibility, 
+	all remaining language will be zero.
+Java 1.5V new feature
+	For-each loop
+	Var-arg methods
+	Autoboxing & autounboxing
+	Generics
+	Co-varient return type
+	Queue
+	Annotations
+	Enum
+	static import
+	And many more
+
+On release of Java 1.6V
+Sun people says,If there is no specific requirement, then static import is not recommended to use.
+
+Static import(since 1.5V)
+According to Sun people
+	Reduces length of code
+	Improve readability of code
+According to world wide programming experts like future US
+	Creates confusion 
+	reduces readability of code
+Hence if there is no specific requirement, then it is not recommended to use static import.
+
+	Usually we can access static member by using class-name but whenever we writing static import, 
+	we can access static members directly without class-name.
+class Test
+{
+	public static void main(String args[])
+	{
+		System.out.println(Math.sqrt(4));
+		System.out.println(Math.random());
+		System.out.println(Math.max(2,3));
+	}
+}
+
+import static java.lang.Math.sqrt;
+import static java.lang.Math.random;
+import static java.lang.Math.max;
+class Test
+{
+	public static void main(String args[])
+	{
+		System.out.println(sqrt(4));
+		System.out.println(random());
+		System.out.println(max(2,3));
+	}
+}
+
+import static java.lang.Math.*;
+class Test
+{
+	public static void main(String args[])
+	{
+		System.out.println(sqrt(4));
+		System.out.println(random());
+		System.out.println(max(2,3));
+	}
+}
+
+
+
+Class A{
+	static String s="Hello";
+}
+Class Test{
+	PSVmain(String [] args)
+	{
+		A.s.length();
+	}
+}
+
+Class System{
+	static PrintStream out;
+}
+Class Test{
+PSVmain(String [] args){
+	System.out.println();
+}
+}
+Out is a static variable, present in System class. 
+	Hence we can access by using class-name System but whenever we are writing static import, 
+	it is not required to use class-name and we can access "out" directly.
+
+import static java.lang.System.out; or import static java.lang.System.*;
+Class Test{
+	PSVmain(String [] args){
+		out.println();
+	}
+}
+
+
+import static java.lang.Integer.*;
+import static java.lang.Byte.*;
+class Test{
+	public static void main(String args[]){
+		out.println(MAX_VALUE);//CTE, error: reference to MAX_VALUE is ambiguous
+		out.println(MAX_VALUE);
+	}
+}
+
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Byte.*;
+class Test{
+	public static void main(String args[]){
+		out.println(MAX_VALUE);//2147483647
+		out.println(MAX_VALUE);
+	}
+}
+
+
+While resolving static members, compiler will always consider the precedence in the following order:
+Current class static member
+Explicit static import
+Implicit static import
+
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Byte.*;
+class Test{
+	static int MAX_VALUE=99;
+	public static void main(String args[]){
+		System.out.println(MAX_VALUE);//No CTE, 99
+	}
+}
+
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Byte.*;
+class Test{
+	//static int MAX_VALUE=99;
+	public static void main(String args[]){
+		System.out.println(MAX_VALUE);// 2147483647
+	}
+}
+
+//import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Byte.*;
+class Test{
+	//static int MAX_VALUE=99;
+	public static void main(String args[]){
+		System.out.println(MAX_VALUE);//127
+	}
+}
+Import
+	Normal import
+		Explicit
+		Implicit
+	static import
+		Explicit
+		Implicit
+Normal
+Explicit import
+Import packagename.classname;
+Import java.util.ArrayList;
+
+Implicit import
+Import packagename.*;
+Import java.util.*;
+
+Static import
+Explicit static import
+Import static packagename.classname.staticmember;
+Import static java.lang.Math.sqrt;
+Import static java.lang.System.out;
+
+Implicit static import
+Import static packagename.classname.*;
+Import static java.lang.Math.*;
+Import static java.lang.System.*;
+
+
+Which of the following import statements are valid?
+Import java.lang.Math.*;//invalid
+Import static java.lang.Math.*;
+Import java.lang.Math.sqrt;//invalid
+Import static java.lang.Math.sqrt();//invalid
+Import java.lang.Math.sqrt.*;//invalid
+Import static java.lang.Math.sqrt;
+Import java.lang;//invalid
+Import static java.lang;//invalid
+Import java.lang.*;
+Import static java.lang.*;//invalid
+
+
+
+Two packages contains a class/interface with the same name is very rare. 
+	So ambiguity problem is very rare. Hence in normal import, ambiguity problem is also very rare.
+	In java API, only 2 cases: Date & List 
+
+Two classes/interfaces contains methods/variable with the same name is very common.
+	So ambiguity problem is very common. Hence in static import ambiguity problem is also very common.
+	In java API, many cases:
+	MAX_VALUE- Byte, Short, Integer, Character, Float, Double
+
+Use of static import:
+	Reduces readability 
+	Create confusion
+	Hence if there is no specific requirement, then it is not recommended to use static import.
+
+Diff b/w normal import & static import
+We can use normal import to import classes & interfaces of a particular package.
+Whenever we are using normal import, it is not required to use fully qualified name & we can use short name directly.
+
+We can use static import to import static members of a particular class or interface.
+Whenever we are using static import, it is not required to use class name to access static members & we can access directly.

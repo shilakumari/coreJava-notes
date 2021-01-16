@@ -1,0 +1,111 @@
+Virtual Machine
+It is a s/w simulation of a machine, which can perform operation like a physical machine.
+Example: Calculator
+
+Categories of virtual machine
+⦁	Hardware/System based
+⦁	Process/Application based
+
+Hardware/System based
+It provides several logical system on the same computer with strong isolation from each other.
+On one physical machine we are defining multiple logical machine.
+The main advantage of h/w based virtual machine is h/w resources sharing and improve utilization of h/w resources.
+Example:
+KVM-Kernel based virtual machine for linux system
+VMWare
+Xen
+Cloud Computing
+
+Process/Application based
+These virtual machines act as runtime engines to run a particular programming language application.
+JVM-Java virtual machine, for Java based application
+PVM-parrot virtual machine, for Pearl based application
+CLR-Common Language Runtime, for DotNet based application
+
+JVM is the part of JRE and it is responsible to load and run Java class files.
+
+Basic Architecture Diagram of JVM
+Class loader subsystem load .class files and stores inside JVM memories. 
+Execution engine is responsible to read that .class file, execute and corresponding output we will get.
+
+Figure:
+		.class file --> class loader subsystem
+							|
+							|
+						Various memory area of JVM
+		[method area][heap area][stack area][pc registers][native method stacks]
+							|
+							|
+		[Execution engine]<-->[Java native interface(JNI)]<-->[native method libraries]
+
+
+Class loader subsystem is responsible for the following 3 activities:
+⦁	Loading
+⦁	Linking
+⦁	Initialization
+
+Loading
+Loading means reading .class files and store corresponding binary data in method area.
+For each .class file JVM will store corresponding information in the method area.
+⦁	Fully qualified name of class
+⦁	Fully qualified name of immediate parent class
+⦁	Method information
+⦁	Constructor information
+⦁	Variable information
+⦁	Modifier information
+⦁	Constant pool information
+
+
+After loading .class file, immediately JVM creates an object for that loaded class on the heap memory of type java.lang.Class. 
+These class Class object can be used by the programmer to get class level information like methods information or variable information
+	or constructors information etc	
+Student.class -->Student class information-->class Class object to represent Student class information--> It is not Student object and 
+																										  it is class Class object.
+Customer.class -->Customer class information-->class Class object to represent Customer class information--> It is not Customer object and 
+																										  it is class Class object.
+Hard Disk			method area(JVM)			Heap area(JVM)
+											   java.lang.Class
+
+
+import java.lang.reflect.*;
+class Student{
+	public String getName(){
+		return null;
+	}
+	public int getRollNo(){
+		return 10;
+	}
+}
+class Test{
+	public static void main(String[] args){
+		int count=0;
+		Class c = Class.forname("Student");
+		method[] m = c.getDeclaredMethods();
+		for(method m1:m){
+			count++;
+			System.out.println(m1.getname());
+		}
+		System.out.println(count);
+	}
+}
+
+Notes:
+registerNatives() method of Object class is used by Object class itself and it is not for normal programming purpose, 
+	so normally we consider 11 methods of Object class
+
+Note:
+For every loaded type, only one java.lang.Class object will be created even though we are using loaded types multiple times in our program.
+
+Example:
+	class Test{
+		public static void main(String[] args){
+			Student s1 = new Student();
+			Class c1 = s1.getClass();
+			Student s2 = new Student();
+			Class c2 = s2.getClass();
+
+			System.out.println(c1.hashCode());
+			System.out.println(c2.hashCode());
+			System.out.println(c1==c2);//true
+		}
+	}

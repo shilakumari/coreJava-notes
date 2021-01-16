@@ -1,0 +1,210 @@
+Interface vs Abstract class vs Concrete class
+	If we don't know anything about implementation, just we have requirement specification, then we should go for interface. 
+	Example: Servlet
+	If we are talking about implementation but not completely( partial implementation) then we should go for abstract class. 
+	Example: Generic, HttpServlet etc.
+	If we are talking about completely & ready to provide service, then we should go for concrete class.
+	Example:MyServlet
+ 
+Interface		 	---> servlet(I)										---> Plan
+Abstract class		---> GenericServlet(AC)/HttpServlet(AC)				---> Partially completed building
+ConcreteClass		---> MyOwnServlet									---> Fully completed building
+
+Difference b/w interface  & abstract class
+	If we dont know anything about implementation, just we have requirement specification, then we should go for interface. 
+	Example: Servlet
+	If we are talking about implementation but not completely( partial implementation) then we should go for abstract class. 
+	Example: GenericServlet, HttpServlet etc.
+	
+	Inside interface all methods are always public hence interface is considered as 100% pure abstract class 
+	but inside abstract class, every method need not be public and it may contain concrete method also.
+	
+	As every interface method is always public & abstract and hence we cannot declare with the modifiers private, protected, static, synchronized,
+	native , final & strictfp. 
+	There is no restriction on abstract class method modifiers.
+	
+	Every variable present inside interface is always public, static & final, whether we are declaring or not. 
+	Every variable present inside abstract class need not be public, static, final.
+	
+	As every interface variable is always public static final, we cannot declare it with the modifiers private, protected, transient & volatile. 
+	There are no restrictions on abstract class variable modifiers.
+	
+	For interface variables, compulsory we should perform initialization at the time of declaration only otherwise we will get CTE. 
+	For abstract class variables, we are not required to perform initialization at the time of declaration.
+	
+	Inside interface static block, instance block, constructor are not allowed 
+	but inside abstract class, all these allowed.
+
+Abstract class use cases
+We want to share code among several closely related classes.
+We expect that classes that extend your abstract class have many common methods or fields 
+	or require access modifiers other than public.
+We want to declare non-static or non-final fields, enabling us to define methods that can access & modify the state of the object to which they belong.
+
+Interface Use cases
+We expect that unrelated classes would implement our interface.
+We want to specify the behaviour of a particular data type, but not concerned about who implements its behaviour.
+We want to take advantage of multiple inheritance of type
+
+
+
+Q)Any way we cannot create object for abstract class but abstract class can contain constructor. 
+What is the need of this constructor?
+	Abstract class constructor will be executed whenever we are creating child class object to perform initialization of child class object, ofcourse fields of abstract class.
+	
+Approach 1:
+Without using constructor in abstract class
+	More code
+	Code redundancy problem
+Example:
+abstract class Person{
+	String name;
+	int age;
+	.
+	.
+	.
+	//100 properties
+}
+
+class Student extends Person{
+	int rollno;
+	Student(String name, int age,...){
+	this.name = name;
+	this.age = age;
+	.
+	.
+	.
+	//100 properties
+	this.rollno = rollno;
+	}
+}
+Student s1 = new Student(101 properties);
+
+
+class Teacher extends Person{
+String subject;
+Teacher(String name, int age, ...){
+	this.name=name;
+	this.age = age;
+	.
+	.
+	.
+	//100 properties
+	this.subject=subject;
+	}
+}
+Teacher t1 = new Teacher(101 properties);
+ 
+ 
+Approach 2:
+With constructor in abstract class
+	Less code
+	Code reusability (Not code redundancy)
+Example:
+abstract class Person{
+	String name;
+	int age;
+	.
+	.
+	.
+	//100 properties
+	Person(String name, int age, ...){
+		this.name=name;
+		this.age=age;
+		.
+		.
+		.
+		//100 properties
+	}
+}
+
+class Student extends Person{
+	int rollno;
+	Student(String name, int age,...){
+		super(100 properties);
+		this.rollno = rollno;
+	}
+}
+Student s1 = new Student(101 properties);
+
+class Teacher extends Person{
+	String subject;
+	Teacher(String name, int age, ...){
+		super(100 properties);
+		this.subject=subject;
+	}
+}
+Teacher t1 = new Teacher(101 properties);
+This constructor will work for every child object initialization.
+ 
+Either directly or indirectly, we cannot create object of the abstract class.
+
+Q)Anyway we cann't create object for abstract class & interface 
+   but abstract class can contain constructor but interface does not contain constructor.
+	The main purpose of constructor is to perform initialization for the instance variable i.e. to provide values for instance variables.
+	Abstract class can contain instance variable which are required for child object. 
+		To perform initialization of those instance variables, constructor is required  for abstract class 
+	but every variable present inside interface is always public, static & final, whether we are declaring or not 
+		and there is no chance of existing instance variable inside interface. 
+	Hence constructor concept is not required for interface.
+
+
+Whenever we are creating child class object, parent object wont be created, 
+	just parent class constructor will be executed for the child object purpose only.
+Class P
+{
+P()
+{
+	SOP(this.hashCode());//X
+}
+}
+Class C extends P
+{
+C()
+{
+	SOP(this.hashCode());//X
+}
+}
+Class Test
+{
+	PSVM(String [] args)
+	{
+		C c =new C();
+		SOP(c.hashCode());//X
+	}
+}
+
+
+Q) Inside interface, every method is always abstract & based on our requirement, we can also take only abstract methods in abstract class 
+	then what is the need of interface?. 
+	Is it possible to replace interface with abstract class?
+It is possible to replace interface concept with abstract class, but it is not recommended.
+This is something like, recruiting IAS officer for sweeping activity.
+Add for sweeper post: IAS officer with 5 years experience, IAS can sweeper activity but we would misuse of IAS officer.
+
+If everything is abstract then it is highly recommended to go for interface.   
+
+Approach 1:
+abstract class  X
+{
+}
+class Test extends X
+{
+}
+Problem 1: Inheritance is missing
+Problem 2: Object creating is costly (because parent class constructor also called)
+
+While extending abstract class, it is not possible to extend any other class & hence we are missing inheritance. 
+While implementing interface, we can extend some other class & hence we won't miss inheritance.
+ 
+In this case object creation is costly.
+Test t=new Test();
+
+
+Approach 2:
+interface  X
+{
+}
+Class Test implements X
+{
+}

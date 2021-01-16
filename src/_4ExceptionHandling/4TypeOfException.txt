@@ -1,0 +1,127 @@
+Type Of Exception
+	Checked & 
+	Unchecked exception
+
+7th class-golden days
+10th class exam-special agreement with Gods
+
+Checked Exception
+	HallTicketMissingException, 
+	PenNotWorkingException, 
+	FileNotFoundException, 
+	DieselNotException, 
+	InsufficientDinnerException(during 1st time leadership option)
+
+Un-checkedException-
+	ArithmeticException
+	BomblastException, 
+	FireAccidentException
+
+Class Test{
+PSVM(){
+	PrintWriter pw=new printWriter("abc.txt");
+	Pw.println("Hello");
+}}
+Output:
+CTE, unreported exception java.io.FlieNotFoundException;
+Must be caught or declared to be thrown
+
+
+The exceptions, which are checked by compiler(whether programmer handling or not) for smooth execution of the program are called checked exceptions. 
+In our program, if there is a chance of rising checked exception then compulsory 
+	we should handle that checked exception (either by try-catch or by throws keyword), otherwise we will get CTE.
+
+The exception, which are not checked by compiler whether programmer handling or not, such type of exception is called unchecked exception.
+Example: ArithmeticException, BombblastException, AccidentException
+
+Checked Exceptions are exceptional conditions that a weill-written application should anticipate & recover from.
+Checked Exceptions are exceptional conditions that are internal to the application, & that the application usually cannot anticipate or recover from; these usually indicate programming bugs, such as logical errors or improper use of an API.
+Errors are exceptional conditions that are external to the application, & that the application usually cannot anticipate or recover from;Example, OutOfMemoryError, StackOverflowError
+
+Whether it is checked or unchecked, every exception occur at runtime only. 
+There is no chance of occurring any exception at compile time.
+
+RuntimeException & its child classes, Error & its child classes are unchecked. 
+	Except these, remaining are checked exception.
+
+Exception
+	RuntimeException
+		Arithmetic exception
+		NullPointerException
+		ClassCastException
+		IndexOutOfBoundException
+	IOException
+		EndOfFileException
+		FileNotFoundException
+		InterruptedIOException
+	InterruptedException
+	ServletException
+
+
+Error
+	VirtualMachineException
+		StackOverFlowException
+
+Fully Checked vs Partially checked exception
+A checked exception is said to be fully checked if and only if all its child classes are also checked.
+Example: IOException, InterruptedException
+Very rare: bombblastException
+
+A checked exception is said to be partially checked if and only if some of its child classes are unchecked.
+Example: Exception, Throwable
+The only possible partially checked exceptions in Java are Exception & Throwable.
+ 
+
+Describe the behavior of following exceptions:
+	IOException-Checked (Fully)
+	RuntimeException- Unchecked
+	InterruptedException- Checked (Fully)
+	Error- Unchecked
+	Throwable- Checked (Partially)
+	ArithmeticException- unchecked
+	NullPointerException- unchecked
+	Exception- Checked (Partially)
+	FileNotFoundException- Checked (Fully)
+
+Checked Exception
+	Fully exception
+	Partially exception
+Unchecked Exception
+	Error
+	RuntimeException
+
+Based on who is rising the exception, all exceptions are divided into two categories:
+	JVM exceptions
+	Programetic exceptions
+
+JVM exceptions
+The exceptions which are raised automatically by JVM, whenever a particular event occurs, are called JVM exceptions.
+Example: ArithmeticException, NullPointerException etc
+
+Programetic exceptions
+The exceptions which are raised explicitly by either by programmer or by API developer to indicate that something goes wrong, 
+are called programmatic exceptions.
+Example: TooOldException, IllegalArgumentException
+Thread t=new Thread();
+t.setPriority(4);
+t.setPriority(15); RE, IllegalArgumentException
+class Thread{
+	Public final void setPriority(int newPriority){
+		If(newPriority>MAX_PRIORITY || newPriority<MIN_PRIORITY ){
+			throw new IllegalArgumentException();
+}}}
+
+
+Exception/Error					Raised By
+ArrayIndexOutOfBoundsException  JVM
+NullPointerException			JVM
+ClassCastException				JVM
+StackOverflowError				JVM
+NoClassDefFoundError			JVM
+ExceptionInitializerError		JVM
+
+IllegalArgumentException    	Programmer or API developer
+NumberFormatException			Programmer or API developer
+IllegalStateException			Programmer or API developer
+AssertionError					Programmer or API developer
+

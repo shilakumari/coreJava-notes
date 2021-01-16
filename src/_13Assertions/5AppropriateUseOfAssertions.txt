@@ -1,0 +1,104 @@
+Appropriate & in-appropriate use of Assertions
+Assertions are just for debugging purpose.
+Assertion statements not executes by default on client machine.
+
+Example:
+Check of 1 rupee after sitting 1 hr in ac nd drinking 4 glass water- if cashier have gun then shoot
+Case 1
+It is always in-appropriate to mix programming logic with assert statements 
+	because there is no guarantee for the execution of assert statements always at runtime.
+
+public void withdraw(double amount)
+{
+	if(amount>100)
+	{
+		Process request
+    }else{
+       throw new IllegalStateException()
+    }
+}
+Public void withdraw(double amount)
+{
+    Assert(amount>100);//in-appropriate use of assert
+	Process request;
+}
+
+
+
+Case 2
+While performing debugging in our program, if there is any place where the control is not allowed to reach. 
+That is the best place to use assertion.
+Switch(monthNumber)
+{
+Case 1:  SOP(“JAN”);break;
+Case 2:  SOP(“FEB”);break;
+.
+.
+.
+Case 12:  SOP(“DEC”);break;
+Default:
+	assert(false);//AssertionError
+}
+
+
+
+Case 3:
+It is always inappropriate for validating public method  arguments by using assertion 
+because outside person does not aware whether assertions are enable or disable in our system.
+public void m1(int x)
+{
+	assert(x>10);
+}
+
+
+Case 4:
+It is always appropriate for validating private method  arguments by using assertion 
+because local person aware whether assertions are enable or disable in our system.
+private void m1(int x)
+{
+	assert(x>10);
+}
+
+Case 5:
+It is always inappropriate for validating command line arguments by using assertions 
+because these are arguments to main() method, which is public.
+PSVM(String[] args)
+{
+	assert(args[0].equals(“sachin”));
+}
+
+Class Test
+{
+int y=5;
+public void m1(int x)
+{
+	assert(x>10);//1, inappropriate
+	switch(x)
+	{
+		Case 10:SOP(10);break;
+		Case 11:SOP(11);break;
+		default:	assert(false);//2, appropriate
+}
+}
+private void m2(int x)
+{
+	Assert(x<10);//3, appropriate
+}
+private void m3(int x)
+{
+   ;;;;;;;;;;;;;;;;;;;;;;;
+	assert(m4());//4, inappropriate, programmic logic mixed with assert statement
+	;;;;;;;;;;;;;
+}
+private boolean m4(int x)
+{
+	Y=6;
+	Return true;
+}
+}
+
+
+
+
+
+

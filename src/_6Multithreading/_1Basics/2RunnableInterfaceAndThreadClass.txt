@@ -1,0 +1,18 @@
+public interface Runnable {
+    public abstract void run();
+}
+
+public class Thread implements Runnable {
+    private Runnable target;
+    private volatile String name;
+    
+	public synchronized void start() {
+       //run()
+    }
+	
+    public void run() {
+        if (target != null) {
+            target.run();
+        }
+    }
+}

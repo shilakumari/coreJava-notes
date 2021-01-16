@@ -1,0 +1,36 @@
+Introducing Garbage Collection
+	What is means when we say Java is a managed language
+	How Java knows which objects can be removed from the Heap
+	The System.gc() method
+	Java 11's garbage collector can give unused memory back to the operation system
+	Why it is not a good idea to run the System.gc() method
+	The finalize() method
+	The danger of using finalize()
+	
+What is means when we say Java is a managed language
+	Memory leaks should not be possible in Java.
+		VM is written in c language,which manage memory with the help of OS.
+	Garbage collection is the process to free up memory.
+		Garbage collection introduced in LISP Programming language in 1959.
+	
+
+How Java knows which objects can be removed from the Heap
+	Any object on the heap which can not be reached through a reference from 
+	the stack or Meta-space(where static object reference is present) is eligible for garbage collection.
+	
+	
+The System.gc() method
+	GarbageCollectionMain.java m1()
+
+Java 11's garbage collector can give unused memory back to the operation system
+	
+Why it is not a good idea to run the System.gc() method
+	Garbage collector uses system resources
+	
+The finalize() method
+	From Java 9 finalize() method depricated.
+	
+The danger of using finalize()
+	If finalize() method contain infinite loop then it may kind of stop the garbage collection process.
+	
+		

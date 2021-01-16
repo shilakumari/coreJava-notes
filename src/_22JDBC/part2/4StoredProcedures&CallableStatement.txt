@@ -1,0 +1,173 @@
+Stored Procedures and CallableStatement
+
+In our programming if any code repeatedly required, 
+	then we can define that code inside a method and we can call that method multiple times based on our requirement. 
+Hence method is the best reusuable component in our programming. 
+Similarly in the database programming,if any group of sql statements is repeatedly required then 
+	we can define those sql statements in a single group and we can call that group repeatedly based on our requirement. 
+This group of sql statements that perform a particular task is nothing but Stored Procedure.
+	Hence stored procedure is the best reusable component at database level. 
+Hence Stored Procedure is a group of sql statements that performs a particular task. 
+ 
+These procedures stored in database permanently for future purpose and hence the name stored procedure. 
+Usually stored procedures are created by Database Admin (DBA).  
+
+Every database has its own language to create Stored Procedures. 
+	Oracle has -> PL/SQL 
+	MySQL has -> Stored Procedure Language 
+	Microsoft SQL Server has -> Transact SQL(TSQL 
+ 
+Similar to methods stored procedure has its own parameters. Stored Procedure has 3 Types of parameters. 
+	1. IN parameters(to provide input values) 
+	2. OUT parameters(to collect output values) 
+	3. INOUT parameters(to provide input and to collect  output) 
+Eg 1 : Z:=X+Y; 
+	   X,Y are IN parameters and Z is OUT parameter 
+Eg 2: X:=X+X; 
+ 	  X is INOUT parameter 
+
+
+Syntax for creating Stored Procedure (Oracle): 
+	create or replace procedure procedure1(X IN number, Y IN number,Z OUT number) as   
+	BEGIN   
+	z:=x+y;   
+	END;   
+Note:  SQL and PL/SQL are not case-sensitive languages. We can use lower case and upper case also. 
+	   After writing Stored Procedure, we have to compile for this we required to use "/" (forward slash) 
+	   / -> For compilation 
+while compiling if any errors occurs,then we can check these errors by using the following command  
+	SQL> show errors; 
+Once we created Stored Procedure and compiled successfully,we have to register OUT parameter to hold result of stored procedure
+	SQL> variable sum number;  (declaring a variable)  
+		We can execute with execute command as follows 
+	SQL> execute procedure1(10,20,:sum); 
+	SQL> print sum; 
+ 
+Eg 2:
+	create or replace procedure procedure1(X IN number,Y OUT number) as   
+	BEGIN   
+	Y:= x*x;   
+	END;   
+	/ 
+
+SQL> variable square number; 
+SQL> execute procedure1(10,:square); 
+SQL> print square; 
+    SQUARE
+    ----------    
+    100
+
+Eg3: Procedure To Print Employee Salary Based On Given Employee Number. 
+	1) create or replace procedure procedure2(eno1 IN number,esal1 OUT number) as   
+	2) BEGIN   
+	3)  select esal into esal1 from employees where eno=eno1;  
+	4) END;   
+	5) / 
+
+SQL>variable salary number; 
+SQL>execute procedure2(100,:salary); 
+SQL>print salary; 
+
+Java Code for calling Stored Procedures: 
+If we want to call stored procedure from java application, then we should go for CallableStatement. 
+CallableStatement is an interface present in java.sql package and it is the child interface of PreparedStatement.  
+	statement (I)
+	preparedStatement (I)
+	CallableStatement (I) 
+
+Driver software vendor is responsible to provide implementation for CallableStatement interface. 
+We can create CallableStatement object by using following method of Connection interface. 
+	public CallableStatement prepareCall(String procedure_call) throws SQLException 
+		Eg:  CallableStatement cst=con.prepareCall("{call addProc(?,?,?)}"); 
+  		{call addProc (?,?,?)} 
+ 		where call-	JDBC Keyword  
+ 			  addProc- Procedure Name   
+ 			  (?,?,?)- Parameters 
+Whenever JVM encounters this line,JVM will send call to database.
+Database engine will check whether the specified procedure is already available or not. 
+If it is available then it returns CallableStatement object representing that procedure
+
+
+Mapping Java Types to database Types by using JDBC Types: 
+Java related data types and database related data types are not same.Some mechanism must be required 
+	to convert java types to database types and database types to java types. 
+This mechanism is nothing but "JDBC Types",which are also known as "Bridge Types".
+
+Java Data Type 		JDBC Data Type 		Oracle Data Type 
+int 				Types.INTEGER 		number 
+float 				Types.FLOAT 		number 
+String 				Types.VARCHAR 		varchar.varchar2 
+java.sql.Date 		Types.DATE			date 
+.					.					.
+.                   .                   .
+
+Note: JDBC data types are defined as constants in "java.sql.Types" class. 
+ 
+Process to call Stored Procedure from java application by using CallableStatement: 
+1. Make sure Stored procedure available in the database 
+	 create or replace procedure addProc(num1 IN number,num2 IN number,num3 OUT numbe r) as   
+	 BEGIN   
+	    num3 :=num1+num2;   
+	 END;   
+	 / 
+2. Create a CallableStatement with the procedure call. 
+	CallableStatement cst = con.prepareCall("{call addProc(?,?,?)}"); 
+3. Provide values for every IN parameter by using corresponding setter methods. 
+	cst.setInt(1, 100); cst.setInt(2, 200);                
+	where 2- index       
+		  200- value 
+4. Register every OUT parameter with JDBC Types. 
+If stored procedure has OUT parameter then to hold that output value we should register every OUT parameter by 
+	using the following method. 
+	public  void registerOutParameter (int index, int jdbcType) 
+		Eg: cst.registerOutParameter(3,Types.INTEGER); 
+Note: 
+	Before executing procedure call, all input parameters should set with values and 
+	every OUT parameter we have to register with jdbc type.  
+5. execute procedure call          
+	cst.execute(); 
+6. Get the result from OUT parameter by using the corresponding getXxx() method. 
+	Eg: int result=cst.getInt(3); 
+
+
+Stored Procedures App1: JDBC Program to call StoredProcedure which can take two input numbers and produces the result. 
+Stored Procedure: 
+	 create or replace procedure addProc(num1 IN number,num2 IN number,num3 OUT numbe r) as   
+	 BEGIN   
+	    num3 :=num1+num2;   
+	 END;   
+	 /   
+
+	Example: StoredProcedureDemo1.java 
+
+Stored Procedures App2: JDBC Program to call StoredProcedure which can take employee number as input and provides corresponding salary. 
+Stored Procedure: 
+	 create or replace procedure getSal(id IN number,sal OUT number) as   
+	 BEGIN   
+	    select esal into sal from employees where eno=id;   
+	 END;   
+	 / 
+
+	Example: StoredProceduresDemo2.java 
+
+Stored Procedures App3: JDBC Program to call StoredProcedure which can take employee number as input and 
+	provides corresponding name and salary. 
+Stored Procedure:
+	create or replace procedure getEmpInfo(id IN number,name OUT varchar2,sal OUT numbe r) as   
+	 BEGIN   
+	    select ename,esal into name,sal from employees where eno=id;   
+	 END;   
+	 /   
+
+	Example: StoredProceduresDemo3.java 
+
+
+
+
+
+
+
+
+
+
+

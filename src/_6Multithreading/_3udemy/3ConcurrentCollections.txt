@@ -1,0 +1,130 @@
+CountDownLatches
+CyclicBarrier
+BlockingQueue
+DelayQueue
+PriorityBlockingQueue
+ConcurrentMap
+Exchangers
+
+1)
+ CountDownLatch
+  This is used to synchronize one or more tasks by forcing them to wait 
+	for the completion of a set of operations being performed by other tasks
+  
+ 		- You give an initial count to a CountDownLatch object, and any task that calls await()
+ 				on that object will block until the count reaches zero
+ 
+  		- Other tasks may call countDown() on the object to reduce the count, presumably when a task finishes its job
+  		- A CountDownLatch is designed to be used in a one-shot fashion; the count cannot be reset !!!
+  				If you need a version that resets the count, you can use a CyclicBarrier instead
+  
+  		- The tasks that call countDown() are not blocked when they make that call. 
+					Only the call to await() is blocked until the count reaches zero
+  		A typical use is to divide a problem into n independently solvable tasks and create a CountDownLatch with a value of n.
+  		When each task is finished it calls countDown() on the latch. Tasks waiting for the problem to be solved call await() 
+  		on the latch to hold themselves back until it is completed
+
+CountDownLatch class
+	countDown()
+	await()
+	join() was for single thread & latch is for multiple thread can wait
+	
+Example:CountDownLatchDemo.java
+
+
+
+2)	
+Cyclic Barriers
+  Latch --> multiple threads can wait for each other
+
+  A CyclicBarrier is used in situations where you want to create a group of
+  tasks to perform work in parallel + wait until they are all finished before
+  moving on to the next step -> something like join() -> something like
+  CountDownLatch
+  
+  CountDownLatch: one-shot event CyclicBarrier: it can be reused over and over
+  again
+  
+  cyclicBarrier has a barrier action: a runnable, that will run automatically
+  when the count reaches 0 !!
+  
+  new CyclicBarrier(N) -> N threads will wait for each other
+ 
+  WE CAN NOT REUSE LATCHES BUT WE CAN REUSE CyclicBarriers --> reset() !!!
+  
+Example:CyclicBarrierDemo.java
+ 
+
+3)
+* 	BlockingQueue -> an interface that represents a queue that is thread safe
+ * 		Put items or take items from it ...
+ * 
+ * 		For example: one thread putting items into the queue and another thread taking items from it
+ * 			at the same time !!!
+ * 				We can do it with producer-consumer pattern !!!
+ * 
+ * 		put() putting items to the queue
+ * 		take() taking items from the queue
+ * 
+    We do not need to manage low level synchronization using wait() & notify().
+ 
+ Example:BlockingQueueDemo.java
+ 		BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+ 
+4)
+Delay Queue
+/**
+ * This is an unbounded BlockingQueue of objects that implement the Delayed
+ * interface
+ * 
+ * - DelayQueue keeps the elements internally until a certain delay has expired
+ * 
+ * - an object can only be taken from the queue when its delay has expired !!! -
+ * 
+ * We cannot place null items in the queue - The queue is sorted so that the
+ * object at the head has a delay that has expired for the longest time.
+ * 
+ * If no delay has expired, then there is no head element and poll( ) will
+ * return null
+ * 
+ * size() return the count of both expired and unexpired items !!!
+ *
+ */
+Example: DelayQueueDemo.java
+		BlockingQueue<DelayedWorker> blockingQueue = new DelayQueue<DelayedWorker>();
+
+
+
+5)
+PriorityBlockingQueue
+* It implements the BlockingQueue interface
+ * 
+ * 	- unbounded concurrent queue
+ * 	- it uses the same ordering rules as the java.util.PriorityQueue class -> have to implement the COmparable interface
+ * 			The comparable interface will determine what will the order in the queue
+ * 
+ * 			The priority can be the same compare() == 0 case
+ * 
+ *  - no null items !!!
+Example:PriorityBlockingQueueDemo
+			BlockingQueue<String> queue = new PriorityBlockingQueue<>();
+	
+6)
+Concurrent Maps
+Example:ConcurrentMapDemo.java
+			ConcurrentMap<String, Integer> map = new ConcurrentHashMap<>();
+	
+7)
+Exchanger
+/**
+ * With the help of Exchanger -> two threads can exchange objects
+ * 
+ * exchange() -> exchanging objects is done via one of the two exchange()
+ * methods
+ * 
+ * 	For example: genetic algorithms, training neural networks
+ *
+ */
+Example: ExchnagerDemo.java
+			Exchanger<Integer> exchanger = new Exchanger<>();
+	

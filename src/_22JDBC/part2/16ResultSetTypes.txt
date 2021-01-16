@@ -1,0 +1,312 @@
+ResultSet Types
+ 
+Division-1: 
+Based on operations performed on ResultSet, we can divide ResultSet into 2 types  
+	1. Read Only ResultSets (Static ResultSets) 
+	2. Updatable ResultSets (Dynamic ResultSets) 
+ 
+1.Read Only ResultSets: 
+	We can perform only read operations on the ResultSet by using corresponding getter methods and we cannot perform any updations. 
+	By default ResultSet is Read Only. 
+	We can specify explicitly ResultSet as Read only by using the following constant of ResultSet. 
+	public static final int CONCUR_READ_ONLY -> 1007 
+ 
+2. Updatable ResultSets: 
+	The ResultSet which allows programmer to perform updations, such type of ResultSets are called Updatable ResultSets. 
+	In this case we can perform select, insert, delete and update operations. 
+	We can specify ResultSet explicitly as Updatable by using the following constant of ResultSet. 
+	public static final int CONCUR_UPDATABLE ->  1008 
+ 
+Division-2: 
+Based on Cursor movement, ResultSets will be divided into the following 2 types. 
+	1. Forward only (Non-Scrollable) ResultSet 
+	2. Scrollable ResultSets 
+1. Forward Only ResultSets: 
+	It allows the programmers to iterate records only in forward direction i.e. from top to bottom sequentially. 
+	By default every ResultSet is forward only. 
+	We can specify explicitly ResultSet as Forward only by using the following constant of ResultSet
+	public static final int TYPE_FORWARD_ONLY -> 1003
+
+2. Scrollable ResultSets: 
+It allows the programmers to iterate in both forward and backward directions. 
+We can also jump to a particular position randomly, or relative to current position. Here we can move to anywhere. 
+There are two types of Scrollable ResultSets. 
+1. Scroll Insensitive ResultSet 
+2. Scroll Sensitive ResultSet 
+ 
+1. Scroll Insensitive ResultSet: 
+	After getting ResultSet if we are performing any change in Database and if those changes are not reflecting to the ResultSet, 
+		such type of ResultSets are called scroll insensitive ResultSets. 
+		i.e ResultSet is insensitive to database operations. 
+	We can specify explicitly ResultSet as Scroll insensitive by using the following constant  
+	public static final int TYPE_SCROLL_INSENSITIVE -> 1004 
+ 
+2.Scroll sensitive ResultSets: 
+	After getting the ResultSet if we perform any change in the database and if those changes are visible to ResultSet, 
+		such type of ResultSet is called Scroll sensitive ResultSet. 
+ 		i.e ResultSet is sensitive to database operations 
+ 	We can specify explicitly ResultSet as scroll sensitive by using the following constant..  
+	public static final int TYPE_SCROLL_SENSITIVE -> 1005
+
+
+Differences Between Scroll Insensitive And Scroll Sensitive ResultSets 
+(1)After getting ResultSet if we perform any  updation in the DB then those updation are  not visible to the ResultSet i.e. 
+	ResultSet is insensitive to DB updations.  
+(1)After getting ResultSet if we perform any  updation in the DB then those updation are  by default available to the to the ResultSet i.e. 
+	ResultSet is sensitive to DB updations.  
+(2)As insensitive ResultSet is like snapshot of  Data in DB when Query will be executed. 
+(2)A Sensitive ResultSet doesn't represent snap shot of Data. It contains Pointers to Rows of DB directly, which satisfy Query Condition. 
+(3)Relatively Performance is High. 
+(3)Relatively Performance is low because for get Operation a Trip is required to DB. 
+
+
+Differnences between Forward only and Scrollable ResultSets
+Non Scrollable (Forward only) 			Scrollable 
+(1)Cursor can move only in Forward Direction.  
+(1)Cursor can move in both Forward and Backward Direction.  
+(2)This Cursor can't move randomly. 
+(2)Scrollable ResultSet Cursor can move randomly. 
+(3)By using Non Scrollable ResultSet Cursor if we want to move Nth Record (N + 1) Iterations are required. 
+(3)Performance is high because Cursor can move randomly to any Record
+
+How to get Required ResultSet: 
+We can create Statement objects as follows to get desired ResultSets. 
+	Statement st =con.createStatement(int type,int mode); 
+	PreparedStatement pst=con.prepareStatement(query,int type,int mode); 
+ 
+Allowed values for type are:         
+ResultSet.TYPE_FORWARD_ONLY       -> 1003         
+ResultSet.TYPE_SCROLL_INSENSITIVE -> 1004         
+ResultSet.TYPE_SCROLL_SENSITIVE   -> 1005 
+ 
+Allowed values for mode are:         
+	ResultSet.CONCUR_READ_ONLY -> 1007         
+	ResultSet.CONCUR_UPDATABLE -> 1008  
+Eg: for Scroll sensitive and updatable ResultSet: 
+	Statement st =con.createStatement(1005,1008); 
+Note: Default type is forward only and default mode is read only.
+
+Note: To use various types of ResultSets underlying database support and driver support 
+	must be required Some databases and some driver softwares won’t provide proper support. 
+
+
+We can check whether the database supports a particular type of ResultSet or not by using the following methods of DatabaseMetaData. 
+1. public boolean  supportsResultSetConcurrency(int type, int concurrency) 
+	Retrieves whether this database supports the given concurrency type in combination with the given result set type. 
+2. public boolean supportsResultSetType(int type) 
+	Retrieves whether this database supports the given ResultSet type. 
+ 
+Program to Check whether database supports particular type of ResultSet or not 
+	Example: ResultSetTypeTest.java
+
+List of allowed methods on Non-Scrollable ResultSets(Forward only): 
+1.rs.next()     
+	it checks whether next record is available. If it is available then cursor will move to that position 
+2.rs.getXxx()    
+	Read column values from record either with column index or with column name 
+3.rs.getRow()    
+	It returns current position of cursor in the ResultSet i.e row number 
+ 
+List of allowed methods on Scrollable ResultSets: 
+1.rs.next() 
+2.rs.getXxx() 
+3.rs.getRow()  
+4.rs.previous()     
+	It checks whether previous record is available or not. If it is available then the cursor will move to that record position 
+5.rs.beforeFirst();    
+	the cursor will be moved to before first record position 
+6.rs.afterLast()     
+	moves the cursor after last record position 
+7.rs.first()      
+	moves the cursor to the first record position 
+8.rs.last()      
+	moves the cursor to the last record position 
+9.rs.absolute(int x)       
+	The argument can be either positive or negative.       
+	If it is positive then the cursor will be moved to that record position from top of ResultSet.       
+	If the argument is negative then it will be moved to the specified record position from last. 
+10.rs.relative(int x)     
+	The argument can be either positive or negative     
+	If the argument is positive then the cursor will move to forward direction to specified number of records from the current position. 
+	If the argument is negative then the cursor will move to backward direction to the specified number of records from the current position. 
+11. rs.isFirst()      
+	returns true if the cursor is locating at first record position 
+12. rs.isLast() 
+13. rs.isBeforeFirst() 
+14. rs.isAfterLast() 
+15. rs.refreshRow()     
+	We can use this method in scroll sensitive ResultSets to update row with latest values from Database.  
+
+
+Q. What is the difference Between absolute() and relative()methods? 
+absolute() 
+	method will always work either from BFR or from ALR. 
+relative() 
+	method will work wrt to current position. In both methods +ve number means we have to move forward direction and 
+	-ve number means we have to move backward direction. 
+ 
+Note: 
+1. rs.last() and rs.absolute(-1) both are equal 
+2. rs.first() and rs.absolute(1) both are equal 
+ 
+Application-1: Iterating records in both forward and backward direction by using SCROLLABLE ResultSet 
+	Example: ResultSetTypesDemo1.java
+Application-2: Navigating  Records by using SCROLLABLE ResultSet 
+	Example: ResultSetTypesDemo2.java
+Application-3: Reflecting Database updations  by using SCROLL SENSITIVE ResultSet (Type-1 Driver) 
+	Example: ResultSetTypesDemo3.java
+Note: Very few Drivers provide support for SCROLL_SENSITIVE Result Sets. 
+
+
+Type-1 Driver will provide support for this feature. 
+	But it supports only update operation, but not delete and insert operations. 
+Type-2 driver also can provide support for SCROLL_SENSITIVE ResultSets. 
+	But we should not use * in select query. we should use only column names. 
+	It supports only update operation, but not delete and insert operations. 
+ 
+Application-4: Reflecting Database updations  by using SCROLL SENSITIVE ResultSet (Type-2 Driver) 
+	Example: ResultSetTypesDemo3T2.java
+
+Note: Very few Drivers provide support for SCROLL_SENSITIVE Result Sets. 
+	  Type-1 Driver will provide support for this feature. 
+	  But it supports only update operation, but not delete and insert operations. 
+ 
+Type-2 driver also can provide support for SCROLL_SENSITIVE ResultSets. 
+But we should not use * in select query. we should use only column names. 
+It supports only update operation, but not delete and insert operations. 
+ 
+ 
+
+Updatable ResultSets:  
+	If we perform any changes to the ResultSet and if those changes are reflecting to the Database, 
+		such type of ResultSets are called Updatable ResultSets. 
+	By default ResultSet is Read only. But we can specify explicitly as updatable by using the following constant. 
+	CONCUR_UPDATABLE -> 1008 
+	For Updatable ResultSets, we have to create Statement object as follows.. 
+		Statement st =con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE); 
+	
+Delete Record From ResultSet: 
+Sample Code: 
+	rs.last(); 
+	rs.deleteRow(); 
+
+Application-7: Performing  Database updations (DELETE operation)  by using UPDATABLE ResultSet (Type-1 Driver) 
+	Example: ResultSetTypesDemo5.java
+
+Note: Very few Drivers provide support for CONCUR_UPDATABLE Result Sets. Type-1 Driver will provide support for this feature. 
+ 
+Type-2 driver also can provide support for CONCUR_UPDATABLE ResultSets. 
+But we should not use * In select query. We should use only column names. 
+ 
+Update Record of ResultSet: 
+Sample Code Eg 2: 
+ 	rs.absolute(3);   
+ 	rs.updateString(2,"KTR");   
+ 	rs.updateFloat(3,10000);   
+ 	rs.updateRow();  
+Sample Code Eg 2: 
+while(rs.next()) {
+	float esal = rs.getFloat(3);   
+	if(esal<5000) {   
+		float incr_sal=esal+777;  
+		rs.updateFloat(3,incr_sal);  
+		rs.updateRow();
+	}
+}
+
+
+Application-5: Performing  Database updations (UPDATE operation)  by using UPDATABLE ResultSet (Type-1 Driver)
+	Example: ResultSetTypesDemo4.java
+Note: Very few Drivers provide support for CONCUR_UPDATABLE Result Sets. Type-1 Driver will provide support for this feature. 
+ 
+ 
+Type-2 driver also can provide support for CONCUR_UPDATABLE ResultSets. 
+But we should not use * In select query. We should use only column names. 
+ 
+Application-6: Performing  Database updations (UPDATE operation)  by using UPDATABLE ResultSet (Type-2 Driver) 
+	Example: ResultSetTypesDemo4T2.java
+
+Note: Very few Drivers provide support for CONCUR_UPDATABLE Result Sets. Type-1 Driver will provide support for this feature. 
+ 
+Type-2 driver also can provide support for CONCUR_UPDATABLE ResultSets. 
+But we should not use * In select query. we should use only column names. 
+ 
+
+Insert operation:  
+Sample code: 
+	rs.moveToInsertRow();   
+	rs.updateInt(1,1010);   
+	rs.updateString(2,"sunny");   
+	rs.updateFloat(3,3000);   
+	rs.updateString(4,"Mumbai");   
+	rs.insertRow();   
+
+Application-8: Performing  Database updations (INSERT operation)  by using UPDATABLE ResultSet (Type-1 Driver) 
+	Example: ResultSetTypesDemo6.java
+
+Note: Very few Drivers provide support for CONCUR_UPDATABLE Result Sets. Type-1 Driver will provide support for this feature. 
+ 
+Type-2 driver also can provide support for CONCUR_UPDATABLE ResultSets. 
+But we should not use * In select query. we should use only column names. 
+ 
+Conclusions: 
+1.Updatable ResultSets allows the programmer to perform  following operations on ResultSet.    
+	select    
+	insert    
+	delete    
+	update 
+2. Updatable ResultSets allows the programmer to perform insert, update and delete database operations without using SQL Queries. 
+3.Very few drivers provide support for Updatable ResultSets.   
+	Type-1 Driver provides support   
+	Type-2 Driver provides support but we should not use * in SQL Query and we should use column names. 
+4.ResultSet cannot be updatable if we are using joins and aggregate functions  
+5.It is not recommended to perform database updations by using updatable ResultSets, 
+	b'z most of the drivers and most of the databases won't provide support for Updatable ResultSets. 
+ 
+ResultSet Holdability: 
+The ResultSet holdability represents whether the ResultSet is closed or not whenever we call commit() method on the Connection object. 
+There are two types of Holdability 
+	HOLD_CURSORS_OVER_COMMIT -> 1 
+	CLOSE_CURSORS_AT_COMMIT -> 2 
+ 
+HOLD_CURSORS_OVER_COMMIT: 
+	It means the ResultSet will be opened for further operations even after calling con.commit() method.
+
+CLOSE_CURSORS_AT_COMMIT: 
+	It means that ResultSet will be closed automatically whenever we are calling con.commit() method. 
+ 
+We can get Current Holdability of the ResultSet as follows. 
+	SOP(rs.getHoldability()); 
+ 
+For most of the databases default holdabiltiy is 1 
+We can check whether database provides support for a particular holdability or not by using the following method of DatabaseMetaData. 
+	supportsResultSetHoldability() 
+We can create Statement object for our required Holdability as follows... 
+	Statement st = con.createStatement(1005,1008,2); 
+	RS rs = st.executeQuery("select * from employees"); 
+	con.commit(); 
+	rs.aboslute(3); -> SQLException 
+ 
+Note: Most of the databases like Oracle, MySQL won't provide support for holdability 2. 
+ 
+Program to check ResultSet Holdability:
+	Example: ResultSetHoldabilityDemo1.java
+Program to display  properties of ResultSet
+	Example: ResultSetHoldabilityDemo3.java
+
+
+Summary of ResultSet Types 
+ResultSet Type 		ResultSet Concurrency 		ResultSet Holadability 
+(1) TYPE_FORWARD_ONLY [1003]
+	TYPE_SROLL_INSENSITIVE [1004] 
+	TYPE_ SROLL_SENSITIVE [1005] 
+	The Default Concurrency is  
+		TYPE_FORWARD_ONLY
+(1) CONCUR_READ_ONLY[1007] 
+	CONCUR_UPDATABLE [1008] 
+	The Default Concurrency is 
+		CONCUR_READ_ONLY 
+(1) HOLD_CURSORS_OVER_COMMIT [1] 
+	CLOSE_CURSORS_AT_ COMMIT [2]  
+ 	The Default Holadability is  
+ 		HOLD_CURSORS_OVER_ COMMIT 

@@ -1,0 +1,3 @@
+1.Inside interface we can take only abstract method. But in abstract class also we can take only abstract methods based on our requirement. 
+	Then what is the need of interface? i.e. Is it possible to replace interface concept with abstract class?
+

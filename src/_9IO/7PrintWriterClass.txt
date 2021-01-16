@@ -1,0 +1,89 @@
+PrintWriter
+It is the most enhanced Writer to write to character data to the file.
+
+There is no need of line separator in PrintWriter if we use println() methods.
+PrintWriter can communicate either directly to the file or some Writer object also.
+The main advantage of PrintWriter is we can write any type of primitive data directly to the file.
+
+Constructors
+1)PrintWriter pw=new PrintWriter(String fileName);
+2)PrintWriter pw=new PrintWriter(File f);
+3)PrintWriter pw=new PrintWriter(Writer w);
+
+Methods
+write methods
+	write(int ch)
+	write(char[] ch)
+	write(String s)
+	flush()
+	close()
+print methods
+	print(char ch)
+	print(int i)
+	print(double d)
+	print(boolean b)
+	print(String s)
+println methods
+	println(char ch)
+	println(int i)
+	println(double d)
+	println(boolean b)
+	println(String s)
+
+
+import  java.io.*;
+class Test
+{
+public static void main(String[] args)throws IOException
+{
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter("abc.txt");
+			pw.write(100);// d
+			pw.println(100);// 100
+			pw.println(true);
+			pw.println('A');
+			pw.println("Abhi");
+			pw.flush();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			pw.close();
+		}
+}
+}
+/*
+d100
+true
+A
+Abhi
+*/
+
+
+
+Conclusions
+1) The most enhanced Writer to write character data to the file is PrintWriter whereas the most enhanced Reader to read character data from 
+	the file is BufferedReader.
+2) There are two types of data
+Character data(text data)
+	Reader
+	Writer
+Binary data(Image,Pdf,Doc,Video files,Audio files)
+	Streams
+		InputStream
+		OutputStream
+In general we can use Reader & Writers to handle character data(text data).
+Where as we can use streams to handle binary data.
+We can use FileInputStream to read binary data from the file & we can use FileOutputStream to write binary data 
+	to the file(Like images, video files, audio files etc.)
+3)Object
+	Writer
+		OutputStreamWriter(abstract class)
+			FileWriter
+		BufferedWriter
+		PrintWriter
+	Reader
+		InputStreamReader(abstract class)
+			FileReader
+		BufferedReader
+

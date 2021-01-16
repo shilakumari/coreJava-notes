@@ -1,0 +1,5 @@
+public abstract class Dictionary<K,V> extends Object
+
+NOTE: This class is obsolete. New implementations should implement the Map interface, rather than extending this class.
+Direct Known Subclasses:
+Hashtable

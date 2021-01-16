@@ -1,0 +1,102 @@
+Meta annotation
+Annotation about annotation
+Java.lang.annotation package
+
+@Inherited
+@Documented
+@Target
+@Retention
+
+
+@Inherited
+@ interface Persistable{.....}
+
+@Inherited
+@ interface Persistable
+
+
+
+@Persistable
+Class Employee
+{
+	String eid;
+	String ename;
+}
+
+Class Manager extends Employee
+{
+	Void fetManagerDetails()
+{
+	SOP(eid+� �+ename);
+}
+}
+
+By default, annotations are not inheritable.
+To make any annotation inheritable, we go for @Inherited.
+
+
+
+
+
+@Documented
+By default, annotation are not documented in Javadoc.
+To make any annotation, as documentable 
+@Documented
+@Persistable
+Public Class Employee
+{
+	Public String eid;
+	Public String ename;
+	Public employee (String eid, String ename)
+{}
+Public void add()
+{}
+}
+The tool Sun Microsystems provides for documentation is the “javadoc” tool.
+javadoc is a Documentation Generator from Sun Microsystems for generating API documentation in HTML format from Java source code.
+A Documentation Generator is a programming tool that generates software documentation intended for programmers (API documentation) 
+	or end users (End-user Guide), or both, from a set of specially commented source code files.
+An application programming interface (API) is a protocol intended to be used as an interface by software components to communicate with each other.
+
+
+
+@Target 
+To define target programming element to which we want to apply any particular annotation.
+
+@Target(ElementType val)
+
+ElementType.TYPE-class, abstract class, interface
+ElementType.FIELD-variable
+ElementType.METHOD-methods
+ElementType.CONSTRUCTOR-CONSTRUCTORS
+.
+.
+
+@Tareget(ElementType.TYPE, ElementType.FIELD)
+@ interface Persistable{.....}
+
+Here ElementType is an enum.
+
+
+
+@Retention
+
+@Interface Persistable
+{
+}
+
+@Retention(RetensionPolicy val)
+RetensionPolicy.SOURCE
+RetensionPolicy.CLASS
+RetensionPolicy.RUNTIME
+
+
+@Retention(RetensionPolicy.RUNTIME)
+@Interface Persistable
+
+
+
+
+{
+}
+RetensionPolicy is an enum.

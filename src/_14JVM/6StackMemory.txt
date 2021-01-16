@@ -1,0 +1,126 @@
+Stack Memory
+	For every thread, JVM will create, a separate stack at the time of thread creation.
+	Each & every method call performed by that thread will be stored in the stack,  including local variable also.
+	After completing a method the corresponding entry from the stack, will be removed.
+	After completing, all method calls, the stack will become empty & 
+		that empty Stack will be destroyed by the JVM, just before terminating the thread.
+	Each entry in the Stack is called Stack Frame / Activation record.
+	The data stored in the Stack is available only for the corresponding & not available to the remaining threads. 
+		Hence this data is thread safe.
+
+Example:
+	class Test{
+		public static void main(String[] args){
+			m1();
+		}
+		public static void m1(){
+			m2();
+		}
+		public static void m2(){
+		}
+	}
+
+Stack frame -
+	Runtime stack 
+		m2()
+		m1()
+		main()
+
+Stack frame
+	t1				t2				t3
+	[]				[]				[]
+	[]				[]				[]
+	[]				[]				[]
+	Runtime stack	Runtime stack	Runtime stack
+				SATCK MEMORY
+
+
+Structure of Stack Frame
+⦁	Local variable array
+⦁	Operand stack
+⦁	Frame Data
+
+Local variable array
+	It contains all parameters and local variable of the method.
+	Each slot in the array if of 4 bytes. 
+	Values of type int , float and references occupy 1 entr in the array.
+	Values of double and long occupy 2 consecutive entries in the aaray.
+	Byte, short and char values will be converted to int type, before storing & occupying 1 -1 slot.
+	But they way of storing Boolean value is vary from JVM to JVM, But most of the JVM follow 1 slot for Boolean value
+
+Example:
+	public void main(int i, double d, Object o, float f){
+		long x;
+		.
+		.
+		.
+	}
+
+
+Operand stack
+	JVM uses operand stack as workspace.
+	Some instructions can push values to the operand stack and some instruction can pop values from the operand stack. 
+		And some instructions can perform required operations.
+
+IMAGE:
+
+
+Frame Data
+Frame data contains all symbolic references related to that method. 
+It also contains a reference to exception table which provides corresponding catch block information in the case of exceptions.
+
+
+PC (Program counter) registers
+For every thread a separate PC register will be created at the time of thread creation.
+PC register holds the address of current executing instruction. 
+Once instruction execution completes automatically PC register will be incremented to hold address of next instruction.
+
+Native method stack
+Native methods are implemented in other than Java language.
+For every thread JVM will create a separate native method stack.
+All native method calls invoked by the thread will be stored in the corresponding native method stack.
+
+Conclusions
+Method area, heap area and stack area are considered as memory area w.r.t. programmer.
+Method area and heap area are per JVM where as stack area, PC register & native method stack are per thread.
+
+For every JVM
+	one heap area
+	one method area
+
+For every Thread
+	one Stack area
+	one PC Register
+	one native method stack
+
+Static variable will be stored in method area.
+Instance variable will be stored in heap area.
+Local variable will be stored in stack area.
+
+Example:
+	class Test{
+		Student s1 = new Student();
+		static Student s2 = new Student();
+		public static void main(String[] args){
+			Test t = new Test();
+			Student s3 = new Student(3);
+		}
+	}
+method area
+	s2
+
+Heap area
+	Student object(3)
+	Student object
+	Student object
+	new Test()
+Stack area
+	s3
+	t
+
+
+
+
+
+
+

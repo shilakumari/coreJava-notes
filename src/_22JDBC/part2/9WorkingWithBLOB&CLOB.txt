@@ -1,0 +1,169 @@
+Working with Large Objects (BLOB And CLOB)
+Sometimes as the part of programming requirement,we have to insert and retrieve large files like 
+	images,video files,audio files,resume etc wrt database. 	
+	Eg: upload image in matrinomial web sites upload resume in job related web sites 
+
+To store and retrieve large information we should go for Large Objects(LOBs).  
+There are 2 types of Large Objects. 
+	1. Binary Large Object (BLOB) 
+	2. Character Large Object (CLOB) 
+
+1) Binary Large Object (BLOB) 
+	A BLOB is a collection of binary data stored as a single entity in the database. 
+	BLOB type objects can be images,video files,audio files etc.. 
+	BLOB datatype can store maximum of "4GB" binary data. 
+ 
+2) CLOB (Character Large Objects): 
+	A CLOB is a collection of Character data stored as a single entity in the database. 
+	CLOB can be used to store large text documents(may plain text or xml documents) 
+	CLOB Type can store maximum of 4GB data. 
+	Eg: hydhistory.txt 
+ 
+Steps to insert BLOB type into database: 
+	1. create a table in the database which can accept BLOB type data. 
+		create table persons(name varchar2(10),image BLOB); 
+	2. Represent image file in the form of Java File object. 
+		File f = new File("katrina.jpg"); 
+	3. Create FileInputStream to read binary data represented by image file 
+		FileInputStream fis = new FileInputStream(f); 
+	4. Create PreparedStatement with insert query. 
+		PreparedStatement pst = con.prepareStatement("insert into persons values(?,?)"); 
+	5. Set values to positional parameters. 
+		pst.setString(1,"katrina"); 
+ 
+	To set values to BLOB datatype, we can use the following method: setBinaryStream() 
+	public void setBinaryStream(int index,InputStream is) 
+	public void setBinaryStream(int index,InputStream is,int length) 
+	public void setBinaryStream(int index,InputStream is,long length) 
+	Eg: 
+		pst.setBinaryStream(2,fis); -> Oracle 11g 
+		pst.setBinaryStream(2,fis,(int)f.length()); -> Oracle 10g  
+	
+	6. execute sql query 
+		pst.executeUpdate();               
+
+Program to Demonstrate insert BLOB type into database:  
+	DB: create table persons(name varchar2(10),image BLOB); 	
+	
+	Example: BLOB1.java
+
+
+Retrieving BLOB Type from Database: 
+We can use either simple Statement or PreparedStatement
+	
+	Source File(10 KB) --> Destination File(10 KB)
+	Without buffering 10 * 1024 read & write Operations are required 
+	
+	Source File(10 KB) --> Buffer byte(1 KB) -->Destination File(10 KB) 
+	Because of Buffer we have to perform only 10 Read Operations  & 10 Write Operations 
+	 
+
+Steps to Retrieve BLOB type from Database
+	Database Image  ---InputStream / InputStream is =  rs.getBinaryStream();is.read(buffer); ---> byte[] Buffer ---
+															---> FOS / fos.write(byte[]) ------> Target file
+
+1. Prepare ResultSet object with BLOB type 
+	RS rs = st.executeQuery("select * from persons"); 
+2. Read Normal data from ResultSet       
+	String name=rs.getString(1); 
+3. Get InputStream to read binary data from ResultSet    
+	InputStream is = rs.getBinaryStream(2);  
+4. Prepare target resource to hold BLOB data by using FileOutputStream 
+	FOS fos = new FOS("katrina_new.jpg"); 
+5. Read Binary Data from InputStream and write that Binary data to output Stream. 
+	Without Buffer 
+		int i = is. read(); 
+		while (i != -1) {        
+			fos.write(i);        
+			i = is.read(); 
+		}
+	With Buffer
+		byte[] buffer = new byte[1024];  
+		while (is.read(buffer)>0) {        
+			fos.write(buffer); 
+		} 
+
+Program to to Retrieve BLOB type from Database: 
+	Example: BLOB2.java 
+
+
+CLOB (Character Large Objects): 
+A CLOB is a collection of Character data stored as a single entity in the database.  
+CLOB can be used to store large text documents(may plain text or xml documents)  
+CLOB Type can store maximum of 4GB data. 
+Eg: hydhistory.txt 
+
+Steps to insert CLOB type file in the database: 
+All steps are exactly same as BLOB, except the following differences 
+	1. Instead of FileInputStream, we have to take FileReader. 
+	2. Instead of setBinaryStream() method we have to use setCharacterStream() method. 
+	public void setCharacterStream(int index,Reader r) throws SQLException 
+	public void setCharacterStream(int index,Reader r,int length) throws SQLException 
+	public void setCharacterStream(int index,Reader r,long length) throws SQLException 
+
+Program to insert CLOB type file in the database: 
+	DB: create table cities(name varchar2(10),history CLOB); 
+	Example: CLOB1.java 
+
+
+Retrieving CLOB Type from Database: 
+All steps are exactly same as BLOB, except the following differences.. 
+	1. Instead of using FileOutputStream,we have to use FileWriter 
+	2.Instead of using getBinaryStream() method we have to use getCharacterStream() method
+
+Program For Retrieving CLOB Type from Database:
+	Example: CLOB2.java
+
+
+Q. What is the difference between BLOB and CLOB? 
+We can use BLOB Type to represent binary information like images, video files, audio files etc 
+Where as we can use CLOB Type to represent Character data like text file, xml file etc... 
+
+Assignment for Inserting and Retrieving Date, BLOB and CLOB type data: 
+Create a table named with jobseeker and insert data and retrieve data 
+	jobseeker (name varchar2(20),dob Date,image BLOB,resume CLOB); 
+	name="durga"; 
+	dob="28-05-1968"; 
+	image="durga.jpg"; 
+	resume="resume.txt"; 
+
+	String -> udate -> sdate 
+	SDF sdf= new SDF("dd-MM-yyyy"); 
+	java.util.Date udate= sdf.parse(dob); 
+	long l = udate.getTime(); 
+	java.sql.Date sdate=new java.sql.Date(l); 
+	FIS fis = new FIS("durga.jpg"); FR fr= new FR("resume.txt"); 
+
+	PS pst=con.pS("insert into jobseeker values(?,?,?,?)"); 
+	pst.setString(1,name); pst.setDate(2,sdate); 
+	pst.setBinaryStream(3,fis); pst.setCharacterStream(4,fr); 
+	pst.executeUpdate(); 
+	================================= 
+	FOS fos= new FOS("updatedimage.jpg"); 
+	PW pw= new PW("updatedresume.txt"); 
+	SDF sdf= new SDF("dd-MM-yyyy"); 
+	PS pst=con.PS("select * from jobseeker"); 
+	RS rs = pst.executeQuery(); 
+
+if(rs.next())   
+ {   
+     //reading name   
+     String name=rs.getString(1);   
+     //reading dob   
+     java.sql.Date sdate=rs.getDate(2);   
+     String dob=sdf.format(sdate);   
+     //reading BLOB(image)   
+     InputStream is = rs.getBinaryStream(3);   
+     byte[] b = new byte[1024];   
+     while(is.read(b)>0) {   
+         fos.write(b);   
+     }   
+     fos.flush();   
+     //reading CLOB(txt file)   
+     Reader r = rs.getCharacterStream(4);  
+     char[] ch = new char[1024]; 
+  	 while(r.read(ch)>0) {   
+  	          pw.write(ch);   
+  	 }   
+  	      pw.flush(); 
+

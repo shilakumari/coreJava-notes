@@ -1,0 +1,394 @@
+Method Overriding/Dynamic polymorphism/Runtime polymorphism/Late binding or dynamic method dispatch
+
+If child class not satisfied with parent class implementation 
+	then child is allowed to redefined that method based on its requirement. 
+This process is called method overriding.
+It is also called as run-time polymorphism.
+class P {
+	public void property() {
+		System.out.println("Cash" + " Gold" + " Land");
+	}
+	public void marry() {
+		System.out.println("Subha Lakshmi");
+	}
+}
+class C extends P {
+	public void marry() {
+		System.out.println("Aishwarya");
+	}
+}
+The parent class method which is overridden is called overridden method.
+The child class method which is overriding is called overriding method.
+
+Compiler rule
+Compiler is always going to syntactically. 
+In case of P p1=new P(); p1.m1();, compiler sees that p1 is of p type and it check whether P has method m1() or not. 
+
+But JVM  will check whether run time object is child object or parent object. 
+If it is child object, then, it will check, in the child class, whether child class is overriding or not. 
+If it is overriding, based on the runtime object, JVM will execute child class method.
+If it is not overriding, based on the runtime object, JVM will execute parent class method.
+
+In method overriding, method resolution always take care by JVM, based on runtime object. 
+And hence overriding is also considered as runtime polymorphism or dynamic polymorphism or late binding or dynamic method dispatch.
+In method overloading method resolution always take care by compiler, based on reference  type.
+		P p1 = new P();
+		p1.marry();//Parent
+
+		C c1 = new C();
+		c1.marry();//Child
+
+		P p2 = new C();
+		p2.marry();//Child
+		
+		// C c2=new P();//CTE
+
+	
+Rules for overriding
+Overriding is a complex process not like overloading, which is simpler than overriding.
+Example:Love marriage
+1)In method overriding, method signature must be same.
+2)In method overriding, co-varient return type(1.5v).
+		javac -source 1.4 P.java
+	For primitive type, co-varient return type concept is not applicable. It  is only applicable for object type.  																			
+  Return type of Parent class method	Object							Number				String				double
+  Return type of Child class method		Object/String/StringBuffer...	Number/Integer/		Object(Invalid)		int(invalid)
+		
+3)Parent class private method not available to the child and hence overriding concept is not applicable for private methods. 
+  It is like fantasy marriage in teen age by child and parent both.
+  We can define exactly same private method in child class. It is valid but not overriding.
+	class P{
+		private void m1(){}
+	}
+	class C extends P{
+		private void m1(){}
+	}	
+  It is valid but not overriding.
+	
+4) Final method cann't be overridden. It is like child marriage.
+class P {
+	public void property() {
+		System.out.println("Cash" + " Gold" + " Land");
+	}
+	public final void marry() {
+		System.out.println("Subha Lakshmi");
+	}
+}
+class C extends P {
+	public void marry() {
+		System.out.println("Aishwarya");
+	}
+}
+
+5) Parent class non-abstract method can be overridden in child class as a abstract method.
+Advantage-We can stop, the availability of parent method implementation to next level child classes.
+class P {
+	public  void property() {
+		System.out.println("Cash" + " Gold" + " Land");
+	}
+}
+abstract class C extends P {
+	public abstract void marry();
+}
+
+6)
+Parent class(or interface) abstract method should be implemented  in child class to provide implementation. 
+But if not implemented then child class must be declare abstract(Example-childish behavior) 
+and we can also again declare same abstract method in child class.
+
+7)
+Parent Method	final						non-final	abstract				non-abstract	synchronized	non-synchronized	native	    non-native		strictfp		non-strictfp
+Child Method	non-final/final(Invalid)	final		abstract/non-abstract	abstract     	non-synchronized	synchronized	non-native	native			non-strictfp	strictfp
+
+Method hashcode() of Object class, is a native method.
+
+8)
+While overriding, we cann’t reduce scope of access modifier. But we can increase the scope.
+Overriding concept is not applicable for private method.
+Private<default<protected<public
+class P {
+	public void marry() {
+		System.out.println("Subha Lakshmi");
+	}
+}
+class C extends P {
+	protected void marry() {//invalid,
+		System.out.println("Aishwarya");
+	}
+}
+output:CTE
+
+Parent class method		public		protected			<default>						private
+Child class method		public		protected/public	<default>/protected/public		Overriding  not  applicable
+Overriding concept is not applicable for private method.
+
+
+Why access modifier scope can be increased only
+	Our overriding should not affect outside people.
+	P p1 = new C();
+	p1.m1();
+ 	class P{
+ 	...	void m1(){}
+ 	}
+	class C extends P{
+		public void m1(){}
+	}
+	
+
+If child class method throws any checked exception then parent class method must throw same checked exception 
+	or its parent exception. Otherwise we will get CTE.
+	But there are no restriction for unchecked exception.
+ 
+	1)P: public void m1() throws Exception
+	  C: public void m1()
+	  //Valid6
+	  
+	2)P: public void m1() 
+	  C: public void m1() throws Exception
+	  //Invalid
+	  
+	3)P: public void m1() throws Exception
+	  C: public void m1() throws IOException
+	  //Valid
+	  
+	4)P: public void m1() throws IOException
+	  C: public void m1() throws Exception
+	  //Invalid
+	  
+	5)P: public void m1() throws IOException
+	  C: public void m1() throws FileNotFoundException, EOFException
+	  //valid
+	  
+	6)P: public void m1() throws IOException
+	  C: public void m1() throws EOFException
+	  //Valid
+	  
+	7)P: public void m1() throws IOException
+	  C: public void m1() throws ArithmeticException, NullPointerException
+	  //valid
+	  
+	 Our overriding should not affect outside people.
+	 P p1 = new C();
+	 try{
+	 	p1.m1();
+	 }catch(IOException e){}
+	
+	 P: public void m1() throws IOException
+	 C: public void m1() 
+	  //Valid
+	 
+9)Overriding w.r.t. Static methods
+We cann’t override static method as non-static. Otherwise we will get CTE.
+We cann’t override non-static method as static. Otherwise we will get CTE.
+
+If both parent & child class methods are static method then we will not get any CTE. 
+Its seems overriding concept is applicable for static methods. But it is not method overriding, it is method hiding.
+		P p1 = new P();
+		p1.marry();
+
+		C c1 = new C();
+		c1.marry();
+
+		P p2 = new C();
+		p2.marry();// Parent 
+
+		// C c2=new P();//CTE
+ 
+Method hiding
+
+Diff b/w Method hiding and overriding
+All rules of method hiding is exactly same as overriding except the following differences:
+ Method Hiding												Method Overriding
+ 1)Both static												1)Both non-static
+ 2)Method resolution at compile time using reference 		2)Method resolution at run time by JVM using runtime object
+ 3)Compile time polymorphism/static binding/ early binding	3)Run time polymorphism/ Dynamic binding/ Late binding
+ 
+If both parent & child method are non-static then it will become overriding.
+
+In method hiding both copies of methods are available but in case of overriding only child method copy is available.
+C c1 = new C();
+c1.marry();//Child
+
+P p2 = new C();
+p2.marry();// Parent   
+
+
+Overriding w.r.t. Var-arg methods
+We can override var-arg method with another ver-arg method only. If we are trying to override with normal method 
+	then it will become overloading not overriding. 
+public class MethodOverriding {
+	public static void main(String[] args) {
+		P p1 = new P();
+		p1.m1();// Parent
+		p1.m1(10);// Parent
+
+		C c1 = new C();
+		c1.m1();// parent
+		c1.m1(10);// Child
+
+		P p2 = new C();
+		p2.m1();// Parent
+		p2.m1(10);// Parent
+		// C c2=new P();//CTE
+	}
+}
+class P {
+	public void m1(int... a) {
+		System.out.println("Parent");
+	}
+}
+class C extends P {
+	public void m1(int b) {
+		System.out.println("Child");
+	}
+}
+In the above program, if we replace child method with var-arg method, then it will become overriding. 
+
+
+
+Overriding w.r.t variable
+Variable resolution, always takes care by compiler based on reference type, 
+  irrespective of whether the variable is static or non-static.
+(Overriding concept is only applicable for method but not for variable).
+public class MethodOverriding {
+	public static void main(String[] args) {
+		P p1 = new P();
+		System.out.println(p1.x);// Parent
+		C c1 = new C();
+		System.out.println(c1.x);//Child
+		P p2 = new C();
+		System.out.println(p2.x);//Parent
+		// C c2=new P();//CTE
+	}
+}
+class P {
+	int x = 888;
+}
+class C extends P {
+	int x = 999;
+}
+
+
+Diff b/w overloading & overriding
+In overloading, we have to check only method name(must be same) and argument types(must be different). 
+In overloading, we are not required to check remaining like return type, access modifier etc. 
+But in overriding, everything we have to check, like method name, argument type, return type, access modifier, throws clause etc.
+
+Property					Overloading											Overriding
+Method name					Must same											Must same
+Parameter Type				Must diff											Must same
+Method Signature			Must diff											Must same
+Return type					No-restriction										Co-varient type
+Private, static, final		Can be overloaded									Can not be overridden
+Access modifier				No-restriction										Scope of access modifier cann't be reduced
+Throws clause				No-restriction										Some restriction for checked exception
+Method resolution			Take care by compiler based on reference type		Take care by JVM based on run-time object
+Other name					CTP/SB/EB											RTP/DB/LB
+
+
+SCJP Questions
+public void m1(int x) throws IOException
+	1)public void m1(int i)	//Overriding
+	2)public static int m1(long l)	//Overloading
+	3)public static void m1(int i)	//Not overriding
+	4)public void m1(int i) throws Exception  //Not overriding
+	5)public static abstract void m1(double d)	//CTE:illigle combination of modifiers
+	
+
+Why can't static methods be abstract?
+Because "abstract" means: "Implements no functionality", and "static" means: "There is functionality even if you don't have an object instance". 
+And that's a logical contradiction.
+
+Polymorphism
+	One name but multiple forms is the concept of polymorphism.
+	Example- Yourself , diff color u show, 
+			 With parent- very innocent
+			 With friend-  cinema, park
+
+Example 1:
+Method name is the same  but we can apply for different type of arguments(Overloading).
+	abs(int)
+	abs(long)
+	abs(float)
+
+Example 2:
+Method signature is same but in parent class, one type of implementation and in child class another type of implementation(Overriding).
+Example: fancy name can be taken
+	class P{
+		public void m1(){
+			System.out.println("Subha laxmi");
+		}
+	}
+	class C extends P{
+		public void m1(){
+			System.out.println("Shrilata/Naintara");
+		}
+	}
+	
+Example 3:
+Uses of parent reference to hold child object is the concept of polymorphism.
+	List l = new AL();
+	List l = new LL();
+	List l = new Stack();
+	List l = new Vector();
+Parent class reference can be used to hold child object but by using that reference, 
+we can call only the methods available in parent class. And we cann’t call child specific method.
+	P p1 = new C();
+	p1.m1();
+	p1.m2();//CE: cannot find symbol: method m2() location class P
+
+But by using child reference we can call both parent & child class methods.
+	C c = new C();
+	c.m1();
+	c.m2();
+
+When we should go for parent reference to hold child object
+If we don’t know , exact type of runtime object , then we should go for parent reference.
+Example 1:
+	Object o = l.get(o); 
+	
+Example 2:
+	public List m1(){
+	.
+	.
+	AL/LL/Vector/Stack
+	}
+	List l = m1();
+	
+C c=new C();																P p=new C();
+AL al=new AL();																L l=new AL();
+We can this approach if we know exact type of runtime object.				We can this approach if we don’t know exact type of runtime object. 
+																			This is the advantage of this approach.
+																			
+By using child reference we can call both parent & child class method. 		By using parent reference we can call only method available
+This is the advantage of this approach.									 	in parent class & we cann’t call child specific methods. 
+																			This is the disadvantage of this approach.
+																			
+We can use child reference to hold only particular child of object. 		We can use parent reference to hold any child class object. 
+This is the disadvantage of this approach.									This is the advantage of this approach.
+
+
+3 Pillars of OOPs
+	Encapsulation(Security)
+	Inheritance(Code re-usability)
+	Polymorphism(Flexibility)
+	
+Type of polymorphism
+	Static polymorphism/ Compile-time polymorphism/ Early binding
+		1)Overloading
+		2)Method hiding
+	Dynamic polymorphism/ Run-time polymorphism/ Late binding
+		1)Overriding
+	
+	
+Beautiful definition of polymorphism
+	A boy starts love with a word friendship, but girl end love with same word friendship. 
+	Word is the same but attitude is the different.
+	This beautiful concept of OOPs is nothing but polymorphism.	
+
+Concrete Methods 
+A concrete method means, the method have complete definition but it can be overridden in the inherited class. 
+Concrete Methods can be overridden in the inherited classes if they are not final.
+If we make this method final, then it can not be overridden. 
+	Declaring method or class �final� means it�s implementation is complete. 
+It is compulsory to override the abstract methods. 

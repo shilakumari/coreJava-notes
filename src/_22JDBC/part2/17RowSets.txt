@@ -1,0 +1,215 @@
+RowSets 
+	It is alternative to ResultSet. 
+	We can use RowSet to handle a group of records in more effective way than ResultSet. 
+	RowSet interface present in javax.sql package 
+	RowSet is child interface of ResultSet. 
+	RowSet implementations will be provided by Java vendor and database vendor. 
+	By default RowSet is scrollable and updatable. 
+	By default RowSet is serializable and hence we can send RowSet object across the network.
+		But ResultSet object is not serializable. 
+	ResultSet is connected i.e to use ResultSet compulsary database Connection must be required. 
+	RowSet is disconnected. ie to use RowSet database connection is not required. 
+
+Types of RowSets: 
+There are two types of RowSets 
+	1.Connected RowSets 
+	2. Disconnected RowSets 
+ 
+Connected RowSets: 
+	Connected RowSets are just like ResultSets. To access RowSet data compulsary connection should be available to database. 
+	We cannot serialize Connected RowSets 
+	Eg: JdbcRowSet 
+ 
+Disconnected RowSets: 
+	Without having Connection to the database we can access RowSet data. We can serialize Disconnected RowSets. 
+	Eg:   
+	CachedRowSet   
+	WebRowSet   
+	FilteredRowSet   
+	JoinRowSet  
+
+ResultSet(I)
+	RowSet(I)
+		(Connected)JdbcRowSet(I)
+		(Disconnected)CatchedRowSet(I)
+			WebRowSet(I)
+				JoinRowSet(I)
+				FilteredRowSet(I)
+
+
+How to create RowSet objects: 
+We can create different types of RowSet objects as follows 
+	RowSetFactory rsf = RowSetProvider.newFactory(); 
+	JdbcRowSet jrs = rsf.createJdbcRowSet(); 
+	CachedRowSet crs = rsf.createCachedRowSet(); 
+	WebRowSet wrs = rsf.createWebRowSet(); 
+	JoinRowSet jnrs = rsf.createJoinRowSet(); 
+	FilteredRowSet frs = rsf.createFilteredRowSet(); 
+
+Application-1: To create Different RowSet Objects: 
+	Example: CreateDifferentRowSetObject.java
+
+
+1.JdbcRowSet(I): 
+	It is exactly same as ResultSet except that it is scrollable and updatable. 
+	JdbcRowSet is connected and hence to access JdbcRowSet compulsary Connection must be required. 
+	JdbcRowSet is non serializable and hence we cannot send RowSet object across the network. 
+ 
+Application-2: To Retrieve records from  JdbcRowSet:
+	Example: JdbcRowSetRetrieveDemo.java
+Application-3: To Insert Records by using JdbcRowSet:
+	Example: JdbcRowSetInsertDemo.java 
+Application-4: To Update Records by using JdbcRowSet:
+	Example: JdbcRowSetUpdateDemo.java
+Application-5: To Delete Records by using JdbcRowSet:
+	Example: JdbcRowSetDeleteDemo.java
+
+
+
+CachedRowSet: 
+	It is the child interface of RowSet. 
+	It is bydefault scrollable and updatable. 
+	It is disconnected RowSet. ie we can use RowSet without having database connection. 
+	It is Serializable. 
+	The main advantage of CachedRowSet is we can send this RowSet object for multiple people across the network and 
+		all those people can access RowSet data without having DB Connection. 
+	If we perform any update operations(like insert,delete and update) to the CachedRowSet,
+		to reflect those changes compulsary Connection should be established. 
+	Once Connection established then only those changes will be reflected in Database. 
+ 
+Application-6: To Demonstrate Disconnected CachedRowSet 
+	Example: CachedRowSetDemo.java
+Application-7: To Retrieve Records by using CachedRowSet 
+	Example: CachedRowSetRetrieveDemo.java
+Application-8: To Insert Records by using CachedRowSet 
+	Example: CachedRowSetInsertDemo.java
+Application-9: To Update Records by using CachedRowSet 
+	Example: CachedRowSetUpdateDemo.java
+Application-10: To Delete Records by using CachedRowSet 
+	Example: CachedRowSetDeleteDemo.java
+
+
+
+WebRowSet(I): 
+	It is the child interface of CachedRowSet. 
+	It is bydefault scrollable and updatable. 
+	It is disconnected and serializable 
+	WebRowSet can publish data to xml files,which are very helpful for enterprise applications. 	
+		FileWriter fw=new FileWriter("emp.xml"); 
+		rs.writeXml(fw); 
+	
+	We can read XML data into RowSet as follows 
+		FileReader fr=new FileReader("emp.xml"); 
+		rs.readXml(fr);
+
+Application-11: To Retrieve Records by using WebRowSet 
+	Example: WebRowSetRetrieveDemo.java
+Application-12: To Insert Records by using WebRowSet 
+	Example: WebRowSetInsertDemo.java
+
+Note: In emp.xml file, <insertRow> tag must be provided under <data> tag 
+
+Application-13: To Delete Records by using WebRowSet 
+	Example: WebRowSetDeleteDemo.java
+Note: In emp.xml file, <deleteRow> tag must be provided under <data> tag 
+ 
+ 
+JoinRowSet: 
+	It is the child interface of WebRowSet. 
+	It is by default scrollable and updatable It is disconnected and serializable If we want to 
+		join rows from different rowsets into a single rowset based on matched column(common column) then we should go for JoinRowSet. 
+	We can add RowSets to the JoinRowSet by using addRowSet() method. 
+		addRowSet(RowSet rs,int commonColumnIndex); 
+
+Application-14: To Retrieve Records by using JoinRowSet 
+	Example: JoinRowSetRetriveDemo.java
+Note: students and courses tables must require in database with a matched column[Join column] cid. 
+                 students                            courses 
+                 |SID(PK)|SNAME|SADDR|CID|          |CID(PK)|CNAME|CCOST|  
+ 
+addRowSet(RowSet rowset, int columnIdx) 
+	Adds the given RowSet object to this JoinRowSet object and sets the designated column as the match column for the RowSet object. 
+ 
+
+FilteredRowSet(I):  
+It is the child interface of WebRowSet. 
+If we want to filter rows based on some condition then we should go for FilteredRowSet. 
+We can define the filter by implementing Predicate interface. 
+ public class EmpSalFilter implements Predicate {
+    evaluate(Object value,String columnName){
+    	This method will be called at the time of insertion
+	}
+	evaluate(Object value,int columnIndex){
+	    this method will be called at  the time of insertion   
+	}
+	 evaluate(RowSet rs) {
+	 	filtering logic  
+	 } 
+ }
+
+We can set Filter to the FilteredRowSet as follows...  
+	EmployeeSalaryFilter f=new EmployeeSalaryFilter(2500,4000); 
+	rs.setFilter(f); 
+ 
+Application-15: To Retrieve Records by using FilteredRowSet 
+	Example: FilteredRowSetRetriveDemo.java
+
+
+Event Handling Mechanism for RowSets: 
+We can implement event handling for RowSets. To perform event handling,
+	we have to implement RowSetListener interface.
+class RowSetListenerImpl implements RowSetListener{
+	rowSetChanged(RowSetEvent e) {
+    	this method will be executed whenever total RowSet content changed 
+    }
+    rowChanged(RowSetEvent e)  {
+    	this method will be executed whenever any change performed in rows of RowSet like in sertion,deletion and updation   
+    }
+    cursorMoved(RowSetEvent e) {
+        this method will be executed whenever cursor moved from one row to another row   
+    }
+}   
+
+We can add RowSetListener to the RowSet by using addRowSetListener() method. 
+	Eg: rs.addRowSetListener(new RowSetListenerImpl()); 
+ 
+Application-16: To Demonstrate Event Handling by using JdbcRowSet 
+	Example: RowSetListenerDemo.java
+
+
+Methods of RowSetListener  
+void cursorMoved(RowSetEvent event) 
+	Notifies registered listeners that a RowSet object's cursor has moved. 
+void rowChanged(RowSetEvent event) 
+	Notifies registered listeners that a RowSet object has had a change in one of its rows. 
+void rowSetChanged(RowSetEvent event) 
+	Notifies registered listeners that a RowSet object in the given RowSetEvent object has changed its entire contents. 
+
+Differences Between ResultSet and RowSet 
+ResultSet 		RowSet 
+1) ResultSet present in java.sql Package. 
+1) RowSet present in javax.sql Package. 
+2) By Default ResultSet is Non Scrollable and Non Updatable (Forward only and Read only).  
+2) By Default RowSet is Scrollable and Updatable.  
+3) ResultSet Objects are Non Serializable and  we can't send over Network. 
+3) RowSet Objects are Serializable and hence we can send over Network. 
+4) ResultSet Objects are Connection oriented i.e. 
+	we can access ResultSet Data as long as  Connection is available once Connection closed we can't access ResultSet Data. 
+4) RowSet Objects are Connection Less  Objects i.e. 
+	we can access RowSet Data without having Connection to DB (except JdbcRowSet). 
+5) ResultSet Object is used to store Records returned by Select Query. 
+5) RowSet Object is also used to store Records returned by Select Query. 
+6) We can createResultSet Object as follows 
+	Connection con = DriverManager.getConnection(url, uname, pwd); 
+	Statement st = con.createStatement(); 
+	ResultSet rs = st.executeQuery(SQLQuery); 
+6) RowSetFactory rsf =  RowSetProvider.newFactory(); 
+   JdbcRowSet rs = rsf.createJdbcRowSet(); 
+   rs.setUserName(user); 
+   rs.setUrl(jdbcurl); 
+   rs.setPassword(pwd); 
+   rs.setCommand(query); 
+   rs.execute(); 
+7) ResultSet Object is not having Event Notification Model. 
+7) RowSet Object is having Event Notification Model. 
+

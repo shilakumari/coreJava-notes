@@ -1,0 +1,369 @@
+throws keyword
+1)
+import  java.io.*;
+class  Test{
+	PSVM(){
+		PrintWriter pw=new PrintWriter(“abc.txt”);
+		Pw.println(“Hello”);
+}
+}
+Output:
+CTE, unreported exception java.io.FileNotFoundException, must be caught or declared to be thrown
+
+
+In our program if there is  a possibility if rising checked exception, 
+	then compulsory we should  handle the checked exception otherwise we will get 
+	CTE, saying unreported exception java.io.FileNotFoundException, must be caught or declared to be thrown.
+
+2)
+class  Test{
+	PSVM(){
+		Thread.sleep(10000);
+	}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+We can handle this CTE, by using the following two ways:
+	By using try-catch
+	By using throws keyword
+
+
+By using try-catch
+class  Test
+{
+	PSVM()
+	{
+		try
+		{
+			Thread.sleep(10000);
+		}
+		catch(InterruptedException e)
+		{
+}
+}
+}
+
+By using throws keyword
+	Assignment do our own or delegates that work to your friend.
+
+class  Test
+{
+	PSVM() throws
+	{
+		Thread.sleep(10000);
+	}
+}
+Output:
+CTE
+
+class  Test
+{
+	PSVM() throws InterruptedException
+	{
+		Thread.sleep(10000);
+	}
+}
+Output:
+RE
+
+
+We can use throws keyword to delegate responsibility of exception handling 
+	to the caller (it may be another method or JVM). 
+Then caller method is responsible to handle that exception.
+
+
+Conclusion:
+Throws keyword required only for checked exception. 
+Uses of throws keyword for unchecked exceptions, there is no use or impact.
+
+Throws keyword required only to convince compiler 
+& use of throws keyword does not prevent abnormal termination of program.
+
+It is recommended to use Try-catch over  throws-clause.
+
+class  Test{
+	PSVM() throws InterruptedException{
+		doStuff();
+	}
+	Public static void doStuff(){
+		doMoreStuff();
+}
+	Public static void doMoreStuff(){
+		Thread.sleep(10000);//CTE
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+class  Test{ 
+	PSVM(){
+		doStuff();
+	}
+	Public static void doStuff(){
+		doMoreStuff();//CTE
+	}
+Public static void doMoreStuff()  throws InterruptedException
+{
+		Thread.sleep(10000);
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+class  Test
+{ 
+	PSVM() 
+	{
+		doStuff();//CTE
+	}
+	Public static void doStuff()throws InterruptedException
+	{
+		doMoreStuff();
+}
+Public static void doMoreStuff()  throws InterruptedException
+{
+		Thread.sleep(10000);
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+
+
+class  Test
+{ 
+	PSVM() throws InterruptedException
+	{
+		doStuff();
+	}
+	Public static void doStuff()throws InterruptedException
+	{
+		doMoreStuff();
+}
+Public static void doMoreStuff()  throws InterruptedException
+{
+		Thread.sleep(10000);
+}
+}
+Output: No CTE
+After 10 sec program will terminates
+
+
+
+class  Test
+{ 
+	PSVM() throws InterruptedException
+	{
+		doStuff();
+	}
+	Public static void doStuff()
+	{
+		doMoreStuff();
+}
+Public static void doMoreStuff() 
+{
+		Thread.sleep(10000);
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+
+class  Test
+{ 
+	PSVM() throws InterruptedException
+	{
+		doStuff();
+	}
+	Public static void doStuff()
+	{
+		doMoreStuff();
+}
+Public static void doMoreStuff() throws InterruptedException
+{
+		Thread.sleep(10000);
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+
+In the following program if we remove any throws clause then code won’t compile.
+class  Test{ 
+	PSVM() throws InterruptedException{
+		doStuff();
+	}
+	Public static void doStuff()throws InterruptedException{
+		doMoreStuff();
+	}
+	Public static void doMoreStuff() throws InterruptedException{
+		Thread.sleep(10000);
+	}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+class  Test throws Exception//CTE,invalid
+{
+	Test()throws Exception
+	{
+}
+public void m1()throws Exception
+{
+}
+}
+We can use throws keyword for methods & constructors but not for classes.
+
+
+class Test{
+	public void m1() throws Test//CTE, incompatible types, found:Test, required:java.lang.Throwable
+	{
+	}
+}
+We can use throws keyword only for Throwable type. 
+If we are trying to use for normal java classes, then we will get CTE, saying incompatible types, found:Test, required:java.lang.Throwable
+
+class Test extends RuntimeException{
+	public void m1() throws Test{
+	}
+}
+
+
+We can throws checked exception on method even it is not going to throw from method.
+But now caller method have to handled this thrown exception.
+public static void doMoreStuff() throws IOException{
+		System.out.println("Hello");
+}
+
+
+Case:
+If child class method throws any checked exception then parent class method must throw same checked exception 
+	or its parent exception. Otherwise we will get CTE.
+	But there are no restriction for unchecked exception.
+ 
+	1)P: public void m1() throws Exception
+	  C: public void m1()
+	  //Valid6
+	  
+	2)P: public void m1() 
+	  C: public void m1() throws Exception
+	  //Invalid
+	  
+	3)P: public void m1() throws Exception
+	  C: public void m1() throws IOException
+	  //Valid
+	  
+	4)P: public void m1() throws IOException
+	  C: public void m1() throws Exception
+	  //Invalid
+	  
+	5)P: public void m1() throws IOException
+	  C: public void m1() throws FileNotFoundException, EOFException
+	  //valid
+	  
+	6)P: public void m1() throws IOException
+	  C: public void m1() throws EOFException
+	  //Valid
+	  
+	7)P: public void m1() throws IOException
+	  C: public void m1() throws ArithmeticException, NullPointerException
+	  //valid
+	  
+	 Our overriding should not affect outside people.
+	 P p1 = new C();
+	 try{
+	 	p1.m1();
+	 }catch(IOException e){}
+	
+	 P: public void m1() throws IOException
+	 C: public void m1() 
+	  //Valid
+	 
+
+
+Case :
+If parent class constructor throws any checked exception, 
+compulsory child class constructor should throw the same checked exception or its parent.
+class P
+{
+	P()throws java.io.IOException	{	}
+}
+public class Test extends P
+{
+	Test()throws java.io.IOException,Exception,Throwable
+	{
+		//optional super();
+	}
+	public static void main(String args[])	{		System.out.println("Hello");	}
+}
+Output:
+Hello
+
+class P
+{	
+	P()throws java.io.IOException	{		}
+}
+public class Test extends P
+{	
+	public static void main(String args[])
+	{	
+		System.out.println("Hello");	
+	}
+}
+Output:CTE,
+unreported exception IOException in default constructor
+
+class P
+{
+	P()throws java.io.IOException
+	{
+	}
+	}
+public class Test extends P
+{
+	Test()
+	{
+		/*	try-catch approach here would not work, because super() must be 1st line inside constructor*/
+		try
+		{
+			super();//CTE, call to super must be first statement in constructor
+		}
+		catch(IOException e)
+		{		
+		}
+	}
+	public static void main(String args[])
+	{
+		System.out.println("Hello");
+	}
+}
+
+
+
+
+
+
+Exception Propagation
+Inside a method if an exception is raised and if we are not handling the exception 
+then exception object will be propagated to caller. 
+Then caller method  is responsible to handle Exception.
+This process is called exception propagation.
+M1()
+{
+M2();
+}
+M3()
+{
+M2();
+}
+ExceptionPropogation occurs implicitly for unchecked exception 
+and for checked exception, we have to explicitly propagate using throws keyword.
+
+
+

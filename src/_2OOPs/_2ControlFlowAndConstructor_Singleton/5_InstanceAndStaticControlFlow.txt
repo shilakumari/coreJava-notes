@@ -1,0 +1,111 @@
+Instance & static control flow
+Example 1:
+class Test{
+	{
+		System.out.println("1st Instance block");
+	}
+	static
+	{
+		System.out.println("1st static block");
+
+	}
+	Test()
+	{
+		System.out.println("Constructor");
+	}
+	public static void main(String [] args)
+	{
+		Test t1=new Test();
+		System.out.println("main()");
+		Test t2=new Test();
+	}
+	static
+	{
+			System.out.println("2nd static block");
+	}
+	{
+		System.out.println("2nd instance block");
+	}
+
+}
+Output:
+1st static block
+2nd static block
+1st Instance block
+2nd instance block
+Constructor
+main()
+1st Instance block
+2nd instance block
+Constructor
+
+Example 2:
+public class Test
+{
+	private static String m1(String msg)
+	{
+		System.out.println(msg);
+		return msg;
+	}
+	public Test()
+	{
+		m=m1("1");
+	}
+	{
+		m=m1("2");
+	}
+	String m=m1("3");
+	public static void main(String args[])
+	{
+		Object o=new Test();
+	}
+}
+Output:
+2
+3
+1
+
+
+Example 3:
+public class Test
+{
+	private static String m1(String msg)
+	{
+		System.out.println(msg);
+		return msg;
+	}
+	static String m=m1("1");
+	{
+		m=m1("2");
+	}
+	static
+	{
+		m=m1("3");
+	}
+	public static void main(String args[])
+	{
+		Object o=new Test();
+	}
+}
+Output:
+1
+3
+2
+
+Example 4:
+From static area, we cann’t access instance members directly, 
+because while executing static area JVM may not identify instance members.
+public class Test
+{
+	int x=10;
+	public static void main(String args[])
+	{
+		System.out.println(x);//CTE
+		Test t=new Test();
+		System.out.println(t.x);		
+	}
+}
+Output:
+CTE,non-static variable x cannot be referenced from a static context
+
+

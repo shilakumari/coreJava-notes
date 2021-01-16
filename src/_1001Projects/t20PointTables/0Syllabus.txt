@@ -1,0 +1,6 @@
+new  vs newInstance()
+ClassNotFoundException vs NoClassDefFoundError
+instanceOf vs isInstance()
+Access specifiers vs Access Modifiers
+
+

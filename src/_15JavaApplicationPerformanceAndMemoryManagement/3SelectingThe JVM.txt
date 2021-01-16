@@ -1,0 +1,51 @@
+Selecting the JVM
+		The diff b/w 32bit & 64 bit JVM
+		Specifying which compiler to use at runtime
+		Turning off Tiered compilation
+		Turning native compilation within the VM
+
+The diff b/w 32bit & 64 bit JVM
+Client compiler(Tier 1 to 3) only
+	Client & Server Compiler both
+	Here Cient & Server compiler means short or long lived
+Might be faster if head<3GB
+	Might be faster if long/double
+Max heap sixe=4GB
+	Necessary if heap size>4GB
+	Max heap Size-OS dependent
+Quicker Startup time
+	Slower Startup time
+All the above are just in theory.The are not very reliable options.
+	
+	
+Specifying which compiler to use at runtime
+	-client
+	-server  :select 32bit server compiler
+	-d64	 :select 64bit server compiler
+java -client _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 15000
+All the above are just in theory.The are not very reliable options.
+
+
+Turning off Tiered compilation
+-XX:-TieredCompilation
+java -XX:-TieredCompilation _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 5000
+Not useful in realtime & also not reliable.
+
+
+
+
+Turning native compilation within the VM
+java -XX:+PrintFlagsFinal on cygwin 
+		CICompilerCount: thread available for compiling our code at runtime
+thread available for compiling our code at runtime
+	jinfo -flag CICompilerCount JavaProcessId( for it command jps used)
+	java -XX:CICompilerCount=6 _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 5000
+threshold the number of times a method needs to run before it is natively compiled(threshold for native compilation)
+	jinfo -flag -XX:CompileThreshold JavaProcessId
+	java -XX:CompileThreshold=10000 _15JavaApplicationPerformanceAndMemoryManagement._2JITCompliation.Main 5000
+	
+	
+Example:
+PrimeNumberMain.java
+	
+	

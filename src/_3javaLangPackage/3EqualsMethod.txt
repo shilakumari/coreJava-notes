@@ -1,0 +1,305 @@
+equals() method
+It is used to check the equality of two objects.
+
+Obj1.equals(obj2);
+If our class does not contains equals() method then object class equals() method will be executed.
+Class Student
+{
+	String name;
+	Int rollno;
+	Student(String name, int rollno)
+	{
+		This.name=name;
+		This.rollno=rollno
+	}
+	Psvm()
+	{
+		Student s1=new Student(“rahul”,101);
+		Student s2=new Student(“Ravi”,101);
+		Student s3=new Student(“rahul”,101);
+		Student s4=s1;
+		
+		SOP(s1.equals(s2));//false
+		SOP(s1.equals(s3));//false
+		SOP(s1.equals(s4));//true
+		SOP(s1.equals(“hfghf”));//false
+		SOP(s1.equals(null));//false
+		
+		SOP(s1==“hfghf”);//CTE, this is the diff between Object class equals() method & == operator
+		SOP(s1==null);//false
+	}
+}
+Object class equals() method is meant for reference(address) comparison like ==operator.
+That is if two references pointing to the same object then only Object class's equals() method returns true.
+Otherwies it returns false.
+
+Based on our requirement we can override equals() method for content comparison.
+Public  boolean equals(Object o)
+{
+	String name1=this.name;
+	Int rollno1=this.rollno;
+
+	Student s=(Student)o;
+	String name2=s.name;
+	Int rollno2=s.rollno;
+
+	If( name1.equals(name2)   && rollno1==rollno2  )
+	{
+		return true;
+	}
+	return false.
+}
+SOP(s1.equals(s2));//false
+SOP(s1.equals(s3));//true
+SOP(s1.equals(s4));//true
+SOP(s1.equals(“durga”));//RE,ClassCastException
+SOP(s1.equals(null));//RE, NullPointerException
+
+Public  boolean equals(Object o)
+{
+Try{
+	String name1=this.name;
+	Int rollno1=this.rollno;
+
+	Student s=(Student)obj;//here CCE
+	String name2=s.name;//here NPE
+	Int rollno2=s.rollno;
+
+	If( name1.equals(name2)   && rollno1==rollno2  )
+	{
+		Return true;
+	}
+	Return false.
+    }
+    Catch(ClassCastException e){return false;}
+    Catch(NullPointerCastException e){return false;}
+}
+
+SOP(s1.equals(s2));//false
+SOP(s1.equals(s3));//true
+SOP(s1.equals(s4));//true
+SOP(s1.equals(“durga”));//false
+SOP(s1.equals(null));//false
+
+More simplified version of equals() method
+Public  boolean equals(Object obj)
+{
+If(obj==this)	return true;
+If(obj instanceof Student)
+{
+	Student s=(Student)obj;
+	If( this.name.equals(s.name)   && this.rollno==s.rollno  )
+	{
+		Return true;
+}
+}
+return false;
+}
+SOP(s1.equals(s4));//true
+
+To make above equals() method more efficient, we have to write the following code, at the beginning Of equals() method.
+	If(obj==this)return true;
+
+String class equals() method
+public  boolean equals(Object anObject)
+{
+	If(this==anObject)
+	{
+		return  true;
+	}
+	If(anObject instanceof String)
+	{
+		String anotherString=(String)anObject;
+		int n=count;
+		if(n==anotherString.count)
+		{
+			char v1[]=value;
+			char v2[]=anotherString.value;
+			int i=offset;
+			int j=anotherString.offset
+			while(n--!=0)
+			{
+				if(v1[i++]!=v2[j++])
+					return false;
+			}
+		}
+	}
+	return false;//doubt
+}
+
+While overriding equals() method for content comparison, we have to take care about the following:
+In our programming requirement, what is the meaning  of equality of two objects.(whether we have to check only name or only rollno or both)
+If we are passing diff type of object, our equals() method should not rise ClasssCastException 
+	that is we have to handle CLassCastException to return false.
+If  we are passing null argument then equals() method should not rise NullPointerException 
+	that is, we have to handle NullPointerException to return false.
+
+String s1=new String(“abhi”);
+String s2=new String(“abhi”);
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//true
+
+StringBuffer s1=new StringBuffer(“abhi”);
+StringBuffer s2=new StringBuffer(“abhi”);
+SOP(s1==s2);//false
+SOP(s1.equals(s2));//false
+
+In String class, equals() method is overridden for content comparison. 
+In StringBuffer class, equals() method is not overridden for content comparison.
+In StringBuilder class, equals() method is not overridden for content comparison. 
+
+Hence if objects are diff, equals() method of Object class return false, even though content is same.
+
+
+
+Relation b/w == operator & .equals() method
+Answer in 1 line for interview:
+In general, we can use ==operator for reference comparison & equals() method for content comparison.
+1)If two objects are equal by == operator then these objects are always equal by equals() method.
+If obj1==obj2 is true, then obj1.equals(obj2) is always true.
+2)If two objects are not equal by == operator then we cannot conclude anything about obj1.equals(obj2) , it may return true or false.
+If obj1==obj2 is false, then obj1.equals(obj2) may returns true or false.
+3)If obj1.equals(obj2) is true then we cannot conclude anything about obj1==obj2, it may return true or false.
+If obj1.equals(obj2) is true, then obj1==obj2 may returns true or false
+4)If obj1.equals(obj2) is false then these objects are always not equal by obj1==obj2.
+If obj1.equals(obj2) is false, then obj1==obj2 is always false.
+
+Differences b/w == operator & .equals() method
+1) use == operator, compulsory there should be some relation between argument types(either child to parent or parent to child or same type) 
+	otherwise we will get CTE, saying incomparable types.
+	If there is no relations b/w argument types then .equals() method won’t rise any CTE or RTE, it simply returns false.
+		String s1=new String("Abhi");
+		String s2=new String("Abhi");
+		StringBuffer sb1=new StringBuffer("Abhi");
+		StringBuffer sb2=new StringBuffer("Abhi");
+
+		System.out.print(s1==s2);//false	
+		System.out.println(s1.equals(s2));//true
+		System.out.print(sb1==sb2);//false		
+		System.out.println(sb1.equals(sb2));//false
+		
+		//System.out.print(s1==sb1);//CTE,incomparable type
+		System.out.println(s1.equals(sb1));//false
+
+2)It(== operator) is an operator.
+   It(equals() method) is a method
+3)It(== operator) is applicable for primitive and object type both.
+	It(equals() method) is applicable for object type only not for primitive type.
+4)It(== operator) always meant for reference comparison. 
+	By default equals() method present in Object class always meant for reference comparison.
+	But recommended use of equals() method is for content comparison in our defined classes.
+5) We cannot override it(== operator)  for content comparison.
+We can override it(equals() method)  for content comparison.
+
+
+Similarity b/w == operator & .equals() method
+For any object reference obj, 
+	obj==null ;
+	Obj.equals(null);
+	always returns false.
+
+Thread t=new Thread();
+SOP(t==null);//false
+SOP(t.equals(null));//false
+
+Hashing related data structures follow the following fundamental rule:
+	Two Equivalent objects should be placed in same bucket.
+	But all objects present in the same bucket need not be equal.
+Equivalent/equal object: which return true using equals() method
+
+
+System.out.println("FB".hashCode());//2236
+System.out.println("Ea".hashCode());//2236
+
+Contract b/w equals() & hashCode()
+1)If two objects are equal by equals() method then their hashCode() must be equal.
+	That0 is two equivalent objects should have same hashCode.
+	That is if  R1.equals(R2) is true then r1.hashCode()==R2.hashCode() is always true.
+
+	Object class equals() & hashCode() method follows above contract.
+	Hence whenever we are overriding equals() method, compulsory we should override hashCode() method 
+	to satisfy above contract(that is two equivalent objects should have same hashCode).
+
+2)If two object are not equal by equals() method 
+	then there is no restriction on their hashCodes, 
+	they may be equal or may not be equal.
+
+3)If hashCode of two objects are equal then we cann’t conclude 
+	anything about equals() method, it may returns true or false.
+
+4)If hashCode of two objects are not equal 
+	then these objects are always not equal by equals() method.
+
+Note:
+To satisfy contract b/w equals() & hashCode() methods, whenever we are overriding equals() method, 
+compulsory we have to override hashCode() method.
+Otherwise we won’t get any CTE or RTE but it is not a good programming practice.
+
+
+In String class equals() method is overridden for content comparison & 
+	hence hashCode() method is also overridden to generate hashCode based on content.
+String s1=new String(“Abhi”);
+String s2=new String(“Abhi”);
+SOP(s1.equals(s2));//true
+SOP(s1.hashCode());//95950491
+SOP(s2.hashCode());//95950491
+
+In StringBuffer class equals() method is not overridden for content comparison & 
+	hence hashCode() method is also not overridden to generate hashCode based on content.
+StringBuffer s1=new StringBuffer (“Abhi”);
+StringBuffer s2=new StringBuffer (“Abhi”);
+SOP(s1.equals(s2));//false
+SOP(s1.hashCode());//95950491
+SOP(s2.hashCode());//9434532
+
+
+class Person{
+public Boolean equals(Object obj){
+	if(obj instance of Prerson){
+		Person p=(Person)obj;
+		if(){
+			return true;
+		}
+		else{
+			reutrn false;
+		}
+	}
+	return false.
+}}
+public  int hashCode(){	return  100;}
+public  int hashCode(){	return  age+socialServiceNumber;} 
+public  int hashCode(){	return  name.hashCode()+age;}
+No restriction
+Note:
+Based on which parameters we override equals() method, 
+	it is highly recommended to use same parameters while overriding hashCode() method also.
+
+
+In all collection classes, 
+	wrapper classes 
+	and String class, 
+	equals() method is overridden for content comparison 
+	hence it is highly recommended to override equals() method in our class also for content comparison.
+
+When hashcode() is overridden, it must return same value for its each calls on same object.
+
+
+Summary
+When hashcode() is overridden, it must return same value for its each calls on same object.
+Relation b/w == operator & .equals() method
+Differences b/w == operator & .equals() method
+	use == operator, compulsory there should be some relation between argument types(either child to parent or parent to child or same type) 
+	otherwise we will get CTE, saying incomparable types.
+	If there is no relations b/w argument types then .equals() method won’t rise any CTE or RTE, it simply returns false.
+Similarity b/w == operator & .equals() method
+	For any object reference obj, 
+	obj==null ;
+	Obj.equals(null);
+	always returns false.
+Hashing related data structures follow the following fundamental rule:
+	Two Equivalent objects should be placed in same bucket.
+	But all objects present in the same bucket need not be equal.
+	Equivalent/equal object: which return true using equals() method
+Contract b/w equals() & hashCode()
+	System.out.println("FB".hashCode());//2236
+	System.out.println("Ea".hashCode());//2236

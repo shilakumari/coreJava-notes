@@ -1,0 +1,117 @@
+File
+File f=new File("abc.txt");
+This line won't create any physical file. First it will check, is there any physical file already available with abc.txt name or not.
+It if is already available then f pointing to that file.
+If it is not already available, this line won't create any physical file & just it creates a Java file object to represent the name abc.txt.
+
+File f=new File("abc.txt");
+System.out.print(f.exists());//false, true
+f.createNewFile();// this would not do anything in case of second run
+System.out.println(f.exists());//true,true
+Output:
+First run:
+falsetrue
+Second run:
+truetrue
+
+On command prompt:  
+dir
+dir abc.txt 
+
+Unix and linux are recommended to use for real time project due to many reasons like Security, Freeware etc
+In Unix everything is treaded as a File even directory also. Java File IO concept is implemented based on UNIX OS. Hence we can use Java File Object to represent both files and directories.
+
+File f=new File("abhinav");
+System.out.print(f.exists());//false, true
+f.mkdir();// this would not do anything in case of second run
+System.out.println(f.exists());//true,true
+First run:
+falsetrue
+Second run:
+truetrue
+
+On command prompt:  
+dir
+dir abhinav 
+
+Example:FileDemo.java
+
+
+
+File class constructors:
+1) File f=new File(String name)
+Creates a Java file Object to represent name of specified file or directory present in current working dirctory.
+2) File f=new File(String subdir, String name)
+Creates a Java file Object to represent name of specified file or directory present in specified dirctory.
+3) File f=new File(File subdir, String name)
+
+1)Write a code to create a file named with abc.txt in current working directory
+File f=new FIle(abc.txt);
+f.createNewFile();
+
+2)Write a code to create a directory named with abhinav  in current working directory and create a file named with demo.txt in that directory
+File f=new FIle("abhinav");
+f.mkdir();
+File f1=new File("abhinav","demo.txt");
+f1.createNewFile();
+
+3)File f=new FIle(abhinav);
+f.mkdir();
+File f1=new File(f,"demo.txt");
+f1.createNewFile();
+
+Example:FileDemo.java
+
+
+
+Q) Write a code to create a file named with demo.txt in E:\xyz directory
+File f1=new File("E:\\xyz","demo.txt"); //Assume that E:\xyz folder is already available in our system
+f.createNewFile();
+
+
+Important methods of File class
+1) boolean exists(): 
+Returns true whether specified physical file or directory exists in our system 
+2) boolean createNewFile():
+First this method will check whether the physical file is already available or not. 
+If it is already available then this method returns false without creating any pysical file.
+If it is not already available, then this method creates new File and returns true.
+3) boolean mkdir():
+First this method will check whether the specified directory is already available or not. 
+If it is already available then this method returns false without creating any new directory.
+If it is not already available, then this method creates new directory and returns true.
+4) boolean isFIle()
+Returns true if the File object pointing to physical File
+5) boolean isDirectory()
+Returns true if the File object represents directory
+6)String[] list():
+Returne the names of all Files and directories present in the specified direcotry.
+String[] list = f.list();
+File[] fileList = f.listFiles();
+7)long length():
+Returns the number of characters present in the specified File
+8)boolean delete():
+To delete specified FIle or Directory
+Deletes the file or directory denoted by this abstract pathname. If this pathname denotes a directory, then the directory must be empty in order to be deleted. 
+
+
+
+
+
+Write a program to print the names of all files and sub-directories present in D:\\abhinav
+import java.io.FIle;
+class Test
+{
+public static void main(String[] args)
+{
+	int count=0;
+	File f=new File("D:\\abhinav");
+	String[] names=f.list();
+	for(String name:names)
+	{
+		System.out.println(name);
+		count++;
+	}
+	System.out.println("The total number"+count);
+}
+}

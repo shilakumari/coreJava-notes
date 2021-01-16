@@ -1,0 +1,22 @@
+Thread Pools Framework (Executors Framework)
+Thread Pools 
+Creating a new thread for every job, may create performance & memory utilization problem. 
+	To overcome this we should go for thread pool.
+Thread pool is a pool of already created threads ready to do our job.
+Java 1.5v introduces thread pool framework to implement thread pools.
+Thread pool framework also known as executor framework.
+
+We can create a thread pool as follows:
+ExecutorService service =Executors.newFixedThreadPool(3);
+
+We can submit a runnable job by using submit() method:
+service.submit(myThreadJob);
+
+We can shutdown executors service by using shutdown() method.
+service.shutdown();
+
+Example: ThreadPoolDemo.java(m1())
+Here Single thread can be used for multiple jobs.
+While developing web servers & application servers, we can use ThreadPool concepts.
+Default ThreadPool size for most web server is 60.
+ 

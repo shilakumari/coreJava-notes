@@ -1,0 +1,41 @@
+Introduction
+	Exception
+	ExceptionHandling
+
+Runtime stack mechanism
+Default exception handling in Java	
+
+Exception Hierarchy 
+Methods to print exception information
+
+Type of Exception
+	Checked & 
+	Unchecked Exception
+	
+Customized exception handling by using try catch
+Control flow in try catch finally
+	Control flow in try catch
+	Control flow in try-catch-finally
+	Control flow in nested try-catch-finally
+Try with multiple catch blocks
+
+Finally block
+Difference between final, finally, finalize
+Various possible combination of try catch finally
+
+Throw keyword
+Throws keyword
+
+Customized or user defined exceptions
+Exception handling keywords summary
+Various possible compile time errors in exception handling
+
+
+1.7 version enhancements
+	1. try with resources
+	2  multi-catch block
+
+Recommendation
+
+Common Exceptions
+ 

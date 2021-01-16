@@ -1,0 +1,26 @@
+TreeMap
+Underlying ds-Red BlackTree
+Duplicates key are not allowed but Duplicates values are allowed.
+Insertion order not preserved , Sorting order of key
+If we are depending on default natural sorting order then keys must be homogeneous & comparable. 
+	Otherwise we will get RTE saying ClassCastException.
+If we are defining our own sorting order using comparator then keys need not be homogeneous & comparable.
+	We can take heterogeneous & non-comparable objects also.
+Whether we are depending on default natural sorting order or customize sorting order, there are no restrictions for values. 
+	We can take heterogeneous & non-comparable objects also.
+
+Null acceptance of TreeMap upto 1.6v
+	For empty TreeMap null insertion is possible. But after inserting this if we insert any other entry then  we will get NPE.
+	For non-empty TreeMap null insertion is not possible because comparison is required // NPE
+
+Null acceptance of TreeMap since 1.7v
+	Null key is not possible for anyway.
+
+Irrespective of version of Java, for values we can use null any number of times.
+
+Constructors of TreeMap
+	TreeMap() t =new TreeMap();
+	TreeMap() t =new TreeMap(Comparator c);
+	TreeMap() t =new TreeMap(Map m);
+	TreeMap() t =new TreeMap(SortedMap m);..what is need of this???
+

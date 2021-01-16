@@ -1,0 +1,301 @@
+Deadlock(A lock without key)
+If two threads are waiting for each other forever, such type of infinite waiting is called deadlock.
+
+By using synchronized keyword, we can overcome/resolve deadlock problem.//incorrect
+
+Synchronized keyword is the only reason for deadlock situation. 
+Hence while using synchronized keyword, we have to take special care. 
+	If there is no specific requirement then it is never recommended to use synchronized keyword.
+
+Being as a programmer, just we have to see. 
+Because there is no resolution technique for deadlock but several prevention techniques are available. Prevention is better than cure. Prevention of deadlock is OS level releted thing not related to application programmer.
+
+If the program entered into deadlock situation then the punishment to the programmer is hanging the program, because he didn’t use synchronized keyword properly.
+
+class A
+{
+d1(B b)
+{		
+	b.last();		
+}
+last()
+{
+ }
+}
+
+class B
+{
+d1(A a)
+{	
+	a.last();
+}
+last()
+{
+}
+}
+Output: No deadlock
+
+
+
+
+
+class A
+{
+synchronized d1(B b){		b.last();		}
+last(){ }
+}
+class B
+{
+synchronized d1(A a){	a.last();	}
+last(){}
+}
+Output: No deadlock
+
+
+
+class A
+{
+synchronized d1(B b){		b.last();		}
+synchronized last(){ }
+}
+class B
+{
+synchronized d1(A a){	a.last();	}
+synchronized last(){}
+}
+Output: deadlock occur
+Here t1 will enter into waiting state to get b’s lock & t1 currently holds a’s lock.
+t2 will enter into waiting state to get a’s lock & t2 currently holds b’s lock.
+
+First thread for the lock which is hold by second thread. Second thread for the lock which is hold by first thread. 
+To thread are waiting for each other forver, this type of infinite waiting is called deadlock.
+
+class A
+{
+public  void d1(B b)
+{
+	System.out.println("Thread1  starts execution of d1() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)	{	}
+	System.out.println("Thread1 trying to call B's last() method");
+	b.last();
+}
+public  void last()
+{
+	System.out.println("Inside A, last() method");
+}}
+class B
+{
+public  void d2(A a)//read as d2 of A
+{
+	System.out.println("Thread2  starts execution of d2() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)	{	}
+	System.out.println("Thread2 trying to call A's last() method");
+	a.last();
+}
+public  void last()
+{
+	System.out.println("Inside B, last() method");
+}
+}
+class MyThread extends Thread
+{
+A a=new A();
+B b=new B();
+public void m1()
+{
+	this.start();
+	a.d1(b);//by main thread
+}
+public void run()
+{
+	b.d2(a);//by child thread
+}
+public static void main(String[] args)
+{
+MyThread t=new MyThread();
+t.m1();
+}
+}
+Output:
+Thread1  starts execution of d1() method
+Thread2  starts execution of d2() method
+Thread2 trying to call A's last() method
+Thread1 trying to call B's last() method
+Inside A, last() method
+Inside B, last() method
+
+
+
+
+class A
+{
+public synchronized void d1(B b)
+{
+	System.out.println("Thread1  starts execution of d1() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)
+	{
+	}
+	System.out.println("Thread1 trying to call B's last() method");
+	b.last();
+}
+public  void last()
+{
+	System.out.println("Inside A, last() method");
+}
+}
+class B
+{
+public synchronized void d2(A a)//read as d2 of A
+{
+	System.out.println("Thread2  starts execution of d2() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)
+	{
+	}
+	System.out.println("Thread2 trying to call A's last() method");
+	a.last();
+}
+public  void last()
+{
+	System.out.println("Inside B, last() method");
+}
+}
+
+class MyThread extends Thread
+{
+A a=new A();
+B b=new B();
+
+public void m1()
+{
+	this.start();
+	a.d1(b);//by main thread
+}
+public void run()
+{
+	b.d2(a);//by child thread
+}
+public static void main(String[] args)
+{
+MyThread t=new MyThread();
+t.m1();
+
+}
+
+}
+Output:
+Thread1  starts execution of d1() method
+Thread2  starts execution of d2() method
+Thread2 trying to call A's last() method
+Inside A, last() method
+Thread1 trying to call B's last() method
+Inside B, last() method
+
+
+
+
+
+
+class A
+{
+public synchronized void d1(B b)
+{
+	System.out.println("Thread1  starts execution of d1() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)
+	{
+	}
+	System.out.println("Thread1 trying to call B's last() method");
+	b.last();
+}
+public synchronized void last()
+{
+	System.out.println("Inside A, last() method");
+}
+}
+class B
+{
+public synchronized void d2(A a)//read as d2 of A
+{
+	System.out.println("Thread2  starts execution of d2() method");
+	try
+	{
+		Thread.sleep(10000);
+	}
+	catch(InterruptedException e)
+	{
+	}
+	System.out.println("Thread2 trying to call A's last() method");
+	a.last();
+}
+public synchronized void last()
+{
+	System.out.println("Inside B, last() method");
+}
+}
+
+class MyThread extends Thread
+{
+A a=new A();
+B b=new B();
+
+public void m1()
+{
+	this.start();
+	a.d1(b);//by main thread
+}
+public void run()
+{
+	b.d2(a);//by child thread
+}
+public static void main(String[] args)
+{
+MyThread t=new MyThread();
+t.m1();
+
+}
+
+}
+Output:
+Thread1  starts execution of d1() method
+Thread2  starts execution of d2() method
+Thread1 trying to call B's last() method
+Thread2 trying to call A's last() method
+_
+Deadlock occurred here
+
+In the above program, if we remove atleast one synchronized keyword then the program won’t entered into deadlock. 
+Hence synchronized keyword is the only reason for deadlock situation.
+Due to this, while using synchronized keyword, we have to take special care.
+
+
+
+Deadlock vs Starvation
+Long waiting of thread, where waiting never ends , is called deadlock.
+Long waiting of thread, where waiting ends at certain point , is called starvation.
+
+Starvation example
+Low priority thread has to wait, until completing all high priority threads. 
+It may be long waiting but ends at certain point, is called starvation.
+1 crore threads
+1 thread having priority 1.
+Remaining thread having priority 10
+

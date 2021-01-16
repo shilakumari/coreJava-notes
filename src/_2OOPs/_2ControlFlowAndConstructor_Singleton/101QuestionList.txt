@@ -1,0 +1,7 @@
+1.Roles of new keyword and constructor
+2.Whenever we are creating child class object whether parent class object will be created or not?
+3.Whenever creating child class object, what is the need of executing parent class constructor?
+4.Anyway we can not create object for abstract class either directly or indirectly, 
+	But abstract class contain constructor. What is the need?
+5.Anyway we can not create object for abstract class and interface.
+	Abstract class contain constructor but interface does not. Why?

@@ -1,0 +1,193 @@
+for loop
+It is most commonly used loop in Java. If we know number of iteration in advance then for loop is the best choice.
+for(int i=0;i<10;i++){
+SOP(“Hello”);
+}
+
+Syntax:
+for(initialization_section;conditional_check;increment_decrament_section){
+//loop body
+}
+
+1)for(int i=0;true;i++)
+	SOP(“Hello”);
+
+for(int i=0;i<10;i++);
+
+for(int i=0;i<10;i++)
+	int x=10;
+Curly braces are optional & without curly braces, we can take only one statement under for loop which should not be declarative statement.
+
+2)Initialization section
+for(int i=0;i<10;i++){
+SOP(“Hello”);
+}
+
+for(int i=0, j=0;i<10;i++){}
+for(int i=0,String s=”Abhi”;i<10;i++)//CTE
+{}
+for(int i=0,int j=0;i<10;i++)//CTE
+{}
+This part will be executed only once in loop life cycle.
+Here we can declare & initialize local variables of for loop.
+Here we can declare any number of variables but should be of the same type.
+By mistake, if we are trying to declare different data type variables then we will get CTE.
+int i=0;
+for(SOP(“Hello boss u r sleeping”);i<3;i++){
+	SOP(“No boss U only sleeping”);
+}
+Output:
+Hello boss u r sleeping
+
+In initialization section we can take any valid Java statement including SOP, but not return statement.
+int i=0;
+for((return );i<3;i++){
+	System.out.println("Hii");
+}
+
+3)Conditional check
+for(int i=0;i<j;i++){}
+
+for(int i=0;(i<j && k<30);i++){}
+
+for(int i=0;true;i++){SOP(“Hello”)}
+for(int i=0;;i++){SOP(“Hello”)}
+Here we can take any valid java expression but should be of the type boolean.
+This part is optional & if we are not taking anything, then compiler will always place true.
+
+4)Increment or decrement section
+int i=0;
+for(SOP(“hello”);i<j;SOP(“hii”)){
+i++;
+}
+Output:
+Hello
+Hi
+Hi
+Hi
+In the increment or decrement section, we can take any valid statement including SOP().
+
+5)for(int i=0;i<10;i++){}
+
+for(;;){SOP(“hello”);}   or   for(;;);  //infinite loop
+All 3 parts of for loop, are independent of each other and optional.
+
+6)for(int i=0;true;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);//CTE,unreachable statement
+
+for(int i=0;false;i++){// CTE,unreachable statement
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+
+for(int i=0;   ;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);// CTE,unreachable statement
+
+int a=10,b=20;
+for(int i=0;a<b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+Output:
+Hello
+Hello
+.
+.
+.
+
+int a=10,b=20;
+for(int i=0;a>b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);
+Output:
+hii
+
+final int a=10,b=20;
+for(int i=0;a<b;i++){
+	System.out.println(“Hello”);
+}
+System.out.println(“hii”);// CTE,unreachable statement
+
+final int a=10,b=20;
+for(int i=0;a>b;i++)
+{// CTE,unreachable statement
+	System.out.println(“Hello”); 
+}
+System.out.println(“hii”);
+
+
+
+For-each loop or enhanced for loop(since 1.5v)
+It is specially designed loop to retrieve elements of arrays & collections.
+
+Case 1: To print elements of 1D array
+int [] x={10,20,30,40};
+for(int i=0;i<x.length;i++){
+	System.out.println(x[i]);
+}
+
+int [] x={10,20,30,40};
+for(int i:x){
+	System.out.println(i);
+}
+
+Case 2: To print elements of 2D array
+int[][] x={{10,20,30},{40,50}};
+for(int i=0;i<x.length;i++){
+	for(int j=0;i<x[i].length;j++){
+		System.out.println(x[i][j]);
+	}
+}
+
+int[][] x={{10,20,30},{40,50}};
+for(int[] x1:x){
+	for(int i:x1)//read as for each i in x{
+		System.out.println(i);
+	}
+}
+
+Case 3: To print elements of 3D array
+int[][][] x={ {{10, 20}, {30, 40}}, {{50, 60, 70}, {80, 90}} };
+for(int[][] x1:x){
+	for(int[] x2 :x1){
+		for(int i:x2){
+			System.out.println(i);
+		}
+	} 
+}
+
+For each loop is the best choice to retrieve elements of arrays & collections but it’s limitation is , 
+it is applicable only for arrays & collections and it is not a general purpose loop.
+for(int i=0;i<10;i++){
+	System.out.println(“Hello”);
+}
+We cann’t write an equivalent for-each loop directly.
+
+int[]  x={10,20,30,40,50};
+for(int i=x.length-1;i>=0;i--){
+	System.out.println(x[i]);
+}
+We cann’t write an equivalent for-each loop  indirectly.
+By using normal for loop, we can print array elements either in original order or in reverse order 
+but by using for-each loop we can print array elements only in original order but not in reverse order.
+
+Iterable interface(since 1.5v)
+It contains only one method iterator().
+All array related classes and collection implemented classes already implements Iterable interface.
+Being a programmer we are not required to do anything. Just we should aware the point.
+	for(each_item:target){}
+	Here, target element can be either array  or collection
+	Target element should be Iterable object.
+An object is said to be iterable if and only if corresponding class implements java.lang.Iterable interface.
+
+Diff b/w iterator & iterable
+Iterator(I)															Iterable(I)
+It is related to collections.										It is related to for-each loop.
+We can use to retrieve the elements of collections one by one.		the target element in for-each loop should be Iterable.
+It is present in java.util package.									It is present in java.lang package.
+It contains 3 methods, hasNext(), next() & remove().				It contains 1 method, iterator()

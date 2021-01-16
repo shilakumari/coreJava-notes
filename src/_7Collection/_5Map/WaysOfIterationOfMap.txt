@@ -1,0 +1,24 @@
+/*
+	 * Ways to iterate Map 
+	 * 1.values() method-Key cann't be accessed via value
+	 *		a)for/for-each loop
+	 *		b)iterator
+	 *		c)forEach method
+	 *		d)stream()
+	 *		e)forEachRemaing() method
+	 *		f)Stream.of()????????????
+	 * 2.keySet() method 
+	 * 		a)for/for-each loop
+	 *		b)iterator
+	 *		c)forEach method
+	 *		d)stream()
+	 *		e)forEachRemaing() method
+	 *		f)Stream.of()????????????
+	 * 3.entrySet() method 
+	 * 		a)for/for-each loop
+	 *		b)iterator
+	 *		c)forEach method
+	 *		d)stream()
+	 *		e)forEachRemaing() method
+	 *		f)Stream.of()????????????
+	 * 4.forEach() method on map

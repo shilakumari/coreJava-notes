@@ -1,0 +1,29 @@
+package _6Multithreading._3udemy._7ParallelAlgorithm;
+
+import java.util.Random;
+
+public class ParallelSumDemo {
+
+	public static void main(String[] args) {
+		int numOfProcessors = Runtime.getRuntime().availableProcessors();
+
+		Random random = new Random();
+		int[] nums = new int[100000000];
+		for (int i = 0; i < nums.length; i++) {
+			nums[i] = random.nextInt(101) + 1; // 1..100
+		}
+
+		long start = System.currentTimeMillis();
+		SequentialSum sequentialSum = new SequentialSum();
+		System.out.println("Sum is: " + sequentialSum.sum(nums));
+		System.out.println("Single: " + (System.currentTimeMillis() - start) + "ms"); // Single:
+																						// 44
+
+		start = System.currentTimeMillis();
+		ParallelSum parallelSum = new ParallelSum(numOfProcessors);
+		System.out.println("Sum is: " + parallelSum.parallelSum(nums));
+		System.out.println("Parallel: " + (System.currentTimeMillis() - start) + "ms"); // Parallel:
+																						// 25
+
+	}
+}

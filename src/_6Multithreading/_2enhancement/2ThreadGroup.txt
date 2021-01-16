@@ -1,0 +1,105 @@
+
+ThreadGroup
+Based on functionality we can group threads into a single unit, which is called threadgroup.
+Threadgroup contains 
+â¦�	a group of threads.
+â¦�	sub-threadgroup
+
+Advantage
+We can perform common operation very easily.  
+Like Yahoo messenger (Friend Group, Relative group).
+
+Example: ThreadGroupDemo.java(m1())
+Main method
+Main thread
+Main threadgroup
+
+
+Every thread in Java, belongs to some threadgroup. 
+	Independently without threadgroup there is no chance of existing any thread.
+Main thread belongs to main threadgroup.
+Every threadgroup in Java is the child threadgroup of system threadgroup either directly or indirectly. 
+	Hence system threadgroup acts as root for all threadgroups in Java.
+
+
+System threadgroup contains sevral system level threads, like 
+â¦�	Finalizer (garbage collector), 
+â¦�	reference handler, 
+â¦�	attach listener, 
+â¦�	signal dispatcher
+â¦�	main 
+		main
+		
+System level threads, vary from system to system.
+
+ThreadGroup is a Java class present in java.lang package & it is the direct child class of Object class.
+Object--THreadGroup
+
+
+
+Constructors
+1) ThreadGroup tg=new ThreadGroup(String name);	
+	It creates a new threadgroup with a specified group name.
+	The parent of this new group is the threadgroup of currently executing thread.
+	Example: ThreadGroupDemo.java(m2())
+	
+
+2) ThreadGroup tg=new ThreadGroup(ThreadGroup parentTg, String name);	
+	It creates a new threadgroup with a specified group name & 
+	the parent of this new threadgroup will be specified parent threadgroup.
+	Example: ThreadGroupDemo.java(m3())
+	
+
+
+Important methods of Threadgroup class
+String getName()
+	It returns name of the threadgroup.
+ThreadGroup getParent()
+	It returns parentgroup of  thread.
+int  getMaxPriority()
+	It returns maxpriority of thread group.
+void setMaxPriority(int p)
+	It set maximum priority of threadgroup.
+
+The default maxpriority is 10.
+Threads in the threadgroup that have already higher priority, wonâ€™t  be affected but for newly added threads this maxpriority is applicable.
+Example: ThreadGroupDemo.java(m4())
+
+void list()
+	it prints information about threadgroup to the console.
+	
+
+
+int activeCount()
+It returns number of active threads present in threadgroup.
+
+int activeGroupCount()
+It returns number of active groups present in current threadgroup.
+
+Example: ThreadGroupDemo.java(m5())
+
+boolean isDaemon()
+It check whether the threadgroup is daemon or not.
+
+Void setDaemon(boolean b)
+
+int enumerate(Thread[] t)
+	To copy all active threads of this threadgroup into provided thread array.
+	In this case sub-threadgoup thread also will be considered.
+int enumerate(ThreadGroup[] t)
+	To copy all active subthread groups into Threadgroup array.
+
+Example: ThreadGroupDemo.java(m6()) (Write a program to display all active thread names belongs to system group & its child group.)
+			Reference Handler...true
+			Finalizer...true
+			Signal Dispatcher...true
+			Attach Listener...true
+			main...false
+Example: ThreadGroupDemo.java(m7())(Write a program to display all active threadgroup names belongs to system group & its child group.)
+
+
+Void interrupt()
+It interrupt all waiting or sleeping threads present in the threadgroup.
+
+Void destroy()
+It destroy threadgroup & its sub-threadgroups

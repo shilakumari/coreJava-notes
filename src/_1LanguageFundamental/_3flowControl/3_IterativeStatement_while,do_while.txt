@@ -1,0 +1,213 @@
+Iterative statement
+while
+for 
+do-while
+for-each
+
+while()
+1)if we don’t know number of iteration in advance , then we should go for while loop.
+while(rs.next()){}
+while(e.hasMoreElements())
+while(itr.hasNext()){}
+
+2)while(b){
+//action
+}
+Here the argument b should be boolean type. If we trying to provide any other type then we will get CTE.
+while(1){ //CTE,incompatible types, found:int, required:boolean
+	SOP(“Hello”);
+}
+
+3)Curly braces are optional. without curly braces, we can take only one statement under while, which should not be declarative statement.
+while(true)
+	SOP(“hello”);
+	
+while(true);
+
+while(true)
+	int x=10;//CTE
+
+while(true){
+	int x=10;
+}
+
+4)while(true){
+	SOP(“Hello”);
+}
+SOP(“hi”);// CTE,unreachable statement
+
+while(false)
+{SOP(“hello”);}// CTE,unreachable statement
+SOP(“hi”);
+
+At runtime, unreachable statement, JVM will never going to check.
+Compiler is responsible to check unreachable statement.
+int a=10;
+int b=20;
+while(a<b){
+	SOP(“hello”);
+}
+SOP(“hi”);
+Output:
+Hello
+Hello
+Hello
+………..
+
+int a=10;
+int b=20;
+while(a>b){
+	SOP(“hello”);
+}
+SOP(“hi”);
+Output:
+	Hi
+
+final int a=10;
+final int b=20;
+while(a<b){
+	SOP(“hello”);
+}
+SOP(“hi”);// // CTE,unreachable statement
+
+final int a=10;
+final int b=20;
+while(a>b){
+	SOP(“hello”); // CTE,unreachable statement
+}
+SOP(“hi”);
+
+Every final variable will be replaced by the value at the compile time .
+final  int a=10;
+int b=20;
+SOP(a); //after compilation SOP(10);
+SOP(b); //after compilation SOP(b);
+If every arguments are final variable (compile time constants) then that operation will be performed at compile time only.
+final int a=10,b=20;
+int c=30;
+SOP(a+b); //after compilationSOP(30);
+SOP(a+c); //after compilationSOP(a+c);
+SOP(a<b); //after compilationSOP(true);
+SOP(a<c); //after compilationSOP(a<c);
+
+do-while()
+If we want to execute loop body at least once, then we should go for do-while().
+1)do{
+}while(b);
+Here b is boolean type.
+Here semicolon is mandatory (unlike c++);
+
+2)Curly braces are optional. And without curly braces, we can take only one statement under while, which should not be declarative statement.
+do
+	SOP(“hello”);
+while(true);
+
+do;
+while(true);
+
+do//CTE
+while(true);
+
+do
+	int x=10;//CTE
+while(true);
+
+do{
+	int x=10;
+}while(true);
+
+3)Valid code:
+do while(true)
+SOP(“Hello”);
+while(false);
+Here it seems do- while loop contains 2 statement without curly braces but logically it has one statement. Hence it is valid.
+Here it seems while(false) is not reachable statement but actually it is associated with do and when we entered inside do-while(false) then 
+it has been reached.
+do 
+while(true)
+SOP(“Hello”);
+while(false);
+Output:
+Hello
+Hello
+.
+.
+.
+
+Valid code:
+do 
+while(true)
+SOP(“Hello”);
+while(true);
+
+try{
+//1 lakh lines
+}
+catch(x e){
+//l lakh lines
+}
+finally{
+//1 lakh lines
+}
+
+do
+System.out.println("hello");
+System.out.println("hello");
+while(false);
+Output://CTE
+
+do{
+	while(true)
+		System.out.println("hello");
+		System.out.println("hiii");//CTE, error: unreachable statement
+}while(true);
+
+4)do{
+	SOP(“hello”);
+}while(true);
+SOP(“Hi”);//CTE, unreachable statement
+
+do{
+	SOP(“hello”);
+}while(false);
+SOP(“Hi”);
+Output:
+Hello 
+Hi
+
+int a=10,b=20;
+do
+{
+	SOP(“hello”);
+}while(a<b);
+SOP(“Hi”);
+Output:
+Hello 
+Hello
+.
+.
+.
+
+int a=10,b=20;
+do{
+	SOP(“hello”);
+}while(a>b);
+SOP(“Hi”);
+Output:
+	Hello 
+	Hi
+
+final int a=10,b=20;
+do{
+	SOP(“hello”);
+}while(a<b);
+SOP(“Hi”);//CTE, unreachable code
+
+int a=10,b=20;
+do{
+	SOP(“hello”);
+}while(a>b);
+SOP(“Hi”);
+Output:
+Hello
+Hi

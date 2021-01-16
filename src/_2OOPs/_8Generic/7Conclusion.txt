@@ -1,0 +1,77 @@
+Communication with non-generic code:
+If we send generic object to a non-generic area, then it starts behaving like non-generic object.
+If we send non-generic object to a generic area, then it starts behaving like generic object.
+That is location in which object present, based on that behaviour will be defined.
+class Test{
+  public static void main(String[] args){
+    //Generic area
+    ArrayList<String> l = new ArrayList<String>();
+    l.add("durga");
+    l.add("Ravi");
+    //l.add(10);//CTE
+    m1(l);  
+    System.out.println(l);
+    //l.add(10.5);//CE
+  }
+  public static void m1(ArrayList l){
+    //non-generic area
+    l.add(10);
+    l.add(10.5);
+    l.add(true);
+  }
+}
+
+Conclusion
+1)
+The main purpose of generic is to provide type safety and to resolve type casting problems.
+Type safety & type casting both are applicable at compile time, 
+  hence generic concept is also applicable only at compile time but not at runtime.
+Compiler is always going to check only reference type.
+JVM is always going to check Runtime object.
+At the time of compilation as last step, generic syntax will  be removed 
+  and for the jvm, generic syntax won�t be available.
+
+2)
+    ArrayList l2 = new ArrayList<String>();
+    l2.add(10);
+    l2.add(10.5);
+    l2.add(true);
+    System.out.println(l2);//[10, 10.5, true]
+
+  All the following declarations are same.
+  ArrayList l = new ArrayList<String>();
+  ArrayList l = new ArrayList<Integer>();
+  ArrayList l = new ArrayList<Double>();
+  ArrayList l = new ArrayList();
+  
+3)  All the following declarations are same.
+  ArrayList<String> l = new ArrayList<String>();
+  ArrayList<String> l = new ArrayList();
+  For above these arraylist objects we can add only string type of objects.
+  ArrayList<String> l = new ArrayList<Integer>();//CTE
+  
+4)  Erasure is code, after removing generic.
+  class Test{
+    public void m1(AL<String> l){}//-->m1(AL l)
+    public void m1(AL<Integer> l){}//-->m1(AL l)
+  }//CTE,Erasure of method m1(ArrayList<String>) is the same as another method in type Test
+
+At compile time
+(1) Compile code normally by considering generic types
+(2) Remove generic syntax
+(3) Compile once again read test code
+
+Restrictions on Generics
+To use Java generics effectively, you must consider the following restrictions:
+Cannot Instantiate Generic Types with Primitive Types
+Cannot Create Instances of Type Parameters
+Cannot Declare Static Fields Whose Types are Type Parameters
+Cannot Use Casts or instanceof With Parameterized Types
+Cannot Create Arrays of Parameterized Types
+	Can we create a Generic (T type) Array?
+	class Demo<T>{ private T[] arr = new T[100]; }//Error
+Cannot Create, Catch, or Throw Objects of Parameterized Types
+Cannot Overload a Method Where the Formal Parameter Types of Each Overload Erase to the Same Raw Type
+
+
+https://docs.oracle.com/javase/tutorial/java/generics/QandE/generics-questions.html

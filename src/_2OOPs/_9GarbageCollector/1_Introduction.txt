@@ -1,0 +1,188 @@
+Introduction
+In old languages like c++, Programmer is responsible for both creation and destruction of objects. 
+Usually programmer taking very much care while creating objects and neglecting destruction of useless objects. 
+Due to his negligence at the certain point, for creation of new object, 
+Sufficient memory may not be available and entire application will be down with memory problems. 
+Hence outOf memory is vary common problem in old languages like c++.
+
+But in Java, programmer is responsible is responsible for creation of objects and he is not responsible for destruction of useless objects. 
+SUN people provided one assistant which is always running in the background for destruction of useless objects. 
+Just because of this assistant, the chance of failing java program with memory problems is very very 
+	less(It is also one reason for robustness of java). 
+This assistant is nothing but Garbage Collector.
+
+Hence the main objective of garbage collector is to Destroy useless objects.
+
+Garbage collector is best example for Daemon thread as it is always running in the background..
+
+The ways to make an object eligible forGC:
+Even though programmer is not responsible to destroy useless objects 
+but it is highly recommended to make an object eligible for GC if it is no longer required.
+
+An object is said to be eligible for GC if and only if it doesn't contain any reference.
+
+The following are various possible ways to make an object eligible for GC.
+1. Nullifying the reference variable:
+	If an object is no longer required, then assign null to all its reference variables, 
+	then that object automatically eligible for GC.
+Example:
+	Student s1 = new Student();//Object is not eligible for GC
+	Student s2 = new Student();//Object is not eligible for GC
+	.
+	.
+	.
+	s1 = null;//Object is eligible for GC
+	.
+	.
+	s2 = null;//Object is eligible for GC
+
+2. Re-assigning the reference variable:
+	if an object is no longer required then re-assign its reference variable to any other then old object is automatically eligible for GC.
+Example:
+	Student s1 = new Student();//Object is not eligible for GC
+	Student s2 = new Student();//Object is not eligible for GC
+	.
+	.
+	.
+	s1 = new Student();//One object is eligible for GC
+	.
+	.
+	s2 = s1;//Two objects are eligible for GC
+	
+3. Objects created inside the method:
+	Objects created inside a method are by default eligible for GC, once method completes
+	(Because the reference variables are local variables of that method and once method completes all local variables will be destroyed).
+Example 1:
+class Test{
+	public static void main(String[] args){
+		m1();//after m1() two objects are eligible for GC
+	}
+	public static void m1(){
+		Student s1 = new Student();//not eligible for GC
+		Student s2 = new Student();//not eligible for GC
+	}
+}
+Example 2:
+class Test{
+	public static void main(String[] args){
+		Student s = m1();//after m1() only one object is eligible for GC
+	}
+	public static Student m1(){
+		Student s1 = new Student();
+		Student s2 = new Student();
+		return s1;//here s1 object referenced s, s1 and s2 are not pointing after m1() execution
+	}
+}
+Example 3:
+class Test{
+	public static void main(String[] args){
+		m1();//after m1() only one object is eligible for GC
+	}
+	public static Student m1(){
+		Student s1 = new Student();
+		s1 = new Student();
+	}
+}
+
+4. Island and Isolation:
+Example:
+	class Test{
+	Test i;
+		public static void main(String[] args){
+			Test t1 = new Test();
+			Test t2 = new Test();
+			Test t3 = new Test();
+			//No object is eligible for GC
+			
+			t1.i = t2;
+			t2.i = t3;
+			t3.i = t1;
+			//No object is eligible for GC
+			
+			t1 = null;
+			t2 = null;
+			t3 = null;
+			//Now,all 3 objects are eligible for GC
+		}
+	}
+Note
+1. If an object doesn't have any reference variable then it is always eligible for GC.
+2. Even though object having reference variable still sometimes it may be a eligible for GC(if all references are internal references)
+Example:
+Island of isolation
+
+The ways for requesting JVM to run GC:
+1.	Once we make an object eligible for GC, it may not destroy immediately by the GC. 
+	Whenever JVM runs garbage collector then only object will be destroyed. 
+	But when exactly JVM runs GC, we can't except. 
+	It depends on JVM and varied from JVM to JVM.
+2.	Instead of waiting until JVM runs GC, we can request JVM to run garbage collector. 
+	But there is no guarantee whether JVM accept our request or not. 
+	But most of the times JVM accepts our request.
+
+The following are various ways for requesting JVM to run GCL
+1. By using system class:
+	System class contains a static methods gc() for this purpose.
+		System.gc();
+2. By using Runtime class:
+	A java application can communicate with JVM by using Runtime Object.
+	Runtime class present in java.lang package and it is a singleton class.
+	We can create Runtime Object by using getRuntime().
+		Runtime r = Runtime.getRuntime();
+Once we got runtime Object we can call the following methods on that object.
+1. freeMemory():
+	Returns number of bytes of free memory present in the heap.
+2. totalMemory():
+	Returns total number of bytes of heap(i.e. Heap size)
+3. gc():
+	Requesting JVM to run GC.
+
+Note 1: Singleton class:
+	For any java class if we are allowed to create only one object, such type of class is called singleton class.
+	Example:
+		Runtime
+		BusinessDelegate
+		ServiceLocator
+
+Note 2: Factory method:
+	By using class name if we are calling a method and if that method returns same class object, 
+	such type of methods are called factory methods(static factory methods).
+	Example:
+		Runtime r = Runtime.getRuntime();
+		DateFormat df = DateFormat.getInstance();
+
+Example:
+		Runtime r = Runtime.getRuntime();
+		System.out.println(r.totalMemory());//64487424
+		System.out.println(r.freeMemory());//63480712
+
+		for (int i = 0; i < 10000; i++) {
+			Date d = new Date();
+			d = null;
+		}
+		System.out.println(r.totalMemory());//64487424
+		r.gc();
+		System.out.println(r.freeMemory());//64190224
+	 
+Note:
+	gc() method present in System class static method whereas gc() method present in runtime class is instance method.
+
+Q) Which of the following is valid way for requesting JVM to Run Garbage Collector?
+1. System.gc();//valid
+2. Runtime.gc();//invalid, because gc()method present in Runtime class is not static
+3. new Runtime.gc();//invalid, because we can not create object by new operator as runtime class is a Singleton class
+4. Runtime.getRuntime().gc();//valid	 
+
+
+Note:
+With respect to convenience, it is recommended to use System.gc() method when compared to Runtime class gc() method.
+
+With respect to performance, it is recommended to use Runtime ge() method when compared with System class gc() method, 
+	because internally System class gc() method calls Runtime class gc() method.
+Example:
+	class System{
+		public static void gc(){
+			Runtime.getRuntime().gc();
+		}
+	}
+

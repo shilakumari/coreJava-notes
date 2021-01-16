@@ -1,0 +1,261 @@
+Generic
+Purpose/Objective of Generic
+
+
+Generic
+	Generic is a mechanishm to provide type checking at compile time
+	Generic type parameters are applicable only with instance field, but not with static field.
+
+Purpose/Objective of Generic
+	Stronger type checking 
+	to provide Type safety at compile-time and 
+	to resolve type casting problem.  
+	Code Reuse: We can write a method/class/interface once and use for any type we want.
+	Implementing generic algorithms:
+		By using generics, we can implement algorithms that work on different types of objects 
+		and at the same they are type  safe too.
+
+Case 1: Type Safety
+String[] s=new String[1000];
+S[0]="Abhinav";
+S[1]="Rahul";
+S[2]="Ravi";
+//S[3]=new Integer(10);//CTE, Incompatible type
+S[3]="Shiva";
+Whenever a homogeneous or a  particular type of elements are  required , it is highly recommended to use array.
+Arrays are type safe(we can give the guarranty for the type of elements presents inside the array 
+hence arrays are safe to use with respect to type that is array are type safe.
+but collections are not type safe. 
+
+For example, if our programming requirement is to hold only String type of objects, we can choose String array. 
+By mistake if we are trying to add any other type of objects, we will get CTE. And we can correct it. 
+Hence String array can contain only String type of objects . 
+Due to this, we can give the guarantee for the type of elements present inside array. 
+Hence arrays are safe to use w.r.t type. That is array are type safe.
+
+ArrayList al=new ArrayList();
+Al.add("Abhinav");
+Al.add("Rahul");
+Al.add("Ravi");
+Al.add(new Integer(10));//NO CTE
+
+String name1=(String)al.get(0);
+String name2=(String)al.get(1);
+String name3=(String)al.get(2);
+String name4=(String)al.get(3);//RE,ClassCastException
+Failing the program at runtime is more dangerous than the failing the program at compile-time. 
+Because at runtime control is not in the programmer"s hand.  Already handover to the client. 
+At runtime , failing the program is ultimate , client gives left & right.
+But collections are not type safe. That is we cannot give the guarantee for the type of elements presents inside collection.
+For example, If our programming requirement is to hold only String type of objects & 
+if we choose ArrayList, by mistake, 
+if we are trying to add any other type of object, we won"t get any CTE but the program may fail at runtime. 
+Hence we cannot give the guarantee for the type of elements present inside collection. 
+Due to this collections are not safe to use w.r.t. type. 
+That is collections are not type safe.
+
+Array are type safe
+Normal collection(without generic) are not type safe.
+We want type safety and we don"t know size in advance then we use generics with collection.
+
+Case 2: Type Casting
+String s=new String[1000];
+S[0]="Abhinav";
+String name1=s[0];//Type-Casting not required
+
+ArrayList al=new ArrayList("Abhinav");
+al.add("Abhinav");
+String name1=al.get(0);//CTE,incompatible type
+String name1=(String)al.get(0);// type-casting is mandatory
+In the case of arrays, at the time of retrieval, it is not required to perform type casting. 
+	Because there is a guarantee for the type of the elements present inside array.
+But in the case of collections, at the time of retrieval, it is mandatory to perform type casting. 
+	Because there is no guarantee for the type of the elements present inside collection.
+Hence type casting is bigger headache in collections.
+
+To overcome above problems of collections, SUN people introduce generic concept in 1.5v. 
+Hence the main objective of generics are 
+	to provide Type safety and 
+	to resolve type casting problem.  
+
+Non Generics version of ArrayList object
+ArrayList al=new ArrayList();
+al.add("Abhinav");
+al.add(new Integer(10));//NO CTE
+al.add("Shiv");
+
+Non Generics version of ArrayList object
+To hold only String type of objects, we can create generic version of ArrayList object as follows
+ArrayList<String> al=new ArrayList<String>();
+al.add("Abhinav");
+al.add(new Integer(10));//CTE, incompatible type
+al.add("Shiv");
+For this ArrayList, we can add only String type of object, by mistake if we are trying to add any other type 
+then we will get CTE. Hence through generics, we are getting type safety.
+
+At the time of retrieval, we are not required to perform type casting.
+ArrayList<String> al=new ArrayList<String>();
+al.add("Abhinav");
+//al.add(new Integer(10));//CTE, incompatible type
+al.add("Shiv");
+String name1=l.get(0);//Type-casting is not required.
+Hence through generics we can solve type-casting problem.
+
+ArrayList al=new ArrayList() & ArrayList<String> al=new ArrayList<String>()
+1)Non-generic version of ArrayList object		
+Generic version of ArrayList object
+2)For this ArrayList we can add any type of object & hence it is not Type-safe.	
+For this ArrayList we can add only String type of object & hence it is Type-safe.
+3)At the time of retrieval, we have to perform Type-casting.	
+At the time of retrieval, we are not required to performType-casting.
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+Example
+	Data.java  GenericData.java m1() 
+	Data2.java  GenericData.java m2() m3() m4() 
+	
+Note 1:	
+Polymorphism concept is applicable only for the base type but not for the parameter type.
+Using a parent reference to hold child object is the concept of polymorphism.
+Figure: Tree of collection framework
+List l=new ArrayList();
+List l=new LinkedList();
+List l=new Vector();
+List l=new Stack();
+
+ArrayList<String> l=new ArrayList();//Base type is ArrayList and Parameter Type is String.
+List<String> l=new ArrayList<String>();
+Collection<String> l=new ArrayList<String>();
+ArrayList<Object> l=new ArrayList<String>();//CTE, incompatible type
+Polymorphism concept is applicable only for the base type but not for the parameter type.
+
+Note 2:	
+For the type parameter we can provide any class or interface name but not primitive. 
+If we are trying to provide primitive then we will get CTE. 
+ArrayList<int> x=new ArrayList<int>();//CTE, unexpected type
+
+
+Collections cannot hold primitive type value.
+Type parameters are also called type variables.
+A type variable can be any non-primitive type you specify: any class type, any interface type, any array type, or even another type variable.
+
+Compile-time bugs, for example, can be detected early on; you can use the compiler's error messages 
+	to figure out what the problem is and fix it, right then and there. 
+Runtime bugs, however, can be much more problematic; they don't always surface immediately, and when they do, 
+	it may be at a point in the program that is far removed from the actual cause of the problem.
+Generics add stability to your code by making more of your bugs detectable at compile time. 
+
+Type Parameter Naming Conventions
+The most commonly used type parameter names are:
+E - Element (used extensively by the Java Collections Framework)
+K - Key
+N - Number
+T - Type
+V - Value
+S,U,V etc. - 2nd, 3rd, 4th types
+
+Type Parameter and Type Argument Terminology: 
+Many developers use the terms "type parameter" and "type argument" interchangeably, but these terms are not the same. 
+When coding, one provides type arguments in order to create a parameterized type. 
+Therefore, the T in Foo<T> is a type parameter and the String in Foo<String> f is a type argument. 
+This lesson observes this definition when using these terms.
+
+The Diamond
+In Java SE 7 and later, you can replace the type arguments required to invoke the constructor of a generic class 
+	with an empty set of type arguments (<>) as long as the compiler can determine, or infer, the type arguments from the context. 
+This pair of angle brackets, <>, is informally called the diamond. 
+For example, you can create an instance of Box<Integer> with the following statement:
+Box<Integer> integerBox = new Box<>();
+For more information on diamond notation and type inference, see Type Inference.
+	https://docs.oracle.com/javase/tutorial/java/generics/genTypeInference.html
+	
+Parameterized Types
+You can also substitute a type parameter (i.e., K or V) with a parameterized type (i.e., List<String>). 
+For example, using the OrderedPair<K, V> example:
+	OrderedPair<String, Box<Integer>> p = new OrderedPair<>("primes", new Box<Integer>(...));
+
+
+Raw Types
+A raw type is the name of a generic class or interface without any type arguments. For example, given the generic Box class:
+public class Box<T> {
+    public void set(T t) { /* ... */ }
+    // ...
+}
+To create a parameterized type of Box<T>, you supply an actual type argument for the formal type parameter T:
+Box<Integer> intBox = new Box<>();
+If the actual type argument is omitted, you create a raw type of Box<T>:
+Box rawBox = new Box();
+Therefore, Box is the raw type of the generic type Box<T>. However, a non-generic class or interface type is not a raw type.
+Raw types show up in legacy code because lots of API classes (such as the Collections classes) were not generic prior to JDK 5.0. 
+When using raw types, you essentially get pre-generics behavior — a Box gives you Objects. 
+For backward compatibility, assigning a parameterized type to its raw type is allowed:
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;               // OK
+But if you assign a raw type to a parameterized type, you get a warning:
+Box rawBox = new Box();           // rawBox is a raw type of Box<T>
+Box<Integer> intBox = rawBox;     // warning: unchecked conversion
+You also get a warning if you use a raw type to invoke generic methods defined in the corresponding generic type:
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;
+rawBox.set(8);  // warning: unchecked invocation to set(T)
+The warning shows that raw types bypass generic type checks, deferring the catch of unsafe code to runtime. 
+Therefore, you should avoid using raw types.
+The Type Erasure section has more information on how the Java compiler uses raw types.
+
+RawType is not recommended to use.
+In place of RawType we should use Generic type with Object as a type parameter.
+ 
+Unchecked Error Messages
+As mentioned previously, when mixing legacy code with generic code, you may encounter warning messages similar to the following:
+Note: Example.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+This can happen when using an older API that operates on raw types, as shown in the following example:
+public class WarningDemo {
+    public static void main(String[] args){
+        Box<Integer> bi;
+        bi = createBox();
+    }
+    static Box createBox(){
+        return new Box();
+    }
+}
+The term "unchecked" means that the compiler does not have enough type information to perform all type checks necessary to ensure type safety. 
+The "unchecked" warning is disabled, by default, though the compiler gives a hint. To see all "unchecked" warnings, recompile with -Xlint:unchecked.
+Recompiling the previous example with -Xlint:unchecked reveals the following additional information:
+WarningDemo.java:4: warning: [unchecked] unchecked conversion
+found   : Box
+required: Box<java.lang.Integer>
+        bi = createBox();
+                      ^
+1 warning
+To completely disable unchecked warnings, use the -Xlint:-unchecked flag. The @SuppressWarnings("unchecked") annotation suppresses unchecked warnings. 
+If you are unfamiliar with the @SuppressWarnings syntax, see Annotations.
+
+
+

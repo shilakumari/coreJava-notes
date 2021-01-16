@@ -1,0 +1,32 @@
+How Memory Works: The stack and the heap
+	Each thread run in separate own stack.
+	Each block variable destroyed from the stack when block ends.
+Passing Objects b/w Methods
+	Passing By Value means
+	Passing by Reference means
+	Passing Object into methods
+	The final keyword & why it is not same as constant
+	Why the final keyword doesn't stop an object's value from being changed
+Memory Exercise
+
+Memory
+	Stack
+	Heap
+	Meta Space
+	
+In Java, there is nothing like Passed by reference.	
+For objects passed into methods, the REFERENCE to the objet is passed by value.
+
+
+Final variable can not be reassigned.
+Final variable, method & class  can be  potentially optimized by compiler. But it is not necessary.
+
+const correctness is not provided in Java.
+Final Customer customer=new customer("Sachin");
+customer.getName();
+So follwoing issue may come in java, even customer is a final variable. 
+String getName(){
+return name+"XXXX";
+}
+
+ContainerMain.java

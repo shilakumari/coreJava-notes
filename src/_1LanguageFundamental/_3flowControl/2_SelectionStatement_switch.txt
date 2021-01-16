@@ -1,0 +1,235 @@
+Selection statements
+Switch
+If several options are available, never recommended to go for if-else, because it will reduce code readability. 
+To handle this requirement we should go for switch statement.
+if(x==1){
+	SOP(“JAN”);
+}else if(x==2){
+	SOP(“FEB”);
+}else if(x==3){
+	SOP(“MARCH”);
+}
+.
+.
+.
+else{
+	SOP(“Invalid month number”);
+}
+
+switch(x){
+case 1:
+	SOP(“JAN”);
+	break;
+case 2:
+	SOP(“FEB”);
+	break;
+case 3:
+	SOP(“MARCH”);
+	break;
+.
+.
+.
+default:
+SOP(“Invalid month number”);
+}
+
+switch(x){
+case 1:
+	action-1;
+	break;
+case 2:
+	action-2;
+	break;
+.
+.
+.
+case n:
+	action-n;
+	break;
+default:
+	default_action;
+}
+
+1)The allowed argument types for switch statement are:
+byte,	short,	char,		int
+Byte,	Short,	Character,	Integer(since 1.5v)
+enum(since 1.5v)
+String (since 1.5v)
+
+2)switch is the only place where curly braces are mandatory. Except switch, everywhere curly braces are optional.
+switch(x)
+{}
+
+3)Both case & default are optional. An empty switch statement is a valid statement.
+switch(x){
+}
+4)Inside switch every statement should be under some case or default. That is independent statement are not allowed inside switch. 
+Otherwise we will get CTE.
+switch(x){
+SOP(“hello”);//9 CTE
+}
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	      ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	       ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	          ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	           ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	                  ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	                   ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	                          ^
+C:\Users\Java\Documents\Test.java:7: error: case, default, or '}' expected
+	System.out.println("hello");
+	                           ^
+9 errors
+
+5)Every case level should be compile time constant that is constant expression.
+int x=10;
+int y=20;
+switch(x){
+case 10:
+	SOP(“hello”);
+case y://CTE, constant expression required
+	SOP(“hii”);
+}
+
+If we declare y as final then we won’t get any CTE.
+int x=10;
+final int y=20;
+switch(x){
+case 10:
+	SOP(“hello”);
+case y:
+	SOP(“hii”);
+}
+
+6)Both switch argument & case label can be expression but case label should be constant expression.
+int x=10;
+switch(x+1){
+case 10:
+	SOP(“hello”);
+	break;
+case 10+20+30;
+	SOP(“byee”);
+}
+7)Every case label  should be in the range of  switch() argument type. Otherwise we will get CTE.
+byte b=10;
+switch(b){
+case 10:
+	SOP(10);
+case 100:
+	SOP(100);
+case 1000://CTE, possible loss of precision, found:int, required:byte
+	SOP(1000);
+}
+
+byte b=10;
+switch(b+1)//int
+{
+case 10:
+	SOP(10);
+case 100:
+	SOP(100);
+case 1000://no CTE
+	SOP(1000);
+}
+
+8)Duplicate case labels are not allowed.
+int  x=10;
+switch(x){
+case 97:
+	SOP(97);
+case 98:
+	SOP(98);
+case 99:
+	SOP(99);
+case ‘a’:
+	SOP(‘a’);
+}
+Output:
+	CTE, duplicate case label
+
+9)Case label:
+It should be constant expression.
+The value should be in the range of switch argument type.
+Duplicate case labels are not allowed.
+
+10)Fall through inside switch()
+Within the switch if any case matches, from that case onwards all statements will be executed until break or end of the switch(). 
+This is called fall through inside switch().
+switch(x){
+	case 0:
+		SOP(0);
+	case 1:
+		SOP(1);
+		break;
+	case 2:
+		SOP(2);
+	default:
+		SOP(“def”);
+}
+Output:
+If x=0, 01
+If x=1, 1
+If x=2, 2def
+If x=3, def
+
+11)Fall through is an advantage feature only.
+The main advantage of fall through inside a switch is , we can define common action for multiple cases (code re-usability).
+switch(x){
+case 1:
+case 2:
+case 3:
+	SOP(“Q-1”);
+	Break;
+case 4:
+case 5:
+case 6:
+	SOP(“Q-2”);
+	Break;
+case 7:
+case 8:
+case 9:
+	SOP(“Q-3”);
+	Break;
+case 10:
+case 11:
+case 12:
+	SOP(“Q-4”);
+}
+
+12)Default case:
+Within the switch, we can take default case at most once.
+Default case will be executed if & only if there is no case matched.
+Within the switch, we can write default case anywhere but it is recommended to write as last case.
+switch(x){
+	default:
+		SOP(“def”);
+	case 0:
+		SOP(0);
+	case 1:
+		SOP(1);
+		break;
+	case 2:
+		SOP(2);
+}
+Output:
+If x=0
+If x=1, 2
+If x=2
+If x=def 0 
+

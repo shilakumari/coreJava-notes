@@ -1,0 +1,61 @@
+Marker Interface/Empty Interface/Tag Interface/Ability Interface
+If an interface does not contain any abstract method and by implementing that interface, our objects will get some ability, 
+	such type of interfaces are called marker interfaces.
+
+Example:
+	Serializable interface- By implementing serializable interface, our object can be saved in a file and travel across network.
+	Cloneable interface- By implementing clonable interface, our object are in a position, to produce exactly duplicate cloned object. 
+	RandomAccess (ArrayList & Vector class implements RandomAccess interface, o retrieve elements)
+	SingleThreadModel
+	Remote
+There interfaces are marked for some ability.
+
+Q)Without having any method, how the objects will get some ability in marker interfaces?
+Not in even mind, want to start trail for a 1st job search, in New York city:
+	Thinking Problem
+	Vitamin ‘M’ problem( money problem)
+	Visa Problem
+	New Environment Problem- No one is there to provide support
+	Guidance Problem
+	Home Sick Problem- Without parents cannot live-specially ladies have
+	XYZ Problem- Without him/her
+	Language Problem- Big gift given by British people
+Lets suppose, This institute will provide support for all ur problem, until u get a job. 
+
+Example:
+Objective is to send Object from Gurgaon to SiliconValley 
+Way 1: 70 laks of code in 12 network related language
+Way 2: Object implements Seriazable and JVM will take care rest
+Internally JVM is responsible to provide required ability.
+
+Why JVM is providing required ability in Marker Interfaces?
+	To reduce complexity of programming & to make Java language as simple.
+
+Is it possible to create our own marker interface?
+	Yes, but customization of JVM is required.
+
+JVM for apache-
+	JVM weblogic - JRocket : by sun/oracle
+
+
+
+Adapter classes
+Adapter is a simple java class that implements interface with only empty implementation.
+It is programmers trick. It is not a language level feature.
+
+If we implement an interface for each & every method of that interface, 
+ compulsory we should provide implementation, whether it is required or not.
+Instead of implementing interface, if we extends adapter class, 
+	we have to provide implementation only for required methods 
+	& we are not responsible to provide implementation for each 
+	& every method of the interface. 
+	So that length of the code will be reduced.
+Adapter class decreases length of the code and increase readability.
+
+Because there is no need of creating object of adapter class, hence recommended keyword for adapter class is abstract.
+Example: 
+More  or  less GenericServlet class acts as adapter class for Servlet interfae.
+ 
+Marker interface & adapter classes simplifies complexity of programming 
+	and these are best utilities to the programmer and programmers life will become simple.
+	

@@ -1,0 +1,22 @@
+Building & Deploying Java Programs with JAR files
+	Creating & Deploying Executable programs using Jars
+	Creating a Jar file using the command line
+	
+	
+Creating & Deploying Executable programs using Jars
+	java -jar abc.jar  //FOr run the app
+	java -tvf abc.jar  //to show content of jar, here t for table, v for verbose, f for file
+	java -xvf abc.jar  //exract the jar file
+	java -cvf abc.jar  //c for create
+	
+	https://sourceforge.net/projects/super-mario-bros-java/
+	
+	TO show file content on command line
+		Type abc.txt	(Window)
+		cat abc.txt   (Mac or Linux)
+		
+	manifest.mf
+		Main-class: CustomerMain
+	java -cvfm abc.jar manifest.mf  *.class // for manifest
+	java -cvfm abc.jar manifest.mf  A.class B.class // for manifest
+	

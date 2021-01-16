@@ -1,0 +1,57 @@
+Comparator Interface
+We can use comparator to define our own sorting(customized sorting).
+Comparator interface present in java.util package.
+
+It defines two methods.
+	1. public int compare(Object obj1, Object obj2)
+		return -ve if obj1 has to come before obj2
+		return +ve if obj1 has to come after obj2
+		return 0 if obj1 & obj2 are equal.
+	2. public boolean equals();//???
+
+Implementing equal() method is optional, because it is already available in every java class from Object class through inheritance.
+
+Example:
+ComparatorInterface.java
+Employee.java
+AgeComparator.java
+
+
+Note:
+1. If we are not satisfied with default natural sorting order or 
+	if the default sorting order is not already available then we can define our own customized sorting by using Comparator.
+2. Comparable meant for default natural sorting order where as Comparator meant for customized sorting order.
+3. In case of using Comparator, we don't need to modify existing class for comparison. We create new class like AgeComparator.
+
+
+Comparison between Comparable and Comparator
+Comparable:
+1. It is meant for default natural sorting order.
+2. Present in java.lang package.
+3. This interface defines only one method compareTo().
+4. All wrapper classes and String class implement comparable interface.
+5. We can sort the list elements of Comparable type by Collections.sort(List) method.	
+
+Comparator:
+1. It is meant for customized sorting order.
+2. Present in java.util package.
+3. This interface defines two methods compare() and equals().
+4. The only implemented classes of Comparator are Collator and RuleBasedCollator.//?????????????
+5. We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
+
+
+1. For predefined Comparable classes like String default natural sorting order already available. 
+	If we are not satisfied with that, we can define our own sorting by Comparator object.
+2. For predefined non-comparable classes like StringBuffer, default natural sorting order is not already available. 
+	We can define required sorting by implementing Comparator interface.
+3. For our own classes (like Employee, Student, Customer), the person who is writing our own class, 
+	he is responsible to define default natural sorting order by implementing Comparable interface.
+	the person who is using our class, if he is not satisfied with default natural sorting order, then he can define his own sorting by using Comparator.
+
+
+Predefined Comparable classes eg. String 
+Predefined non-comparable classes eg. StringBuffer
+Our own classeseg. Employee
+--> The person who is writing class--> Comparable(I) For default natural sorting order
+--> The person who is using class--> Comparator(I) For Customized sorting order
+

@@ -1,0 +1,178 @@
+The Concurrency Challenges & Solutions
+	Critical Section & Synchronization
+	Atomic Operations, Volatile & Metrics Practical Example
+	Min-Max Metrices
+	Race Conditions & Data Races
+	Locking Strategies & Deadlocks
+	
+Critical Section & Synchronization(Monitor/Lock)
+Synchronized
+	Locking Mechanism
+	Used to restrict access to a critical section or entire method to a single thread at a time
+	Synchronized method-Monitor
+	Synchronized Block-Lock
+		Advantage
+			Not all method synchronized
+			Independent block can be synchronized on different objects.
+	Synchronized block or method is Reentrant.
+		A thread cannot prevent itself from entering a critical section.	
+Critical section
+	void increment(){item++;}
+	void decrement(){item--;}
+	
+	
+Atomic Operations, Volatile & Metrics Practical Example
+Atomic Operations
+	Unfortunately, most operations are not atomic.
+	All reference assignements are atomic.
+		We can get & set reference to objects atomically.
+			Object a=new Object();
+			Object b=new Object();
+			a=b;//atomic
+			Thus, all getter & setters are atomic & we donnot eet to synchronize them.
+	All assignements to primitive types are safe except long & double.
+		That means reading from & writing to following types:
+			int, byte, short, int, float, chat, boolean
+	https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.7
+	volatile double=11.1;
+		long or double variable with volatile keyword
+			reads from and writes to these variable are thread safe & atomic.
+			They are guaranteed to be performed by a single hardware operation.
+	java.util.concurrent.atomic package
+		There are more advanced & provide lock free atomic operations.
+			
+	
+Volatile
+https://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1.4
+
+Metrics Use Case
+
+AtomicOperationsVolatileAndMetricsPracticalExample.java
+MinMaxMetrics.java
+
+
+Race Conditions & Data Races
+Race Condition
+	Condition when multiple threads are accessing a shared resource.
+	At least one thread is modifying the resource
+	The timing of thread's scheduling may cause incorrect results.
+	The core of problem is non-atomic operations performed on shared resource.
+Race Condition-Solution
+	Identification of critical section where the race condition is happening
+	Protection of critical section by a synchronized 
+	
+	
+	
+Data Race
+https://docs.oracle.com/javase/specs/jls/se7/html/jls-17.html#jls-17.4
+public static class SharedClass {
+        public void increment() {
+            x++;
+            y++;
+        }
+         public void increment() {
+            y++;
+             x++;
+        }
+       
+   
+Data Race -Problem
+Compiler & CPU may execute the instructions Out of order to optimize performance & utilization
+They will do so while maintaining logical correctness of code
+Out of order execution by the compiler & CPU are important features to speed up the code.
+The compiler re-arranges instructions for better:
+	Branch prediction(optimized loops, "if" statements etc)
+	Vectorization-parallel instruction execution(SIMD)
+	Prefetching instructions-better cache performance
+CPU  re-arranges instructions for better:
+	Hardware units utilization
+
+Data Race-Consequences
+	May lead to unexpected, paradoxical and incorrect result.
+	
+	
+Data Race- Solutions
+Establish Happens-Before relationship by one of these ways:
+	Synchronization of method which modify shared variables
+	Declaration of  shared variable with the volatile keyword.
+		volatile int sharedVar;
+		public void method(){
+			//All   will be executed before
+			read/write on sharedVar
+			//All instruction will be executed after
+		}	
+RaceConditionsAndDataRaces.java
+
+Summary
+Two problems with multithreaded application
+	Race Conditions
+	Data races
+Both involves
+	Multile thread
+	At least one thread is modifying a shared varibale
+Both problems may result in unexpected & incorrect result
+Synchronized- Solves both Race condition & Data race but has a performance penality
+Volatile
+		Solves Race condition read/write from/to long & double
+		Solves all data races by guaranteeing order
+		
+		
+Rule of thumb
+Every shared varibale(modified by at least one thread) should be either
+	Guarded by a synchronized(or any type of lock)
+	Declared volatile
+
+
+
+
+
+
+
+
+
+
+Locking Strategies & Deadlocks
+Locking Strategy
+Deadlock
+Deadlock Conditions
+Solutions to deadlock
+
+Locking Strategy
+Coarse grained locking
+	should we have one single lock for all the shared resources
+	simple to implement
+	But may hav a performance penality
+	
+Fine-Grained locking
+	should we have a separate lock for every shared resources
+	It allows more parallelisms & less contention
+	Problem: we may get deadlock
+	
+DeadlockDemo.java
+
+Deadlock Conditions
+Mutual Exclusion
+	Only one thread can have exclusive access to a resource at a given moment
+Hold & Wait
+	At least one thread is holding a resource & is waiting for another resource
+Non-preemptive allocation
+	A resource is released only after the thread is done using it
+Circular wait
+	A chain of at least two threads each one is holding one resource & waiting for another resource
+
+
+Solutions to deadlock
+Avoid circular wait
+	Enforce a strict order in lock acquisition prevents deadlock.
+	It is best solution
+	In it simply acquire the locks under shared resources in the same order & stick to that order everywhere in the code
+Easy to do with a small number of locks
+	May be hard to accomplish if there are many locks in different places
+Other techniques
+	Deadlock detection-Watchdog
+		Restart thread when detect deadlock
+	Thread interruption
+		Not possible with Synchronized
+	tryLock operations
+		Not possible with Synchronized
+		

@@ -1,0 +1,72 @@
+HashSet
+Underlying DS-Hashtable(actually a HashMap instance)
+Duplicates are not allowed. add(“A”), return false if A already present and we will not get any CTE or RTE
+Insertion order not preserved- object will be inserted based on hashcode
+Heterogeneous allowed 
+Null insertion is possible
+
+Implements serializable & cloneable but not RandomAccess
+
+Default initial capacity 16 and default fill ratio or load factor is 0.75
+
+For frequent search operation , HashSet is best choice
+
+Most common set is HashSet.
+
+Constructors of HashSet
+	1. HashSet hashset = new HashSet();
+		Create an empty HashSet object with default initial capacity 16 and default fill ratio 0.75.
+	2. HashSet hashset = new HashSet(int initialCapacity);
+		Create an empty HashSet object with specified initial capacity and default fill ratio 0.75.
+	3. HashSet hashset = new HashSet(int initialCapacity, float loadFactor);
+		Create an empty HashSet object with specified initial capacity 16 and fill ratio 0.75.
+	4. HashSet hashset = new HashSet(Collection c);
+	
+All the following contain same constructors:
+HashSet
+LinkedHashSet
+
+HashMap
+IdentityHashMap
+WeakHashMap
+Hashtable
+
+
+HashSet h=new HashSet();
+Default initial capacity:16
+Fill radio=load factor=0.75
+
+HashSet h=new HashSet(int initialCapacity);
+Fill radio=load factor=0.75
+
+HashSet h=new HashSet(int initialCapacity, float loadFactor);
+Fill radio=load factor
+
+HashSet h=new HashSet(Collection c)		
+	
+Load Factor / Fill Ratio
+: After loading the how much factor, a new HashSet object will be created, 
+that factor is called as Load Factor or Fill Ratio.	
+	
+Example:
+import java.util.*;
+class HashSetDemo{
+	public static void main(String[] args){
+		HashSet h = new HashSet():
+		h.add("B");
+		h.add("C");
+		h.add("D");
+		h.add("Z");
+		h.add(null);
+		h.add(10);
+		System.out.println(h.add("Z"));//false
+		System.out.println(h);//[null, D, B, C, 10, Z]
+	}
+}
+
+This class offers constant time performance for the basic operations (add, remove, contains and size), 
+	assuming the hash function disperses the elements properly among the buckets. 
+Iterating over this set requires time proportional to the sum of the HashSet instance's size (the number of elements) 
+	plus the "capacity" of the backing HashMap instance (the number of buckets). 
+Thus, it's very important not to set the initial capacity too high (or the load factor too low) 
+	if iteration performance is important.

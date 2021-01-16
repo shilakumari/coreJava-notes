@@ -1,0 +1,197 @@
+Var-arg methods(variable number of argument methods): since 1.5V
+
+sum(10,20)
+sum(10,20,30)
+sum(10,20,30,40)
+
+public void sum(int a, int b){}
+public void sum(int a, int b, int c){}
+public void sum(int a, int b, int c, int d){}
+
+		OR
+public void sum(int… a){}  //var-arg method 
+
+Until 1.4 V, we cannot declare a method with variable number of arguments. 
+If there is a change in number of arguments, compulsory we should go for new method overloading. 
+	It increases  length of the code & reduces readability. 
+To overcome this problem SUN people, introduced var-arg method in 1.5v.
+
+According to this, we can declare a method which can take variable number of arguments. 
+Such type of methods are called var-arg methods.
+
+We can declare var-arg method as follows:
+m1(int… x){}
+We can call this method by passing any number of int values including zero number.
+m1();
+m1(10);
+m1(10,20);
+m1(10,20,30);
+m1(10,20,30,40);
+m1(10,20,30,40,50);
+	
+
+class Test
+{
+	public static void main(String [] args)
+	{
+		m1();
+		m1(10);
+		m1(10,20);
+		m1(10,20,30);
+	}
+	public static void m1(int... a)
+	{
+		System.out.println("var-arg method");
+	}
+}
+
+Internally var-arg parameter will be converted into 1D array. Hence within the var-arg method 
+	we can differentiate values by using index.
+class Test{
+	public static void main(String[] args){
+		m1();
+		m1(10);
+		m1(10,20);
+		m1(10,20,30);
+	}
+	public static void m1(int... a)//  int[] a=new int[2]{
+		System.out.println("var-arg method");
+	}
+}
+
+
+Example where var-arg method is best choice.
+class Test
+{
+	public static void main(String [] args)
+	{
+		m1();//0
+		m1(10);//10
+		m1(10,20);//30
+		m1(10,20,30);//60
+	}
+	public static void m1(int... a)
+	{
+		int  total=0;
+		for(int i : a)
+		{
+			total=total+i;
+		}
+		System.out.println(total);
+	}
+}
+
+m(int[]   x)
+m(int    []x)
+m(int   x[])
+
+m(int…   x)
+m(int    …x)
+m1(int…x)
+
+m1(int     x…)//invalid
+m1(int.     ..x)//invalid
+m1(int     .x..)//invalid
+
+
+m1(int x, int…y)
+m1(String x, double…y)
+We can mix var-arg parameter with normal parameter.
+
+m1(double…y,String  x)//invalid
+m1(char ch, double…y)//valid
+If we mix normal parameter with var-arg parameter then var-arg parameter should be last parameter.
+
+m1(int…x, int…  y)//invalid
+Inside var-arg method, we can take only one var-arg parameter. And we cannot take more than one var-arg parameter.
+
+class Test{
+	public static void main(String [] args){
+		m1();//0
+		m1(10);//10
+		m1(10,20);//30
+		m1(10,20,30);//60
+	}
+	public static void m1(int... a)//CTE, error: cannot declare both m1(int[]) and m1(int...) in Test
+	{
+		System.out.println(“int… a”);
+	}
+	public static void m1(int[] a)//CTE, error: cannot declare both m1(int[]) and m1(int...) in Test
+	{
+		System.out.println(“int[]  a”);
+	}
+}
+Inside a class we cannot declare var-arg method & corresponding 1D array method simultaneously otherwise  we will get CTE.
+
+
+class Test{
+	public static void main(String [] args){
+		m1();//int…a
+		m1(10);//int a
+		m1(10,20);//int…a
+		m1(10,20,30);//int…a
+	}
+	public static void m1(int... a)
+	{
+		System.out.println(“int… a”);
+	}
+	public static void m1(int a)
+	{
+		System.out.println(“int  a”);
+	}
+}
+In general, var-arg method will get least priority that is if no other method matched then only var-arg  method will get the chance. 
+It is exactly same as default case inside switch.
+
+
+Equivalence b/w var-arg parameter & 1D array
+m1(int[] x)						m1(int… x)
+m1(new int[]{10})
+m1(new int[]{10,20})
+m1(new int[]{10,10,20,30})
+								m1()
+								m1(10)
+								m1(10,20)
+								m1(10,20,30) 
+
+wherever 1D array present, we can replace with var-arg  parameter.
+m1(int[]  x )-->m1(int…x)
+
+main(String[] args)-->main(String… args)
+
+
+Wherever var-arg parameter present, we cannot replace with 1D array.
+m1(int… x)			m1(int[] x)
+m1()					no
+m1(10)					no
+m1(10,20)				no
+m1(10,20,30) 			no
+
+m1(new int[]{10,20})	m1(10,20)//invalid or no
+				
+m1(int… x)-->m1(int[] x)//invalid
+
+
+m1(int…x)-->int[] x  
+we can call this method  (m1(int…x)) and x will become 1D array(int[] x)
+Similarly,
+m1(String…x)->String[] x
+
+m1(int[]…x)-->int[][] x
+we can call this method  by passing a group of 1D int array (m1(int[]…x)) and x will become 2D array(int[][] x)
+
+m1(int[][]…x)-->int[][][] x
+
+class Test{
+PSVM(){
+	int[] a={1,2,3};
+	int[] b={9,3,5};
+	m1(a,b);
+}
+public  static void m1(int[]… x){
+	for(int[] i:x)
+	{
+		SOP(i[0]);//1,9
+	}
+}
+}

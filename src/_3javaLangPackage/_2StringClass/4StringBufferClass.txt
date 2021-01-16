@@ -1,0 +1,115 @@
+String Buffer
+If content is fixed and do not change frequently then we should go for String.
+If content is not fixed and keep on changing frequently 
+	then it is not recommended to use String 
+	because for every change a new object will be created 
+	which affects the performance of the system.
+To handle this requirement, we should go for StringBuffer.
+The main advantage of StringBuffer over String is, all required changes will be performed in the existing object only.
+
+Array & String: only length or size
+Collection & StringBuffer: capacity also
+
+Constructors of StringBuffer
+StringBuffer sb=new StringBuffer();//creates an empty StringBuffer object with default initial capacity 16. 
+Once StringBuffer reached it max capacity, a new StringBuffer will be created with new capacity=(current capacity+1)*2
+StringBuffer sb1=new StringBuffer();
+System.out.println(sb1.capacity());//16
+sb1.append("Abhi");
+System.out.println(sb1.capacity());//16
+			
+sb1.append("123456789123");
+System.out.println(sb1.capacity());//16
+sb1.append("1");
+System.out.println(sb1.capacity());//34
+For StringBuffer: New capacity=(current capacity+1)*2;  //reason behind this formula?
+For ArrayList: New capacity=(current capacity*3/2)+1;
+
+StringBuffer sb=new StringBuffer(int  initialCapacity); 
+// creates an empty StringBuffer object with specified initial capacity
+
+StringBuffer sb=new StringBuffer(String s);
+Sb capacity=sb.length+16
+		StringBuffer sb2=new StringBuffer("Abhi");
+		System.out.println(sb2.capacity());//20
+		sb2.append("1");
+		System.out.println(sb2.capacity());//20
+		sb2.append("234567891234567");
+		System.out.println(sb2.capacity());//20
+		sb2.append("8");
+		System.out.println(sb2.capacity());//42
+
+
+Important methods of StringBuffer
+
+public int length()
+public int capacity()
+public char charAt(int index)
+	
+	StringBuffer sb1=new StringBuffer("Abhi");
+	System.out.println(sb1.charAt(3));
+	System.out.println(sb1.charAt(30));//RE, StringIndexOutOfBoundsException
+
+public void setCharAt(int index, char ch)
+To replace the character located at specified index with provided character
+
+public StringBuffer append(String s)
+public StringBuffer append(char ch)
+public StringBuffer append(boolean b)
+public StringBuffer append(int i)
+public StringBuffer append(long i)
+public StringBuffer append(double d)
+.
+.
+.
+StringBuffer sb=new StringBuffer("Abhi");
+sb.append("PI value is: ");
+sb.append(3.14);
+sb.append(". It is exactly ");
+sb.append(true);		
+System.out.println(sb);
+
+
+
+public StringBuffer insert(int index, String s)
+public StringBuffer insert(int index, boolean b)
+public StringBuffer insert(int index, char ch)
+public StringBuffer insert(int index, int i)
+public StringBuffer insert(int index, long l)
+.
+.
+.
+StringBuffer sb=new StringBuffer("Abhi");
+sb.insert(2,"Maurya");	
+System.out.println(sb);//AbMauryahi
+		
+
+public StringBuffer delete(int begin, int end)
+	To delete characters located from begin index to end-1
+public StringBuffer deleteCharAt(int index)
+	To delete the character located at specified index
+
+
+public StringBuffer reverse()
+  
+public StringBuffer setLength(int  length)	
+		StringBuffer sb=new StringBuffer("Abhi Maurya");
+		sb.setLength(4);
+		System.out.println(sb);
+
+public void ensureCapacity(int capacity)
+	To increase capacity on fly(demand) based on our requirement
+		StringBuffer sb=new StringBuffer();
+		System.out.println(sb.capacity());//16		
+		sb.ensureCapacity(1000);
+		System.out.println(sb.capacity());//1000
+
+
+public void trimToSize()
+	To deallocate extra allocated free memory
+
+StringBuffer sb=new StringBuffer(1000);
+		System.out.println(sb.capacity());//1000
+		sb.append("Abhi");
+		sb.trimToSize();
+		System.out.println(sb.capacity());//4

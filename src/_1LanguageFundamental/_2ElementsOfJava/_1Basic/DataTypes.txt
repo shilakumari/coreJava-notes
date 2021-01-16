@@ -1,0 +1,147 @@
+3)Data Type
+	1:Non- Primitive/Reference Type
+	2:Primitive data type(8)
+		Numeric/Signed data type
+			Integral type
+				byte 
+				short 
+				int
+				long
+			Floating point type
+				float 
+				double
+		Non-numeric/Unsigned data type
+				char  
+				Boolean
+
+Summary of Java primitive data types:
+Data type	Size(byte)	Range				Wrapper class	Default value
+byte		1			-2^7 to 2^7-1		Byte			0
+short		2			-2^15 to 2^15-1		Short			0
+Int			4			-2^31 to 2^31-1		Integer			0
+long		8			-2^63 to 2^63-1		Long			0
+float		4			-3.4e38 to 3.4e38	Float			0.0
+double		8			-1.7e308 to 1.7e308 Double			0.0
+boolean		NA			NA					Boolean			false
+char		2			0 to 65535			Character		0(represents space character)
+
+
+byte
+MAX_VALUE: 127
+MIN_VALUE: -128
+Range: -128 to 127
+Every integral number is by default int type.
+Byte can hold integral value of its range.
+
+byte b=10;
+byte b=127;
+byte b=128; //CTE, : error: incompatible types: possible lossy conversion from int to byte
+
+byte b=10.5;//CTE, error: incompatible types: possible lossy conversion from double to byte
+byte b=true;//CTE, error: incompatible types: boolean cannot be converted to byte
+byte b="Vinay"// CTE, error: incompatible types: String cannot be converted to byte
+
+Short
+range: (2 byte)-32,768 to 32,767
+It is most rarely used data type in Java.
+short s=32767;
+short s=32768;//CTE,
+short s=10.5;//CTE,error: incompatible types: possible lossy conversion from double to short
+short s=true;//CTE,
+
+int
+Every integral number by default is considered as integer number.
+size: 4 bytes(32 bits)
+range: -2^31 to 2^31-1 (-2147483648 to 2147483647) 
+The most commonly used data type is int. 
+int x=2147483647;
+int x=2147483648;//CTE, error: integer number too large: 2147483648
+int x=2147483648L;//CTE, error: incompatible types: possible lossy conversion from long to int
+int x=2L;//CTE,error: incompatible types: possible lossy conversion from long to int
+Int x=true;//CTE,error: incompatible types: boolean cannot be converted to int
+
+long
+range: -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+Sometimes int may not enough to hold large values then we should go for long data type.
+Example: 
+The amount of distance travelled by light in 1000 days.  long d=126000 *60*60*60;
+The number of characters, present in a big file, may exceed int range. Hence we should use long, not int.
+Size: 8 bytes(64 bits)
+Range: -2^63 to 2^63-1
+
+Floating point data types
+	float
+	double
+
+All the above data types(byte, short, int, long) are meant for representing integral values. 
+If we want to represent floating point values then we should go for floating point data types(float, double).
+
+10.0f/3=3.333333 //5 to 6 decimal place of accuracy
+10.0/3=3.33333333333333 //14 to 15 decimal place of accuracy
+2348723646423=2.34872* 10^12
+
+Float								double
+5 to 6 decimal place of accuracy	14 to 15 decimal place of accuracy
+Single precision					Double precision
+Size: 4 byte(32 bits)				Size: 8 byte
+-3.4e^38 to 3.4e^38					-1.7e^308 to 1.7e^308
+
+boolean type	
+To represent logical result value
+size: not applicable, JVM dependent
+range: not applicable there is no concept of greater or smaller but allowed values are true or false
+boolean b=true;
+boolean b=True;//CTE,error: cannot find symbol
+boolean b=0;//CTE,incompatible types: int cannot be converted to boolean
+boolean b="True";//CTE,error: incompatible types: String cannot be converted to boolean
+class Test{
+ public static void main(String [] args){ 
+	System.out.println("hello");
+		int x=0;
+		if(x){ //CTE,error: incompatible types: int cannot be converted to boolean
+		 System.out.println("Hi");} 
+		else{
+		 System.out.println("Bye");} }
+}
+
+class Test
+{public static void main(String [] args)
+	{while(1)//CTE, error: incompatible types: int cannot be converted to boolean
+		{System.out.println("hello");
+		}
+	}
+}
+
+char
+	Old languages (like c/c++) are ASCII code based & number of different allowed ASCII code characters are less than or equal to 256.  
+	To represent these 256 characters, 8 bits are enough. Hence size of char in old languages is 1 byte.
+	But Java is Unicode based & number of different Unicode characters are >256 &<=65536. 
+	To represent these many character, 8 bits were not enough & hence the size of char in Java is 2 bytes.
+Size: 2 bytes
+Range: 0 to 65535
+C, C++: ASCII characters<=256
+Java: Unicode characters : 0 to 65535
+		int i = 65, i2 = 'A';
+		System.out.println(i);// 65
+		System.out.println(i2);// 65
+		System.out.println((char) i);// A
+		System.out.println((char) i2);// A
+		System.out.println();
+		char ch = 'A', ch2 = 65;
+		System.out.println(ch);// A
+		System.out.println(ch2);// A
+		System.out.println((int) ch);// 65
+		System.out.println((int) ch2);// 65
+
+		char ch3 = 65535;
+		ch3 = 65536;// CTE
+		ch3 = 0;
+		ch3 = -1;// CTE
+Null is the default value for object reference & we cannot apply for primitive. 
+	If we are trying to use for primitive then we will get CTE.
+	char ch=null;//error: incompatible types: <null> cannot be converted to char
+	
+Rule
+byte	short	int		long	float	double
+char	int		long	float	double
+

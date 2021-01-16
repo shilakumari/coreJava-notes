@@ -1,0 +1,176 @@
+
+In java, for metadata we use:
+	Comment
+	Annotation
+
+Added in java 1.5
+	Used to provide metadata 
+
+English definition of annotation is â€œfootnoteâ€�/â€�explanationâ€�, which means this is a explanation about your program elements .
+
+Compilation
+Pre-processor-//in java this not existed
+Compiler
+	Lexical analysis
+		Buffering
+			The process of storing the complete source program in the form of a buffer
+		Tokenization
+			In this process, comment also removed
+			But for .class file or at runtime if we want to access metadata then using comment it was not possible 
+				but using annotations it is possible.
+			To access metata at anywhere programmatically at runtime
+			Using xml also we access metadata at runtime
+				We have to learn xml, a scripting language
+				We have to check whether xml document is properly located or not.
+				We have to check whether xml document is properly well formatted or not.
+				We have to check whether we are using right parsing mechanism or not to read data from xml file
+	Syntax analysis
+	Semantic analysis
+	Intermediate code generation
+	Code optimization
+	Code generation
+Assembler
+Loader/link-editor
+
+The annotation type has all the features equal to that of an interface, exceptions are 
+1) Specifying @ symbol before interface keyword
+2) Allowing of default values to its methods
+It can in general give information about who was the author, what time it was coded, 
+	which year a bug was introduced in it , how many days they took to fix it up etc. .
+
+XML based technology
+
+Annotation based technology
+Since jdk 1.5 version onwards
+Since jdbc 4.0
+Since servlet 3.X
+Since struts 2.x
+Since jsf2.x
+Since hibernate 3.2.5
+Since spring 3.x
+Ejb 3.x
+
+Annotation are executed by using a predefined tool called apt(Annotation processing tool).
+Two types of syntax are available for annotation:
+1) Declaration syntax: 
+2) utilization syntax : 
+
+1) Declaration syntax
+@interface annotation_name
+{
+Members: datatype membername()[default  value]
+}
+2) utilization syntax : 
+For about all programming elements like variables, methods, classes etc
+@annotation name  (member1=value1, member2=value2)
+programming elements
+
+
+Type Of Annotation
+1)Based on annotation member:
+	Marker annotation
+	Single value annotation
+	Multi-valued annotation
+2)
+	Standard annotation
+	Custom annotation
+3)
+	Annotations that can be applied to program elements
+		a)Annotations provided by the java team 
+    	b)Annotations we create as a programmer for our application     
+    Annotations that can be applied to other annotations or Meta Annotation
+	
+
+Based on annotation member, there are 3 types of annotation:
+	Marker annotation
+	Single value annotation
+	Multi-valued annotation
+
+Marker annotation
+	Without member
+@Override
+@WebListener
+
+Single value annotation
+With single member
+@SuppressWarning("unchecked")
+@SuppressWarning(value="unchecked")
+@SuppressWarning("unused")
+
+
+Multi-valued annotation
+@WebServlet(name="MyServlet", urlPattern={"/abc","/xyz"})
+
+Classification of annotation
+	1)Standard annotation
+		General purpose annotation(in java.lang package)
+			@Override
+			@SuppressWarning
+			@Depricated
+			@FunctionalInterface(since java1.8v)
+		Meta annotation(in java.lang.annotation)
+		Used for another annotation(like for declaring their nature)
+			@Documented
+			@Inherited
+			@Target
+			@Retention
+	2)Custom annotation
+
+For all the annotation, a common and default super type is java.lang.annotation.Annotation.
+
+
+
+
+@Override
+For failure cases of method overriding
+
+@SuppressWarning("unchecked")
+unsafe  or unchecked  operation
+Example 1: DeprecatedAnnotationDemo.java
+After compilation:javac AnnotationDemo.java
+	Note: com\sample\annotation\Sample.java uses or overrides a deprecated API.
+    Note: Recompile with -Xlint:deprecation for details.
+
+C:\Users\User\Desktop>javac -Xlint AnnotationDemo.java
+AnnotationDemo.java:10: warning: [rawtypes] found raw type: ArrayList
+                ArrayList list = bank.get_CustomerDetails();
+                ^
+  missing type arguments for generic class ArrayList<E>
+  .
+  .
+  .
+  
+C:\Users\User\Desktop>javac -source 1.5 AnnotationDemo.java
+warning: [options] bootstrap class path not set in conjunction with -source 1.5
+warning: [options] source value 1.5 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+Note: AnnotationDemo.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+3 warnings
+
+
+C:\Users\User\Desktop>javac AnnotationDemo.java
+Note: AnnotationDemo.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+
+
+Depricated method
+All the  older or outdated method is treated as  deprecated method.
+This marks the function as obsolete (to be old/will be removed).
+Compiler gives warning message, if we use override or deprecated API.
+
+@SuppressWarnings("deprecation")
+Example: AnnotationDemo.java(m2())
+
+@Deprecated
+Example:
+	Employee.java
+	DeprecatedAnnotationDemo.java
+
+
+@FunctionalInterface
+Interface with exactly one abstract method is called functional interface
+Example: FunctionalInterfaceDemo.java
+
+

@@ -1,0 +1,219 @@
+throw and throws
+
+throw statement
+Programmer throw Exception object & JVM catches that object.
+
+Method(In this case main() method) is responsible for creating  the exception object and hand-over to the JVM.
+class Test{
+	PSVM(){	
+		SOP(10/0);
+	}
+}
+Output:
+Exception in thread main java.lang.ArithmeticException /by zero at Test.main()
+
+
+In this case Programmer creates exception object explicitly and hand-over to the JVM manually.
+class Test{
+	PSVM(){	
+		throw new ArithmeticException(“/ by zero”);
+}
+}
+Output:
+Exception in thread main java.lang.ArithmeticException /by zero at Test.main()
+
+Throw keyword used to hand-over our created exception object to the JVM manually.
+
+Sometimes we can create exception object explicitly, we can hand-over to the JVM manually.
+For this we have to use throw keyword.
+
+Hence the main objective of throw keyword is to hand-over created exception object to the JVM manually.
+Hence result of the above two program is exactly same.
+
+
+Withdraw(double amount)
+{
+	If(amount>balance)
+	{
+		throw new InsufficientFundsException()
+	}
+}
+recharge()
+{
+	If(number is not valid number)
+	{
+		throw new wrongNumberEnteredException()
+	}
+}
+Best use of throw keyword is , for user defined exception or customized exception.
+
+
+class Test
+{
+static ArithmeticException e=new ArithmeticException();
+PSVM(){
+	throw e;
+}
+}
+Output:
+RE,ArithmeticException /by zero
+
+class Test{
+static AE e;
+PSVM(){
+	throw e;
+}
+}
+Output:
+RE,NullPointerException
+
+throw e:
+Here if e returns, null then it will throw NullPointerException.
+
+
+class Test
+{
+PSVM()
+{
+	SOP(10/0);
+	SOP(“Hello”);
+}
+}
+Output:
+RE, AE / by zero
+
+class Test
+{
+PSVM()
+{
+	throw new AE(“/ by zero”);
+	SOP(“Hello”);
+}
+}
+Output:
+CTE, unreachable statements
+
+After throw statements, we are not allowed to write any statement directly inside same block. 
+Otherwise we will get CTE, saying unreachable statement.
+
+
+class Test
+{
+PSVM()
+{
+throw new Test();//CTE, incompatible type, fount: Test, required:java.lang.Throwable
+}
+}
+
+class Test extends RuntimeException
+{
+PSVM()
+{
+	throw new Test();
+	
+}
+}	
+Output:
+RE, Exception in thread main Test at Test.main
+
+We can use throw keyword only for Throwable types 
+If we are trying to use for normal java object, we will get CTE, saying incompatible type, fount: Test, required:java.lang.Throwable
+
+
+
+
+
+
+class  Test{
+PSVM(){
+throw new Exception();//CTE,
+}
+}
+Output:
+CTE, unreported exception java.lang.InterruptedException, must be caught or declared to be thrown
+
+
+class  Test{
+PSVM(){
+throw new Error();//No CTE
+}
+}
+Output:
+RE, Exception in thread main:java.lang.Error
+
+class  Test{
+PSVM(){
+	try{
+		SOP(“Hello”);
+	}Catch(ArithmeticException e)
+	{
+	}
+}
+}
+
+class  Test{
+PSVM(){
+	try{
+		SOP(“Hello”);
+	}Catch(Exception e){
+	}
+}
+}
+
+
+class  Test{
+PSVM(){
+	try{
+		SOP(“Hello”);
+	}Catch(IOException e){
+	}
+}
+}
+Output:
+CTE, Exception java.io.IOException is never thrown in body of  corresponding try statement
+
+class  Test
+{
+PSVM()
+{
+	try
+	{
+		SOP(“Hello”);
+}
+Catch(InterruptedException e)
+{
+}
+}
+}
+Output:
+CTE, Exception java.io.IOException is never thrown in body of  corresponding try statement
+
+class  Test
+{
+PSVM()
+{
+	try
+	{
+		SOP(“Hello”);
+}
+Catch(Error e)
+{
+}
+}
+}
+Inside a  try-block if there is no chance of rising an exception, then we cannot write catch block for that exception. 
+	Otherwise we will get CTE saying Exception XXX is never thrown in body of corresponding  try statement. 
+But this rule is applicable only for fully checked exceptions.
+
+
+Re-throwing exception
+We can use this approach to convert 1 exception type  to  another exception type.
+Try
+{
+	SOP(10/0);
+}
+Catch(ArithmeticException e)
+{
+	throw new NullPointerException();
+}
+

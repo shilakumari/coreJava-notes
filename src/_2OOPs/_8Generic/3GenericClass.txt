@@ -1,0 +1,146 @@
+Generic Types
+	A generic type is a generic class or interface that is parameterized over types. 
+
+Static and non-static generic methods are allowed, as well as generic class constructors.
+
+Generic Classes or template classes
+In generic, we are associating a type parameter to  the class. 
+Such type of parameterized classes are nothing but generic classes or template classes.
+
+
+Generic Classes
+Until 1.4 v, a non-generic version of ArrayList class is declared as follows:
+Class ArrayList
+{
+	add(Object o)	{}
+    Object  get(int index){}
+}
+The argument to add method is Object & hence we can add any type of Object to the ArrayList. Due to this we are missing type-safety.
+The return type of get() method is Object & hence at the time of retrieval we have to perform type-casting.
+
+Since 1.5v, a generic version of ArrayList class is declared as follows:
+class  ArrayList<T>    //T is type parameter
+{
+	add(T t){}
+	T get(int index){}
+}
+Based on our runtime requirement, T will be replaced with our provided type.
+For example, to hold only String type of objects, a generic version of ArrayList object can be created as follows:
+ArrayList<String> al=new ArrayList<String>();
+
+For this requirement compiler consider the version of ArrayList class is as follows:
+class  ArrayList<String>
+{
+	add(String s){}
+	String get(int index){}
+}
+The argument to add() method is String type. Hence we can add only String type of objects.
+By mistake, if we are trying to add any other type, we will get CTE.
+ArrayList<String> al=new ArrayList<String>();
+al.add("Abhinav");
+al.add(new Integer(10));//CTE, error: no suitable method found for add(Integer)
+Hence through generics, we are getting type-safety.
+
+The return type of get() method is String & hence at the time of retrieval, 
+we are not required to perform type-casting.
+String name1=al.get(0);//Type casting is not required.
+
+
+
+In generic, we are associating a type parameter to  the class. Such type of parameterized classes are
+nothing but generic classes or template classes.
+Besed on our requirement, we can define our own generic classes.
+class  Account<T>
+{
+          
+}
+Account<Gold> a1=new Account<Gold>();
+Account<Platinum> a1=new Account<Platinum>();
+
+Class GenC<T>
+{
+      T ob;
+      GenC(T ob)
+      {
+           this.ob=ob;
+      }
+      public void show()
+      {
+         System.out.println("The type of ob  is  "+ ob.getClass().getName());     
+      }
+      public T getOb()   
+      {
+             return  ob;
+      }
+}
+
+class Test
+{
+      public  static void main(String[] args)
+      {
+             GenC<String> g1=new GenC<String>("Abhinav");
+             g1.show();//The type of ob is java.lang.String
+             System.out.println(g1.getOb(););//Abhinav
+
+             GenC<Integer> g1=new GenC<Integer>(10);
+             g1.show();//The type of ob is java.lang.Integer
+             System.out.println(g1.getOb(););//10
+
+             GenC<Double> g1=new GenC<Double>(5.5);
+             g1.show();//The type of ob is java.lang.Double
+             System.out.println(g1.getOb(););//5.5	
+      }
+}
+
+
+
+Generic Functions:
+We can also write generic functions that can be called with different types of arguments 
+	based on the type of arguments passed to generic method, the compiler handles each method.
+
+The syntax for a generic method includes a list of type parameters, inside angle brackets, 
+	which appears before the method's return type. 
+For static generic methods, the type parameter section must appear before the method's return type.
+
+List of type parameters, inside angle brackets,
+ which appears before the method's return type, may not be present in Generic class.
+
+Generic method can also be written in non-generic class.
+Generic constructor can also be written in non-generic class.
+
+
+Box<Number> box = new Box<Number>();
+box.add(new Integer(10));   // OK
+box.add(new Double(10.1));  // OK
+public void boxTest(Box<Number> n) { /* ... */ }
+What type of argument does it accept? 
+By looking at its signature, you can see that it accepts a single argument whose type is Box<Number>. 
+But what does that mean? Are you allowed to pass in Box<Integer> or Box<Double>, as you might expect? 
+The answer is "no", because Box<Integer> and Box<Double> are not subtypes of Box<Number>.
+
+Note: Given two concrete types A and B (for example, Number and Integer), 
+      MyClass<A> has no relationship to MyClass<B>, 
+	regardless of whether or not A and B are related. 
+The common parent of MyClass<A> and MyClass<B> is Object.
+For information on how to create a subtype-like relationship between two generic classes 
+when the type parameters are related, see Wildcards and Subtyping.
+
+
+Generic Classes and Subtyping
+You can subtype a generic class or interface by extending or implementing it. 
+The relationship between the type parameters of one class or interface 
+	and the type parameters of another are determined by the extends and implements clauses.
+Using the Collections classes as an example, ArrayList<E> implements List<E>, and List<E> extends Collection<E>. 
+So ArrayList<String> is a subtype of List<String>, which is a subtype of Collection<String>. 
+So long as you do not vary the type argument, the subtyping relationship is preserved between the types.
+diagram showing a sample collections hierarchy: ArrayList<String> is a subtype of List<String>, which is a subtype of Collection<String>.
+Now imagine we want to define our own list interface, PayloadList, that associates an optional value of generic type P with each element. 
+Its declaration might look like:
+interface PayloadList<E,V> extends List<E> {
+  void setPayload(int index, V val);
+  ...
+}
+The following parameterizations of PayloadList are subtypes of List<String>:
+PayloadList<String,String>
+PayloadList<String,Integer>
+PayloadList<String,Exception>

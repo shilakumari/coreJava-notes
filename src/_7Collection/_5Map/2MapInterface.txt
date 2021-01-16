@@ -1,0 +1,66 @@
+Map
+Map is not the child interface of Collection interface.
+If we want to represent a group of individual objects as key-value pairs then we should go for Map.
+Duplicated key are not allowed.
+But values can be duplicated.
+
+Both keys & values are objects only but not primitive type.
+
+Each key-value pair is called Entry.
+Map is consider as collection of Entry objects.
+
+Set of Entry is called EntrySet.
+
+In Collection Movie
+First half-Collection interface
+Second half-Map interface
+Strictly speaking Collection is not the root interface for collection framework.
+
+
+Map(1.2v)
+	HashMap(1.2v)
+		LinkedHashMap(1.4v)
+	WeakHashMap(1.2v)
+	IdentityHashMap(1.4v)
+	SortedMap(1.2v)
+		NavigableMap(1.6v)
+			TreeMap(1.2v)
+	HashTable(1.0v) ((Child class of abstract class Dictionary(since 1.0v))(since 1.0v))
+		Properties(1.0v)
+			//HashMap(1.0v)//In 1.0v, but not now
+		
+
+Methods of Map
+Object put(Object key, Object value)
+		To add one key-value pair to the map
+		If the key is already present then old value will be replaced with new value and old value will be returned.
+void putAll(Map m)
+Object get(Object key)
+Object remove(Object key)
+boolean containsKey(Object key)
+boolean containsValue(Object Value)
+boolean isEmpty()
+int size()
+void clear();
+
+Set keyset(): collections views of map
+Collection values(): collections views of map
+Set entrySet(): collections views of map
+
+Entry
+A map is a group of key-value pairs & each key-value pair is called an Entry. 
+	Hence map is considered as a collection of Entry objects. 
+Without existing Map object there is no chance of existing Entry object 
+	hence Entry interface is defined inside Map interface.
+
+Entry specific methods and we can apply only on Entry object.
+interface map{
+	interface Entry{
+		Object getKey();
+		Object getValue();
+		Object setValue(Object new);
+	}
+}
+
+
+

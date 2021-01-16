@@ -1,0 +1,96 @@
+Escaping References Problem
+	Introduction-WHat is an Escaping Reference?
+	Strategy 1:Using an iterator
+	Strategy 2:	Duplicating Collections
+	Strategy 3:	Using Immutable Collections
+	Strategy 4:	Duplicating Objects
+	Strategy 5:	Using interfaces to create immutable objects
+	Strategy 6:	Using module to hide the implementation
+	Memory Exercise 2
+	
+Introduction-WHat is an Escaping Reference?
+	EscapingReferencesMain.java
+	CutomerRecords.java
+	Customer.java
+	
+	//Map<String, Customer> customers = records.getCustomers();
+	//customers.clear();
+
+Strategy 1:Using an iterator
+public class CustomerRecords implements Iterable<Customer> {
+@Override
+	public Iterator<Customer> iterator() {
+		return this.records.values().iterator();
+}
+}
+Performane Impact: There is no performance impact
+Can be still muated:
+	Iterator<Customer> iterator = records.iterator();
+		iterator.next();
+		iterator.remove();
+		
+Strategy 2:	Duplicating Collections
+//return new HashMap<String, Customer>(this.records);
+		return new HashMap<>(this.records);		
+Performane Impact: There is not much performance impact because Inner object will not be copied.
+
+
+Strategy 3:	Using Immutable Collections
+		return Collections.unmodifiableMap(this.records);
+		return Map.copyOf(this.records);//Since Java 10v, Slightly potentially improve performance becuase here 
+			//if this.records is already an unmodifiableMap or unmodifiableSet 
+			//then it will not create a new objects in Java10v
+		records.getCustomers().clear();//RTE, unsupportedOperationException
+
+	
+Strategy 4:	Duplicating Objects
+public void setName(String name) {
+		this.name = name;
+	}
+public Customer find(String key){
+		return this.records.get(key);
+	}
+Customer customer0 = records.find("John");
+System.out.println(customer0.getName());
+customer0.setName("Janu");//Editable 
+System.out.println(customer0.getName());
+
+Solutions:
+1)Duplicating Objects
+		//Copy Constructor
+		public Customer(Customer customer) {
+			this.name=customer.getName();
+		}
+		return new Customer(this.records.get(key));
+		Here we are copying the object, & client may think that they are refering old main object, this may create issue.
+2)
+Strategy 5:	Using interfaces to create immutable objects
+refractor>Extract interface>interface name & select methods
+public interface ReadOnlyCustomer {
+	String getName();
+	String toString();
+}
+public ReadOnlyCustomer find(String key){
+		return new Customer(this.records.get(key));
+}
+ReadOnlyCustomer customer0 = records.find("John");
+customer0.setName("Janu");//CTE
+
+Customer customer0 = (Customer) records.find("John");
+customer0.setName("Janu");//No CTE 
+		
+3)
+Strategy 6:	Using module to hide the implementation(Since Jva9): 
+Safest Approach for Escaping References
+
+
+Memory Exercise 2
+Returning immutable object is OK.
+ALl wrapper classes &  String class is immutable.
+Problem 1:
+Problem 2:
+Problem 3:
+Problem 4:
+
+
+

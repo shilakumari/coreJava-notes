@@ -1,0 +1,23 @@
+Internationalization (I18N)
+
+Example:
+International smuggler
+International model
+
+
+The adaption of computer software so it can be used in different locale(country,languages,currency,date, number).
+
+Example: 
+Java book price on amazon in US
+Java book price on amazon in India
+
+The process of designing web application in such a way that, which provides support for 
+	various countries and various languages and various currency, without performing any changes in the application , is called internationalization.
+If request is coming from India then response should be in India’s people understandable form.
+If request is coming from USA then response should be in USA’s people understandable form.
+
+
+We can implement internationalization by using the following three classes:
+Locale 
+Number format
+Date format

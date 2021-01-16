@@ -1,0 +1,48 @@
+Connection Pooling 
+If we required to communicate with database multiple times then it is not recommended to create separate Connection object every time, 
+	b'z creating and destroying Connection object every time creates performance problems. 
+To overcome this problem, we should go for Connection Pool. 
+ 
+Connection Pool is a pool of already created Connection objects which are ready to use.  
+If we want to communicate with database then we request Connection pool to provide Connection. 
+Once we got the Connection, by using that we can communicates with database. 
+After completing our work, we can return Connection to the pool instead of destroying. 
+ 
+Hence the main advantage of Connection Pool is we can reuse same Connection object multiple times, 
+	so that overall performance of application will be improved. 
+
+
+Process to implement Connection Pooling: 
+	1. Creation of DataSource object 
+		DataSource is responsible to manage connections in Connection Pool. 
+		DataSource is an interface present in javax.sql package. 
+		Driver Software vendor is responsible to provide implementation. 
+		Oracle people provided implementation class name is : 
+			OracleConnectionPoolDataSource. 
+		This class present inside oracle.jdbc.pool package and it is the part of ojdbc6.jar. 
+		OracleConnectionPoolDataSource  ds= new OracleConnectionPoolDataSource(); 
+	 
+	2. Set required JDBC Properties to the DataSource object: 
+		ds.setURL("jdbc:oracle:thin:@localhost:1521:XE"); 
+		ds.setUser("scott"); 
+		ds.setPassword("tiger"); 
+	 
+	3. Get Connection from DataSource object: 
+		Connection con = ds.getConnection(); 
+		Once we got Connection object then remaining process is as usual. 
+
+Program to Demonstrate Connection Pooling for Oracle Database
+	Example: ConnectionPoolDemoOracle.java
+Program to Demonstrate Connection Pooling for MySQL Database
+	Example: ConnectionPoolDemoMySql.java
+
+
+Note: This way of implementing Connection Pool is useful for Stand alone applications. 
+In the case of web and enterprise applications, we have to use server level connection pooling. 
+Every web and application server can provide support for Connection Pooling. 
+ 
+Q. What is the difference Between getting Connection object by using DriverManager and DataSource object? 
+	In the case of  DriverManager.getConnection(), always a new Connection object will be created and returned. 
+	But in the case of DataSourceObject.getConnection(), a new Connection object won't be created and 
+		existing Connection object will be returned from Connection Pool
+

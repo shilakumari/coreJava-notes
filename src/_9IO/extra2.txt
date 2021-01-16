@@ -1,0 +1,35 @@
+public static void main(String[] args) throws Exception {
+
+File dir = new File("/Users/vinay.maurya/Downloads/IFMR/");
+
+String[] pathList = dir.list();
+
+for (String path : pathList) {
+
+//System.out.println(path);
+
+if (!path.equalsIgnoreCase(".DS_Store")) {
+
+PdfReader reader = new PdfReader("/Users/vinay.maurya/Downloads/asdf/" + path);
+
+AcroFields fields = reader.getAcroFields();
+
+Set<String> fldNames = fields.getFields().keySet();
+
+for (String fldName : fldNames) {
+
+//if(!(fldName.equals("applicationId")|| fldName.equals("lenderId")|| fldName.equals("save")))
+
+System.out.println(fldName);
+
+}
+
+}
+
+}
+
+// Map<String, Item> temp = fields.getFields();
+
+// System.out.println(fields.getFields().toString());
+
+}

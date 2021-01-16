@@ -1,0 +1,42 @@
+JDBC in Simple Way 
+
+Java application(Ameerpet)	Driver(Translator)	--> Connection(Road)	--> Database(xyz place) 
+|
+Statement(Vehicle)					<----------->							ResultSet(Box)
+
+Driver (Translator): 
+To convert Java specific calls into Database specific calls and Database specific calls into Java calls. 
+ 
+Connection (Road): 
+By using Connection, Java Application can communicate with Database. 
+ 
+Statement (Vehicle): 
+By using Statement Object we can send our SQL Query to the Database and we can get Results from Database. 
+ 
+ResultSet:  
+ResultSet holds Results of SQL Query. 
+
+Steps for JDBC Application: 
+ Load and Register Driver 
+ Establish Connection between Java Application and Database 
+ Create Statement Object 
+ Send and Execute SQL Query 
+ Process Results from ResultSet 
+ Close Connection 
+ 
+ 
+Demo Program: 
+ import java.sql.*;   
+ public class JdbcDemo  {       
+ 	public static void main(String[] args) throws Exception {
+ 	    Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");  
+ 	    Connection con=DriverManager.getConnection("jdbc:odbc:demodsn","scott","tiger"); 
+ 	    Statement st = con.createStatement();   
+ 	    ResultSet rs= st.executeQuery("select * from employees");   
+ 	    while(rs.next())  
+ 	    {   
+ 	    	System.out.println(rs.getInt(1)+".."+rs.getString(2)+".."+rs.getDouble(3)+"..."+rs.get String(4));   
+ 	    }   
+      	con.close();  
+     }
+} 

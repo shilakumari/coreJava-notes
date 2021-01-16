@@ -1,0 +1,11 @@
+1. What is computer program?
+2. What is Programming Language?
+3. History of programming language.
+4. Application Areas and The Scope of Java Technology
+5. Features of Java
+6. What is mean by Object Oriented?
+7. Define JDK, JRE and JVM.
+8. What is the advantages and disadvantages of java ?
+
+
+

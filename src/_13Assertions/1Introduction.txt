@@ -1,0 +1,31 @@
+Introduction:
+Very common way of debugging is uses of SOP() statements. 
+	But the problem with SOP() is, after fixing the bug, compulsory we have to delete SOP() statements. 
+	Otherwise these SOP()s will be executed at runtime, for every request, which creates performance problem & disturb server logs.
+To overcome this problem, SUN people introduce assertion concept in Java 1.4V.
+
+Objective of assertions:
+	To perform debugging.
+	
+Advantage of assertions:
+The  main advantage of assertions, when compared with SOPs is after fixing the bug, we are not required to remove assert statement, 
+	because they wonn’t be executed by default at runtime.
+Based on our reuirement, we can enable & disable assertions. By default assertions are disable.
+
+
+
+A project have many applications usually.
+For every project, there will be 3 environment:
+	Development(for small it not may not exist)
+	Test
+	Production
+
+Developer does not have access to production end.
+Usually we can perform debugging in development and test environment, but not in production environment. 
+Hence assertions concept applicable for development & test environment but not for production.
+
+
+
+
+
+

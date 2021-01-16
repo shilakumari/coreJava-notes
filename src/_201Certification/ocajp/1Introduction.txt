@@ -1,0 +1,200 @@
+Not in OCA1z0-808
+	Enum 
+	Annotation
+	Inner or nested classes
+	Reflection API
+	No Access Modifers(synchronized,native,strictfp,transient,volatile)
+	.class file
+
+All Java classes are part of the a package.
+	A Java class can be explicitly defined in a named package; 
+	otherwise, it becomes part of a default package, which doesn't have a name. 
+
+
+String name=/*The greatest batsman ever!  */"Sachin";
+System.out.println(name);//Sachin
+
+When included in double quotes,multiline comments are treated as regular characters and not as comments. 
+String name="/*The greatest batsman ever!  */Ramesh";
+System.out.println(name);///*The greatest batsman ever!  */Ramesh
+
+String name=/*The greatest batsman ever!  */"Sach
+			in";//CTE,String literal is not properly closed by a double-quote
+			
+/*
+This is multiline comment.// This is end-of-line comment
+The above defines an end-of-line comment with multiline comment.
+This is acceptable.
+The end-of-line comment is treated as part of the multiline comment, not as a separate end-of-line comment.
+*/
+
+class C extands P//Here P is the base class
+
+Declaration of class may contain Access or non-access modifiers.
+
+
+A class method or static method can be used to manipulate the static variable.
+
+Java Entities
+	class
+	interface
+	enum
+	annotation
+	
+	
+Executable java application with main() method
+public static void main(String[] args)//valid & other valid ways???
+public static void main(String... args)//valid & other valid ways???
+public static void main(String args...)//invalid
+
+public static void main(String[] args)//valid & other valid ways???
+static public void main(String[] args)//valid & other valid ways??? synchrized,strictfp
+
+
+
+
+Package Provides
+	Grouping related set of classes, interfaces, enums and annotations
+	Access protection
+	Namespace management
+	
+As per Java naming convention, package name should all be in lowercase.
+
+There is no constraints  on the location of the base direcory(like src)  to define directory corresponding to package hierarchy.
+And base directory(like src) must be on classpath to enable JRE to find our classes.
+
+The import statement doesn't embeded the contents of the imported class in your class, which means that importing more classes doesn't increase the size of your own class.
+
+
+By default java.lang packgae is imported in all classes.
+We can also import it explicitly using import java.lang.*;
+
+
+We can import same import statement twice:
+import java.util.Date;
+import java.util.Date;
+
+
+import java.util.Date;
+import java.sql.Date;//CTE,The import java.sql.Date collides with another import statement
+
+In real time projects, we import most uses package and use fully qualified name for the classes of the other package.
+
+When overused, using an asterisk to import all members of a package has a drawback.
+It may be harder to figure out which imported class/interface comes from which package.
+
+The import statement doestn't import the whole package tree.
+
+default package==no-name package
+
+
+importing classes from default package
+	The default package is automatically imported in the java classes and interfaces defined within the same directory on your system.
+	Members of a named package can't access classes and interfaces defined in default package.
+
+static import
+	On real project, we avoid import static statement because it create confusion about which imported component(variable /methods) comes from which class.
+
+
+
+
+
+
+
+Java Access Modifers
+	default acces==package access==package private
+
+	A derived class inherits the protected menbers of its base class, irrespective of the packages in which they are defined.
+
+
+	If class Book and StoryBook are defined in separate package. Protected members of Book class are not accessible in derived class StoryBook, if accesed using a new object of class Book. //?? or only reference matter
+
+						Same Package 	Different Package
+	Derived classes     Yes				Yes(Using inheritance), No(Using reference variable//????????????)	
+	Unrelated classes   Yes				No
+
+	Normallly speaking, private members cannot be accesed outside the class. (Although using reflection we can access but that is different thing.)
+
+No Access Modifiers
+	Abstract
+	static-For class,interface, method & variable 
+	final-For class, method & variable but not for interface
+	synchronized- only for method and block
+	native-only for method-It is used to call & make use of libraries & methods implemented in other languages like C,C++
+	strictfp-For classes, interfaces and methods but not for variable.
+			 It insure that calculations using floating point numbers are identical on all platofrm.
+	transient-Only for variable-Not serialized when corresponding object is serialized
+	volatile-Only for variable-It's value can be safely modified by different threads
+
+
+
+Abstract class
+	0 or more abstract method
+	Can not be instantiated
+
+An interface is abstract by default.
+	interface X{}
+	abstract interface X{}
+	Above both definitions are exactly same.
+
+Final Variable
+	If a reference variable is defined as a final variable, we cann't reassign another object to it, 
+		but we can call methods on this variable(that modify its state).
+	//final  static/instacne variable reiniatialization inside constructor or static/instacne block??????
+	//effcitively final???
+
+   The final & static noaccess modifires can be used together to define constants.
+   		public static final int MIN_AGE=18;
+   		Although we can define a constant as a non-static member, it is common practice to define constants as static members, 
+   			because doing so allows the constant value to be used across objects & classes.
+
+   	static method used for utility method.
+
+   	The nonprivate static variables & methods are inherited by derived class.
+   		The static members aren't involved in runtime polymorphism.
+   		We cann't override the static members in derived class, but we can redefine them.
+
+   	static int x=count();//CTE, nonstatic method count() cannot be referenced from static context
+    int count(){return 10;}
+
+
+    Accessing a static members from a null reference
+    	We can access static veriable and methods using null reference.
+    	Emp emp=null; 		SOP(emp.population);
+
+
+
+Features and components of Java
+Features and components of Java
+
+Other popular languages like C,C++ compile their code to a host system.
+So the code must be recompiled for separate platform.
+
+Encapsulation
+	With Java classes, we can encapsulate the state & behaviour of an object.
+	The state & field of a class are protected from unwanted access & manipulation.
+	We can control the level of access & modification to our projects.
+
+GC
+	It also prevents memory leaks.
+
+Security
+Java includes multiple built-in security features(though not all are covered in 1z0-808) to control access to our resources & execution of our programs.
+Java is type-safe and gc. It provide secure class-loading and verification ensures execution of legitimate Java code.
+The Java platofrm defines multiple APIs, including cryptography and public key infrastructure.
+	Java applications, that executes under a security manager, control access to your resources,like reading or writing to file.
+	Acess to a resource can be controlled using a policy file.
+	Java enables us to define digital signatures, certificates and key-stores to secure code & file exchanges.
+	Signed code is distributed for execution.
+With feature like encapsulation & data hiding, Java secures the state of its objects.
+Java applets execute in browsers & don't allow code to be downloaded to a system, thus enabling security for browsers & system that run them.
+
+
+
+Irrelevent features 7 components of Java
+Single-threaded
+	Java is not a single-threaded language.(Atleast main(),gc etc run always. )
+Related to Javascript
+	Java is a programming language used in web-pages to make them interactive.
+	Java and Javascript is nowhere related to each other except the common name.
+

@@ -1,0 +1,48 @@
+Thread Creation with Runnable interface
+Thread class capabilities
+	Thread.sleep();//request OS that not schedule the current thread, during this time pwriod thread not consuming any CPU
+	
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //Code that will run in a new thread
+                throw new RuntimeException("Intentional Exception");
+            }
+        });
+        thread.setName("Misbehaving thread");
+        thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                System.out.println("A critical error happened in thread " + t.getName()
+                        + " the error is " + e.getMessage());
+            }
+        });
+        thread.start();
+Thread Debugging
+Thread Creation with Thread class
+	Thread class encapsulates all thread related functionality.
+	
+Case Study-Interactive Multithreaded Application
+	InteractiveMultithreadedApplication.java
+	private static abstract class HackerThread extends Thread {
+		protected Vault vault;
+		public HackerThread(Vault vault) {
+			this.vault = vault;
+			this.setName(this.getClass().getSimpleName());
+			this.setPriority(Thread.MAX_PRIORITY);
+		}
+		@Override
+		public void start() {
+			System.out.println("Starting thread " + this.getName());
+			super.start();
+		}
+	}
+
+Thread vs Runnable implementation for creating Thread	
+Both are indeed correct, and is a matter of how you'd like to organize your code. 
+Some developers prefer to decouple the code and the threading functionality, and prefer to implement a Runnable. 
+In other scenarios, developers prefer to encapsulate the threading functionality in one class 
+	and therefore prefer to extend Thread. 
+There is no right or wrong here
+
+Example:MultiExecutor.java

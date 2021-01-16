@@ -1,0 +1,81 @@
+FileWriter
+We can use FileWriter object to write character data(text data) to the file.
+
+Constructors
+FileWriter fw=new FileWriter(String name);
+FileWriter fw=new FileWriter(File f);
+The above two constructors meant for overriding existing data.
+Instead of overriding, if we want to perform append operation then we have to use the following two constructors.
+FileWriter fw=new FileWriter(String name, boolean append);
+FileWriter fw=new FileWriter(File f, boolean append);
+If the specified file is not already available then all the above 4 constructors will create that file.
+Analogy
+	I said to two office boys to paste a notice on notice board on A4 paper(A4 paper contact to ABC sir/mam) 
+		at specified location that tomorrow is a test.
+First office boy told me that he did not found A4 paper so he did not do any work.
+Second office boy told me that he also did not found A4 paper so he arranges A4 paper and completed the work.
+
+
+
+Method of FileWriter class
+1)write(int unicodeValue)
+	To write a single character to the file
+	Fw.write(65);
+	Fw.write(‘A’);
+2)write(char[] ch)
+	To write a array of characters to the file
+3)write(String s)
+	To write a string to the file
+4)flush()
+	To give the guarantee that total data including last character written properly to the file.
+5)close()
+
+
+Analogy
+In our house our mother want help for tranfering big rice bag to drum.
+Most of times not sometimes our response, mom I m busy.But this response changes after getting marriage towards wife.
+Suppose rice bag is 100kg and you are in child age. Then we take small bowl to put and once we got enough confidence 
+	that we can transfer and can lift then we  lift and transfer and it also make sure that single rice should transfer in drum.
+Flush() also may be attached to same analogy.
+
+Program to demonstrate FileWriter
+
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter("abc.txt", true);
+			fw.write(65);
+			fw.write("bhi\nSoftwareSolutions");
+			fw.write("\n");
+			char[] ch = { 'a', 'b', 'c' };
+			fw.write(ch);
+			fw.write('\n');
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fw.flush();
+				fw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+In the above program FileWriter always override existing data.
+Instead of overriding if we want append() we have to create FileWriter object as
+	FileWriter fw = new FileWriter("abc.txt", true);
+
+Note:
+The problem with FileWriter is we have to insert line separated(\n) manually, which is varied from system to system. 
+	It is very difficult to the programmer.
+
+Need of BufferedWriter & PrintWriter
+In FileWriter we have to insert line separator manually.
+By mistake if we are not insert line separator(\n), total data will come in a single line. And thus readability of the file is going to be down.
+In some system, \n is not treated as line separator.
+In reality no-one use FileWriter.
+
+So there came next level writers
+	BufferedWriter
+	PrintWriter 

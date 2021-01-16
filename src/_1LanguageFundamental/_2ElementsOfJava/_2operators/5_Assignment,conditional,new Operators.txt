@@ -1,0 +1,78 @@
+Assignment operator
+	Simple assignment, int x=10;
+	chained assignment, a=b=c=20;
+	Compound assignment operator, a+=20;
+
+Chained assignment
+int a,b,c,d
+a=b=c=d=20;
+SOP(a+”…”+b+”…”+c+”…”+d);//20…20…20…20
+
+int a=b=c=d=20;//CTE, cannot find symbol
+We cannot perform chained assignment directly at the time of declaration. 
+
+int b,c,d;
+int a=b=c=d=20;
+
+Compound assignment operator (+=, -=, *=, /=,  %=,    &=, |=, ^=,     >>=, >>>=, <<=)
+Sometimes assignment operator mixed with some other operator, such type of assignment operators are called compound assignment operator.
+
+int a=10;
+a+=20;
+SOP(a);//30
+
+
+The following are all possible compound assignment operator in java:
++=,	=,	*=,	/=,	%=,    
+&=,	|=,	^=,     
+>>=,	>>>=,	<<=
+
+
+
+byte b=10;
+b=b+1;//max(int,byte,int)=int
+SOP(b);//CTE,possible loss of precision
+
+byte b=10;
+b++;//b=(byte)(b+1);
+SOP(b);//11
+
+byte b=10;
+b+=1;//b=(byte)(b+1);
+SOP(b);//11
+
+byte b=127;
+b+=3;
+SOP(b);//-126
+In the case of compound assignment operator, internal type casting will be performed automatically.
+Int a,b,c,d;
+a=b=c=d=20;
+a+= b-=   c*=  d/=2;
+SOP(a+”…”+b+”…”+c+”…”+d);//-160…-180…200…10
+
+
+Conditional operator(?:)
+The only possible ternary operator in Java is conditional operator.
+
+int x=10<20?30:40;
+SOP(x);//30
+
+int x=(10>20)?30:((40>50)?60:70);
+SOP(x);//70
+we can perform nesting of conditional operator also.
+In olden days we discuss several loopholes related to conditional operator 
+	but now it is not required neither for SCJP purpose nor for day to day programming.
+
+
+new operator
+We can use new operator to create object.
+Test t=new Test();
+After creating an object constructor will be executed to perform initialization of an object.
+       Hence constructor is not for creation of an object. And it is for initialization of an object.
+In java, we have only new keyword but not delete keyword. Because destruction of useless objects is the responsibility of garbage collector.
+
+
+[] operator (square bracket open & close operator)
+We can use this operator to declare and create arrays.
+int[] x=new int[10];//reading,  new int array of 10.
+

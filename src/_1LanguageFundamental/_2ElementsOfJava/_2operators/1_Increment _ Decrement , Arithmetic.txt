@@ -1,0 +1,163 @@
+Increment & decrement operators
+
+Increment
+Pre-increment
+y=++x;
+Post-increment
+Y=x++;
+Decrement
+Pre-decrement
+y=--x;
+Post-decrement
+Y=x--;
+Expression	initial value of x 		Value of y	Final value of x
+Y=++x;		10						11			11
+Y=x++;		10						10			11
+Y=--x;		10						9			9
+Y=x--;		10						10			9
+
+1)
+int x=10;
+int y=++x;
+SOP(y);//11
+
+int x=10;
+int y=++10;
+SOP(y);//CTE, Unexpected type
+We can apply increment & decrement operators only for variables but not for constant values.
+If we are trying to apply for constant values then we will get CTE.
+
+2)
+int x=10;
+int y=++(++x);
+SOP(y);//CTE , unexpected type
+		Required: variable
+		Found: value
+Nesting of increment & decrement operators are not allowed.
+
+3)
+final int x=10;
+Int x=11;//CTE, cannot assign a value to final variable x
+SOP(x);
+
+final int  x=10;//CTE, cannot assign a value to final variable x
+x++;
+SOP(x);
+
+For final variables we can not apply increment & decrement operators.
+
+4)
+int x=10;
+x++;
+SOP(x);//11
+Char ch=’a’;
+ch++;
+SOP(ch);//b
+Double d=10.5;
+d++;
+SOP(d);//11.5
+boolean b=true;
+b++;//CTE,  operator ++ cannot apllied to boolean
+SOP(b);
+We can apply increment & decrement operator for every primitive type except boolean.
+
+5)
+Difference between b++ & b=b+1
+byte  a=10;
+byte b=20;
+byte c=a+b;//CTE
+SOP(c);
+If we apply any arithmetic operator b/w two variable a & b then,
+Type of Result of a+-*/b =max(int, type of a, type of b)
+
+byte  c=(byte)(a+b);
+SOP(c);//c
+
+byte  b=10;
+b=b+1;//CTE
+SOP(b);//CTE, possible loss of precision
+		Fount: int
+		Required: byte
+b=(byte)(b+1);
+
+byte  b=10;
+b++;
+SOP(b);//11
+In case of increment & decrement operator, internal type cast will be performed automatically.
+b++ //(type of b)(b+1);
+
+Arithmetic operators(+,-,*,/,%)
+1)
+if we apply any arithmetic operator b/w two variable a & b then 
+result type= Max(int, type of a, type of b)
+
+byte short int long float double
+char int long float double
+
+byte+ byte=int
+byte+short=int
+short+short=int
+byte+long=long
+long+double=double
+float+long=float
+char +char=int
+char+double=double
+
+SOP(‘a’+’b’);//195
+SOP(‘a’+0.89);//97.89
+
+2)
+In integral arithmetic(byte, short, int , long) there is no way to represent infinity. Hence if infinity is the result, 
+we will get ArithmeticException in integral arithmetic.
+SOP(10/0);//RE,ArithmeticException: /by zero
+
+char a='a';
+System.out.println(a/0);
+
+But in floating point arithmetic (float & double), there is a way to represent infinity. 
+For this Float & Double classes contains the following two constants:
+POSITIVE_INFINITY
+NEGATIVE_INFINITY
+Hence even though result is infinity, we won’t get any Arithmetic exception in floating point arithmetic.
+SOP(10/0.0);// Infinity(it is the value of variable POSITIVE_INFINITY)
+SOP(-10.0/0);// -Infinity
+
+NaN(not a number)
+In integral arithmetic(byte, short, int , long) there is no way to represent undefined results.
+Hence if the result is undefined, we will get RTE, saying ArithmeticException / by zero.
+In floating point arithmetic(float, double), there is a way to represent undefined result. 
+For this Float  & Double classes contains NaN constant. Hence if the result is undefined, we won’t get any ArithmeticException in floating point arithmetic.
+
+SOP(0/0);// RE, ArithmeticException /by zero
+SOP(0.0/0);//NaN,(not a number)
+SOP(-0.0/0);//NaN,(not a number)
+
+SOP(10/0);RE, AE / by zero
+SOP(10/0.0); Infinity
+SOP(0/0);RE, AE / by zero
+SOP(0.0/0);NaN
+
+SOP(10<Float.NaN); //false
+SOP(10<=Float.NaN);//false
+SOP(10>Float.NaN);//false
+SOP(10>=Float.NaN);//false
+SOP(10==Float.NaN);//false
+SOP(Float.NaN==Float.NaN);//false
+
+SOP(Float.NaN !=Float.NaN);//true
+SOP(10!=Float.NaN); //true
+
+For any x value including NaN, the following expressions return false:
+x<NaN
+x<=NaN
+x>NaN
+x>=NaN
+x==NaN
+
+For any x value including NaN, the following expressions return true:
+X!=NaN
+
+Arithmetic Exception
+	It is runtime exception but not CTE.
+	It is possible only in integral arithmetic but not in floating point arithmetic.
+	The only operator which cause ArithmeticException are / and %.

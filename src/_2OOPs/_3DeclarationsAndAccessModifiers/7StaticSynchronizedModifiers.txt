@@ -1,0 +1,277 @@
+Static modifier
+Static is a modifier, applicable for methods, fields and static nested  classes & interfaces but not for outer classes. 
+We cannot declare top level class with static modifier. 
+But we can declare inner class as static (such type of inner classes are called static nested classes).
+
+In the case of instance variables for every object, a separate copy will be created but in the case of static variable, 
+	a single copy will be created at class level & shared by every object of that class.
+
+Example
+class Test{
+	static int x=10;
+	int y=10;
+	public static void main(String[] args){
+		Test t1 = new Test();
+		t1.x=888;
+		t1.y=999;
+
+		Test t2 = new Test();
+		System.out.println(t2.x+"..."+t2.y);
+	}
+}
+Output:	888...10;
+
+We cann’t access instance members directly from static area. 
+But we can access from instance area directly.
+We can access static members from both instance and static areas directly.
+class Test
+{
+	int x=10;
+	static int y=20;
+	public void m1()
+	{
+		System.out.println(x);
+		System.out.println(y);
+	}
+	static void m1()
+	{
+		System.out.println(x);//invalid
+		System.out.println(y);
+	}
+}
+
+
+Which of the following declaration can be taken simultaneously:
+class Test
+{
+	int x=10;//1
+	static int x=20;//2
+	void m1()//3
+	{
+		System.out.println(x);
+	}
+	static void m1()//4
+	{
+		System.out.println(x);
+	}
+}
+A) 1 & 3//valid
+B) 1 & 4 //CTE, non-static variable x cannot be referenced from a static context
+C) 2 & 3//valid
+D) 2 & 4//valid
+
+E) 1 & 2//CTE, error: variable x is already defined in class Test
+F) 3 & 4//CTE,m1() is already defined in Test
+
+
+Case 1:
+Overloading concept is applicable for static method also, including main() method 
+ but jVM always call String[] args main() method only. 
+Other overloaded method, we have to call just like a normal method call.
+class Test
+{
+public static void main(String args[])
+{
+		System.out.println("String []");
+}
+public static void main(int args[])
+{
+		System.out.println("int []");
+}
+}
+Output:String []
+
+
+Case 2:
+Inheritance concept is applicable for static method also including main() method.
+Hence while executing child class, if child does not contain main method then parent class main() method will be executed.
+class Test
+{
+public static void main(String args[])
+{
+	System.out.println("main() method");
+}}
+class C extends Test
+{
+}
+Either Java Test or Java C, output will be same
+Output: main() method
+
+
+Case 3:
+It seems overriding concept is applicable for static method but it is not overriding and it is method hiding.
+class Test{
+public static void main(String args[]){
+		System.out.println("Parent main");
+}}
+class C extends Test{
+	public static void main(String args[]){
+			System.out.println("child main");
+    }
+}
+Output:
+Java Test  - Parent main
+Java C -  Child main
+
+
+Conclusion:
+For static method overloading and inheritance concept is applicable but overriding concept is not applicable. 
+	But instead of method overriding, method hiding concept is applicable.
+
+Instance method vs static method
+Inside method implementation, if we are using atleast 1 instance variable then that method talks about a particular object. 
+	Hence we should declare method as instance method.
+Inside method implementation, if we are not using any instance variable then this method nowhere related to a particular object . 
+	Hence we have to declare such type of method as static method, irrespective of whether we are using static variable or not. 
+Example:
+class Student{
+	String name;
+	int rollno;
+	int marks;
+	static String cName;
+
+	//Instance method
+	getStudentInfo(){
+		return name+"..."+marks;
+	}
+
+	//Static method
+	static getStudentInfo(){
+		return cName;
+	}
+
+	//static method
+	static getAverage(int x, int y){
+ 		return x+y/2;
+	}
+
+	//Instance method
+	getCompleteInfo(){
+		return name+"..."+rollno+"..."+marks+"..."+cName;
+	}
+
+}
+For static method, implementation must be available whereas for abstract method implementation is not available. 
+	Hence abstract- static combination is illegal for methods.
+
+
+Native modifier
+Native modifier is applicable for methods only and we cannot apply anywhere else.
+The method which are implemented in non-java(mostly C or C++), are called native method or foreign methods.
+
+Java is:
+Super star
+Mega star
+Power star
+Mega power
+Stylish star
+A1 star
+Rebel star
+Young rebel star
+Real star
+People star
+.
+.
+.
+
+Java is:
+Simple
+OO
+Sercure
+Robust
+.
+.
+.
+
+Need of native keyword
+The main objectives of native keyword are:
+	To improve performance of the system.
+	To achieve machine level or memory level communication
+	To use already existing legacy non-Java code
+
+There are some area, where java is not up to the mark.
+	Performance
+	Not machine friendly(cannot communicate with machine directly) but programmer friendly
+	Vast
+
+
+Algorithm/Pseudu code to use native keyword in Java:
+	Load native libraries
+	Declare a native method
+	Invoke a native method 
+
+Class MyNative{
+	static{
+		System.loadLibrary(“native library path”);
+	}
+	public native void m1();
+}
+class Client {
+	Pavm(){
+		MyNative n=new MyNative();
+		n.m1();
+	}
+}
+For native methods, implementation is already available in other than Java language & we are not responsible to provide implementation. 
+	Hence native method declaration should ends with semicolon.
+public native void m1();//valid
+public native void m1(){}//invalid,CTE,native method cannot have a body
+
+For native methods implementation is already available in old languages 
+	but for abstract methods, implementation should not be available. 
+	Hence abstract-native combination is illegal combination for method.
+
+We cannot declare native method as strictfp because there is no guarantee that old languages follow IEEE754 standard. 
+	Hence native-strictfp combination is illegal combination for methods.
+
+The main advantage of native keyword is performance will be improved.
+The main disadvantage of native keyword is it breaks platform independent nature of Java.
+
+
+Synchronized modifier
+Synchronized is the modifier, applicable for methods & blocks but not for classes & variables.
+Example: 
+Biryani plate & 1,2,3,4 dogs, biryani inconsistency problem 
+Biryani plate –java object
+Every dog- every thread
+
+If multiple threads trying to operate simultaneously on the same java object, 
+	then there may be a chance of data inconsistency problem. 
+	This is called race condition. 
+	We can overcome to this problem  by  using synchronized keyword. 
+If a method or block declared as synchronized then at a time only one thread is allowed to execute that method or block on the given object. 
+	So that data inconsistency problem will be resolved. 
+	But the main disadvantage of synchronized keyword is, it increases waiting time of threads and creates performance problems. 
+	Hence if there is no specific requirement then it is not recommended to use synchronized keyword.
+
+Synchronized method should compulsory contain implementation where as abstract method does not contain any implementation. 
+	Hence abstract-synchronized is illegal combination of modifiers for methods.
+
+	
+
+Transient 
+Transient is the modifier applicable only for variables.
+We use transient keyword in serialization context.
+At the time of serialization if we don’t want to save the value of a particular variable to meet security constraints 
+	then we should declare that variable as transient.
+At the time of serialization, JVM ignores original value of transient variable & save default value to the file. 
+	Hence transient means not to serialize or serialize with default value.
+(Serialization is the process of saving state of object into a file format.)
+
+
+Volatile
+Volatile is the modifier, applicable only for variable & we cannot apply anywhere else.
+Example : For every child a separate ball
+
+If the value of a variable keep on changing by multiple threads then there may be a chance of data inconsistency problem. 
+We can solve this problem by using volatile modifier. 
+If a variable declared as volatile then for every thread, JVM will create a separate local copy. 
+	Every modification performed by the thread will takes place in local copy 
+	so that there is no effect on the remaining threads.
+The main advantage of volatile keyword is, we can overcome to data inconsistency problem 
+	but the main disadvantage of volatile keyword is, creating & maintaining a separate copy for every thread, 
+	increases complexity of programming & creates performance problem. 
+	Hence if there is no specific requirement, it is never recommended to use volatile keyword and it is almost deprecated keyword.
+
+Final variable means, the value never changes where as volatile variable means, the value keep on changing. 
+	Hence final-volatile is illegal combination for variable.

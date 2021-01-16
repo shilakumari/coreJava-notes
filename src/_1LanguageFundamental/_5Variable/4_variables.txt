@@ -1,0 +1,100 @@
+Conclusion:
+For instance & static variables, JVM will provide default values & we are not required to perform initialization explicitly. 
+But for local variables JVM won’t provide default value, compulsory we should perform initialization explicitly before using that variable.
+
+Instance & static variable can be accessed by multiple thread simultaneously & hence these are not thread safe. 
+But in the case of local variable for every thread, a separate copy will be created. And hence local variables are thread safe.
+
+Type of variable     Is Thread safe
+Instance variable	No
+Static variable		No
+Local variable		Yes
+
+Every variable in java should be either instance or static or local.
+Every variable in java should be either primitive or reference.
+
+Hence various possible combinations of variable in Java are:
+Instance 
+	Primitive 
+	reference
+Static
+	Primitive 
+	reference
+local
+	Primitive 
+	reference
+
+Primitive
+	Instance 
+	Static
+	Local 
+Reference
+	Instance 
+	Static
+	Local
+
+
+class Test
+{
+	int x=10;//instance-primitive variable
+	static String s=”Rahul”;//static-reference variable
+	PSVM()
+	{
+		int[]  y=new int[1];//local- reference
+	}
+}
+
+
+Uninitialized array
+Class Test{
+	int[] x;
+	PSVM()
+	{
+		Test t=new Test();
+		SOP(t.x);//null
+		SOP(t.x[0]);//RE, NTE
+	}
+}
+
+
+Instance level
+int[] x;
+Test t=new Test();
+SOP(t.x);//null
+SOP(t.x[0]);//RE, NTE
+
+int[] x2=new int[2];
+Test t=new Test();
+SOP(t.x2);//{I@adf43
+SOP(t.x2[0]);//0
+
+
+static level
+static int[] x;
+Test t=new Test();
+SOP(t.x);//null
+SOP(t.x[0]);//RE, NTE
+
+static int[] x2=new int[2];
+Test t=new Test();
+SOP(t.x2);//{I@adf43
+SOP(t.x2[0]);//0
+
+
+local level
+int[] x;
+Test t=new Test();
+SOP(t.x);//CTE, variable x might have not been initialize
+SOP(t.x[0]);//CTE, variable x might have not been initialize
+
+
+int[] x2=new int[2];
+Test t=new Test();
+SOP(t.x2);//{I@adf43
+SOP(t.x2[0]);//0
+
+Once we create an array, every array element by default initialized with default values, 
+	irrespective of whether it is instance or static or local array.
+
+	
+	
