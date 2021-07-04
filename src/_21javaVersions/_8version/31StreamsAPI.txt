@@ -543,7 +543,7 @@ Example:
 	}
 	
 	
-	
+https://mkyong.com/java8/java-how-to-convert-array-to-stream/
 https://www.baeldung.com/java-array-sum-average
 	Arrays.stream(array).mapToInt(Integer::intValue).sum();
 	Arrays.stream(array).average().orElse(Double.NaN)

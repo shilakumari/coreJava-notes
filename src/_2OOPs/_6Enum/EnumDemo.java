@@ -5,7 +5,7 @@ public class EnumDemo {
 	public static void main(String[] args) {
 
 		// m1();
-		// m2();
+		//m2();
 		// m3();
 		// m4();
 		//m5();
@@ -14,8 +14,6 @@ public class EnumDemo {
 
 	private static void m6() {
 		Beer6 b6 = Beer6.fromString("ko");
-		System.out.println(b6);
-		b6 = Beer6.fromLiteral("KO");
 		System.out.println(b6);
 	}
 
@@ -160,15 +158,7 @@ enum Beer6 {
 		// throw new IllegalArgumentException();
 	}
 
-	public static Beer6 fromLiteral(String professionalType) {
-		for (Beer6 b : Beer6.values()) {
-			if (b.name().equalsIgnoreCase(professionalType)) {
-				return b;
-			}
-		}
-		return null;
-		// throw new IllegalArgumentException();
-	}
+	
 }
 // class Y extends Beer{} //The type Beer cannot be the superclass of Y; a
 // superclass must be a class
