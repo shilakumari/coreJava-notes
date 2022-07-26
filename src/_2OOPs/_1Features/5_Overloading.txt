@@ -19,9 +19,9 @@ So also called, compile time polymorphism or early binding or static binding.
 
 class Student
 {
-	public void m1(){ SOP(ìno-argî);}
-	public void m1(int i){ SOP(ìint-argî);}
-	public void m1(double d){ SOP(ìdouble-argî);}
+	public void m1(){ SOP(‚Äúno-arg‚Äù);}
+	public void m1(int i){ SOP(‚Äúint-arg‚Äù);}
+	public void m1(double d){ SOP(‚Äúdouble-arg‚Äù);}
 }
 Class Test
 {
@@ -36,7 +36,7 @@ Psvm()
 
 Case 0: Method resolution will be based on method name & argument list
 Case 1:Automatic promotion of primitive type in method overloading
-While resolving overloaded methods, if exact match method is not available then we wonnít get compile time error immediately, 
+While resolving overloaded methods, if exact match method is not available then we wonn‚Äôt get compile time error immediately, 
 First it will promotes argument to next level and check whether match method is available or not. 
 If match method is available then it will be considered and if the match method is not available 
 	then compiler promotes argument once again to the next level. 
@@ -50,11 +50,11 @@ This process is called automatic promotion in overloading.
 
 	public static void main(String[] args) {
 		MethodOverloading ml = new MethodOverloading();
-		ml.m1(10);
-		ml.m1(10.2f);
-		ml.m1('a');
-		ml.m1(10l);
-		ml.m1(10);
+		ml.m1(10);//Int-arg
+		ml.m1(10.2f);//Float-arg
+		ml.m1('a');//Int-arg
+		ml.m1(10l);//Float-arg
+		ml.m1(10);//Int-arg
 		// ml.m1(10.5);//CTE
 	}
 	private void m1(float f) {
@@ -71,9 +71,9 @@ While resolving overloaded methods, compiler will always give the precedence for
 	when compared with parent type argument. 
 	public static void main(String[] args) {
 		MethodOverloading ml = new MethodOverloading();
-		ml.m1(new Object());
-		ml.m1("Durga");
-		ml.m1(null);	
+		ml.m1(new Object());//Object version
+		ml.m1("Durga");//String version
+		ml.m1(null);//String version	
 	}
 	private void m1(String s) {
 		System.out.println("String version");
@@ -85,8 +85,8 @@ While resolving overloaded methods, compiler will always give the precedence for
 Case2b:
 	public static void main(String[] args) {
 		MethodOverloading ml = new MethodOverloading();
-		ml.m1("Durga");
-		ml.m1(new StringBuffer());
+		ml.m1("Durga");//String version
+		ml.m1(new StringBuffer());//StringBuffer version
 		//ml.m1(null);//CTE, reference to m1() is ambiguous	
 	}
 	private void m1(String s) {
@@ -99,8 +99,8 @@ Case2b:
 Case 3:
 	public static void main(String[] args) {
 		MethodOverloading ml = new MethodOverloading();
-		ml.m1(10, 10.3f);
-		ml.m1(20.9f, 30);
+		ml.m1(10, 10.3f);//int-float version
+		ml.m1(20.9f, 30);//float-int version
 		//ml.m1(5, 5);//CTE
 		//ml.m1(55.0f, 59.0f);//CTE
 	}
@@ -119,9 +119,9 @@ It is exactly same as default case inside switch.
 
 	public static void main(String[] args) {
 		MethodOverloading ml = new MethodOverloading();
-		ml.m1();
-		ml.m1(10);
-		ml.m1(10, 10);
+		ml.m1();//var-arg version
+		ml.m1(10);//int version
+		ml.m1(10, 10);//var-arg version
 	}
 	private void m1(int i) {
 		System.out.println("int version");
